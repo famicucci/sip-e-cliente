@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -9,6 +9,26 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TablePaginationActions from '../../components/layouts/Paginacion';
+import TableHead from '@material-ui/core/TableHead';
+
+// para encabezado
+const StyledTableCell = withStyles((theme) => ({
+	head: {
+		backgroundColor: theme.palette.common.black,
+		color: theme.palette.common.white,
+	},
+	body: {
+		fontSize: 14,
+	},
+}))(TableCell);
+
+const StyledTableRow = withStyles((theme) => ({
+	root: {
+		'&:nth-of-type(odd)': {
+			backgroundColor: theme.palette.action.hover,
+		},
+	},
+}))(TableRow);
 
 function createData(codigo, descripcion, precio) {
 	return { codigo, descripcion, precio };
@@ -111,7 +131,7 @@ const rows = [
 		(3124).toFixed(2)
 	),
 	createData(
-		'VV000000054',
+		'VV000000053',
 		'CORREA Y COLLAR CHICA - AMARILLA - S',
 		(1300).toFixed(2)
 	),
@@ -167,23 +187,26 @@ const TablaPrecios = () => {
 
 	return (
 		<TableContainer component={Paper}>
-			<Table className={classes.table} aria-label="custom pagination table">
+			<Table className={classes.table}>
+				<TableHead>
+					<TableRow>
+						<StyledTableCell>Código</StyledTableCell>
+						<StyledTableCell align="left">Descripción</StyledTableCell>
+						<StyledTableCell align="center">Precio&nbsp;($)</StyledTableCell>
+					</TableRow>
+				</TableHead>
 				<TableBody>
 					{(rowsPerPage > 0
 						? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 						: rows
 					).map((row) => (
-						<TableRow key={row.name}>
+						<StyledTableRow key={row.name}>
 							<TableCell component="th" scope="row">
 								{row.codigo}
 							</TableCell>
-							<TableCell style={{ width: 160 }} align="right">
-								{row.descripcion}
-							</TableCell>
-							<TableCell style={{ width: 160 }} align="right">
-								{row.precio}
-							</TableCell>
-						</TableRow>
+							<TableCell align="left">{row.descripcion}</TableCell>
+							<TableCell align="right">{row.precio}</TableCell>
+						</StyledTableRow>
 					))}
 
 					{emptyRows > 0 && (
@@ -195,11 +218,12 @@ const TablaPrecios = () => {
 				<TableFooter>
 					<TableRow>
 						<TablePagination
-							rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+							rowsPerPageOptions={[5, 10, 25, { label: 'Todas', value: -1 }]}
 							colSpan={3}
 							count={rows.length}
 							rowsPerPage={rowsPerPage}
 							page={page}
+							labelRowsPerPage="Filas por página:"
 							SelectProps={{
 								inputProps: { 'aria-label': 'rows per page' },
 								native: true,
