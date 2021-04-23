@@ -30,6 +30,7 @@ const StyledTableRow = withStyles((theme) => ({
 	},
 }))(TableRow);
 
+// datos de la tabla
 function createData(codigo, descripcion, precio) {
 	return { codigo, descripcion, precio };
 }
@@ -200,7 +201,7 @@ const TablaPrecios = () => {
 						? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 						: rows
 					).map((row) => (
-						<StyledTableRow key={row.name}>
+						<StyledTableRow key={row.codigo}>
 							<TableCell component="th" scope="row">
 								{row.codigo}
 							</TableCell>
