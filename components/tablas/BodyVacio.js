@@ -7,9 +7,7 @@ const BodyVacio = () => {
 	return (
 		<TableBody>
 			<TableRow style={{ height: 53 }}>
-				<TableCell align="center" colSpan={6}>
-					No hay datos que mostrar
-				</TableCell>
+				<TableCell align="center">No hay datos que mostrar</TableCell>
 			</TableRow>
 		</TableBody>
 	);
