@@ -169,7 +169,7 @@ const useStyles2 = makeStyles({
 });
 
 const TablaPrecios = () => {
-	const [FooterTabla, rowsPerPage, page, emptyRows] = usePaginacion(rows);
+	const [FooterTabla, filasVacias, cortePagina] = usePaginacion(rows);
 
 	const classes = useStyles2();
 
@@ -184,10 +184,7 @@ const TablaPrecios = () => {
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{(rowsPerPage > 0
-						? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-						: rows
-					).map((row) => (
+					{cortePagina.map((row) => (
 						<StyledTableRow key={row.codigo}>
 							<TableCell component="th" scope="row">
 								{row.codigo}
@@ -197,11 +194,7 @@ const TablaPrecios = () => {
 						</StyledTableRow>
 					))}
 
-					{emptyRows > 0 && (
-						<TableRow style={{ height: 53 * emptyRows }}>
-							<TableCell colSpan={6} />
-						</TableRow>
-					)}
+					{filasVacias}
 				</TableBody>
 				<FooterTabla />
 			</Table>

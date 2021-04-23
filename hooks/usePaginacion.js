@@ -3,6 +3,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import TableFooter from '@material-ui/core/TableFooter';
 import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
+import TableCell from '@material-ui/core/TableCell';
 
 // componentes para primer pagina y ultima pagina
 import IconButton from '@material-ui/core/IconButton';
@@ -96,8 +97,21 @@ const usePaginacion = (rows) => {
 		setPage(0);
 	};
 
+	// recorta array rows para mostrar pagina
+	const cortePagina =
+		rowsPerPage > 0
+			? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+			: rows;
+
+	// agrega filas vacías cuando las rows no completan toda la página
 	const emptyRows =
 		rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+
+	const filasVacias = emptyRows > 0 && (
+		<TableRow style={{ height: 53 * emptyRows }}>
+			<TableCell colSpan={6} />
+		</TableRow>
+	);
 
 	const FooterTabla = () => (
 		<TableFooter>
@@ -121,7 +135,7 @@ const usePaginacion = (rows) => {
 		</TableFooter>
 	);
 
-	return [FooterTabla, rowsPerPage, page, emptyRows];
+	return [FooterTabla, filasVacias, cortePagina];
 };
 
 export default usePaginacion;
