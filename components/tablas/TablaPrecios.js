@@ -183,19 +183,21 @@ const TablaPrecios = () => {
 						<StyledTableCell align="center">Precio&nbsp;($)</StyledTableCell>
 					</TableRow>
 				</TableHead>
-				<TableBody>
-					{cortePagina.map((row) => (
-						<StyledTableRow key={row.codigo}>
-							<TableCell component="th" scope="row">
-								{row.codigo}
-							</TableCell>
-							<TableCell align="left">{row.descripcion}</TableCell>
-							<TableCell align="right">{row.precio}</TableCell>
-						</StyledTableRow>
-					))}
+				{rows.length !== 0 ? (
+					<TableBody>
+						{cortePagina.map((row) => (
+							<StyledTableRow key={row.codigo}>
+								<TableCell component="th" scope="row">
+									{row.codigo}
+								</TableCell>
+								<TableCell align="left">{row.descripcion}</TableCell>
+								<TableCell align="right">{row.precio}</TableCell>
+							</StyledTableRow>
+						))}
 
-					{filasVacias}
-				</TableBody>
+						{filasVacias}
+					</TableBody>
+				) : null}
 				<FooterTabla />
 			</Table>
 		</TableContainer>

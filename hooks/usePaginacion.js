@@ -114,25 +114,29 @@ const usePaginacion = (rows) => {
 	);
 
 	const FooterTabla = () => (
-		<TableFooter>
-			<TableRow>
-				<TablePagination
-					rowsPerPageOptions={[5, 10, 25, { label: 'Todas', value: -1 }]}
-					colSpan={3}
-					count={rows.length}
-					rowsPerPage={rowsPerPage}
-					page={page}
-					labelRowsPerPage="Filas por página:"
-					SelectProps={{
-						inputProps: { 'aria-label': 'rows per page' },
-						native: true,
-					}}
-					onChangePage={handleChangePage}
-					onChangeRowsPerPage={handleChangeRowsPerPage}
-					ActionsComponent={TablePaginationActions}
-				/>
-			</TableRow>
-		</TableFooter>
+		<>
+			{rows.length !== 0 ? (
+				<TableFooter>
+					<TableRow>
+						<TablePagination
+							rowsPerPageOptions={[5, 10, 25, { label: 'Todas', value: -1 }]}
+							colSpan={3}
+							count={rows.length}
+							rowsPerPage={rowsPerPage}
+							page={page}
+							labelRowsPerPage="Filas por página:"
+							SelectProps={{
+								inputProps: { 'aria-label': 'rows per page' },
+								native: true,
+							}}
+							onChangePage={handleChangePage}
+							onChangeRowsPerPage={handleChangeRowsPerPage}
+							ActionsComponent={TablePaginationActions}
+						/>
+					</TableRow>
+				</TableFooter>
+			) : null}
+		</>
 	);
 
 	return [FooterTabla, filasVacias, cortePagina];
