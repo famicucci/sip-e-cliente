@@ -10,6 +10,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonIcon from '@material-ui/icons/Person';
 
 import Logo from './Logo';
+import Buscador from './Buscador';
 
 const drawerWidth = 240;
 
@@ -166,6 +167,7 @@ const Navbar = (props) => {
 							<Logo color="inherit" />
 						</>
 					)}
+					<Buscador />
 					<div className={classes.grow} />
 
 					<div className={classes.sectionDesktop}>
