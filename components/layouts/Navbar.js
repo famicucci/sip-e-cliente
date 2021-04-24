@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import clsx from 'clsx';
 import { makeStyles, AppBar, Toolbar, IconButton } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -11,6 +11,8 @@ import PersonIcon from '@material-ui/icons/Person';
 
 import Logo from './Logo';
 import Buscador from './Buscador';
+
+import { BarraHerramientasContext } from '../../context/BarraHerramientasContext';
 
 const drawerWidth = 240;
 
@@ -139,6 +141,8 @@ const Navbar = (props) => {
 		</Menu>
 	);
 
+	const { buscador } = useContext(BarraHerramientasContext);
+
 	return (
 		<>
 			<AppBar
@@ -167,7 +171,7 @@ const Navbar = (props) => {
 							<Logo color="inherit" />
 						</>
 					)}
-					<Buscador />
+					{buscador ? <Buscador /> : null}
 					<div className={classes.grow} />
 
 					<div className={classes.sectionDesktop}>
