@@ -4,7 +4,7 @@ import React, { createContext, useState } from 'react';
 export const BarraHerramientasContext = createContext();
 
 const BarraHerramientasProvider = (props) => {
-	const [buscador, setBuscador] = useState(true);
+	const [buscador, setBuscador] = useState(false);
 
 	return (
 		<BarraHerramientasContext.Provider value={{ buscador, setBuscador }}>

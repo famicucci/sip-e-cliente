@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -10,6 +10,8 @@ import TableHead from '@material-ui/core/TableHead';
 
 import usePaginacion from '../../hooks/usePaginacion';
 import BodyVacio from './BodyVacio';
+
+import { BarraHerramientasContext } from '../../context/BarraHerramientasContext';
 
 // para encabezado
 const StyledTableCell = withStyles((theme) => ({
@@ -171,6 +173,10 @@ const useStyles2 = makeStyles({
 
 const TablaPrecios = () => {
 	const [FooterTabla, filasVacias, cortePagina] = usePaginacion(rows);
+
+	const { setBuscador } = useContext(BarraHerramientasContext);
+
+	setBuscador(true);
 
 	const classes = useStyles2();
 

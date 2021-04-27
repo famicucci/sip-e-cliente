@@ -8,8 +8,6 @@ import { ThemeProvider, makeStyles } from '@material-ui/core/styles';
 import Navbar from './Navbar';
 import Cajon from './Cajon';
 
-import BarraHerramientasProvider from '../../context/BarraHerramientasContext';
-
 const drawerWidth = 240;
 
 const estilos = makeStyles((theme) => ({
@@ -63,9 +61,7 @@ const Layout = (props) => {
 			</Head>
 			<ThemeProvider theme={theme}>
 				<div className={classes.root}>
-					<BarraHerramientasProvider>
-						<Navbar toggleMenu={toggleMenu} abrir={abrir} />
-					</BarraHerramientasProvider>
+					<Navbar toggleMenu={toggleMenu} abrir={abrir} />
 					<Hidden>
 						<Cajon
 							variant="persistent"
