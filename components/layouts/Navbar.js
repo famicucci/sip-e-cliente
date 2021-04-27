@@ -10,7 +10,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonIcon from '@material-ui/icons/Person';
 
 import Logo from './Logo';
-import Buscador from './Buscador';
+import Buscador from '../herramientasTablas/Buscador';
 
 import { BarraHerramientasContext } from '../../context/BarraHerramientasContext';
 
