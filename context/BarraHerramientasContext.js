@@ -5,9 +5,12 @@ export const BarraHerramientasContext = createContext();
 
 const BarraHerramientasProvider = (props) => {
 	const [buscador, setBuscador] = useState(false);
+	const [selectListaPrecio, setSelectListaPrecio] = useState(true);
 
 	return (
-		<BarraHerramientasContext.Provider value={{ buscador, setBuscador }}>
+		<BarraHerramientasContext.Provider
+			value={{ buscador, selectListaPrecio, setBuscador, setSelectListaPrecio }}
+		>
 			{props.children}
 		</BarraHerramientasContext.Provider>
 	);

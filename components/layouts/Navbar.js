@@ -11,6 +11,7 @@ import PersonIcon from '@material-ui/icons/Person';
 
 import Logo from './Logo';
 import Buscador from '../herramientasTablas/Buscador';
+import SelectListasPrecio from '../herramientasTablas/SelectListasPrecio';
 
 import { BarraHerramientasContext } from '../../context/BarraHerramientasContext';
 
@@ -56,6 +57,10 @@ const useStyles = makeStyles((theme) => ({
 
 const Navbar = (props) => {
 	const classes = useStyles();
+
+	// setea barra de herramientas
+	const { buscador, selectListaPrecio } = useContext(BarraHerramientasContext);
+
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -141,8 +146,6 @@ const Navbar = (props) => {
 		</Menu>
 	);
 
-	const { buscador } = useContext(BarraHerramientasContext);
-
 	return (
 		<>
 			<AppBar
@@ -172,6 +175,7 @@ const Navbar = (props) => {
 						</>
 					)}
 					{buscador ? <Buscador /> : null}
+					{selectListaPrecio ? <SelectListasPrecio /> : null}
 					<div className={classes.grow} />
 
 					<div className={classes.sectionDesktop}>
