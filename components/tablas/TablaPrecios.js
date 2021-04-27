@@ -6,7 +6,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TableHead from '@material-ui/core/TableHead';
-import usePaginacion from '../../hooks/usePaginacion';
 import BodyVacio from './BodyVacio';
 import { BarraHerramientasContext } from '../../context/BarraHerramientasContext';
 
@@ -177,16 +176,14 @@ const TablaPrecios = () => {
 	const [filas, setFilas] = useState(rows);
 	const [busqueda, setBusqueda] = useState('');
 
-	const [FooterTabla, filasVacias, cortePagina] = usePaginacion(filas);
-
 	const onChange = (e) => {
 		setBusqueda(e.target.value);
 	};
 
-	const filtrado = (rows, busqueda) => {
+	const filtrado = (filas, busqueda) => {
 		const busquedaMayus = busqueda.toLowerCase();
 
-		const rowsFiltradas = rows.filter(
+		const rowsFiltradas = filas.filter(
 			(row) =>
 				Object.values(row).join().toLowerCase().indexOf(busquedaMayus) !== -1
 		);
@@ -229,7 +226,6 @@ const TablaPrecios = () => {
 								</TableRow>
 							</TableHead>
 							<BodyTabla filas={filas} />
-							<FooterTabla />
 						</>
 					) : (
 						<BodyVacio />

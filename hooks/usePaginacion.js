@@ -4,8 +4,6 @@ import TableFooter from '@material-ui/core/TableFooter';
 import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableCell from '@material-ui/core/TableCell';
-
-// componentes para primer pagina y ultima pagina
 import IconButton from '@material-ui/core/IconButton';
 import FirstPageIcon from '@material-ui/icons/FirstPage';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
@@ -19,7 +17,7 @@ const useStyles1 = makeStyles((theme) => ({
 	},
 }));
 
-// agrega los botones primer página y última página
+// botones primer página y última página
 const TablePaginationActions = (props) => {
 	const classes = useStyles1();
 	const theme = useTheme();
@@ -83,7 +81,7 @@ const TablePaginationActions = (props) => {
 	);
 };
 
-// hook que devuelve la paginación
+// retorna tabla footer
 const usePaginacion = (rows) => {
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -139,7 +137,7 @@ const usePaginacion = (rows) => {
 		</>
 	);
 
-	return [FooterTabla, filasVacias, cortePagina];
+	return [FooterTabla, filasVacias, cortePagina, setPage];
 };
 
 export default usePaginacion;

@@ -1,18 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import TableBody from '@material-ui/core/TableBody';
 import Fila from './Fila';
 import usePaginacion from '../../hooks/usePaginacion';
 
 const BodyTabla = (props) => {
-	const [FooterTabla, filasVacias, cortePagina] = usePaginacion(props.filas);
+	const { filas } = props;
+
+	const [FooterTabla, filasVacias, cortePagina, setPage] = usePaginacion(filas);
+
+	useEffect(() => {
+		setPage(0);
+	}, [filas]);
 
 	return (
-		<TableBody>
-			{cortePagina.map((fila) => (
-				<Fila fila={fila} />
-			))}
-			{filasVacias}
-		</TableBody>
+		<>
+			<TableBody>
+				{cortePagina.map((fila) => (
+					<Fila fila={fila} />
+				))}
+				{filasVacias}
+			</TableBody>
+			<FooterTabla />
+		</>
 	);
 };
 
