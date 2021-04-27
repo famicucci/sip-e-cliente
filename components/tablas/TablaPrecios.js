@@ -1,22 +1,19 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TableHead from '@material-ui/core/TableHead';
-
 import usePaginacion from '../../hooks/usePaginacion';
 import BodyVacio from './BodyVacio';
-
 import { BarraHerramientasContext } from '../../context/BarraHerramientasContext';
 
 // Buscador
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
-import Fila from './Fila';
+import BodyTabla from './BodyTabla';
 
 // para encabezado
 const StyledTableCell = withStyles((theme) => ({
@@ -190,7 +187,8 @@ const TablaPrecios = () => {
 		const busquedaMayus = busqueda.toLowerCase();
 
 		const rowsFiltradas = rows.filter(
-			(row) => row.descripcion.toLowerCase().indexOf(busquedaMayus) !== -1
+			(row) =>
+				Object.values(row).join().toLowerCase().indexOf(busquedaMayus) !== -1
 		);
 
 		setFilas(rowsFiltradas);
@@ -230,12 +228,7 @@ const TablaPrecios = () => {
 									</StyledTableCell>
 								</TableRow>
 							</TableHead>
-							<TableBody>
-								{cortePagina.map((fila) => (
-									<Fila fila={fila} />
-								))}
-								{filasVacias}
-							</TableBody>
+							<BodyTabla filas={filas} />
 							<FooterTabla />
 						</>
 					) : (
