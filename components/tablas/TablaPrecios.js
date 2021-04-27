@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -13,6 +13,11 @@ import BodyVacio from './BodyVacio';
 
 import { BarraHerramientasContext } from '../../context/BarraHerramientasContext';
 
+// Buscador
+import SearchIcon from '@material-ui/icons/Search';
+import InputBase from '@material-ui/core/InputBase';
+import Fila from './Fila';
+
 // para encabezado
 const StyledTableCell = withStyles((theme) => ({
 	head: {
@@ -23,14 +28,6 @@ const StyledTableCell = withStyles((theme) => ({
 		fontSize: 14,
 	},
 }))(TableCell);
-
-const StyledTableRow = withStyles((theme) => ({
-	root: {
-		'&:nth-of-type(odd)': {
-			backgroundColor: theme.palette.action.hover,
-		},
-	},
-}))(TableRow);
 
 // datos de la tabla
 function createData(codigo, descripcion, precio) {
@@ -59,7 +56,7 @@ const rows = [
 		(3124).toFixed(2)
 	),
 	createData(
-		'VV000000054',
+		'VV000000094',
 		'CORREA Y COLLAR CHICA - AMARILLA - S',
 		(1300).toFixed(2)
 	),
@@ -84,7 +81,7 @@ const rows = [
 		(3124).toFixed(2)
 	),
 	createData(
-		'VV000000054',
+		'VV000100054',
 		'CORREA Y COLLAR CHICA - AMARILLA - S',
 		(1300).toFixed(2)
 	),
@@ -109,7 +106,7 @@ const rows = [
 		(3124).toFixed(2)
 	),
 	createData(
-		'VV000000054',
+		'VV000000014',
 		'CORREA Y COLLAR CHICA - AMARILLA - S',
 		(1300).toFixed(2)
 	),
@@ -159,7 +156,7 @@ const rows = [
 		(3124).toFixed(2)
 	),
 	createData(
-		'VV000000054',
+		'VV000000097',
 		'CORREA Y COLLAR CHICA - NARANJA - S',
 		(1300).toFixed(2)
 	),
@@ -172,48 +169,81 @@ const useStyles2 = makeStyles({
 });
 
 const TablaPrecios = () => {
-	const [FooterTabla, filasVacias, cortePagina] = usePaginacion(rows);
-
-	const { setBuscador } = useContext(BarraHerramientasContext);
-
-	setBuscador(true);
-
+	// estilos
 	const classes = useStyles2();
 
-	return (
-		<TableContainer component={Paper}>
-			<Table className={classes.table}>
-				{rows.length !== 0 ? (
-					<>
-						<TableHead>
-							<TableRow>
-								<StyledTableCell>Código</StyledTableCell>
-								<StyledTableCell align="left">Descripción</StyledTableCell>
-								<StyledTableCell align="center">
-									Precio&nbsp;($)
-								</StyledTableCell>
-							</TableRow>
-						</TableHead>
-						<TableBody>
-							{cortePagina.map((row) => (
-								<StyledTableRow key={row.codigo}>
-									<TableCell component="th" scope="row">
-										{row.codigo}
-									</TableCell>
-									<TableCell align="left">{row.descripcion}</TableCell>
-									<TableCell align="right">{row.precio}</TableCell>
-								</StyledTableRow>
-							))}
+	// setea barra de herramientas
+	const { setBuscador } = useContext(BarraHerramientasContext);
+	setBuscador(true);
 
-							{filasVacias}
-						</TableBody>
-						<FooterTabla />
-					</>
-				) : (
-					<BodyVacio />
-				)}
-			</Table>
-		</TableContainer>
+	// buscador
+	const [filas, setFilas] = useState(rows);
+	const [busqueda, setBusqueda] = useState('');
+
+	const [FooterTabla, filasVacias, cortePagina] = usePaginacion(filas);
+
+	const onChange = (e) => {
+		setBusqueda(e.target.value);
+	};
+
+	const filtrado = (rows, busqueda) => {
+		const busquedaMayus = busqueda.toLowerCase();
+
+		const rowsFiltradas = rows.filter(
+			(row) => row.descripcion.toLowerCase().indexOf(busquedaMayus) !== -1
+		);
+
+		setFilas(rowsFiltradas);
+	};
+
+	useEffect(() => {
+		filtrado(rows, busqueda);
+	}, [busqueda]);
+
+	return (
+		<>
+			<div className={classes.search}>
+				<div className={classes.searchIcon}>
+					<SearchIcon />
+				</div>
+				<InputBase
+					placeholder="Buscar…"
+					classes={{
+						root: classes.inputRoot,
+						input: classes.inputInput,
+					}}
+					inputProps={{ 'aria-label': 'search' }}
+					value={busqueda}
+					onChange={onChange}
+				/>
+			</div>
+			<TableContainer component={Paper}>
+				<Table className={classes.table}>
+					{rows.length !== 0 ? (
+						<>
+							<TableHead>
+								<TableRow>
+									<StyledTableCell>Código</StyledTableCell>
+									<StyledTableCell align="left">Descripción</StyledTableCell>
+									<StyledTableCell align="center">
+										Precio&nbsp;($)
+									</StyledTableCell>
+								</TableRow>
+							</TableHead>
+							<TableBody>
+								{cortePagina.map((fila) => (
+									<Fila fila={fila} />
+								))}
+								{filasVacias}
+							</TableBody>
+							<FooterTabla />
+						</>
+					) : (
+						<BodyVacio />
+					)}
+				</Table>
+			</TableContainer>
+		</>
 	);
 };
 
