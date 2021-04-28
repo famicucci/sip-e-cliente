@@ -204,7 +204,7 @@ const TablaPrecios = () => {
 	return (
 		<TableContainer component={Paper}>
 			<Table className={classes.table}>
-				{rows.length !== 0 ? (
+				{filas.length !== 0 ? (
 					<>
 						<TableHead>
 							<TableRow>
