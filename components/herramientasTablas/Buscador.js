@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
@@ -60,6 +60,10 @@ const Buscador = () => {
 	const classes = useStyles();
 
 	const { busqueda, setBusqueda } = useContext(BarraHerramientasContext);
+
+	useEffect(() => {
+		setBusqueda('');
+	}, []);
 
 	const onChange = (e) => {
 		setBusqueda(e.target.value);
