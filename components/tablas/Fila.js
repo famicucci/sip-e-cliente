@@ -13,7 +13,7 @@ const StyledTableRow = withStyles((theme) => ({
 
 const Fila = (props) => {
 	return (
-		<StyledTableRow key={props.fila.codigo}>
+		<StyledTableRow>
 			<TableCell component="th" scope="row">
 				{props.fila.codigo}
 			</TableCell>

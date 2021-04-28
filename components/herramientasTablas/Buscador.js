@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
+import { BarraHerramientasContext } from '../../context/BarraHerramientasContext';
 
 const useStyles = makeStyles((theme) => ({
 	grow: {
@@ -58,22 +59,28 @@ const useStyles = makeStyles((theme) => ({
 const Buscador = () => {
 	const classes = useStyles();
 
+	const { busqueda, setBusqueda } = useContext(BarraHerramientasContext);
+
+	const onChange = (e) => {
+		setBusqueda(e.target.value);
+	};
+
 	return (
-		<>
-			<div className={classes.search}>
-				<div className={classes.searchIcon}>
-					<SearchIcon />
-				</div>
-				<InputBase
-					placeholder="Buscar…"
-					classes={{
-						root: classes.inputRoot,
-						input: classes.inputInput,
-					}}
-					inputProps={{ 'aria-label': 'search' }}
-				/>
+		<div className={classes.search}>
+			<div className={classes.searchIcon}>
+				<SearchIcon />
 			</div>
-		</>
+			<InputBase
+				placeholder="Buscar…"
+				classes={{
+					root: classes.inputRoot,
+					input: classes.inputInput,
+				}}
+				inputProps={{ 'aria-label': 'search' }}
+				value={busqueda}
+				onChange={onChange}
+			/>
+		</div>
 	);
 };
 

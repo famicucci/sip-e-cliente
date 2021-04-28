@@ -16,7 +16,7 @@ const BodyTabla = (props) => {
 		<>
 			<TableBody>
 				{cortePagina.map((fila) => (
-					<Fila fila={fila} />
+					<Fila key={fila.id} fila={fila} />
 				))}
 				{filasVacias}
 			</TableBody>
