@@ -1,37 +1,30 @@
 import React, { useContext, useEffect } from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
-import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
-import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import TableHead from '@material-ui/core/TableHead';
 import BodyVacio from './BodyVacio';
 import { BarraHerramientasContext } from '../../context/BarraHerramientasContext';
 import BodyTabla from './BodyTabla';
+import HeadTabla from './HeadTabla';
 
-const useStyles2 = makeStyles({
+const useStyles = makeStyles({
 	table: {
 		minWidth: 500,
 	},
 });
 
-// para encabezado
-const StyledTableCell = withStyles((theme) => ({
-	head: {
-		backgroundColor: theme.palette.common.black,
-		color: theme.palette.common.white,
-	},
-	body: {
-		fontSize: 14,
-	},
-}))(TableCell);
+// columnas de la tabla
+const columnas = [
+	{ id: 1, nombre: 'Código' },
+	{ id: 2, nombre: 'Descripción' },
+	{ id: 3, nombre: 'Precio ($)' },
+];
 
 // datos de la tabla
 function createData(id, codigo, descripcion, precio) {
 	return { id, codigo, descripcion, precio };
 }
-
 const rows = [
 	createData(
 		'1',
@@ -187,7 +180,7 @@ const rows = [
 
 const TablaPrecios = () => {
 	// estilos
-	const classes = useStyles2();
+	const classes = useStyles();
 
 	// setea barra de herramientas
 	const { busqueda, filas, setBuscador, filtrado } = useContext(
@@ -208,15 +201,7 @@ const TablaPrecios = () => {
 			<Table className={classes.table}>
 				{filas.length !== 0 ? (
 					<>
-						<TableHead>
-							<TableRow>
-								<StyledTableCell>Código</StyledTableCell>
-								<StyledTableCell align="left">Descripción</StyledTableCell>
-								<StyledTableCell align="center">
-									Precio&nbsp;($)
-								</StyledTableCell>
-							</TableRow>
-						</TableHead>
+						<HeadTabla columnas={columnas} />
 						<BodyTabla filas={filas} />
 					</>
 				) : (
