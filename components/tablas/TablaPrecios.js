@@ -194,7 +194,9 @@ const TablaPrecios = () => {
 		BarraHerramientasContext
 	);
 
-	setBuscador(true);
+	useEffect(() => {
+		setBuscador(true);
+	}, []);
 
 	useEffect(() => {
 		// la busqueda inicia en el array inicial
