@@ -13,9 +13,9 @@ const Lista = () => {
 		<List component="nav">
 			<Precios />
 
-			<Ventas />
-
 			<Stock />
+
+			<Ventas />
 
 			<Clientes />
 
