@@ -1,11 +1,12 @@
 import React from 'react';
 import Layout from '../../components/layouts/Layout';
+import TablaPuntoStock from '../../components/tablas/TablaPuntoStock';
 
 const ConsultarStock = () => {
 	return (
 		<div>
 			<Layout>
-				<h1>Desde Consultar Stock</h1>
+				<TablaPuntoStock />
 			</Layout>
 		</div>
 	);

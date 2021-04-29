@@ -38,12 +38,20 @@ const Stock = () => {
 			</ListItem>
 			<Collapse in={open} timeout="auto" unmountOnExit>
 				<List component="div" disablePadding>
-					<Link href="\stock\consultar">
+					<Link href="\stock\producto">
 						<ListItem button className={classes.nested}>
 							<ListItemIcon>
 								<ArrowRightIcon />
 							</ListItemIcon>
-							<ListItemText primary="Consultar" />
+							<ListItemText primary="Productos" />
+						</ListItem>
+					</Link>
+					<Link href="\stock\punto-stock">
+						<ListItem button className={classes.nested}>
+							<ListItemIcon>
+								<ArrowRightIcon />
+							</ListItemIcon>
+							<ListItemText primary="Puntos de stock" />
 						</ListItem>
 					</Link>
 					<Link href="\stock\movimientos">

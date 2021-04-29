@@ -396,6 +396,7 @@ const TablaPrecios = () => {
 		filtrado,
 		filtraListaPrecio,
 		setSelectListaPrecio,
+		setSelectPuntoStock,
 	} = useContext(BarraHerramientasContext);
 
 	const [filasListaPrecio, setFilasListaPrecio] = useState(rows);
@@ -404,6 +405,7 @@ const TablaPrecios = () => {
 	useEffect(() => {
 		setBuscador(true);
 		setSelectListaPrecio(true);
+		setSelectPuntoStock(false);
 	}, []);
 
 	useEffect(() => {
