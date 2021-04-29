@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { BarraHerramientasContext } from '../../context/BarraHerramientasContext';
 
 const useStyles = makeStyles((theme) => ({
 	formControl: {
@@ -43,7 +44,7 @@ const listas = [
 const SelectListasPrecio = () => {
 	const classes = useStyles();
 
-	const [lista, setLista] = useState(1);
+	const { lista, setLista } = useContext(BarraHerramientasContext);
 
 	const handleChange = (event) => {
 		setLista(event.target.value);

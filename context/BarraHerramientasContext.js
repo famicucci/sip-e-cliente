@@ -6,11 +6,11 @@ export const BarraHerramientasContext = createContext();
 const BarraHerramientasProvider = (props) => {
 	// define si se muestra el elemento
 	const [buscador, setBuscador] = useState(false);
-	const [selectListaPrecio, setSelectListaPrecio] = useState(true);
+	const [selectListaPrecio, setSelectListaPrecio] = useState(false);
 
 	// define las funciones que deben estar disponibles en todos lados
 	const [busqueda, setBusqueda] = useState('');
-	const [filas, setFilas] = useState([]);
+	const [lista, setLista] = useState(1);
 
 	// filtra las filas segun la búsqueda
 	const filtrado = (filas, busqueda) => {
@@ -21,7 +21,13 @@ const BarraHerramientasProvider = (props) => {
 				Object.values(row).join().toLowerCase().indexOf(busquedaMayus) !== -1
 		);
 
-		setFilas(rowsFiltradas);
+		return rowsFiltradas;
+	};
+
+	// filtra segun la lista de precio
+	const filtraListaPrecio = (filas, lista) => {
+		const rowsFiltradas = filas.filter((row) => row.idListaPrecio === lista);
+		return rowsFiltradas;
 	};
 
 	return (
@@ -30,12 +36,13 @@ const BarraHerramientasProvider = (props) => {
 				buscador,
 				selectListaPrecio,
 				busqueda,
-				filas,
+				lista,
 				setBuscador,
 				setSelectListaPrecio,
 				setBusqueda,
-				setFilas,
 				filtrado,
+				filtraListaPrecio,
+				setLista,
 			}}
 		>
 			{props.children}

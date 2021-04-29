@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -23,178 +23,406 @@ const columnas = [
 const cantColumnas = columnas.length;
 
 // datos de la tabla
-function createData(id, codigo, descripcion, precio) {
-	return { id, codigo, descripcion, precio };
+function createData(id, codigo, descripcion, precio, idListaPrecio) {
+	return { id, codigo, descripcion, precio, idListaPrecio };
 }
 const rows = [
 	createData(
 		'1',
 		'AL6V0210UNN',
 		'ALMOHADONES DECO 40X40 CM - CUANDO NECESITABA UNA MANO, ME ENCONTRE CON SU PATA - SIN COLOR - UNICO - VELLON',
-		(2497).toFixed(2)
+		(2497).toFixed(2),
+		1
 	),
 	createData(
 		'2',
 		'CO2G0738EVE',
 		'COLCHONETA LAVABLE PERRO CHICO - PERROS BEIGE - VERDE - S - GUATA',
-		(3245).toFixed(2)
+		(3245).toFixed(2),
+		1
 	),
 	createData(
 		'3',
 		'VV000000059',
 		'COLCHONETA LAVABLE PERRO GRANDE - FRANJA CANICHE/BICHON - ROJO Y NEGRO - L - SIN RELLENO',
-		(4060).toFixed(2)
+		(4060).toFixed(2),
+		1
 	),
 	createData(
 		'4',
 		'CO1G0804DRJ',
 		'COLCHONETA PERRO MEDIANO - PERRITOS MIX - ROJO - M - GUATA',
-		(3124).toFixed(2)
+		(3124).toFixed(2),
+		1
 	),
 	createData(
 		'5',
 		'VV000000094',
 		'CORREA Y COLLAR CHICA - AMARILLA - S',
-		(1300).toFixed(2)
+		(1300).toFixed(2),
+		1
 	),
 	createData(
 		'6',
 		'AL6V0210UNN',
 		'ALMOHADONES DECO 40X40 CM - CUANDO NECESITABA UNA MANO, ME ENCONTRE CON SU PATA - SIN COLOR - UNICO - VELLON',
-		(2497).toFixed(2)
+		(2497).toFixed(2),
+		1
 	),
 	createData(
 		'7',
 		'CO2G0738EVE',
 		'COLCHONETA LAVABLE PERRO CHICO - PERROS BEIGE - VERDE - S - GUATA',
-		(3245).toFixed(2)
+		(3245).toFixed(2),
+		1
 	),
 	createData(
 		'8',
 		'VV000000059',
 		'COLCHONETA LAVABLE PERRO GRANDE - FRANJA CANICHE/BICHON - ROJO Y NEGRO - L - SIN RELLENO',
-		(4060).toFixed(2)
+		(4060).toFixed(2),
+		1
 	),
 	createData(
 		'9',
 		'CO1G0804DRJ',
 		'COLCHONETA PERRO MEDIANO - PERRITOS MIX - ROJO - M - GUATA',
-		(3124).toFixed(2)
+		(3124).toFixed(2),
+		1
 	),
 	createData(
 		'10',
 		'VV000100054',
 		'CORREA Y COLLAR CHICA - AMARILLA - S',
-		(1300).toFixed(2)
+		(1300).toFixed(2),
+		1
 	),
 	createData(
 		'11',
 		'AL6V0210UNN',
 		'ALMOHADONES DECO 40X40 CM - CUANDO NECESITABA UNA MANO, ME ENCONTRE CON SU PATA - SIN COLOR - UNICO - VELLON',
-		(2497).toFixed(2)
+		(2497).toFixed(2),
+		1
 	),
 	createData(
 		'12',
 		'CO2G0738EVE',
 		'COLCHONETA LAVABLE PERRO CHICO - PERROS BEIGE - VERDE - S - GUATA',
-		(3245).toFixed(2)
+		(3245).toFixed(2),
+		1
 	),
 	createData(
 		'13',
 		'VV000000059',
 		'COLCHONETA LAVABLE PERRO GRANDE - FRANJA CANICHE/BICHON - ROJO Y NEGRO - L - SIN RELLENO',
-		(4060).toFixed(2)
+		(4060).toFixed(2),
+		1
 	),
 	createData(
 		'14',
 		'CO1G0804DRJ',
 		'COLCHONETA PERRO MEDIANO - PERRITOS MIX - ROJO - M - GUATA',
-		(3124).toFixed(2)
+		(3124).toFixed(2),
+		1
 	),
 	createData(
 		'15',
 		'VV000000014',
 		'CORREA Y COLLAR CHICA - AMARILLA - S',
-		(1300).toFixed(2)
+		(1300).toFixed(2),
+		1
 	),
 	createData(
 		'16',
 		'AL6V0210UNN',
 		'ALMOHADONES DECO 40X40 CM - CUANDO NECESITABA UNA MANO, ME ENCONTRE CON SU PATA - SIN COLOR - UNICO - VELLON',
-		(2497).toFixed(2)
+		(2497).toFixed(2),
+		1
 	),
 	createData(
 		'17',
 		'CO2G0738EVE',
 		'COLCHONETA LAVABLE PERRO CHICO - PERROS BEIGE - VERDE - S - GUATA',
-		(3245).toFixed(2)
+		(3245).toFixed(2),
+		1
 	),
 	createData(
 		'18',
 		'VV000000059',
 		'COLCHONETA LAVABLE PERRO GRANDE - FRANJA CANICHE/BICHON - ROJO Y NEGRO - L - SIN RELLENO',
-		(4060).toFixed(2)
+		(4060).toFixed(2),
+		1
 	),
 	createData(
 		'19',
 		'CO1G0804DRJ',
 		'COLCHONETA PERRO MEDIANO - PERRITOS MIX - ROJO - M - GUATA',
-		(3124).toFixed(2)
+		(3124).toFixed(2),
+		1
 	),
 	createData(
 		'20',
 		'VV000000053',
 		'CORREA Y COLLAR CHICA - AMARILLA - S',
-		(1300).toFixed(2)
+		(1300).toFixed(2),
+		1
 	),
 	createData(
 		'21',
 		'AL6V0210UNN',
 		'ALMOHADONES DECO 40X40 CM - CUANDO NECESITABA UNA MANO, ME ENCONTRE CON SU PATA - SIN COLOR - UNICO - VELLON',
-		(2497).toFixed(2)
+		(2497).toFixed(2),
+		1
 	),
 	createData(
 		'22',
 		'CO2G0738EVE',
 		'COLCHONETA LAVABLE PERRO CHICO - PERROS BEIGE - VERDE - S - GUATA',
-		(3245).toFixed(2)
+		(3245).toFixed(2),
+		1
 	),
 	createData(
 		'23',
 		'VV000000059',
 		'COLCHONETA LAVABLE PERRO GRANDE - FRANJA CANICHE/BICHON - ROJO Y NEGRO - L - SIN RELLENO',
-		(4060).toFixed(2)
+		(4060).toFixed(2),
+		1
 	),
 	createData(
 		'24',
 		'CO1G0804DRJ',
 		'COLCHONETA PERRO MEDIANO - PERRITOS MIX - ROJO - M - GUATA',
-		(3124).toFixed(2)
+		(3124).toFixed(2),
+		1
 	),
 	createData(
 		'25',
 		'VV000000097',
 		'CORREA Y COLLAR CHICA - NARANJA - S',
-		(1300).toFixed(2)
+		(1300).toFixed(2),
+		1
+	),
+	createData(
+		'1',
+		'AL6V0210UNN',
+		'ALMOHADONES DECO 40X40 CM - CUANDO NECESITABA UNA MANO, ME ENCONTRE CON SU PATA - SIN COLOR - UNICO - VELLON',
+		(249700).toFixed(2),
+		2
+	),
+	createData(
+		'2',
+		'CO2G0738EVE',
+		'COLCHONETA LAVABLE PERRO CHICO - PERROS BEIGE - VERDE - S - GUATA',
+		(324500).toFixed(2),
+		2
+	),
+	createData(
+		'3',
+		'VV000000059',
+		'COLCHONETA LAVABLE PERRO GRANDE - FRANJA CANICHE/BICHON - ROJO Y NEGRO - L - SIN RELLENO',
+		(406000).toFixed(2),
+		2
+	),
+	createData(
+		'4',
+		'CO1G0804DRJ',
+		'COLCHONETA PERRO MEDIANO - PERRITOS MIX - ROJO - M - GUATA',
+		(312400).toFixed(2),
+		2
+	),
+	createData(
+		'5',
+		'VV000000094',
+		'CORREA Y COLLAR CHICA - AMARILLA - S',
+		(130000).toFixed(2),
+		2
+	),
+	createData(
+		'6',
+		'AL6V0210UNN',
+		'ALMOHADONES DECO 40X40 CM - CUANDO NECESITABA UNA MANO, ME ENCONTRE CON SU PATA - SIN COLOR - UNICO - VELLON',
+		(249700).toFixed(2),
+		2
+	),
+	createData(
+		'7',
+		'CO2G0738EVE',
+		'COLCHONETA LAVABLE PERRO CHICO - PERROS BEIGE - VERDE - S - GUATA',
+		(324500).toFixed(2),
+		2
+	),
+	createData(
+		'8',
+		'VV000000059',
+		'COLCHONETA LAVABLE PERRO GRANDE - FRANJA CANICHE/BICHON - ROJO Y NEGRO - L - SIN RELLENO',
+		(406000).toFixed(2),
+		2
+	),
+	createData(
+		'9',
+		'CO1G0804DRJ',
+		'COLCHONETA PERRO MEDIANO - PERRITOS MIX - ROJO - M - GUATA',
+		(312400).toFixed(2),
+		2
+	),
+	createData(
+		'10',
+		'VV000100054',
+		'CORREA Y COLLAR CHICA - AMARILLA - S',
+		(130000).toFixed(2),
+		2
+	),
+	createData(
+		'11',
+		'AL6V0210UNN',
+		'ALMOHADONES DECO 40X40 CM - CUANDO NECESITABA UNA MANO, ME ENCONTRE CON SU PATA - SIN COLOR - UNICO - VELLON',
+		(249700).toFixed(2),
+		2
+	),
+	createData(
+		'12',
+		'CO2G0738EVE',
+		'COLCHONETA LAVABLE PERRO CHICO - PERROS BEIGE - VERDE - S - GUATA',
+		(324500).toFixed(2),
+		2
+	),
+	createData(
+		'13',
+		'VV000000059',
+		'COLCHONETA LAVABLE PERRO GRANDE - FRANJA CANICHE/BICHON - ROJO Y NEGRO - L - SIN RELLENO',
+		(406000).toFixed(2),
+		2
+	),
+	createData(
+		'14',
+		'CO1G0804DRJ',
+		'COLCHONETA PERRO MEDIANO - PERRITOS MIX - ROJO - M - GUATA',
+		(312400).toFixed(2),
+		2
+	),
+	createData(
+		'15',
+		'VV000000014',
+		'CORREA Y COLLAR CHICA - AMARILLA - S',
+		(130000).toFixed(2),
+		2
+	),
+	createData(
+		'16',
+		'AL6V0210UNN',
+		'ALMOHADONES DECO 40X40 CM - CUANDO NECESITABA UNA MANO, ME ENCONTRE CON SU PATA - SIN COLOR - UNICO - VELLON',
+		(249700).toFixed(2),
+		2
+	),
+	createData(
+		'17',
+		'CO2G0738EVE',
+		'COLCHONETA LAVABLE PERRO CHICO - PERROS BEIGE - VERDE - S - GUATA',
+		(324500).toFixed(2),
+		2
+	),
+	createData(
+		'18',
+		'VV000000059',
+		'COLCHONETA LAVABLE PERRO GRANDE - FRANJA CANICHE/BICHON - ROJO Y NEGRO - L - SIN RELLENO',
+		(406000).toFixed(2),
+		2
+	),
+	createData(
+		'19',
+		'CO1G0804DRJ',
+		'COLCHONETA PERRO MEDIANO - PERRITOS MIX - ROJO - M - GUATA',
+		(312400).toFixed(2),
+		2
+	),
+	createData(
+		'20',
+		'VV000000053',
+		'CORREA Y COLLAR CHICA - AMARILLA - S',
+		(130000).toFixed(2),
+		2
+	),
+	createData(
+		'21',
+		'AL6V0210UNN',
+		'ALMOHADONES DECO 40X40 CM - CUANDO NECESITABA UNA MANO, ME ENCONTRE CON SU PATA - SIN COLOR - UNICO - VELLON',
+		(249700).toFixed(2),
+		2
+	),
+	createData(
+		'22',
+		'CO2G0738EVE',
+		'COLCHONETA LAVABLE PERRO CHICO - PERROS BEIGE - VERDE - S - GUATA',
+		(324500).toFixed(2),
+		2
+	),
+	createData(
+		'23',
+		'VV000000059',
+		'COLCHONETA LAVABLE PERRO GRANDE - FRANJA CANICHE/BICHON - ROJO Y NEGRO - L - SIN RELLENO',
+		(406000).toFixed(2),
+		2
+	),
+	createData(
+		'24',
+		'CO1G0804DRJ',
+		'COLCHONETA PERRO MEDIANO - PERRITOS MIX - ROJO - M - GUATA',
+		(312400).toFixed(2),
+		2
+	),
+	createData(
+		'25',
+		'VV000000097',
+		'CORREA Y COLLAR CHICA - NARANJA - S',
+		(130000).toFixed(2),
+		2
+	),
+	createData(
+		'25',
+		'VV000110097',
+		'CORREA Y COLLAR CHICA - VERDE - S',
+		(115015).toFixed(2),
+		2
 	),
 ];
 
 const TablaPrecios = () => {
-	// estilos
 	const classes = useStyles();
 
-	// setea barra de herramientas
-	const { busqueda, filas, setBuscador, filtrado } = useContext(
-		BarraHerramientasContext
-	);
+	const {
+		busqueda,
+		lista,
+		setBuscador,
+		filtrado,
+		filtraListaPrecio,
+		setSelectListaPrecio,
+	} = useContext(BarraHerramientasContext);
+
+	const [filasListaPrecio, setFilasListaPrecio] = useState(rows);
+	const [filas, setFilas] = useState(filasListaPrecio);
 
 	useEffect(() => {
 		setBuscador(true);
+		setSelectListaPrecio(true);
 	}, []);
 
 	useEffect(() => {
-		// la busqueda inicia en el array inicial
-		filtrado(rows, busqueda);
+		if (busqueda !== '') {
+			const nuevasFilas = filtrado(filasListaPrecio, busqueda);
+			setFilas(nuevasFilas);
+		} else {
+			setFilas(filasListaPrecio);
+		}
+	}, [filasListaPrecio]);
+
+	useEffect(() => {
+		let nuevasFilas = filtraListaPrecio(rows, lista);
+		setFilasListaPrecio(nuevasFilas);
+	}, [lista]);
+
+	useEffect(() => {
+		const nuevasFilas = filtrado(filasListaPrecio, busqueda);
+		setFilas(nuevasFilas);
 	}, [busqueda]);
 
 	return (
