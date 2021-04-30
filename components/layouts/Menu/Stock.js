@@ -43,7 +43,7 @@ const Stock = () => {
 							<ListItemIcon>
 								<ArrowRightIcon />
 							</ListItemIcon>
-							<ListItemText primary="Productos" />
+							<ListItemText primary="Total" />
 						</ListItem>
 					</Link>
 					<Link href="\stock\punto-stock">

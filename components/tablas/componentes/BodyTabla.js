@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import TableBody from '@material-ui/core/TableBody';
 import Fila from './Fila';
-import usePaginacion from '../../hooks/usePaginacion';
+import usePaginacion from '../../../hooks/usePaginacion';
 import BodyVacio from './BodyVacio';
 
 const BodyTabla = (props) => {

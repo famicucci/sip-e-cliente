@@ -4,14 +4,14 @@ import Table from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
 import { BarraHerramientasContext } from '../../context/BarraHerramientasContext';
-import HeadTabla from './HeadTabla';
+import HeadTabla from './componentes/HeadTabla';
 import usePaginacion from '../../hooks/usePaginacion';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import CallMadeIcon from '@material-ui/icons/CallMade';
 import IconButton from '@material-ui/core/IconButton';
-import BodyVacio from './BodyVacio';
+import BodyVacio from './componentes/BodyVacio';
 
 const useStyles = makeStyles({
 	table: {

@@ -4,8 +4,8 @@ import Table from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
 import { BarraHerramientasContext } from '../../context/BarraHerramientasContext';
-import BodyTabla from './BodyTabla';
-import HeadTabla from './HeadTabla';
+import BodyTabla from './componentes/BodyTabla';
+import HeadTabla from './componentes/HeadTabla';
 
 const useStyles = makeStyles({
 	table: {

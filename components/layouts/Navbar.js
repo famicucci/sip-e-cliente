@@ -8,11 +8,10 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonIcon from '@material-ui/icons/Person';
-
 import Logo from './Logo';
-import Buscador from '../herramientasTablas/Buscador';
-import SelectListasPrecio from '../herramientasTablas/SelectListasPrecio';
-import SelectPuntoStock from '../herramientasTablas/SelectPuntoStock';
+import Buscador from '../tablas/herramientas/Buscador';
+import SelectListasPrecio from '../tablas/herramientas/SelectListasPrecio';
+import SelectPuntoStock from '../tablas/herramientas/SelectPuntoStock';
 
 import { BarraHerramientasContext } from '../../context/BarraHerramientasContext';
 
