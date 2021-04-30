@@ -38,8 +38,8 @@ const columnas = [
 const cantColumnas = columnas.length;
 
 // datos de la tabla
-function createData(id, codigo, descripcion, cantidad, idListaPrecio) {
-	return { id, codigo, descripcion, cantidad, idListaPrecio };
+function createData(id, codigo, descripcion, cantidad) {
+	return { id, codigo, descripcion, cantidad };
 }
 const rows = [
 	createData(

@@ -131,14 +131,17 @@ const rows = [
 const TablaStock = () => {
 	const classes = useStyles();
 
-	const [filas, setFilas] = useState(rows);
+	const [filasPuntoStock, setFilasPuntoStock] = useState(rows);
+	const [filas, setFilas] = useState(filasPuntoStock);
 
 	const [FooterTabla, filasVacias, cortePagina, setPage] = usePaginacion(filas);
 
 	const {
 		busqueda,
 		setBuscador,
+		puntoStock,
 		filtrado,
+		filtraPuntoStock,
 		setSelectListaPrecio,
 		setSelectPuntoStock,
 	} = useContext(BarraHerramientasContext);
@@ -150,8 +153,23 @@ const TablaStock = () => {
 	}, []);
 
 	useEffect(() => {
+		if (busqueda !== '') {
+			const nuevasFilas = filtrado(filasPuntoStock, busqueda);
+			setFilas(nuevasFilas);
+		} else {
+			setFilas(filasPuntoStock);
+		}
+	}, [filasPuntoStock]);
+
+	useEffect(() => {
 		setPage(0);
-		const nuevasFilas = filtrado(rows, busqueda);
+		const nuevasFilas = filtraPuntoStock(rows, puntoStock);
+		setFilasPuntoStock(nuevasFilas);
+	}, [puntoStock]);
+
+	useEffect(() => {
+		setPage(0);
+		const nuevasFilas = filtrado(filasPuntoStock, busqueda);
 		setFilas(nuevasFilas);
 	}, [busqueda]);
 
