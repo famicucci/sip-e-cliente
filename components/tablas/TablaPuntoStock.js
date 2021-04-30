@@ -9,9 +9,10 @@ import usePaginacion from '../../hooks/usePaginacion';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import CallMadeIcon from '@material-ui/icons/CallMade';
+import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import BodyVacio from './componentes/BodyVacio';
+import ValorCantidad from './componentes/ValorCantidad';
 
 const useStyles = makeStyles({
 	table: {
@@ -133,6 +134,7 @@ const TablaStock = () => {
 
 	const [filasPuntoStock, setFilasPuntoStock] = useState(rows);
 	const [filas, setFilas] = useState(filasPuntoStock);
+	const [filaActiva, setFilaActiva] = useState(null);
 
 	const [FooterTabla, filasVacias, cortePagina, setPage] = usePaginacion(filas);
 
@@ -181,15 +183,27 @@ const TablaStock = () => {
 					<>
 						<TableBody>
 							{cortePagina.map((fila) => (
-								<StyledTableRow>
+								<StyledTableRow key={fila.id}>
 									<TableCell component="th" scope="row">
 										{fila.codigo}
 									</TableCell>
 									<TableCell align="left">{fila.descripcion}</TableCell>
-									<TableCell align="center">{fila.cantidad}</TableCell>
 									<TableCell align="center">
-										<IconButton size="small">
-											<CallMadeIcon />
+										<ValorCantidad
+											idFila={fila.id}
+											valor={fila.cantidad}
+											filaActiva={filaActiva}
+										/>
+									</TableCell>
+									<TableCell align="center">
+										<IconButton
+											size="medium"
+											edge="start"
+											onClick={() => {
+												setFilaActiva(fila.id);
+											}}
+										>
+											<EditIcon />
 										</IconButton>
 									</TableCell>
 								</StyledTableRow>
