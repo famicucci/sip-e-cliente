@@ -9,10 +9,9 @@ import usePaginacion from '../../hooks/usePaginacion';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import EditIcon from '@material-ui/icons/Edit';
-import IconButton from '@material-ui/core/IconButton';
 import BodyVacio from './componentes/BodyVacio';
-import ValorCantidad from './componentes/ValorCantidad';
+import ValorCantidad from './componentes/ValorCantidadEditable';
+import BotonCantidadEditable from './componentes/BotonCantidadEditable';
 
 const useStyles = makeStyles({
 	table: {
@@ -65,63 +64,63 @@ const rows = [
 		1
 	),
 	createData(
-		'1',
+		'4',
 		'AL6V0210UNN',
 		'IDENTIFICA DECO 40X40 CM - CUANDO NECESITABA UNA MANO, ME ENCONTRE CON SU PATA - SIN COLOR - UNICO - VELLON',
 		21,
 		2
 	),
 	createData(
-		'2',
+		'5',
 		'CO2G0738EVE',
 		'COLCHONETA LAVABLE PERRO CHICO - PERROS BEIGE - VERDE - S - GUATA',
 		21,
 		2
 	),
 	createData(
-		'3',
+		'6',
 		'VV000000059',
 		'COLCHONETA LAVABLE PERRO GRANDE - FRANJA CANICHE/BICHON - ROJO Y NEGRO - L - SIN RELLENO',
 		21,
 		2
 	),
 	createData(
-		'1',
+		'7',
 		'AL6V0210UNN',
 		'IDENTIFICA DECO 40X40 CM - CUANDO NECESITABA UNA MANO, ME ENCONTRE CON SU PATA - SIN COLOR - UNICO - VELLON',
 		34,
 		3
 	),
 	createData(
-		'2',
+		'8',
 		'CO2G0738EVE',
 		'COLCHONETA LAVABLE PERRO CHICO - PERROS BEIGE - VERDE - S - GUATA',
 		34,
 		3
 	),
 	createData(
-		'3',
+		'9',
 		'VV000000059',
 		'COLCHONETA LAVABLE PERRO GRANDE - FRANJA CANICHE/BICHON - ROJO Y NEGRO - L - SIN RELLENO',
 		34,
 		3
 	),
 	createData(
-		'1',
+		'10',
 		'AL6V0210UNN',
 		'IDENTIFICA DECO 40X40 CM - CUANDO NECESITABA UNA MANO, ME ENCONTRE CON SU PATA - SIN COLOR - UNICO - VELLON',
 		45,
 		6
 	),
 	createData(
-		'2',
+		'11',
 		'CO2G0738EVE',
 		'COLCHONETA LAVABLE PERRO CHICO - PERROS BEIGE - VERDE - S - GUATA',
 		45,
 		6
 	),
 	createData(
-		'3',
+		'12',
 		'VV000000059',
 		'COLCHONETA LAVABLE PERRO GRANDE - FRANJA CANICHE/BICHON - ROJO Y NEGRO - L - SIN RELLENO',
 		45,
@@ -175,6 +174,14 @@ const TablaStock = () => {
 		setFilas(nuevasFilas);
 	}, [busqueda]);
 
+	const editar = (filaActiva, idFila) => {
+		if (filaActiva === idFila) {
+			return true;
+		} else {
+			return false;
+		}
+	};
+
 	return (
 		<TableContainer component={Paper}>
 			<Table className={classes.table}>
@@ -193,18 +200,16 @@ const TablaStock = () => {
 											idFila={fila.id}
 											valor={fila.cantidad}
 											filaActiva={filaActiva}
+											editar={editar}
 										/>
 									</TableCell>
 									<TableCell align="center">
-										<IconButton
-											size="medium"
-											edge="start"
-											onClick={() => {
-												setFilaActiva(fila.id);
-											}}
-										>
-											<EditIcon />
-										</IconButton>
+										<BotonCantidadEditable
+											idFila={fila.id}
+											filaActiva={filaActiva}
+											editar={editar}
+											setFilaActiva={setFilaActiva}
+										/>
 									</TableCell>
 								</StyledTableRow>
 							))}

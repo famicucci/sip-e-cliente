@@ -14,17 +14,9 @@ const useStyles = makeStyles((theme) => ({
 const ValorCantidad = (props) => {
 	const classes = useStyles();
 
-	const { idFila, valor, filaActiva } = props;
+	const { idFila, valor, filaActiva, editar } = props;
 
 	const [cantidad, setCantidad] = useState(valor);
-
-	const editar = (filaActiva, idFila) => {
-		if (filaActiva === idFila) {
-			return true;
-		} else {
-			return false;
-		}
-	};
 
 	const onChange = (e) => {
 		setCantidad(e.target.value);
