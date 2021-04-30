@@ -29,10 +29,10 @@ const StyledTableRow = withStyles((theme) => ({
 
 // columnas de la tabla
 const columnas = [
-	{ id: 1, nombre: 'Código' },
-	{ id: 2, nombre: 'Descripción' },
-	{ id: 3, nombre: 'Cantidad' },
-	{ id: 4, nombre: '' },
+	{ id: 1, nombre: 'Código', alineacion: 'left' },
+	{ id: 2, nombre: 'Descripción', alineacion: 'left' },
+	{ id: 3, nombre: 'Cantidad', alineacion: 'center' },
+	{ id: 4, nombre: '', alineacion: 'left' },
 ];
 
 const cantColumnas = columnas.length;

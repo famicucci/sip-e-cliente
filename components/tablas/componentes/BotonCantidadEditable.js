@@ -36,7 +36,7 @@ const BotonCantidadEditable = (props) => {
 			) : (
 				// editar
 				<IconButton
-					size="medium"
+					size="small"
 					edge="start"
 					onClick={() => {
 						setFilaActiva(idFila);

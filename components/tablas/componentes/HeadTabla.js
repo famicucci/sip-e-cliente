@@ -21,7 +21,9 @@ const HeadTabla = (props) => {
 		<TableHead>
 			<TableRow>
 				{columnas.map((columna) => (
-					<StyledTableCell key={columna.id}>{columna.nombre}</StyledTableCell>
+					<StyledTableCell key={columna.id} align={columna.alineacion}>
+						{columna.nombre}
+					</StyledTableCell>
 				))}
 			</TableRow>
 		</TableHead>
