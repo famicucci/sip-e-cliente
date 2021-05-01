@@ -187,10 +187,10 @@ const TablaStock = () => {
 									</TableCell>
 									<TableCell align="left">{fila.descripcion}</TableCell>
 									<TableCell align="center">
-										<ValorCantidad idFila={fila.id} valor={fila.cantidad} />
+										<ValorCantidad fila={fila} />
 									</TableCell>
 									<TableCell align="center">
-										<BotonCantidadEditable idFila={fila.id} />
+										<BotonCantidadEditable fila={fila} />
 									</TableCell>
 								</StyledTableRow>
 							))}

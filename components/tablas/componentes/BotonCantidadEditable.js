@@ -16,39 +16,48 @@ const useStyles = makeStyles({
 const BotonCantidadEditable = (props) => {
 	const classes = useStyles();
 
-	const { idFila } = props;
+	const { fila } = props;
 
-	const { filaActiva, setFilaActiva, editar } = useContext(
-		CantidadEditableContext
-	);
+	const {
+		filaActiva,
+		nuevaCantidad,
+		setFilaActiva,
+		editar,
+		confirmar,
+	} = useContext(CantidadEditableContext);
 
 	return (
 		<>
-			{editar(filaActiva, idFila) ? (
-				// confirmar-cancelar
-				<ButtonGroup variant="text" aria-label="text primary button group">
-					<IconButton>
-						<CheckIcon className={classes.IconoConfirmar} />
-					</IconButton>
-					<IconButton
-						onClick={() => {
-							setFilaActiva(null);
-						}}
-					>
-						<CloseIcon color="error" />
-					</IconButton>
-				</ButtonGroup>
-			) : (
+			{!editar(filaActiva.id, fila.id) ? (
 				// editar
 				<IconButton
 					size="small"
 					edge="start"
 					onClick={() => {
-						setFilaActiva(idFila);
+						setFilaActiva(fila);
 					}}
 				>
 					<EditIcon />
 				</IconButton>
+			) : (
+				// confirmar-cancelar
+				<ButtonGroup variant="text" aria-label="text primary button group">
+					<IconButton>
+						<CheckIcon
+							className={classes.IconoConfirmar}
+							onClick={() => {
+								confirmar(filaActiva.cantidad, nuevaCantidad);
+							}}
+						/>
+					</IconButton>
+					<IconButton
+						onClick={() => {
+							setFilaActiva({});
+						}}
+					>
+						<CloseIcon color="error" />
+					</IconButton>
+				</ButtonGroup>
 			)}
 		</>
 	);

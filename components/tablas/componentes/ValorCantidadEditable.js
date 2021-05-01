@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { CantidadEditableContext } from '../../../context/CantidadEditableContext';
@@ -15,25 +15,38 @@ const useStyles = makeStyles((theme) => ({
 const ValorCantidad = (props) => {
 	const classes = useStyles();
 
-	const { idFila, valor } = props;
+	const { fila } = props;
 
-	const { filaActiva, editar } = useContext(CantidadEditableContext);
+	const { filaActiva, setNuevaCantidad, editar } = useContext(
+		CantidadEditableContext
+	);
 
-	const [cantidad, setCantidad] = useState(valor);
+	const [cantidadInput, setCantidadInput] = useState(fila.cantidad);
+
+	useEffect(() => {
+		setNuevaCantidad(cantidadInput);
+	}, [cantidadInput]);
+
+	useEffect(() => {
+		setNuevaCantidad(cantidadInput);
+		setCantidadInput(fila.cantidad);
+	}, [filaActiva]);
 
 	const onChange = (e) => {
-		setCantidad(e.target.value);
+		setCantidadInput(e.target.value);
 	};
 
 	return (
 		<>
-			{editar(filaActiva, idFila) ? (
+			{!editar(filaActiva.id, fila.id) ? (
+				fila.cantidad
+			) : (
 				<form className={classes.root} noValidate autoComplete="off">
 					<TextField
 						id="outlined-number"
 						label="Cantidad"
 						type="number"
-						value={cantidad}
+						value={cantidadInput}
 						InputLabelProps={{
 							shrink: true,
 						}}
@@ -41,8 +54,6 @@ const ValorCantidad = (props) => {
 						onChange={onChange}
 					/>
 				</form>
-			) : (
-				cantidad
 			)}
 		</>
 	);
