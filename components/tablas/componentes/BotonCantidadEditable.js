@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
+import { CantidadEditableContext } from '../../../context/CantidadEditableContext';
 
 const useStyles = makeStyles({
 	IconoConfirmar: {
@@ -15,7 +16,11 @@ const useStyles = makeStyles({
 const BotonCantidadEditable = (props) => {
 	const classes = useStyles();
 
-	const { idFila, filaActiva, editar, setFilaActiva } = props;
+	const { idFila } = props;
+
+	const { filaActiva, setFilaActiva, editar } = useContext(
+		CantidadEditableContext
+	);
 
 	return (
 		<>

@@ -133,7 +133,6 @@ const TablaStock = () => {
 
 	const [filasPuntoStock, setFilasPuntoStock] = useState(rows);
 	const [filas, setFilas] = useState(filasPuntoStock);
-	const [filaActiva, setFilaActiva] = useState(null);
 
 	const [FooterTabla, filasVacias, cortePagina, setPage] = usePaginacion(filas);
 
@@ -174,14 +173,6 @@ const TablaStock = () => {
 		setFilas(nuevasFilas);
 	}, [busqueda]);
 
-	const editar = (filaActiva, idFila) => {
-		if (filaActiva === idFila) {
-			return true;
-		} else {
-			return false;
-		}
-	};
-
 	return (
 		<TableContainer component={Paper}>
 			<Table className={classes.table}>
@@ -196,20 +187,10 @@ const TablaStock = () => {
 									</TableCell>
 									<TableCell align="left">{fila.descripcion}</TableCell>
 									<TableCell align="center">
-										<ValorCantidad
-											idFila={fila.id}
-											valor={fila.cantidad}
-											filaActiva={filaActiva}
-											editar={editar}
-										/>
+										<ValorCantidad idFila={fila.id} valor={fila.cantidad} />
 									</TableCell>
 									<TableCell align="center">
-										<BotonCantidadEditable
-											idFila={fila.id}
-											filaActiva={filaActiva}
-											editar={editar}
-											setFilaActiva={setFilaActiva}
-										/>
+										<BotonCantidadEditable idFila={fila.id} />
 									</TableCell>
 								</StyledTableRow>
 							))}

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
+import { CantidadEditableContext } from '../../../context/CantidadEditableContext';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -14,7 +15,9 @@ const useStyles = makeStyles((theme) => ({
 const ValorCantidad = (props) => {
 	const classes = useStyles();
 
-	const { idFila, valor, filaActiva, editar } = props;
+	const { idFila, valor } = props;
+
+	const { filaActiva, editar } = useContext(CantidadEditableContext);
 
 	const [cantidad, setCantidad] = useState(valor);
 
