@@ -6,6 +6,8 @@ import CallMadeIcon from '@material-ui/icons/CallMade';
 import IconButton from '@material-ui/core/IconButton';
 import { ModalContext } from '../../../context/ModalContext';
 
+import ModalStockProducto from '../../modales/ModalStockProducto';
+
 const StyledTableRow = withStyles((theme) => ({
 	root: {
 		'&:nth-of-type(odd)': {
@@ -15,27 +17,32 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 const FilaStockProducto = (props) => {
-	const { id, codigo, descripcion, cantidad } = props.fila;
-	const { setIdFila } = useContext(ModalContext);
+	const { codigo, descripcion, cantidad } = props.fila;
+	const { setProductoActivo, handleOpen } = useContext(ModalContext);
 
 	return (
-		<StyledTableRow>
-			<TableCell component="th" scope="row">
-				{codigo}
-			</TableCell>
-			<TableCell align="left">{descripcion}</TableCell>
-			<TableCell align="center">{cantidad}</TableCell>
-			<TableCell align="center">
-				<IconButton
-					size="small"
-					onClick={() => {
-						setIdFila(id);
-					}}
-				>
-					<CallMadeIcon />
-				</IconButton>
-			</TableCell>
-		</StyledTableRow>
+		<>
+			<StyledTableRow>
+				<TableCell component="th" scope="row">
+					{codigo}
+				</TableCell>
+				<TableCell align="left">{descripcion}</TableCell>
+				<TableCell align="center">{cantidad}</TableCell>
+				<TableCell align="center">
+					<IconButton
+						size="small"
+						onClick={() => {
+							setProductoActivo(codigo);
+							handleOpen();
+						}}
+					>
+						<CallMadeIcon />
+					</IconButton>
+				</TableCell>
+			</StyledTableRow>
+
+			<ModalStockProducto />
+		</>
 	);
 };
 

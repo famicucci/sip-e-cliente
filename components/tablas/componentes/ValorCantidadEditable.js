@@ -50,6 +50,11 @@ const ValorCantidad = (props) => {
 						InputLabelProps={{
 							shrink: true,
 						}}
+						InputProps={{
+							inputProps: {
+								min: 0,
+							},
+						}}
 						variant="outlined"
 						onChange={onChange}
 					/>
