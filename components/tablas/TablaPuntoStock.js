@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
@@ -7,24 +7,13 @@ import { BarraHerramientasContext } from '../../context/BarraHerramientasContext
 import HeadTabla from './componentes/HeadTabla';
 import usePaginacion from '../../hooks/usePaginacion';
 import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableRow';
-import ValorCantidad from './componentes/ValorCantidadEditable';
-import BotonCantidadEditable from './componentes/BotonCantidadEditable';
+import FilaPuntoStock from './componentes/FilaPuntoStock';
 
 const useStyles = makeStyles({
 	table: {
 		minWidth: 500,
 	},
 });
-
-const StyledTableRow = withStyles((theme) => ({
-	root: {
-		'&:nth-of-type(odd)': {
-			backgroundColor: theme.palette.action.hover,
-		},
-	},
-}))(TableRow);
 
 // columnas de la tabla
 const columnas = [
@@ -184,18 +173,7 @@ const TablaStock = () => {
 				<HeadTabla columnas={columnas} />
 				<TableBody>
 					{cortePagina.map((fila) => (
-						<StyledTableRow key={fila.id}>
-							<TableCell component="th" scope="row">
-								{fila.codigo}
-							</TableCell>
-							<TableCell align="left">{fila.descripcion}</TableCell>
-							<TableCell align="center">
-								<ValorCantidad fila={fila} />
-							</TableCell>
-							<TableCell align="center">
-								<BotonCantidadEditable fila={fila} />
-							</TableCell>
-						</StyledTableRow>
+						<FilaPuntoStock key={fila.id} fila={fila} />
 					))}
 					{cortePagina.length === 0 ? bodyVacio(columnas) : filasVacias}
 				</TableBody>

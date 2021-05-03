@@ -6,8 +6,6 @@ import CallMadeIcon from '@material-ui/icons/CallMade';
 import IconButton from '@material-ui/core/IconButton';
 import { ModalContext } from '../../../context/ModalContext';
 
-import ModalStockProducto from '../../modales/ModalStockProducto';
-
 const StyledTableRow = withStyles((theme) => ({
 	root: {
 		'&:nth-of-type(odd)': {
