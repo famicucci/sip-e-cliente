@@ -21,28 +21,24 @@ const FilaStockProducto = (props) => {
 	const { setProductoActivo, handleOpen } = useContext(ModalContext);
 
 	return (
-		<>
-			<StyledTableRow>
-				<TableCell component="th" scope="row">
-					{codigo}
-				</TableCell>
-				<TableCell align="left">{descripcion}</TableCell>
-				<TableCell align="center">{cantidad}</TableCell>
-				<TableCell align="center">
-					<IconButton
-						size="small"
-						onClick={() => {
-							setProductoActivo(codigo);
-							handleOpen();
-						}}
-					>
-						<CallMadeIcon />
-					</IconButton>
-				</TableCell>
-			</StyledTableRow>
-
-			<ModalStockProducto />
-		</>
+		<StyledTableRow>
+			<TableCell component="th" scope="row">
+				{codigo}
+			</TableCell>
+			<TableCell align="left">{descripcion}</TableCell>
+			<TableCell align="center">{cantidad}</TableCell>
+			<TableCell align="center">
+				<IconButton
+					size="small"
+					onClick={() => {
+						setProductoActivo(codigo);
+						handleOpen();
+					}}
+				>
+					<CallMadeIcon />
+				</IconButton>
+			</TableCell>
+		</StyledTableRow>
 	);
 };
 

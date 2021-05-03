@@ -4,8 +4,10 @@ import Table from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
 import { BarraHerramientasContext } from '../../context/BarraHerramientasContext';
-import BodyTabla from './componentes/BodyTabla';
 import HeadTabla from './componentes/HeadTabla';
+import TableBody from '@material-ui/core/TableBody';
+import usePaginacion from '../../hooks/usePaginacion';
+import FilaPrecio from '../tablas/componentes/FilaPrecio';
 
 const useStyles = makeStyles({
 	table: {
@@ -19,8 +21,6 @@ const columnas = [
 	{ id: 2, nombre: 'Descripción' },
 	{ id: 3, nombre: 'Precio ($)' },
 ];
-
-const cantColumnas = columnas.length;
 
 // datos de la tabla
 function createData(id, codigo, descripcion, precio, idListaPrecio) {
@@ -402,6 +402,14 @@ const TablaPrecios = () => {
 	const [filasListaPrecio, setFilasListaPrecio] = useState(rows);
 	const [filas, setFilas] = useState(filasListaPrecio);
 
+	const [
+		FooterTabla,
+		filasVacias,
+		cortePagina,
+		setPage,
+		bodyVacio,
+	] = usePaginacion(filas);
+
 	useEffect(() => {
 		setBuscador(true);
 		setSelectListaPrecio(true);
@@ -420,18 +428,26 @@ const TablaPrecios = () => {
 	useEffect(() => {
 		let nuevasFilas = filtraListaPrecio(rows, lista);
 		setFilasListaPrecio(nuevasFilas);
+		setPage(0);
 	}, [lista]);
 
 	useEffect(() => {
 		const nuevasFilas = filtrado(filasListaPrecio, busqueda);
 		setFilas(nuevasFilas);
+		setPage(0);
 	}, [busqueda]);
 
 	return (
 		<TableContainer component={Paper}>
 			<Table className={classes.table}>
 				<HeadTabla columnas={columnas} />
-				<BodyTabla cantColumnas={cantColumnas} filas={filas} />
+				<TableBody>
+					{cortePagina.map((fila) => (
+						<FilaPrecio key={fila.id} fila={fila} />
+					))}
+					{cortePagina.length === 0 ? bodyVacio(columnas) : filasVacias}
+				</TableBody>
+				<FooterTabla />
 			</Table>
 		</TableContainer>
 	);

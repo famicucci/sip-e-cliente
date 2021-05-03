@@ -7,8 +7,8 @@ import { BarraHerramientasContext } from '../../context/BarraHerramientasContext
 import HeadTabla from './componentes/HeadTabla';
 import usePaginacion from '../../hooks/usePaginacion';
 import TableBody from '@material-ui/core/TableBody';
-import BodyVacio from './componentes/BodyVacio';
 import FilaStockProducto from './componentes/FilaStockProducto';
+import ModalStockProducto from '../modales/ModalStockProducto';
 
 const useStyles = makeStyles({
 	table: {
@@ -23,8 +23,6 @@ const columnas = [
 	{ id: 3, nombre: 'Cantidad' },
 	{ id: 4, nombre: '' },
 ];
-
-const cantColumnas = columnas.length;
 
 // datos de la tabla
 function createData(id, codigo, descripcion, cantidad) {
@@ -56,7 +54,13 @@ const TablaStock = () => {
 
 	const [filas, setFilas] = useState(rows);
 
-	const [FooterTabla, filasVacias, cortePagina, setPage] = usePaginacion(filas);
+	const [
+		FooterTabla,
+		filasVacias,
+		cortePagina,
+		setPage,
+		bodyVacio,
+	] = usePaginacion(filas);
 
 	const {
 		busqueda,
@@ -82,20 +86,16 @@ const TablaStock = () => {
 		<TableContainer component={Paper}>
 			<Table className={classes.table}>
 				<HeadTabla columnas={columnas} />
-				{cortePagina.length !== 0 ? (
-					<>
-						<TableBody>
-							{cortePagina.map((fila) => (
-								<FilaStockProducto key={fila.id} fila={fila} />
-							))}
-							{filasVacias}
-						</TableBody>
-						<FooterTabla />
-					</>
-				) : (
-					<BodyVacio cantColumnas={cantColumnas} />
-				)}
+				<TableBody>
+					{cortePagina.map((fila) => (
+						<FilaStockProducto key={fila.id} fila={fila} />
+					))}
+					{cortePagina.length === 0 ? bodyVacio(columnas) : filasVacias}
+				</TableBody>
+				<FooterTabla />
 			</Table>
+
+			<ModalStockProducto />
 		</TableContainer>
 	);
 };
