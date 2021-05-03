@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Link from 'next/link';
 import {
 	List,
@@ -12,6 +12,7 @@ import LayersIcon from '@material-ui/icons/Layers';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+import { MenuContext } from '../../../context/MenuContext';
 
 const useStyles = makeStyles((theme) => ({
 	nested: {
@@ -21,11 +22,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Stock = () => {
 	const classes = useStyles();
-	const [open, setOpen] = React.useState(true);
 
-	const handleClick = () => {
-		setOpen(!open);
-	};
+	const { openStock, handleClick } = useContext(MenuContext);
 
 	return (
 		<>
@@ -34,9 +32,9 @@ const Stock = () => {
 					<LayersIcon />
 				</ListItemIcon>
 				<ListItemText primary="Stock" />
-				{open ? <ExpandLess /> : <ExpandMore />}
+				{openStock ? <ExpandLess /> : <ExpandMore />}
 			</ListItem>
-			<Collapse in={open} timeout="auto" unmountOnExit>
+			<Collapse in={openStock} timeout="auto" unmountOnExit>
 				<List component="div" disablePadding>
 					<Link href="\stock\producto">
 						<ListItem button className={classes.nested}>
