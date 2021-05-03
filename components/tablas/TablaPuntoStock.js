@@ -9,7 +9,6 @@ import usePaginacion from '../../hooks/usePaginacion';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import BodyVacio from './componentes/BodyVacio';
 import ValorCantidad from './componentes/ValorCantidadEditable';
 import BotonCantidadEditable from './componentes/BotonCantidadEditable';
 
@@ -134,7 +133,13 @@ const TablaStock = () => {
 	const [filasPuntoStock, setFilasPuntoStock] = useState(rows);
 	const [filas, setFilas] = useState(filasPuntoStock);
 
-	const [FooterTabla, filasVacias, cortePagina, setPage] = usePaginacion(filas);
+	const [
+		FooterTabla,
+		filasVacias,
+		cortePagina,
+		setPage,
+		bodyVacio,
+	] = usePaginacion(filas);
 
 	const {
 		busqueda,
@@ -177,30 +182,24 @@ const TablaStock = () => {
 		<TableContainer component={Paper}>
 			<Table className={classes.table}>
 				<HeadTabla columnas={columnas} />
-				{cortePagina.length !== 0 ? (
-					<>
-						<TableBody>
-							{cortePagina.map((fila) => (
-								<StyledTableRow key={fila.id}>
-									<TableCell component="th" scope="row">
-										{fila.codigo}
-									</TableCell>
-									<TableCell align="left">{fila.descripcion}</TableCell>
-									<TableCell align="center">
-										<ValorCantidad fila={fila} />
-									</TableCell>
-									<TableCell align="center">
-										<BotonCantidadEditable fila={fila} />
-									</TableCell>
-								</StyledTableRow>
-							))}
-							{filasVacias}
-						</TableBody>
-						<FooterTabla />
-					</>
-				) : (
-					<BodyVacio cantColumnas={cantColumnas} />
-				)}
+				<TableBody>
+					{cortePagina.map((fila) => (
+						<StyledTableRow key={fila.id}>
+							<TableCell component="th" scope="row">
+								{fila.codigo}
+							</TableCell>
+							<TableCell align="left">{fila.descripcion}</TableCell>
+							<TableCell align="center">
+								<ValorCantidad fila={fila} />
+							</TableCell>
+							<TableCell align="center">
+								<BotonCantidadEditable fila={fila} />
+							</TableCell>
+						</StyledTableRow>
+					))}
+					{cortePagina.length === 0 ? bodyVacio(columnas) : filasVacias}
+				</TableBody>
+				<FooterTabla />
 			</Table>
 		</TableContainer>
 	);

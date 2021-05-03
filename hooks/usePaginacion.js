@@ -111,33 +111,43 @@ const usePaginacion = (rows) => {
 		</TableRow>
 	);
 
-	const FooterTabla = () => (
-		<>
-			{rows.length !== 0 ? (
-				<TableFooter>
-					<TableRow>
-						<TablePagination
-							rowsPerPageOptions={[5, 10, 25, { label: 'Todas', value: -1 }]}
-							colSpan={3}
-							count={rows.length}
-							rowsPerPage={rowsPerPage}
-							page={page}
-							labelRowsPerPage="Filas por página:"
-							SelectProps={{
-								inputProps: { 'aria-label': 'rows per page' },
-								native: true,
-							}}
-							onChangePage={handleChangePage}
-							onChangeRowsPerPage={handleChangeRowsPerPage}
-							ActionsComponent={TablePaginationActions}
-						/>
-					</TableRow>
-				</TableFooter>
-			) : null}
-		</>
-	);
+	const bodyVacio = (columnas) => {
+		return (
+			<TableRow style={{ height: 53 }}>
+				<TableCell align="center" colSpan={columnas.length}>
+					No hay datos que mostrar
+				</TableCell>
+			</TableRow>
+		);
+	};
 
-	return [FooterTabla, filasVacias, cortePagina, setPage];
+	const FooterTabla = () => {
+		if (rows.length === 0) return null;
+
+		return (
+			<TableFooter>
+				<TableRow>
+					<TablePagination
+						rowsPerPageOptions={[5, 10, 25, { label: 'Todas', value: -1 }]}
+						colSpan={3}
+						count={rows.length}
+						rowsPerPage={rowsPerPage}
+						page={page}
+						labelRowsPerPage="Filas por página:"
+						SelectProps={{
+							inputProps: { 'aria-label': 'rows per page' },
+							native: true,
+						}}
+						onChangePage={handleChangePage}
+						onChangeRowsPerPage={handleChangeRowsPerPage}
+						ActionsComponent={TablePaginationActions}
+					/>
+				</TableRow>
+			</TableFooter>
+		);
+	};
+
+	return [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio];
 };
 
 export default usePaginacion;
