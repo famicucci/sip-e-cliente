@@ -20,11 +20,11 @@ const useStyles = makeStyles({
 const columnas = [
 	{ id: 1, nombre: 'Código', align: 'left', minWidth: 100 },
 	{ id: 2, nombre: 'Descripción', align: 'left', minWidth: 480 },
-	{ id: 3, nombre: 'Cantidad', align: 'center', minWidth: 110 },
+	{ id: 3, nombre: 'Cantidad', align: 'center', minWidth: 100 },
 	{ id: 4, nombre: 'Pto. Stock', align: 'center', minWidth: 110 },
 	{ id: 5, nombre: 'Fecha', align: 'center', minWidth: 110 },
 	{ id: 6, nombre: 'Usuario', align: 'center', minWidth: 100 },
-	{ id: 7, nombre: 'Motivo', align: 'center', minWidth: 110 },
+	{ id: 7, nombre: 'Motivo', align: 'center', minWidth: 100 },
 ];
 
 // datos de la tabla

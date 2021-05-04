@@ -18,10 +18,10 @@ const useStyles = makeStyles({
 
 // columnas de la tabla
 const columnas = [
-	{ id: 1, nombre: 'Código' },
-	{ id: 2, nombre: 'Descripción' },
-	{ id: 3, nombre: 'Cantidad' },
-	{ id: 4, nombre: '' },
+	{ id: 1, nombre: 'Código', align: 'left', minWidth: 100 },
+	{ id: 2, nombre: 'Descripción', align: 'left', minWidth: 480 },
+	{ id: 3, nombre: 'Cantidad', align: 'center', minWidth: 100 },
+	{ id: 4, nombre: '', align: 'center', minWidth: 60 },
 ];
 
 // datos de la tabla

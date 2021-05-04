@@ -17,10 +17,10 @@ const useStyles = makeStyles({
 
 // columnas de la tabla
 const columnas = [
-	{ id: 1, nombre: 'Código', alineacion: 'left' },
-	{ id: 2, nombre: 'Descripción', alineacion: 'left' },
-	{ id: 3, nombre: 'Cantidad', alineacion: 'center' },
-	{ id: 4, nombre: '', alineacion: 'left' },
+	{ id: 1, nombre: 'Código', align: 'left', minWidth: 100 },
+	{ id: 2, nombre: 'Descripción', align: 'left', minWidth: 480 },
+	{ id: 3, nombre: 'Cantidad', align: 'center', minWidth: 100 },
+	{ id: 4, nombre: '', align: 'center', minWidth: 60 },
 ];
 
 const cantColumnas = columnas.length;
