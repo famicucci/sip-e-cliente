@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Link from 'next/link';
 import {
 	List,
@@ -12,6 +12,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+import { MenuContext } from '../../../context/MenuContext';
 
 const useStyles = makeStyles((theme) => ({
 	nested: {
@@ -21,23 +22,20 @@ const useStyles = makeStyles((theme) => ({
 
 const Ventas = () => {
 	const classes = useStyles();
-	const [open, setOpen] = React.useState(true);
 
-	const handleClick = () => {
-		setOpen(!open);
-	};
+	const { openVentas, handleClickVentas } = useContext(MenuContext);
 
 	return (
 		<>
-			<ListItem button onClick={handleClick}>
+			<ListItem button onClick={handleClickVentas}>
 				<ListItemIcon>
 					<ShoppingCartIcon />
 				</ListItemIcon>
 				<ListItemText primary="Ventas" />
-				{open ? <ExpandLess /> : <ExpandMore />}
+				{openVentas ? <ExpandLess /> : <ExpandMore />}
 			</ListItem>
 
-			<Collapse in={open} timeout="auto" unmountOnExit>
+			<Collapse in={openVentas} timeout="auto" unmountOnExit>
 				<List component="div" disablePadding>
 					<Link href="\ventas\consultar">
 						<ListItem button className={classes.nested}>

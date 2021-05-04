@@ -23,11 +23,11 @@ const useStyles = makeStyles((theme) => ({
 const Stock = () => {
 	const classes = useStyles();
 
-	const { openStock, handleClick } = useContext(MenuContext);
+	const { openStock, handleClickStock } = useContext(MenuContext);
 
 	return (
 		<>
-			<ListItem button onClick={handleClick}>
+			<ListItem button onClick={handleClickStock}>
 				<ListItemIcon>
 					<LayersIcon />
 				</ListItemIcon>
