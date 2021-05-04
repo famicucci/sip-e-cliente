@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Link from 'next/link';
 import {
 	List,
@@ -13,17 +13,46 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import { MenuContext } from '../../../context/MenuContext';
+import clsx from 'clsx';
 
 const useStyles = makeStyles((theme) => ({
 	nested: {
 		paddingLeft: theme.spacing(4),
+	},
+	botonToggle: {
+		backgroundColor: theme.palette.action.hover,
 	},
 }));
 
 const Ventas = () => {
 	const classes = useStyles();
 
-	const { openVentas, handleClickVentas } = useContext(MenuContext);
+	const {
+		openVentas,
+		botonActivo,
+		handleClickVentas,
+		setBotonActivo,
+		activarBoton,
+	} = useContext(MenuContext);
+
+	const botonConsultar = 'ventas-consultar';
+	const botonNuevo = 'ventas-nuevo';
+	const botonProdMov = 'ventas-prodmov';
+
+	const [activoConsultar, setActivoConsultar] = useState();
+	const [activoNuevo, setActivoNuevo] = useState();
+	const [activoProdMov, setActivoProdMov] = useState();
+
+	useEffect(() => {
+		const booleano1 = activarBoton(botonConsultar, botonActivo);
+		setActivoConsultar(booleano1);
+
+		const booleano2 = activarBoton(botonNuevo, botonActivo);
+		setActivoNuevo(booleano2);
+
+		const booleano3 = activarBoton(botonProdMov, botonActivo);
+		setActivoProdMov(booleano3);
+	}, [botonActivo]);
 
 	return (
 		<>
@@ -38,7 +67,15 @@ const Ventas = () => {
 			<Collapse in={openVentas} timeout="auto" unmountOnExit>
 				<List component="div" disablePadding>
 					<Link href="\ventas\consultar">
-						<ListItem button className={classes.nested}>
+						<ListItem
+							button
+							className={clsx(classes.nested, {
+								[classes.botonToggle]: activoConsultar,
+							})}
+							onClick={() => {
+								setBotonActivo(botonConsultar);
+							}}
+						>
 							<ListItemIcon>
 								<ArrowRightIcon />
 							</ListItemIcon>
@@ -46,7 +83,15 @@ const Ventas = () => {
 						</ListItem>
 					</Link>
 					<Link href="\ventas\nuevo">
-						<ListItem button className={classes.nested}>
+						<ListItem
+							button
+							className={clsx(classes.nested, {
+								[classes.botonToggle]: activoNuevo,
+							})}
+							onClick={() => {
+								setBotonActivo(botonNuevo);
+							}}
+						>
 							<ListItemIcon>
 								<ArrowRightIcon />
 							</ListItemIcon>
@@ -54,7 +99,15 @@ const Ventas = () => {
 						</ListItem>
 					</Link>
 					<Link href="\ventas\productos-mover">
-						<ListItem button className={classes.nested}>
+						<ListItem
+							button
+							className={clsx(classes.nested, {
+								[classes.botonToggle]: activoProdMov,
+							})}
+							onClick={() => {
+								setBotonActivo(botonProdMov);
+							}}
+						>
 							<ListItemIcon>
 								<ArrowRightIcon />
 							</ListItemIcon>
