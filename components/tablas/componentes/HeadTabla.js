@@ -21,7 +21,11 @@ const HeadTabla = (props) => {
 		<TableHead>
 			<TableRow>
 				{columnas.map((columna) => (
-					<StyledTableCell key={columna.id} align={columna.alineacion}>
+					<StyledTableCell
+						key={columna.id}
+						align={columna.align}
+						style={{ minWidth: columna.minWidth }}
+					>
 						{columna.nombre}
 					</StyledTableCell>
 				))}

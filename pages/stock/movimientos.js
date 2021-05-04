@@ -1,11 +1,12 @@
 import React from 'react';
 import Layout from '../../components/layouts/Layout';
+import TablaMovimientos from '../../components/tablas/TablaMovimientos';
 
 const ConsultarVenta = () => {
 	return (
 		<div>
 			<Layout>
-				<h1>Desde Movimientos</h1>
+				<TablaMovimientos />
 			</Layout>
 		</div>
 	);
