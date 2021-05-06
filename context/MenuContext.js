@@ -10,8 +10,6 @@ const MenuProvider = (props) => {
 	// indica el boton activo
 	const [botonActivo, setBotonActivo] = useState('precios');
 
-	console.log(botonActivo);
-
 	const activarBoton = (botonActual, botonActivo) => {
 		if (botonActual === botonActivo) {
 			return true;
