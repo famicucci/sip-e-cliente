@@ -5,12 +5,12 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import Copyright from './Copyright';
+import PersonIcon from '@material-ui/icons/Person';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -32,15 +32,17 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-function Login() {
+function CrearCuenta() {
 	const classes = useStyles();
 	const [usuario, setUsuario] = useState({
+		email: '',
 		nombreUsuario: '',
 		password: '',
+		confirmar: '',
 	});
 
 	// extraer de usuario
-	const { nombreUsuario, password } = usuario;
+	const { email, nombreUsuario, password, confirmar } = usuario;
 
 	const onChange = (e) => {
 		setUsuario({
@@ -54,6 +56,10 @@ function Login() {
 
 		// Validar que no haya campos vacíos
 
+		// Password mínimo de 6 caractéres
+
+		// Revisar que los dos passwords sean iguales
+
 		// Pasarlo al action
 	};
 
@@ -62,12 +68,25 @@ function Login() {
 			<CssBaseline />
 			<div className={classes.paper}>
 				<Avatar className={classes.avatar}>
-					<LockOutlinedIcon />
+					<PersonIcon />
 				</Avatar>
 				<Typography component="h1" variant="h5">
-					Sip-e
+					Crea una cuenta en Sip-e
 				</Typography>
 				<form className={classes.form} noValidate onSubmit={onSubmit}>
+					<TextField
+						variant="outlined"
+						margin="normal"
+						required
+						fullWidth
+						id="email"
+						label="Email"
+						name="email"
+						autoComplete="email"
+						autoFocus
+						value={email}
+						onChange={onChange}
+					/>
 					<TextField
 						variant="outlined"
 						margin="normal"
@@ -94,6 +113,18 @@ function Login() {
 						value={password}
 						onChange={onChange}
 					/>
+					<TextField
+						variant="outlined"
+						margin="normal"
+						required
+						fullWidth
+						name="confirmar"
+						label="Confirmar contraseña"
+						type="password"
+						id="confirmar"
+						value={confirmar}
+						onChange={onChange}
+					/>
 					<Button
 						type="submit"
 						fullWidth
@@ -101,7 +132,7 @@ function Login() {
 						color="primary"
 						className={classes.submit}
 					>
-						Ingresar
+						Registrarse
 					</Button>
 					<Grid container>
 						{/* <Grid item xs>
@@ -110,8 +141,8 @@ function Login() {
 							</Link>
 						</Grid> */}
 						<Grid item>
-							<Link href="/crear-cuenta" variant="body2">
-								{'No tienes una cuenta? Crear cuenta'}
+							<Link href="/" variant="body2">
+								{'Ya tienes una cuenta? Iniciar Sesión'}
 							</Link>
 						</Grid>
 					</Grid>
@@ -124,4 +155,4 @@ function Login() {
 	);
 }
 
-export default Login;
+export default CrearCuenta;
