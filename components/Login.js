@@ -109,11 +109,6 @@ function Login() {
 								Forgot password?
 							</Link>
 						</Grid> */}
-						<Grid item>
-							<Link href="/crear-cuenta" variant="body2">
-								{'No tienes una cuenta? Crear cuenta'}
-							</Link>
-						</Grid>
 					</Grid>
 				</form>
 			</div>
