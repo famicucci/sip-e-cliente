@@ -11,6 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import Copyright from './Copyright';
+import Alerta from '../components/Alerta';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -38,6 +39,7 @@ function Login() {
 		nombreUsuario: '',
 		password: '',
 	});
+	const [alerta, setAlerta] = useState(false);
 
 	// extraer de usuario
 	const { nombreUsuario, password } = usuario;
@@ -47,12 +49,19 @@ function Login() {
 			...usuario,
 			[e.target.name]: e.target.value,
 		});
+		setAlerta(false);
 	};
 
 	const onSubmit = (e) => {
 		e.preventDefault();
 
 		// Validar que no haya campos vacíos
+		if (nombreUsuario.trim() === '' || password.trim() === '') {
+			setAlerta(true);
+			return;
+		}
+
+		setAlerta(false);
 
 		// Pasarlo al action
 	};
@@ -94,6 +103,9 @@ function Login() {
 						value={password}
 						onChange={onChange}
 					/>
+
+					{alerta ? <Alerta msj="Coloque usuario y contraseña" /> : null}
+
 					<Button
 						type="submit"
 						fullWidth
