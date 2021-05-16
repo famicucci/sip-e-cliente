@@ -18,6 +18,7 @@ const AuthState = (props) => {
 		autenticado: null,
 		usuario: null,
 		mensaje: null,
+		cargando: true,
 	};
 
 	const [state, dispatch] = useReducer(AuthReducer, initialState);
@@ -32,7 +33,14 @@ const AuthState = (props) => {
 				payload: respuesta.data,
 			});
 		} catch (error) {
-			console.log(error);
+			const alerta = {
+				msg: error.response.data.msj,
+				categoria: 'alerta-error',
+			};
+			dispatch({
+				type: LOGIN_ERROR,
+				payload: alerta,
+			});
 		}
 	};
 
