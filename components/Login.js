@@ -42,16 +42,6 @@ function Login() {
 	});
 	const [alerta, setAlerta] = useState(false);
 
-	// conecta con api
-	const iniciarSesion = async (datos) => {
-		try {
-			const respuesta = await clienteAxios.get('api/usuarios/', datos);
-			console.log(respuesta);
-		} catch (error) {
-			console.log({ error });
-		}
-	};
-
 	// extraer de usuario
 	const { nombreUsuario, password } = usuario;
 
@@ -77,7 +67,8 @@ function Login() {
 		// Pasarlo al action
 		const iniciarSesion = async (datos) => {
 			const respuesta = await clienteAxios.post('/api/usuarios/login', datos);
-			console.log(respuesta);
+			console.log(respuesta.data.success);
+			localStorage.setItem('token', respuesta.data.success);
 		};
 
 		iniciarSesion({ usuario: nombreUsuario, password: password });
