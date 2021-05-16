@@ -1,6 +1,7 @@
 import React, { useReducer } from 'react';
 import AuthContext from './authContext';
 import AuthReducer from './authContext';
+import clienteAxios from '../../config/axios';
 
 import {
 	REGISTRO_EXITOSO,
@@ -22,6 +23,11 @@ const AuthState = (props) => {
 	const [state, dispatch] = useReducer(AuthReducer, initialState);
 
 	// las funciones
+	const iniciarSesion = async (datos) => {
+		const respuesta = await clienteAxios.post('/api/usuarios/login', datos);
+		console.log(respuesta.data.success);
+		localStorage.setItem('token', respuesta.data.success);
+	};
 
 	return (
 		<AuthContext.Provider
@@ -30,6 +36,7 @@ const AuthState = (props) => {
 				autenticado: state.autenticado,
 				usuario: state.usuario,
 				mensaje: state.mensaje,
+				iniciarSesion,
 			}}
 		>
 			{props.children}

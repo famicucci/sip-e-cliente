@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,7 +12,7 @@ import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import Copyright from './Copyright';
 import Alerta from '../components/Alerta';
-import clienteAxios from '../config/axios';
+import AuthContext from '../context/autenticacion/authContext';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -42,6 +42,9 @@ function Login() {
 	});
 	const [alerta, setAlerta] = useState(false);
 
+	const authContext = useContext(AuthContext);
+	const { iniciarSesion } = authContext;
+
 	// extraer de usuario
 	const { nombreUsuario, password } = usuario;
 
@@ -65,12 +68,6 @@ function Login() {
 		setAlerta(false);
 
 		// Pasarlo al action
-		const iniciarSesion = async (datos) => {
-			const respuesta = await clienteAxios.post('/api/usuarios/login', datos);
-			console.log(respuesta.data.success);
-			localStorage.setItem('token', respuesta.data.success);
-		};
-
 		iniciarSesion({ usuario: nombreUsuario, password: password });
 	};
 
