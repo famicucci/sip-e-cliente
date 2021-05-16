@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react';
 import AuthContext from './authContext';
-import AuthReducer from './authContext';
+import AuthReducer from './authReducer';
 import clienteAxios from '../../config/axios';
 
 import {
@@ -24,9 +24,16 @@ const AuthState = (props) => {
 
 	// las funciones
 	const iniciarSesion = async (datos) => {
-		const respuesta = await clienteAxios.post('/api/usuarios/login', datos);
-		console.log(respuesta.data.success);
-		localStorage.setItem('token', respuesta.data.success);
+		try {
+			const respuesta = await clienteAxios.post('/api/usuarios/login', datos);
+
+			dispatch({
+				type: LOGIN_EXITOSO,
+				payload: respuesta.data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	return (

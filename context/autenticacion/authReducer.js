@@ -1,15 +1,18 @@
-import {
-	REGISTRO_EXITOSO,
-	REGISTRO_ERROR,
-	OBTENER_USUARIO,
-	LOGIN_EXITOSO,
-	LOGIN_ERROR,
-	CERRAR_SESION,
-} from '../../types';
+import { LOGIN_EXITOSO } from '../../types';
 
-export default (state, action) => {
+const AuthReducer = (state, action) => {
 	switch (action.type) {
+		case LOGIN_EXITOSO:
+			localStorage.setItem('token', action.payload.success);
+			return {
+				...state,
+				autenticado: true,
+				mensaje: null,
+				cargando: false,
+			};
 		default:
 			return state;
 	}
 };
+
+export default AuthReducer;
