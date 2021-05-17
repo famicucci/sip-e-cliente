@@ -63,7 +63,7 @@ const Navbar = (props) => {
 	const { buscador, selectListaPrecio, selectPuntoStock } = useContext(
 		BarraHerramientasContext
 	);
-	const { usuario } = useContext(AuthContext);
+	const { usuario, cerrarSesion } = useContext(AuthContext);
 
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -105,7 +105,11 @@ const Navbar = (props) => {
 				</IconButton>
 				{usuario ? <p>{usuario.usuario}</p> : null}
 			</MenuItem>
-			<MenuItem onClick={handleMenuClose}>
+			<MenuItem
+				onClick={() => {
+					cerrarSesion();
+				}}
+			>
 				<IconButton
 					aria-label="account of current user"
 					aria-controls="primary-search-account-menu"

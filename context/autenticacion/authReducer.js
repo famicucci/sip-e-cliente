@@ -1,4 +1,9 @@
-import { LOGIN_EXITOSO, LOGIN_ERROR, OBTENER_USUARIO } from '../../types';
+import {
+	LOGIN_EXITOSO,
+	LOGIN_ERROR,
+	OBTENER_USUARIO,
+	CERRAR_SESION,
+} from '../../types';
 
 const AuthReducer = (state, action) => {
 	switch (action.type) {
@@ -17,6 +22,7 @@ const AuthReducer = (state, action) => {
 				usuario: action.payload,
 				cargando: false,
 			};
+		case CERRAR_SESION:
 		case LOGIN_ERROR:
 			localStorage.removeItem('token');
 			return {
