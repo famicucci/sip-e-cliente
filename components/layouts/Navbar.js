@@ -14,6 +14,7 @@ import SelectListasPrecio from '../tablas/herramientas/SelectListasPrecio';
 import SelectPuntoStock from '../tablas/herramientas/SelectPuntoStock';
 
 import { BarraHerramientasContext } from '../../context/BarraHerramientasContext';
+import AuthContext from '../../context/autenticacion/authContext';
 
 const drawerWidth = 240;
 
@@ -62,6 +63,7 @@ const Navbar = (props) => {
 	const { buscador, selectListaPrecio, selectPuntoStock } = useContext(
 		BarraHerramientasContext
 	);
+	const { usuario } = useContext(AuthContext);
 
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -101,7 +103,7 @@ const Navbar = (props) => {
 				<IconButton color="inherit">
 					<PersonIcon />
 				</IconButton>
-				<p>Mi Perfil</p>
+				{usuario ? <p>{usuario.usuario}</p> : null}
 			</MenuItem>
 			<MenuItem onClick={handleMenuClose}>
 				<IconButton
@@ -132,7 +134,7 @@ const Navbar = (props) => {
 				<IconButton color="inherit">
 					<PersonIcon />
 				</IconButton>
-				<p>Mi Perfil</p>
+				<p>mi perfil</p>
 			</MenuItem>
 			<MenuItem onClick={handleProfileMenuOpen}>
 				<IconButton
