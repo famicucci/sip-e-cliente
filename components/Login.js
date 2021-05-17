@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,6 +13,7 @@ import Link from '@material-ui/core/Link';
 import Copyright from './Copyright';
 import Alerta from '../components/Alerta';
 import AuthContext from '../context/autenticacion/authContext';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -36,14 +37,21 @@ const useStyles = makeStyles((theme) => ({
 
 function Login() {
 	const classes = useStyles();
+	const router = useRouter();
 	const [usuario, setUsuario] = useState({
 		nombreUsuario: '',
 		password: '',
 	});
-	const [alerta, setAlerta] = useState(false);
+	const [alerta, setAlerta] = useState();
 
 	const authContext = useContext(AuthContext);
-	const { iniciarSesion } = authContext;
+	const { iniciarSesion, autenticado } = authContext;
+
+	useEffect(() => {
+		if (autenticado) {
+			router.push('/precios');
+		}
+	}, [autenticado]);
 
 	// extraer de usuario
 	const { nombreUsuario, password } = usuario;
