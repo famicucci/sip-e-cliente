@@ -9,7 +9,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Link from '@material-ui/core/Link';
 import Copyright from './Copyright';
 import Alerta from '../components/Alerta';
 import AuthContext from '../context/autenticacion/authContext';
@@ -42,16 +41,25 @@ function Login() {
 		nombreUsuario: '',
 		password: '',
 	});
-	const [alerta, setAlerta] = useState();
+	const [alerta, setAlerta] = useState({
+		estado: false,
+		msj: null,
+	});
 
 	const authContext = useContext(AuthContext);
-	const { iniciarSesion, autenticado } = authContext;
+	const { iniciarSesion, autenticado, mensaje } = authContext;
 
 	useEffect(() => {
 		if (autenticado) {
 			router.push('/precios');
 		}
-	}, [autenticado]);
+		if (mensaje) {
+			setAlerta({
+				estado: true,
+				msj: 'Nombre de usuario o contraseña incorrectos',
+			});
+		}
+	}, [autenticado, mensaje]);
 
 	// extraer de usuario
 	const { nombreUsuario, password } = usuario;
@@ -61,7 +69,10 @@ function Login() {
 			...usuario,
 			[e.target.name]: e.target.value,
 		});
-		setAlerta(false);
+		setAlerta({
+			estado: false,
+			msj: null,
+		});
 	};
 
 	const onSubmit = (e) => {
@@ -69,11 +80,14 @@ function Login() {
 
 		// Validar que no haya campos vacíos
 		if (nombreUsuario.trim() === '' || password.trim() === '') {
-			setAlerta(true);
+			setAlerta({ estado: true, msj: 'Todos los campos son obligatorios' });
 			return;
 		}
 
-		setAlerta(false);
+		setAlerta({
+			estado: false,
+			msj: null,
+		});
 
 		// Pasarlo al action
 		iniciarSesion({ usuario: nombreUsuario, password: password });
@@ -117,7 +131,7 @@ function Login() {
 						onChange={onChange}
 					/>
 
-					{alerta ? <Alerta msj="Coloque usuario y contraseña" /> : null}
+					{alerta.estado ? <Alerta msj={alerta.msj} /> : null}
 
 					<Button
 						type="submit"
