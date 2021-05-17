@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import clsx from 'clsx';
 import Head from 'next/head';
 import theme from '../../styles/temaConfig';
@@ -6,6 +6,7 @@ import { Hidden } from '@material-ui/core';
 import { ThemeProvider, makeStyles } from '@material-ui/core/styles';
 import CantidadEditableProvider from '../../context/CantidadEditableContext';
 import ModalProvider from '../../context/ModalContext';
+import AuthContext from '../../context/autenticacion/authContext';
 
 import Navbar from './Navbar';
 import Cajon from './Cajon';
@@ -44,6 +45,13 @@ const estilos = makeStyles((theme) => ({
 
 const Layout = (props) => {
 	const classes = estilos();
+
+	const authContext = useContext(AuthContext);
+	const { usuarioAutenticado } = authContext;
+
+	useEffect(() => {
+		usuarioAutenticado();
+	}, []);
 
 	// estado del menu
 	const [abrir, setAbrir] = useState(true);
