@@ -2,10 +2,9 @@ import React, { useReducer } from 'react';
 import AuthContext from './authContext';
 import AuthReducer from './authReducer';
 import clienteAxios from '../../config/axios';
+import tokenAuth from '../../config/token';
 
 import {
-	REGISTRO_EXITOSO,
-	REGISTRO_ERROR,
 	OBTENER_USUARIO,
 	LOGIN_EXITOSO,
 	LOGIN_ERROR,
@@ -24,14 +23,40 @@ const AuthState = (props) => {
 	const [state, dispatch] = useReducer(AuthReducer, initialState);
 
 	// las funciones
+	// Retorna el usuario autenticado
+	const usuarioAutenticado = async () => {
+		const token = localStorage.getItem('token');
+		if (token) {
+			tokenAuth(token);
+		}
+
+		try {
+			const respuesta = await clienteAxios.get(
+				'/api/usuarios/usuario-autenticado'
+			);
+
+			console.log(respuesta);
+			// dispatch({
+			// 	type: OBTENER_USUARIO,
+			// 	payload: respuesta.data.usuario,
+			// });
+		} catch (error) {
+			console.log(error);
+			dispatch({
+				type: LOGIN_ERROR,
+			});
+		}
+	};
+
 	const iniciarSesion = async (datos) => {
 		try {
 			const respuesta = await clienteAxios.post('/api/usuarios/login', datos);
-
 			dispatch({
 				type: LOGIN_EXITOSO,
 				payload: respuesta.data,
 			});
+
+			usuarioAutenticado();
 		} catch (error) {
 			const alerta = {
 				msg: error.response.data.msj,
