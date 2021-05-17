@@ -35,11 +35,10 @@ const AuthState = (props) => {
 				'/api/usuarios/usuario-autenticado'
 			);
 
-			console.log(respuesta);
-			// dispatch({
-			// 	type: OBTENER_USUARIO,
-			// 	payload: respuesta.data.usuario,
-			// });
+			dispatch({
+				type: OBTENER_USUARIO,
+				payload: respuesta.data.usuario,
+			});
 		} catch (error) {
 			console.log(error);
 			dispatch({

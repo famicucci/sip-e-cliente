@@ -1,4 +1,4 @@
-import { LOGIN_EXITOSO, LOGIN_ERROR } from '../../types';
+import { LOGIN_EXITOSO, LOGIN_ERROR, OBTENER_USUARIO } from '../../types';
 
 const AuthReducer = (state, action) => {
 	switch (action.type) {
@@ -8,6 +8,13 @@ const AuthReducer = (state, action) => {
 				...state,
 				autenticado: true,
 				mensaje: null,
+				cargando: false,
+			};
+		case OBTENER_USUARIO:
+			return {
+				...state,
+				autenticado: true,
+				usuario: action.payload,
 				cargando: false,
 			};
 		case LOGIN_ERROR:
