@@ -3,6 +3,7 @@ import AuthContext from './authContext';
 import AuthReducer from './authReducer';
 import clienteAxios from '../../config/axios';
 import tokenAuth from '../../config/token';
+import { useRouter } from 'next/router';
 
 import {
 	OBTENER_USUARIO,
@@ -12,12 +13,14 @@ import {
 } from '../../types';
 
 const AuthState = (props) => {
+	const router = useRouter();
+
 	const initialState = {
 		token: null,
 		autenticado: null,
 		usuario: null,
 		mensaje: null,
-		cargando: true,
+		cargando: false,
 	};
 
 	const [state, dispatch] = useReducer(AuthReducer, initialState);
@@ -72,6 +75,7 @@ const AuthState = (props) => {
 		dispatch({
 			type: CERRAR_SESION,
 		});
+		router.push('/login');
 	};
 
 	return (
@@ -81,6 +85,7 @@ const AuthState = (props) => {
 				autenticado: state.autenticado,
 				usuario: state.usuario,
 				mensaje: state.mensaje,
+				cargando: state.cargando,
 				iniciarSesion,
 				usuarioAutenticado,
 				cerrarSesion,

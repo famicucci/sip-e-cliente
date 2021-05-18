@@ -51,7 +51,7 @@ function Login() {
 
 	useEffect(() => {
 		if (autenticado) {
-			router.push('/precios');
+			router.replace('/precios');
 		}
 		if (mensaje) {
 			setAlerta({
@@ -89,7 +89,6 @@ function Login() {
 			msj: null,
 		});
 
-		// Pasarlo al action
 		iniciarSesion({ usuario: nombreUsuario, password: password });
 	};
 
