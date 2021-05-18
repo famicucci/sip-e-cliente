@@ -1,8 +1,7 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import TablaPrecios from '../components/tablas/TablaPrecios';
 import Layout from '../components/layouts/Layout';
 import AuthContext from '../context/autenticacion/authContext';
-
 import IrLogin from '../components/IrLogin';
 
 const Precios = () => {
