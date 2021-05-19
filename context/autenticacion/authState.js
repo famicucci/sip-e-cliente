@@ -29,6 +29,8 @@ const AuthState = (props) => {
 	// Retorna el usuario autenticado
 	const usuarioAutenticado = async () => {
 		const token = localStorage.getItem('token');
+		if (!token) return;
+
 		if (token) {
 			tokenAuth(token);
 		}
