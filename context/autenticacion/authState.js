@@ -17,10 +17,10 @@ const AuthState = (props) => {
 
 	const initialState = {
 		token: null,
-		autenticado: null,
+		autenticado: false,
 		usuario: null,
 		mensaje: null,
-		cargando: false,
+		cargando: true,
 	};
 
 	const [state, dispatch] = useReducer(AuthReducer, initialState);
@@ -29,8 +29,6 @@ const AuthState = (props) => {
 	// Retorna el usuario autenticado
 	const usuarioAutenticado = async () => {
 		const token = localStorage.getItem('token');
-		if (!token) return;
-
 		if (token) {
 			tokenAuth(token);
 		}
@@ -45,7 +43,6 @@ const AuthState = (props) => {
 				payload: respuesta.data.usuario,
 			});
 		} catch (error) {
-			console.log(error);
 			dispatch({
 				type: LOGIN_ERROR,
 			});

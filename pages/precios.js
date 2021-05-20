@@ -6,24 +6,24 @@ import IrLogin from '../components/IrLogin';
 
 const Precios = () => {
 	const authContext = useContext(AuthContext);
-	const { autenticado, usuarioAutenticado } = authContext;
+	const { autenticado, cargando, usuarioAutenticado } = authContext;
 
 	useEffect(() => {
 		usuarioAutenticado();
 	}, []);
 
+	if (!autenticado && cargando) {
+		return <div>Loading...</div>;
+	}
+
+	if (!autenticado && !cargando) {
+		return <IrLogin />;
+	}
+
 	return (
-		<>
-			{autenticado ? (
-				<div>
-					<Layout>
-						<TablaPrecios />
-					</Layout>
-				</div>
-			) : (
-				<IrLogin />
-			)}
-		</>
+		<Layout>
+			<TablaPrecios />
+		</Layout>
 	);
 };
 

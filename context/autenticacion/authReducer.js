@@ -29,7 +29,7 @@ const AuthReducer = (state, action) => {
 				...state,
 				token: null,
 				usuario: null,
-				autenticado: null,
+				autenticado: false,
 				mensaje: action.payload,
 				cargando: false,
 			};
