@@ -14,24 +14,6 @@ const BarraHerramientasProvider = (props) => {
 	const [lista, setLista] = useState(1);
 	const [puntoStock, setPuntoStock] = useState(1);
 
-	// filtra las filas segun la búsqueda
-	const filtrado = (filas, busqueda) => {
-		const busquedaMayus = busqueda.toLowerCase();
-
-		const rowsFiltradas = filas.filter(
-			(row) =>
-				Object.values(row).join().toLowerCase().indexOf(busquedaMayus) !== -1
-		);
-
-		return rowsFiltradas;
-	};
-
-	// filtra segun la lista de precio
-	const filtraListaPrecio = (filas, lista) => {
-		const rowsFiltradas = filas.filter((row) => row.idListaPrecio === lista);
-		return rowsFiltradas;
-	};
-
 	// filtra segun el punto de stock
 	const filtraPuntoStock = (filas, puntoStock) => {
 		const rowsFiltradas = filas.filter(
@@ -45,18 +27,16 @@ const BarraHerramientasProvider = (props) => {
 			value={{
 				buscador,
 				selectListaPrecio,
+				selectPuntoStock,
 				busqueda,
 				lista,
 				puntoStock,
-				selectPuntoStock,
 				setBuscador,
 				setSelectListaPrecio,
+				setSelectPuntoStock,
 				setBusqueda,
-				filtrado,
-				filtraListaPrecio,
 				setLista,
 				setPuntoStock,
-				setSelectPuntoStock,
 				filtraPuntoStock,
 			}}
 		>
