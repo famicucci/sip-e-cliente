@@ -3,6 +3,7 @@ import TablaPrecios from '../components/tablas/TablaPrecios';
 import Layout from '../components/layouts/Layout';
 import AuthContext from '../context/autenticacion/authContext';
 import IrLogin from '../components/IrLogin';
+import SpinnerPantalla from '../components/SpinnerPantalla';
 
 const Precios = () => {
 	const authContext = useContext(AuthContext);
@@ -13,7 +14,7 @@ const Precios = () => {
 	}, []);
 
 	if (!autenticado && cargando) {
-		return <div>Loading...</div>;
+		return <SpinnerPantalla />;
 	}
 
 	if (!autenticado && !cargando) {

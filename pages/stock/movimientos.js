@@ -1,25 +1,31 @@
-import React, { useContext } from 'react';
-import Layout from '../../components/layouts/Layout';
+import React, { useContext, useEffect } from 'react';
 import TablaMovimientos from '../../components/tablas/TablaMovimientos';
 import AuthContext from '../../context/autenticacion/authContext';
 import IrLogin from '../../components/IrLogin';
+import Layout from '../../components/layouts/Layout';
+import SpinnerPantalla from '../../components/SpinnerPantalla';
 
-const ConsultarVenta = () => {
-	const { autenticado } = useContext(AuthContext);
+const MovimientoStock = () => {
+	const authContext = useContext(AuthContext);
+	const { autenticado, cargando, usuarioAutenticado } = authContext;
+
+	useEffect(() => {
+		usuarioAutenticado();
+	}, []);
+
+	if (!autenticado && cargando) {
+		return <SpinnerPantalla />;
+	}
+
+	if (!autenticado && !cargando) {
+		return <IrLogin />;
+	}
 
 	return (
-		<>
-			{autenticado ? (
-				<div>
-					<Layout>
-						<TablaMovimientos />
-					</Layout>
-				</div>
-			) : (
-				<IrLogin />
-			)}
-		</>
+		<Layout>
+			<TablaMovimientos />
+		</Layout>
 	);
 };
 
-export default ConsultarVenta;
+export default MovimientoStock;
