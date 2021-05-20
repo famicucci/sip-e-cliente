@@ -9,6 +9,9 @@ const useStyles = makeStyles((theme) => ({
 			marginTop: theme.spacing(2),
 		},
 	},
+	texto: {
+		color: 'red',
+	},
 }));
 
 const Alerta = (props) => {
@@ -18,7 +21,9 @@ const Alerta = (props) => {
 
 	return (
 		<div className={classes.root}>
-			<Alert severity="error">{msj}</Alert>
+			<Alert severity="error" className={classes.texto}>
+				{msj}
+			</Alert>
 		</div>
 	);
 };
