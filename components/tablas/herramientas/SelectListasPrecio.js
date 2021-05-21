@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { BarraHerramientasContext } from '../../../context/BarraHerramientasContext';
+import PreciosContext from '../../../context/precios/preciosContext';
 
 const useStyles = makeStyles((theme) => ({
 	formControl: {
@@ -44,10 +44,10 @@ const listas = [
 const SelectListasPrecio = () => {
 	const classes = useStyles();
 
-	const { lista, setLista } = useContext(BarraHerramientasContext);
+	const { lista, handleLista } = useContext(PreciosContext);
 
 	const handleChange = (event) => {
-		setLista(event.target.value);
+		handleLista(event.target.value);
 	};
 
 	return (

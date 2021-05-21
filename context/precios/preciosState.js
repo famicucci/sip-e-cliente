@@ -3,11 +3,18 @@ import PreciosContext from './preciosContext';
 import PreciosReducer from './preciosReducer';
 import clienteAxios from '../../config/axios';
 
-import { TRAER_PRECIOS, ERROR_PRECIOS } from '../../types';
+import {
+	TRAER_PRECIOS,
+	FILAS_PRECIOS,
+	LISTA_PRECIOS,
+	ERROR_PRECIOS,
+} from '../../types';
 
 const PreciosState = (props) => {
 	const initialState = {
 		precios: [],
+		filas: [],
+		lista: 1,
 		mensaje: null,
 	};
 
@@ -30,11 +37,29 @@ const PreciosState = (props) => {
 		}
 	};
 
+	const handleFilas = (precios, lista) => {
+		dispatch({
+			type: FILAS_PRECIOS,
+			payload: { precios, lista },
+		});
+	};
+
+	const handleLista = (lista) => {
+		dispatch({
+			type: LISTA_PRECIOS,
+			payload: lista,
+		});
+	};
+
 	return (
 		<PreciosContext.Provider
 			value={{
 				precios: state.precios,
+				lista: state.lista,
+				filas: state.filas,
 				traerPrecios,
+				handleFilas,
+				handleLista,
 			}}
 		>
 			{props.children}

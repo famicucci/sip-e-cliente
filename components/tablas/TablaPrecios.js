@@ -28,19 +28,12 @@ const TablaPrecios = () => {
 	const classes = useStyles();
 
 	// barra de herramientas
-	const {
-		busqueda,
-		lista,
-		setBuscador,
-		setSelectListaPrecio,
-		setSelectPuntoStock,
-	} = useContext(BarraHerramientasContext);
+	const { busqueda, setBuscador, setSelectListaPrecio, setSelectPuntoStock } =
+		useContext(BarraHerramientasContext);
 
 	// traer precios
-	const { precios, traerPrecios } = useContext(PreciosContext);
-	// state
-	const initialState = filtraListaPrecio(precios, lista);
-	const [filas, setFilas] = useState(initialState);
+	const { precios, filas, lista, traerPrecios, handleFilas } =
+		useContext(PreciosContext);
 
 	// paginación
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
@@ -54,15 +47,20 @@ const TablaPrecios = () => {
 	}, []);
 
 	useEffect(() => {
-		setFilas(filtraListaPrecio(precios, lista));
+		handleFilas(precios, lista);
 	}, [precios]);
 
 	useEffect(() => {
-		const filasLista = filtraListaPrecio(precios, lista);
-		const filasBusqueda = filtrado(filasLista, busqueda);
-		setFilas(filasBusqueda);
+		handleFilas(precios, lista);
 		setPage(0);
-	}, [lista, busqueda]);
+	}, [lista]);
+
+	// useEffect(() => {
+	// 	const filasLista = filtraListaPrecio(precios, lista);
+	// 	const filasBusqueda = filtrado(filasLista, busqueda);
+	// 	setFilas(filasBusqueda);
+	// 	setPage(0);
+	// }, [lista, busqueda]);
 
 	return (
 		<TableContainer component={Paper}>

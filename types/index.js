@@ -7,3 +7,5 @@ export const LOGIN_ERROR = 'LOGIN_ERROR';
 // precios
 export const TRAER_PRECIOS = 'TRAER_PRECIOS';
 export const ERROR_PRECIOS = 'ERROR_PRECIOS';
+export const FILAS_PRECIOS = 'FILAS_PRECIOS';
+export const LISTA_PRECIOS = 'LISTA_PRECIOS';
