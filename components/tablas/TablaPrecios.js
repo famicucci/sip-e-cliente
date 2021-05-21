@@ -4,6 +4,7 @@ import Table from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
 import { BarraHerramientasContext } from '../../context/BarraHerramientasContext';
+import PreciosContext from '../../context/precios/preciosContext';
 import HeadTabla from './componentes/HeadTabla';
 import TableBody from '@material-ui/core/TableBody';
 import usePaginacion from '../../hooks/usePaginacion';
@@ -399,6 +400,9 @@ const TablaPrecios = () => {
 		setSelectPuntoStock,
 	} = useContext(BarraHerramientasContext);
 
+	// traer precios
+	const { precios, traerPrecios } = useContext(PreciosContext);
+
 	// state
 	const initialState = filtraListaPrecio(rows, lista);
 	const [filas, setFilas] = useState(initialState);
@@ -411,6 +415,7 @@ const TablaPrecios = () => {
 		setBuscador(true);
 		setSelectListaPrecio(true);
 		setSelectPuntoStock(false);
+		traerPrecios();
 	}, []);
 
 	useEffect(() => {
