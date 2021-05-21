@@ -83,6 +83,7 @@ const TablePaginationActions = (props) => {
 
 // retorna tabla footer
 const usePaginacion = (rows) => {
+	// console.log(rows);
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(10);
 

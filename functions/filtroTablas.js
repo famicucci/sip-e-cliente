@@ -12,7 +12,7 @@ function filtrado(filas, busqueda) {
 
 // filtra segun la lista de precio
 function filtraListaPrecio(filas, lista) {
-	const rowsFiltradas = filas.filter((row) => row.idListaPrecio === lista);
+	const rowsFiltradas = filas.filter((row) => row.ListaPrecioId === lista);
 	return rowsFiltradas;
 }
 
