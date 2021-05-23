@@ -3,6 +3,7 @@ import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import { BarraHerramientasContext } from '../../../context/BarraHerramientasContext';
+import PreciosContext from '../../../context/precios/preciosContext';
 
 const useStyles = makeStyles((theme) => ({
 	grow: {
@@ -60,10 +61,6 @@ const Buscador = () => {
 	const classes = useStyles();
 
 	const { busqueda, setBusqueda } = useContext(BarraHerramientasContext);
-
-	useEffect(() => {
-		setBusqueda('');
-	}, []);
 
 	const onChange = (e) => {
 		setBusqueda(e.target.value);

@@ -5,8 +5,9 @@ import clienteAxios from '../../config/axios';
 
 import {
 	TRAER_PRECIOS,
-	FILAS_PRECIOS,
+	FILAS_LISTA,
 	LISTA_PRECIOS,
+	FILAS_BUSQUEDA,
 	ERROR_PRECIOS,
 } from '../../types';
 
@@ -37,17 +38,24 @@ const PreciosState = (props) => {
 		}
 	};
 
-	const handleFilas = (precios, lista) => {
-		dispatch({
-			type: FILAS_PRECIOS,
-			payload: { precios, lista },
-		});
-	};
-
 	const handleLista = (lista) => {
 		dispatch({
 			type: LISTA_PRECIOS,
 			payload: lista,
+		});
+	};
+
+	const handleFilasLista = (precios, lista) => {
+		dispatch({
+			type: FILAS_LISTA,
+			payload: { precios, lista },
+		});
+	};
+
+	const handleFilasBusqueda = (precios, lista, busqueda) => {
+		dispatch({
+			type: FILAS_BUSQUEDA,
+			payload: { precios, lista, busqueda },
 		});
 	};
 
@@ -58,8 +66,9 @@ const PreciosState = (props) => {
 				lista: state.lista,
 				filas: state.filas,
 				traerPrecios,
-				handleFilas,
 				handleLista,
+				handleFilasLista,
+				handleFilasBusqueda,
 			}}
 		>
 			{props.children}
