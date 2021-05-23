@@ -1,15 +1,15 @@
 import '../styles/globals.css';
-import BarraHerramientasProvider from '../context/BarraHerramientasContext';
 import MenuProvider from '../context/MenuContext';
 import AuthState from '../context/autenticacion/authState';
+import BarraHerramientas from '../context/barraHerramientas/barraHerramientasState';
 
 function MyApp({ Component, pageProps }) {
 	return (
 		<AuthState>
 			<MenuProvider>
-				<BarraHerramientasProvider>
+				<BarraHerramientas>
 					<Component {...pageProps} />
-				</BarraHerramientasProvider>
+				</BarraHerramientas>
 			</MenuProvider>
 		</AuthState>
 	);

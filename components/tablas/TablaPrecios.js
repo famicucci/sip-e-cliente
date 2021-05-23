@@ -3,12 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
-import { BarraHerramientasContext } from '../../context/BarraHerramientasContext';
 import PreciosContext from '../../context/precios/preciosContext';
 import HeadTabla from './componentes/HeadTabla';
 import TableBody from '@material-ui/core/TableBody';
 import usePaginacion from '../../hooks/usePaginacion';
 import FilaPrecio from '../tablas/componentes/FilaPrecio';
+import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 
 const useStyles = makeStyles({
 	table: {
@@ -26,9 +26,10 @@ const columnas = [
 const TablaPrecios = () => {
 	const classes = useStyles();
 
-	// context barra de herramientas
-	const { busqueda, setBuscador, setSelectListaPrecio, setSelectPuntoStock } =
-		useContext(BarraHerramientasContext);
+	// context herramientas
+	const { busqueda, handleHerramientasPrecios } = useContext(
+		BarraHerramientasContext
+	);
 
 	// context precios
 	const {
@@ -45,9 +46,7 @@ const TablaPrecios = () => {
 		usePaginacion(filas);
 
 	useEffect(() => {
-		setBuscador(true);
-		setSelectListaPrecio(true);
-		setSelectPuntoStock(false);
+		handleHerramientasPrecios();
 		traerPrecios();
 	}, []);
 

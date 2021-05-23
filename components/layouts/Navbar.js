@@ -13,8 +13,8 @@ import Buscador from '../tablas/herramientas/Buscador';
 import SelectListasPrecio from '../tablas/herramientas/SelectListasPrecio';
 import SelectPuntoStock from '../tablas/herramientas/SelectPuntoStock';
 
-import { BarraHerramientasContext } from '../../context/BarraHerramientasContext';
 import AuthContext from '../../context/autenticacion/authContext';
+import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 
 const drawerWidth = 240;
 

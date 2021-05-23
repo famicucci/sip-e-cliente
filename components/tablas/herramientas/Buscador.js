@@ -1,9 +1,8 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
-import { BarraHerramientasContext } from '../../../context/BarraHerramientasContext';
-import PreciosContext from '../../../context/precios/preciosContext';
+import BarraHerramientasContext from '../../../context/barraHerramientas/barraHerramientasContext';
 
 const useStyles = makeStyles((theme) => ({
 	grow: {
@@ -60,10 +59,10 @@ const useStyles = makeStyles((theme) => ({
 const Buscador = () => {
 	const classes = useStyles();
 
-	const { busqueda, setBusqueda } = useContext(BarraHerramientasContext);
+	const { busqueda, handleBusqueda } = useContext(BarraHerramientasContext);
 
 	const onChange = (e) => {
-		setBusqueda(e.target.value);
+		handleBusqueda(e.target.value);
 	};
 
 	return (
