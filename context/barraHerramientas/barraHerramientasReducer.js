@@ -1,4 +1,8 @@
-import { HERRAMIENTAS_PRECIOS, BUSQUEDA_ACTUAL } from '../../types';
+import {
+	HERRAMIENTAS_PRECIOS,
+	BUSQUEDA_ACTUAL,
+	HERRAMIENTAS_STOCK_PRODUCTO,
+} from '../../types';
 
 const PreciosReducer = (state, action) => {
 	switch (action.type) {
@@ -7,6 +11,12 @@ const PreciosReducer = (state, action) => {
 				...state,
 				buscador: true,
 				selectListaPrecio: true,
+			};
+		case HERRAMIENTAS_STOCK_PRODUCTO:
+			return {
+				...state,
+				buscador: true,
+				selectPtoStock: true,
 			};
 		case BUSQUEDA_ACTUAL:
 			return {

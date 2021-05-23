@@ -60,7 +60,7 @@ const Navbar = (props) => {
 	const classes = useStyles();
 
 	// setea barra de herramientas
-	const { buscador, selectListaPrecio, selectPuntoStock } = useContext(
+	const { buscador, selectListaPrecio, selectPtoStock } = useContext(
 		BarraHerramientasContext
 	);
 	const { usuario, cerrarSesion } = useContext(AuthContext);
@@ -184,7 +184,7 @@ const Navbar = (props) => {
 					)}
 					{buscador ? <Buscador /> : null}
 					{selectListaPrecio ? <SelectListasPrecio /> : null}
-					{selectPuntoStock ? <SelectPuntoStock /> : null}
+					{selectPtoStock ? <SelectPuntoStock /> : null}
 					<div className={classes.grow} />
 
 					<div className={classes.sectionDesktop}>

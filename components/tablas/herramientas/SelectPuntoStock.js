@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { BarraHerramientasContext } from '../../../context/BarraHerramientasContext';
+import StockContext from '../../../context/stock/stockContext';
 
 const useStyles = makeStyles((theme) => ({
 	formControl: {
@@ -45,17 +45,17 @@ const puntosStock = [
 const SelectPuntosStock = () => {
 	const classes = useStyles();
 
-	const { puntoStock, setPuntoStock } = useContext(BarraHerramientasContext);
+	const { ptoStock, handlePtoStock } = useContext(StockContext);
 
 	const handleChange = (event) => {
-		setPuntoStock(event.target.value);
+		handlePtoStock(event.target.value);
 	};
 
 	return (
 		<FormControl className={classes.formControl}>
 			<Select
 				className={classes.selector}
-				value={puntoStock}
+				value={ptoStock}
 				onChange={handleChange}
 				autoWidth
 				inputProps={{

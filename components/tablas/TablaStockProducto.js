@@ -3,12 +3,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
-import { BarraHerramientasContext } from '../../context/BarraHerramientasContext';
 import HeadTabla from './componentes/HeadTabla';
 import usePaginacion from '../../hooks/usePaginacion';
 import TableBody from '@material-ui/core/TableBody';
 import FilaStockProducto from './componentes/FilaStockProducto';
 import ModalStockProducto from '../modales/ModalStockProducto';
+import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
+import StockContext from '../../context/stock/stockContext';
 
 const useStyles = makeStyles({
 	table: {
@@ -24,62 +25,24 @@ const columnas = [
 	{ id: 4, nombre: '', align: 'center', minWidth: 60 },
 ];
 
-// datos de la tabla
-function createData(id, codigo, descripcion, cantidad) {
-	return { id, codigo, descripcion, cantidad };
-}
-const rows = [
-	createData(
-		'1',
-		'AL6V0210UNN',
-		'IDENTIFICA DECO 40X40 CM - CUANDO NECESITABA UNA MANO, ME ENCONTRE CON SU PATA - SIN COLOR - UNICO - VELLON',
-		13
-	),
-	createData(
-		'2',
-		'CO2G0738EVE',
-		'COLCHONETA LAVABLE PERRO CHICO - PERROS BEIGE - VERDE - S - GUATA',
-		13
-	),
-	createData(
-		'3',
-		'VV000000059',
-		'COLCHONETA LAVABLE PERRO GRANDE - FRANJA CANICHE/BICHON - ROJO Y NEGRO - L - SIN RELLENO',
-		13
-	),
-];
-
 const TablaStock = () => {
 	const classes = useStyles();
 
-	const [filas, setFilas] = useState(rows);
+	const { busqueda, handleHerramientasStockProducto } = useContext(
+		BarraHerramientasContext
+	);
 
-	const [
-		FooterTabla,
-		filasVacias,
-		cortePagina,
-		setPage,
-		bodyVacio,
-	] = usePaginacion(filas);
+	const { filas } = useContext(StockContext);
 
-	const {
-		busqueda,
-		setBuscador,
-		filtrado,
-		setSelectListaPrecio,
-		setSelectPuntoStock,
-	} = useContext(BarraHerramientasContext);
+	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
+		usePaginacion(filas);
 
 	useEffect(() => {
-		setBuscador(true);
-		setSelectListaPrecio(false);
-		setSelectPuntoStock(false);
+		handleHerramientasStockProducto();
 	}, []);
 
 	useEffect(() => {
 		setPage(0);
-		const nuevasFilas = filtrado(rows, busqueda);
-		setFilas(nuevasFilas);
 	}, [busqueda]);
 
 	return (
