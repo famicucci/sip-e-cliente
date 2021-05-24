@@ -18,13 +18,8 @@ const BotonCantidadEditable = (props) => {
 
 	const { fila } = props;
 
-	const {
-		filaActiva,
-		nuevaCantidad,
-		setFilaActiva,
-		editar,
-		confirmar,
-	} = useContext(CantidadEditableContext);
+	const { filaActiva, nuevaCantidad, setFilaActiva, editar, confirmar } =
+		useContext(CantidadEditableContext);
 
 	return (
 		<>

@@ -7,7 +7,7 @@ import HeadTabla from './componentes/HeadTabla';
 import usePaginacion from '../../hooks/usePaginacion';
 import TableBody from '@material-ui/core/TableBody';
 import FilaStockProducto from './componentes/FilaStockProducto';
-import ModalStockProducto from '../modales/ModalStockProducto';
+import Modal from '../modales/stockProducto/Modal';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import StockContext from '../../context/stock/stockContext';
 
@@ -68,7 +68,7 @@ const TablaStock = () => {
 				<FooterTabla />
 			</Table>
 
-			<ModalStockProducto />
+			<Modal />
 		</TableContainer>
 	);
 };
