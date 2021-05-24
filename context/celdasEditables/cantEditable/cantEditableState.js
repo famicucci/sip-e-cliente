@@ -27,6 +27,10 @@ const CantEditableState = (props) => {
 		});
 	};
 
+	const confirmarCantidad = (cantidad) => {
+		// peticion post para cambiar la cantidad
+	};
+
 	return (
 		<CantEditableContext.Provider
 			value={{
@@ -34,6 +38,7 @@ const CantEditableState = (props) => {
 				cantidad: state.cantidad,
 				handleFilaActiva,
 				handleNuevaCantidad,
+				confirmarCantidad,
 			}}
 		>
 			{props.children}
