@@ -15,7 +15,8 @@ const useStyles = makeStyles({
 const BotonConfirmarCancelar = () => {
 	const classes = useStyles();
 
-	const { filaActiva, handleFilaActiva } = useContext(CantEditableContext);
+	const { filaActiva, cantidad, confirmarCantidad, handleFilaActiva } =
+		useContext(CantEditableContext);
 
 	return (
 		<ButtonGroup variant="text" aria-label="text primary button group">
@@ -23,7 +24,7 @@ const BotonConfirmarCancelar = () => {
 				<CheckIcon
 					className={classes.IconoConfirmar}
 					onClick={() => {
-						confirmar(filaActiva.cantidad, nuevaCantidad);
+						confirmarCantidad(filaActiva, cantidad);
 					}}
 				/>
 			</IconButton>
