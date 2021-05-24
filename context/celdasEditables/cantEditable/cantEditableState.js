@@ -2,12 +2,12 @@ import React, { useReducer } from 'react';
 import CantEditableContext from './cantEditableContext';
 import CantEditableReducer from './cantEditableReducer';
 
-import { ACTIVAR_FILA } from '../../../types';
+import { ACTIVAR_FILA, NUEVA_CANTIDAD } from '../../../types';
 
 const CantEditableState = (props) => {
 	const initialState = {
-		filaActiva: null,
-		nuevaCant: null,
+		filaActiva: {},
+		cantidad: null,
 	};
 
 	const [state, dispatch] = useReducer(CantEditableReducer, initialState);
@@ -20,9 +20,21 @@ const CantEditableState = (props) => {
 		});
 	};
 
+	const handleNuevaCantidad = (cantidad) => {
+		dispatch({
+			type: NUEVA_CANTIDAD,
+			payload: cantidad,
+		});
+	};
+
 	return (
 		<CantEditableContext.Provider
-			value={{ filaActiva: state.filaActiva, handleFilaActiva }}
+			value={{
+				filaActiva: state.filaActiva,
+				cantidad: state.cantidad,
+				handleFilaActiva,
+				handleNuevaCantidad,
+			}}
 		>
 			{props.children}
 		</CantEditableContext.Provider>

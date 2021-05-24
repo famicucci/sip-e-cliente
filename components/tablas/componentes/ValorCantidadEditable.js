@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
-import { CantidadEditableContext } from '../../../context/CantidadEditableContext';
+import CantEditableContext from '../../../context/celdasEditables/cantEditable/cantEditableContext';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -12,33 +12,19 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const ValorCantidad = (props) => {
+const ValorCantidad = ({ fila }) => {
 	const classes = useStyles();
 
-	const { fila } = props;
-
-	const { filaActiva, setNuevaCantidad, editar } = useContext(
-		CantidadEditableContext
-	);
-
-	const [cantidadInput, setCantidadInput] = useState(fila.cantidad);
-
-	useEffect(() => {
-		setNuevaCantidad(cantidadInput);
-	}, [cantidadInput]);
-
-	useEffect(() => {
-		setNuevaCantidad(cantidadInput);
-		setCantidadInput(fila.cantidad);
-	}, [filaActiva]);
+	const { filaActiva, cantidad, handleNuevaCantidad } =
+		useContext(CantEditableContext);
 
 	const onChange = (e) => {
-		setCantidadInput(e.target.value);
+		handleNuevaCantidad(e.target.value);
 	};
 
 	return (
 		<>
-			{!editar(filaActiva.id, fila.id) ? (
+			{filaActiva.id !== fila.id ? (
 				fila.cantidad
 			) : (
 				<form className={classes.root} noValidate autoComplete="off">
@@ -46,7 +32,7 @@ const ValorCantidad = (props) => {
 						id="outlined-number"
 						label="Cantidad"
 						type="number"
-						value={cantidadInput}
+						value={cantidad}
 						InputLabelProps={{
 							shrink: true,
 						}}
