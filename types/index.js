@@ -18,3 +18,5 @@ export const FILAS_BUSQUEDA = 'FILAS_BUSQUEDA';
 
 // stock
 export const PTO_STOCK = 'PTO_STOCK';
+export const TRAER_STOCK_PRODUCTO = 'TRAER_STOCK_PRODUCTO';
+export const FILAS_PTO_STOCK = 'FILAS_PTO_STOCK';

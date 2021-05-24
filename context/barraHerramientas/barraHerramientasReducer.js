@@ -11,12 +11,14 @@ const PreciosReducer = (state, action) => {
 				...state,
 				buscador: true,
 				selectListaPrecio: true,
+				selectPtoStock: false,
 			};
 		case HERRAMIENTAS_STOCK_PRODUCTO:
 			return {
 				...state,
 				buscador: true,
-				selectPtoStock: true,
+				selectListaPrecio: false,
+				selectPtoStock: false,
 			};
 		case BUSQUEDA_ACTUAL:
 			return {

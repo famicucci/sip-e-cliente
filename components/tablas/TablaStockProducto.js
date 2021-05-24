@@ -28,20 +28,30 @@ const columnas = [
 const TablaStock = () => {
 	const classes = useStyles();
 
+	// context barra de herramientas
 	const { busqueda, handleHerramientasStockProducto } = useContext(
 		BarraHerramientasContext
 	);
 
-	const { filas } = useContext(StockContext);
+	// context stock
+	const { stocks, filas, traerStocksProducto, handleFilasBusqueda } =
+		useContext(StockContext);
 
+	// hook paginación
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
 		usePaginacion(filas);
 
 	useEffect(() => {
 		handleHerramientasStockProducto();
+		traerStocksProducto();
 	}, []);
 
 	useEffect(() => {
+		handleFilasBusqueda(stocks, busqueda);
+	}, [stocks]);
+
+	useEffect(() => {
+		handleFilasBusqueda(stocks, busqueda);
 		setPage(0);
 	}, [busqueda]);
 

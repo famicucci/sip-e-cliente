@@ -11,15 +11,7 @@ const BarraHerramientasProvider = (props) => {
 
 	// define las funciones que deben estar disponibles en todos lados
 	const [busqueda, setBusqueda] = useState('');
-	const [puntoStock, setPuntoStock] = useState(1);
-
-	// filtra segun el punto de stock
-	const filtraPuntoStock = (filas, puntoStock) => {
-		const rowsFiltradas = filas.filter(
-			(row) => row.idPuntoStock === puntoStock
-		);
-		return rowsFiltradas;
-	};
+	// const [puntoStock, setPuntoStock] = useState(1);
 
 	return (
 		<BarraHerramientasContext.Provider
@@ -33,8 +25,6 @@ const BarraHerramientasProvider = (props) => {
 				setSelectListaPrecio,
 				setSelectPuntoStock,
 				setBusqueda,
-				setPuntoStock,
-				filtraPuntoStock,
 			}}
 		>
 			{props.children}

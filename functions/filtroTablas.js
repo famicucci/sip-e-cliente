@@ -16,4 +16,10 @@ function filtraListaPrecio(filas, lista) {
 	return rowsFiltradas;
 }
 
-export { filtrado, filtraListaPrecio };
+// filtra segun el punto de stock
+const filtraPuntoStock = (filas, puntoStock) => {
+	const rowsFiltradas = filas.filter((row) => row.idPuntoStock === puntoStock);
+	return rowsFiltradas;
+};
+
+export { filtrado, filtraListaPrecio, filtraPuntoStock };

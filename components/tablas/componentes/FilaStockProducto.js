@@ -15,21 +15,21 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 const FilaStockProducto = (props) => {
-	const { codigo, descripcion, cantidad } = props.fila;
+	const { ProductoCodigo, cantidad } = props.fila;
 	const { setProductoActivo, handleOpen } = useContext(ModalContext);
 
 	return (
 		<StyledTableRow>
 			<TableCell component="th" scope="row">
-				{codigo}
+				{ProductoCodigo}
 			</TableCell>
-			<TableCell align="left">{descripcion}</TableCell>
+			<TableCell align="left">{props.fila['Producto.descripcion']}</TableCell>
 			<TableCell align="center">{cantidad}</TableCell>
 			<TableCell align="center">
 				<IconButton
 					size="small"
 					onClick={() => {
-						setProductoActivo(codigo);
+						setProductoActivo(ProductoCodigo);
 						handleOpen();
 					}}
 				>

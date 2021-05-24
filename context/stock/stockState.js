@@ -3,7 +3,12 @@ import StockContext from './stockContext';
 import StockReducer from './stockReducer';
 import clienteAxios from '../../config/axios';
 
-import { PTO_STOCK } from '../../types';
+import {
+	PTO_STOCK,
+	TRAER_STOCK_PRODUCTO,
+	FILAS_BUSQUEDA,
+	FILAS_PTO_STOCK,
+} from '../../types';
 
 const StockState = (props) => {
 	const initialState = {
@@ -16,21 +21,35 @@ const StockState = (props) => {
 	const [state, dispatch] = useReducer(StockReducer, initialState);
 
 	// las funciones
-	// const traerStockProducto = async () => {
-	// 	try {
-	// 		const respuesta = await clienteAxios.get('/api/precios');
+	const traerStocksProducto = async () => {
+		try {
+			const respuesta = await clienteAxios.get('/api/stock/producto');
 
-	// 		dispatch({
-	// 			type: TRAER_PRECIOS,
-	// 			payload: respuesta.data,
-	// 		});
-	// 	} catch (error) {
-	// 		dispatch({
-	// 			type: ERROR_PRECIOS,
-	// 			payload: error,
-	// 		});
-	// 	}
-	// };
+			dispatch({
+				type: TRAER_STOCK_PRODUCTO,
+				payload: respuesta.data,
+			});
+		} catch (error) {
+			dispatch({
+				type: ERROR_PRECIOS,
+				payload: error,
+			});
+		}
+	};
+
+	const handleFilasPtoStock = (stocks, ptoStock) => {
+		dispatch({
+			type: FILAS_PTO_STOCK,
+			payload: { stocks, ptoStock },
+		});
+	};
+
+	const handleFilasBusqueda = (stocks, busqueda) => {
+		dispatch({
+			type: FILAS_BUSQUEDA,
+			payload: { stocks, busqueda },
+		});
+	};
 
 	const handlePtoStock = (ptoStock) => {
 		dispatch({
@@ -42,10 +61,13 @@ const StockState = (props) => {
 	return (
 		<StockContext.Provider
 			value={{
+				stocks: state.stocks,
 				filas: state.filas,
 				ptoStock: state.ptoStock,
 				handlePtoStock,
-				// traerStockProducto,
+				traerStocksProducto,
+				handleFilasBusqueda,
+				handleFilasPtoStock,
 			}}
 		>
 			{props.children}
