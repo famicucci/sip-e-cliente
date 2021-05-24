@@ -8,6 +8,10 @@ import {
 	TRAER_STOCK_PRODUCTO,
 	FILAS_BUSQUEDA,
 	FILAS_PTO_STOCK,
+	PRODUCTO_ACTIVO,
+	MODAL_OPEN,
+	MODAL_CLOSE,
+	ERROR_STOCK,
 } from '../../types';
 
 const StockState = (props) => {
@@ -15,6 +19,8 @@ const StockState = (props) => {
 		stocks: [],
 		filas: [],
 		ptoStock: 1,
+		productoActivo: {},
+		openModal: false,
 		mensaje: null,
 	};
 
@@ -23,7 +29,7 @@ const StockState = (props) => {
 	// las funciones
 	const traerStocksProducto = async () => {
 		try {
-			const respuesta = await clienteAxios.get('/api/stock/producto');
+			const respuesta = await clienteAxios.get('/api/stock/total');
 
 			dispatch({
 				type: TRAER_STOCK_PRODUCTO,
@@ -31,7 +37,7 @@ const StockState = (props) => {
 			});
 		} catch (error) {
 			dispatch({
-				type: ERROR_PRECIOS,
+				type: ERROR_STOCK,
 				payload: error,
 			});
 		}
@@ -51,6 +57,33 @@ const StockState = (props) => {
 		});
 	};
 
+	const handleProductoActivo = async (codigo) => {
+		try {
+			const respuesta = await clienteAxios.get(`/api/stock/producto/${codigo}`);
+			dispatch({
+				type: PRODUCTO_ACTIVO,
+				payload: respuesta.data,
+			});
+		} catch (error) {
+			dispatch({
+				type: ERROR_STOCK,
+				payload: error,
+			});
+		}
+	};
+
+	const handleOpen = () => {
+		dispatch({
+			type: MODAL_OPEN,
+		});
+	};
+
+	const handleClose = () => {
+		dispatch({
+			type: MODAL_CLOSE,
+		});
+	};
+
 	const handlePtoStock = (ptoStock) => {
 		dispatch({
 			type: PTO_STOCK,
@@ -64,10 +97,15 @@ const StockState = (props) => {
 				stocks: state.stocks,
 				filas: state.filas,
 				ptoStock: state.ptoStock,
+				productoActivo: state.productoActivo,
+				openModal: state.openModal,
 				handlePtoStock,
 				traerStocksProducto,
 				handleFilasBusqueda,
 				handleFilasPtoStock,
+				handleProductoActivo,
+				handleOpen,
+				handleClose,
 			}}
 		>
 			{props.children}

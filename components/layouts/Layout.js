@@ -5,7 +5,6 @@ import theme from '../../styles/temaConfig';
 import { Hidden } from '@material-ui/core';
 import { ThemeProvider, makeStyles } from '@material-ui/core/styles';
 import CantidadEditableProvider from '../../context/CantidadEditableContext';
-import ModalProvider from '../../context/ModalContext';
 import AuthContext from '../../context/autenticacion/authContext';
 import PreciosState from '../../context/precios/preciosState';
 import StockState from '../../context/stock/stockState';
@@ -72,34 +71,32 @@ const Layout = (props) => {
 				/>
 			</Head>
 			<ThemeProvider theme={theme}>
-				<ModalProvider>
-					<PreciosState>
-						<StockState>
-							<CantidadEditableProvider>
-								<div className={classes.root}>
-									<Navbar toggleMenu={toggleMenu} abrir={abrir} />
-									<Hidden>
-										<Cajon
-											variant="persistent"
-											open={abrir}
-											onClose={() => {
-												toggleMenu();
-											}}
-										/>
-									</Hidden>
-									<main
-										className={clsx(classes.content, {
-											[classes.contentShift]: abrir,
-										})}
-									>
-										<div className={classes.drawerHeader} />
-										<div>{props.children}</div>
-									</main>
-								</div>
-							</CantidadEditableProvider>
-						</StockState>
-					</PreciosState>
-				</ModalProvider>
+				<PreciosState>
+					<StockState>
+						<CantidadEditableProvider>
+							<div className={classes.root}>
+								<Navbar toggleMenu={toggleMenu} abrir={abrir} />
+								<Hidden>
+									<Cajon
+										variant="persistent"
+										open={abrir}
+										onClose={() => {
+											toggleMenu();
+										}}
+									/>
+								</Hidden>
+								<main
+									className={clsx(classes.content, {
+										[classes.contentShift]: abrir,
+									})}
+								>
+									<div className={classes.drawerHeader} />
+									<div>{props.children}</div>
+								</main>
+							</div>
+						</CantidadEditableProvider>
+					</StockState>
+				</PreciosState>
 			</ThemeProvider>
 		</>
 	);

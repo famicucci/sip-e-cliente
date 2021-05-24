@@ -4,7 +4,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import CallMadeIcon from '@material-ui/icons/CallMade';
 import IconButton from '@material-ui/core/IconButton';
-import { ModalContext } from '../../../context/ModalContext';
+import StockContext from '../../../context/stock/stockContext';
 
 const StyledTableRow = withStyles((theme) => ({
 	root: {
@@ -16,7 +16,9 @@ const StyledTableRow = withStyles((theme) => ({
 
 const FilaStockProducto = (props) => {
 	const { ProductoCodigo, cantidad } = props.fila;
-	const { setProductoActivo, handleOpen } = useContext(ModalContext);
+
+	// context stock
+	const { handleProductoActivo, handleOpen } = useContext(StockContext);
 
 	return (
 		<StyledTableRow>
@@ -29,7 +31,7 @@ const FilaStockProducto = (props) => {
 				<IconButton
 					size="small"
 					onClick={() => {
-						setProductoActivo(ProductoCodigo);
+						handleProductoActivo(ProductoCodigo);
 						handleOpen();
 					}}
 				>

@@ -20,3 +20,7 @@ export const FILAS_BUSQUEDA = 'FILAS_BUSQUEDA';
 export const PTO_STOCK = 'PTO_STOCK';
 export const TRAER_STOCK_PRODUCTO = 'TRAER_STOCK_PRODUCTO';
 export const FILAS_PTO_STOCK = 'FILAS_PTO_STOCK';
+export const PRODUCTO_ACTIVO = 'PRODUCTO_ACTIVO';
+export const MODAL_OPEN = 'MODAL_OPEN';
+export const MODAL_CLOSE = 'MODAL_CLOSE';
+export const ERROR_STOCK = 'ERROR_STOCK';
