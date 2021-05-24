@@ -24,3 +24,4 @@ export const PRODUCTO_ACTIVO = 'PRODUCTO_ACTIVO';
 export const MODAL_OPEN = 'MODAL_OPEN';
 export const MODAL_CLOSE = 'MODAL_CLOSE';
 export const ERROR_STOCK = 'ERROR_STOCK';
+export const ACTIVAR_FILA = 'ACTIVAR_FILA';

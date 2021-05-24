@@ -13,8 +13,8 @@ const Tabla = () => {
 		<TableContainer component={Paper}>
 			<Table>
 				<TableBody>
-					{productoActivo.map((row) => (
-						<Fila row={row} />
+					{productoActivo.map((fila) => (
+						<Fila fila={fila} />
 					))}
 				</TableBody>
 			</Table>
