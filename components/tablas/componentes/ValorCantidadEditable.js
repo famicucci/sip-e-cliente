@@ -15,12 +15,7 @@ const useStyles = makeStyles((theme) => ({
 const ValorCantidad = ({ fila }) => {
 	const classes = useStyles();
 
-	const { filaActiva, cantidad, handleNuevaCantidad } =
-		useContext(CantEditableContext);
-
-	const onChange = (e) => {
-		handleNuevaCantidad(e.target.value);
-	};
+	const { filaActiva } = useContext(CantEditableContext);
 
 	return (
 		<>

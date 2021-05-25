@@ -5,7 +5,6 @@ import clienteAxios from '../../../config/axios';
 
 import {
 	ACTIVAR_FILA,
-	NUEVA_CANTIDAD,
 	MOSTRAR_ALERTA,
 	CONFIRMAR_CAMBIO_STOCK,
 } from '../../../types';
@@ -13,7 +12,6 @@ import {
 const CantEditableState = (props) => {
 	const initialState = {
 		filaActiva: {},
-		cantidad: null,
 		mensaje: '',
 	};
 
@@ -24,13 +22,6 @@ const CantEditableState = (props) => {
 		dispatch({
 			type: ACTIVAR_FILA,
 			payload: fila,
-		});
-	};
-
-	const handleNuevaCantidad = (cantidad) => {
-		dispatch({
-			type: NUEVA_CANTIDAD,
-			payload: cantidad,
 		});
 	};
 
@@ -68,7 +59,6 @@ const CantEditableState = (props) => {
 				filaActiva: state.filaActiva,
 				cantidad: state.cantidad,
 				handleFilaActiva,
-				handleNuevaCantidad,
 				confirmarCantidad,
 			}}
 		>
