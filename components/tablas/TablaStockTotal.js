@@ -25,7 +25,7 @@ const columnas = [
 	{ id: 4, nombre: '', align: 'center', minWidth: 60 },
 ];
 
-const TablaStock = () => {
+const TablaStockTotal = () => {
 	const classes = useStyles();
 
 	// context barra de herramientas
@@ -61,7 +61,7 @@ const TablaStock = () => {
 				<HeadTabla columnas={columnas} />
 				<TableBody>
 					{cortePagina.map((fila) => (
-						<FilaStockProducto key={fila.id} fila={fila} />
+						<FilaStockProducto key={fila.ProductoCodigo} fila={fila} />
 					))}
 					{cortePagina.length === 0 ? bodyVacio(columnas) : filasVacias}
 				</TableBody>
@@ -73,4 +73,4 @@ const TablaStock = () => {
 	);
 };
 
-export default TablaStock;
+export default TablaStockTotal;

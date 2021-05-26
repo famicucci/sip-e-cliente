@@ -14,7 +14,7 @@ const Tabla = () => {
 			<Table>
 				<TableBody>
 					{productoActivo.map((fila) => (
-						<Fila fila={fila} />
+						<Fila key={fila.id} fila={fila} />
 					))}
 				</TableBody>
 			</Table>

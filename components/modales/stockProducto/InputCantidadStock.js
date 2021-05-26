@@ -17,7 +17,7 @@ const InputCantidadStock = ({ fila }) => {
 
 	const { handleNuevaCantidad } = useContext(StockContext);
 
-	const [cantInput, setCantInput] = useState(null);
+	const [cantInput, setCantInput] = useState('');
 
 	useEffect(() => {
 		setCantInput(fila.cantidad);

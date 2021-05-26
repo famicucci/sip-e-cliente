@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import Layout from '../../components/layouts/Layout';
-import TablaStockProducto from '../../components/tablas/TablaStockProducto';
+import TablaStockTotal from '../../components/tablas/TablaStockTotal';
 import AuthContext from '../../context/autenticacion/authContext';
 import IrLogin from '../../components/IrLogin';
 import SpinnerPantalla from '../../components/SpinnerPantalla';
@@ -23,7 +23,7 @@ const ConsultarStockTotal = () => {
 
 	return (
 		<Layout>
-			<TablaStockProducto />
+			<TablaStockTotal />
 		</Layout>
 	);
 };

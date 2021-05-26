@@ -20,13 +20,12 @@ const BotonConfirmarCancelar = ({ fila }) => {
 
 	return (
 		<ButtonGroup variant="text" aria-label="text primary button group">
-			<IconButton>
-				<CheckIcon
-					className={classes.IconoConfirmar}
-					onClick={() => {
-						modificarStock(filaActivaProducto);
-					}}
-				/>
+			<IconButton
+				onClick={() => {
+					modificarStock(filaActivaProducto);
+				}}
+			>
+				<CheckIcon className={classes.IconoConfirmar} />
 			</IconButton>
 			<IconButton
 				onClick={() => {
