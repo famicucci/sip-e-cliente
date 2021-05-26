@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
+import StockContext from '../../../context/stock/stockContext';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -11,17 +12,19 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const InputCantidadStock = ({ cantidad, setCantFila }) => {
+const InputCantidadStock = ({ fila }) => {
 	const classes = useStyles();
+
+	const { handleNuevaCantidad } = useContext(StockContext);
 
 	const [cantInput, setCantInput] = useState(null);
 
 	useEffect(() => {
-		setCantInput(cantidad);
+		setCantInput(fila.cantidad);
 	}, []);
 
 	useEffect(() => {
-		setCantFila(cantInput);
+		handleNuevaCantidad(cantInput);
 	}, [cantInput]);
 
 	const onChange = (e) => {

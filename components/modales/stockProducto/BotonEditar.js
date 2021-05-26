@@ -1,17 +1,17 @@
 import React, { useContext } from 'react';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
-import CantEditableContext from '../../../context/celdasEditables/cantEditable/cantEditableContext';
+import StockContext from '../../../context/stock/stockContext';
 
-const BotonEditar = ({ id }) => {
-	const { handleFilaActiva } = useContext(CantEditableContext);
+const BotonEditar = ({ fila }) => {
+	const { handleFilaActiva } = useContext(StockContext);
 
 	return (
 		<IconButton
 			size="small"
 			edge="start"
 			onClick={() => {
-				handleFilaActiva(id);
+				handleFilaActiva(fila);
 			}}
 		>
 			<EditIcon />

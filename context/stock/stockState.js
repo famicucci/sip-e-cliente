@@ -9,6 +9,9 @@ import {
 	FILAS_BUSQUEDA,
 	FILAS_PTO_STOCK,
 	PRODUCTO_ACTIVO,
+	ACTIVAR_FILA,
+	CONFIRMAR_CAMBIO_STOCK,
+	NUEVA_CANTIDAD_STOCK,
 	MODAL_OPEN,
 	MODAL_CLOSE,
 	ERROR_STOCK,
@@ -20,6 +23,7 @@ const StockState = (props) => {
 		filas: [],
 		ptoStock: 1,
 		productoActivo: {},
+		filaActivaProducto: {},
 		openModal: false,
 		mensaje: null,
 	};
@@ -72,6 +76,41 @@ const StockState = (props) => {
 		}
 	};
 
+	// las funciones
+	const handleFilaActiva = (fila) => {
+		dispatch({
+			type: ACTIVAR_FILA,
+			payload: fila,
+		});
+	};
+
+	const modificarStock = async (fila) => {
+		const datos = {
+			ProductoCodigo: fila.ProductoCodigo,
+			PtoStockId: fila.PtoStockId,
+			cantidad: fila.cantidad,
+			motivo: 'movimiento',
+		};
+
+		try {
+			const respuesta = await clienteAxios.put('/api/stock/', datos);
+
+			dispatch({
+				type: CONFIRMAR_CAMBIO_STOCK,
+				payload: { respuesta, fila },
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const handleNuevaCantidad = (cantidad) => {
+		dispatch({
+			type: NUEVA_CANTIDAD_STOCK,
+			payload: cantidad,
+		});
+	};
+
 	const handleOpen = () => {
 		dispatch({
 			type: MODAL_OPEN,
@@ -98,12 +137,16 @@ const StockState = (props) => {
 				filas: state.filas,
 				ptoStock: state.ptoStock,
 				productoActivo: state.productoActivo,
+				filaActivaProducto: state.filaActivaProducto,
 				openModal: state.openModal,
 				handlePtoStock,
 				traerStocksProducto,
 				handleFilasBusqueda,
 				handleFilasPtoStock,
 				handleProductoActivo,
+				handleFilaActiva,
+				modificarStock,
+				handleNuevaCantidad,
 				handleOpen,
 				handleClose,
 			}}

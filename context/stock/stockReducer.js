@@ -4,6 +4,9 @@ import {
 	FILAS_BUSQUEDA,
 	FILAS_PTO_STOCK,
 	PRODUCTO_ACTIVO,
+	ACTIVAR_FILA,
+	CONFIRMAR_CAMBIO_STOCK,
+	NUEVA_CANTIDAD_STOCK,
 	MODAL_OPEN,
 	MODAL_CLOSE,
 	ERROR_STOCK,
@@ -31,6 +34,28 @@ const StockReducer = (state, action) => {
 			return {
 				...state,
 				productoActivo: action.payload,
+			};
+		case ACTIVAR_FILA:
+			return {
+				...state,
+				filaActivaProducto: action.payload,
+			};
+		case CONFIRMAR_CAMBIO_STOCK:
+			return {
+				...state,
+				productoActivo: state.productoActivo.map((fila) =>
+					fila.id === action.payload.fila.id ? action.payload.fila : fila
+				),
+				filaActivaProducto: {},
+				mensaje: action.payload.respuesta.data.msj,
+			};
+		case NUEVA_CANTIDAD_STOCK:
+			return {
+				...state,
+				filaActivaProducto: {
+					...state.filaActivaProducto,
+					cantidad: action.payload,
+				},
 			};
 		case FILAS_PTO_STOCK:
 			return {

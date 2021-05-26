@@ -3,19 +3,12 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import CantidadStock from './CantidadStock';
 import InputCantidadStock from './InputCantidadStock';
-import CantEditableContext from '../../../context/celdasEditables/cantEditable/cantEditableContext';
 import StockContext from '../../../context/stock/stockContext';
-import BotonEditar from '../../tablas/componentes/BotonEditar';
-import BotonConfirmarCancelar from '../../tablas/componentes/BotonConfirmarCancelar';
+import BotonEditar from './BotonEditar';
+import BotonConfirmarCancelar from './BotonConfirmarCancelar';
 
 const Fila = ({ fila }) => {
-	const { idFilaActiva } = useContext(CantEditableContext);
-
-	const [cantFila, setCantFila] = useState(null);
-
-	useEffect(() => {
-		setCantFila(fila.cantidad);
-	}, []);
+	const { filaActivaProducto } = useContext(StockContext);
 
 	return (
 		<TableRow key={fila.id}>
@@ -24,16 +17,16 @@ const Fila = ({ fila }) => {
 			</TableCell>
 
 			<TableCell style={{ width: 160 }} align="right">
-				{idFilaActiva !== fila.id ? (
-					<CantidadStock cantidad={cantFila} />
+				{filaActivaProducto.id !== fila.id ? (
+					<CantidadStock fila={fila} />
 				) : (
-					<InputCantidadStock cantidad={cantFila} setCantFila={setCantFila} />
+					<InputCantidadStock fila={fila} />
 				)}
 			</TableCell>
 
 			<TableCell style={{ width: 160 }} align="right">
-				{idFilaActiva !== fila.id ? (
-					<BotonEditar id={fila.id} />
+				{filaActivaProducto.id !== fila.id ? (
+					<BotonEditar fila={fila} />
 				) : (
 					<BotonConfirmarCancelar fila={fila} />
 				)}

@@ -1,7 +1,7 @@
 import React from 'react';
 
-const CantidadStock = ({ cantidad }) => {
-	return <>{cantidad}</>;
+const CantidadStock = ({ fila }) => {
+	return <>{fila.cantidad}</>;
 };
 
 export default CantidadStock;

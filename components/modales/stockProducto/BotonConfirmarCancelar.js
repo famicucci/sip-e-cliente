@@ -4,7 +4,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import CantEditableContext from '../../../context/celdasEditables/cantEditable/cantEditableContext';
+import StockContext from '../../../context/stock/stockContext';
 
 const useStyles = makeStyles({
 	IconoConfirmar: {
@@ -12,11 +12,11 @@ const useStyles = makeStyles({
 	},
 });
 
-const BotonConfirmarCancelar = () => {
+const BotonConfirmarCancelar = ({ fila }) => {
 	const classes = useStyles();
 
-	const { idFilaActiva, modificarStock, handleFilaActiva } =
-		useContext(CantEditableContext);
+	const { filaActivaProducto, modificarStock, handleFilaActiva } =
+		useContext(StockContext);
 
 	return (
 		<ButtonGroup variant="text" aria-label="text primary button group">
@@ -24,13 +24,13 @@ const BotonConfirmarCancelar = () => {
 				<CheckIcon
 					className={classes.IconoConfirmar}
 					onClick={() => {
-						modificarStock(ProductoCodigo, PtoStockId, cantidad);
+						modificarStock(filaActivaProducto);
 					}}
 				/>
 			</IconButton>
 			<IconButton
 				onClick={() => {
-					handleFilaActiva(null);
+					handleFilaActiva({});
 				}}
 			>
 				<CloseIcon color="error" />
