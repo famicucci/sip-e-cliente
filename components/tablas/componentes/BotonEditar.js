@@ -3,7 +3,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import CantEditableContext from '../../../context/celdasEditables/cantEditable/cantEditableContext';
 
-const BotonEditar = ({ fila }) => {
+const BotonEditar = ({ id }) => {
 	const { handleFilaActiva } = useContext(CantEditableContext);
 
 	return (
@@ -11,7 +11,7 @@ const BotonEditar = ({ fila }) => {
 			size="small"
 			edge="start"
 			onClick={() => {
-				handleFilaActiva(fila);
+				handleFilaActiva(id);
 			}}
 		>
 			<EditIcon />

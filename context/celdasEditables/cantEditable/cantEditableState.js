@@ -4,6 +4,7 @@ import CantEditableReducer from './cantEditableReducer';
 import clienteAxios from '../../../config/axios';
 
 import {
+	PRODUCTO_STATE,
 	ACTIVAR_FILA,
 	MOSTRAR_ALERTA,
 	CONFIRMAR_CAMBIO_STOCK,
@@ -11,33 +12,37 @@ import {
 
 const CantEditableState = (props) => {
 	const initialState = {
-		filaActiva: {},
+		productoActivo: {},
+		idFilaActiva: null,
+		cargando: false,
 		mensaje: '',
 	};
 
 	const [state, dispatch] = useReducer(CantEditableReducer, initialState);
 
-	// las funciones
-	const handleFilaActiva = (fila) => {
+	const productoActivoState = (productoActivo) => {
 		dispatch({
-			type: ACTIVAR_FILA,
-			payload: fila,
+			type: PRODUCTO_STATE,
+			payload: productoActivo,
 		});
 	};
 
-	const confirmarCantidad = async (filaActiva, cantidad) => {
-		const { ProductoCodigo, PtoStockId } = filaActiva;
+	// las funciones
+	const handleFilaActiva = (id) => {
+		dispatch({
+			type: ACTIVAR_FILA,
+			payload: id,
+		});
+	};
 
-		const cambioStock = cantidad - filaActiva.cantidad;
-
+	const modificarStock = async (ProductoCodigo, PtoStockId, cantidad) => {
 		const datos = {
 			ProductoCodigo: ProductoCodigo,
 			PtoStockId: PtoStockId,
-			cantidad: cambioStock,
+			cantidad: cantidad,
 			motivo: 'movimiento',
 		};
 
-		// codigoProducto
 		try {
 			const respuesta = await clienteAxios.put('/api/stock/', datos);
 
@@ -56,10 +61,11 @@ const CantEditableState = (props) => {
 	return (
 		<CantEditableContext.Provider
 			value={{
-				filaActiva: state.filaActiva,
+				idFilaActiva: state.idFilaActiva,
 				cantidad: state.cantidad,
+				productoActivoState,
 				handleFilaActiva,
-				confirmarCantidad,
+				modificarStock,
 			}}
 		>
 			{props.children}

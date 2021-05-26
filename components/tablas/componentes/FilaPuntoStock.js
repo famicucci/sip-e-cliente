@@ -2,7 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import TableRow from '@material-ui/core/TableRow';
 import ValorCantidad from './ValorCantidadEditable';
-import BotonCantidadEditable from './BotonCantidadEditable';
+// import BotonCantidadEditable from './BotonCantidadEditable';
 import TableCell from '@material-ui/core/TableCell';
 
 const StyledTableRow = withStyles((theme) => ({
@@ -26,7 +26,7 @@ const FilaPuntoStock = (props) => {
 				<ValorCantidad fila={props.fila} />
 			</TableCell>
 			<TableCell align="center">
-				<BotonCantidadEditable fila={props.fila} />
+				{/* <BotonCantidadEditable fila={props.fila} /> */}
 			</TableCell>
 		</StyledTableRow>
 	);
