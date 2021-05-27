@@ -95,7 +95,6 @@ const StockState = (props) => {
 		try {
 			const respuesta = await clienteAxios.put('/api/stock/', datos);
 
-			console.log(respuesta);
 			dispatch({
 				type: CONFIRMAR_CAMBIO_STOCK,
 				payload: { respuesta, fila },
@@ -103,7 +102,7 @@ const StockState = (props) => {
 		} catch (error) {
 			const alerta = {
 				msg: error.response.data.msg,
-				categoria: 'error',
+				categoria: error.response.data.severity,
 			};
 			dispatch({
 				type: ERROR_STOCK,
