@@ -4,6 +4,7 @@ import TablaStockTotal from '../../components/tablas/TablaStockTotal';
 import AuthContext from '../../context/autenticacion/authContext';
 import IrLogin from '../../components/IrLogin';
 import SpinnerPantalla from '../../components/SpinnerPantalla';
+import Alerta from '../../components/Alerta';
 
 const ConsultarStockTotal = () => {
 	const authContext = useContext(AuthContext);
@@ -24,6 +25,7 @@ const ConsultarStockTotal = () => {
 	return (
 		<Layout>
 			<TablaStockTotal />
+			<Alerta mensaje="La cantidad no puede ser negativa" severidad="error" />
 		</Layout>
 	);
 };
