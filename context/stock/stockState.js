@@ -95,6 +95,7 @@ const StockState = (props) => {
 		try {
 			const respuesta = await clienteAxios.put('/api/stock/', datos);
 
+			console.log(respuesta);
 			dispatch({
 				type: CONFIRMAR_CAMBIO_STOCK,
 				payload: { respuesta, fila },
@@ -146,6 +147,7 @@ const StockState = (props) => {
 				productoActivo: state.productoActivo,
 				filaActivaProducto: state.filaActivaProducto,
 				openModal: state.openModal,
+				mensaje: state.mensaje,
 				handlePtoStock,
 				traerStocksProducto,
 				handleFilasBusqueda,

@@ -65,7 +65,7 @@ const Stock = () => {
 			</ListItem>
 			<Collapse in={openStock} timeout="auto" unmountOnExit>
 				<List component="div" disablePadding>
-					<Link href="\stock\producto">
+					<Link href="\stock\total">
 						<ListItem
 							button
 							className={clsx(classes.nested, {

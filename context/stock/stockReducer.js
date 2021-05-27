@@ -47,7 +47,10 @@ const StockReducer = (state, action) => {
 					fila.id === action.payload.fila.id ? action.payload.fila : fila
 				),
 				filaActivaProducto: {},
-				mensaje: action.payload.respuesta.data.msj,
+				mensaje: {
+					msg: action.payload.respuesta.data.msg,
+					categoria: 'success',
+				},
 			};
 		case NUEVA_CANTIDAD_STOCK:
 			return {

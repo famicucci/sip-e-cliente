@@ -9,7 +9,9 @@ import TableBody from '@material-ui/core/TableBody';
 import FilaStockProducto from './componentes/FilaStockProducto';
 import Modal from '../modales/stockProducto/Modal';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
+import Alerta from '../Alerta';
 import StockContext from '../../context/stock/stockContext';
+import AlertaContext from '../../context/alertas/alertaContext';
 
 const useStyles = makeStyles({
 	table: {
@@ -34,8 +36,10 @@ const TablaStockTotal = () => {
 	);
 
 	// context stock
-	const { stocks, filas, traerStocksProducto, handleFilasBusqueda } =
+	const { stocks, filas, mensaje, traerStocksProducto, handleFilasBusqueda } =
 		useContext(StockContext);
+
+	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 
 	// hook paginación
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
@@ -55,6 +59,13 @@ const TablaStockTotal = () => {
 		setPage(0);
 	}, [busqueda]);
 
+	useEffect(() => {
+		if (mensaje) {
+			const { msg, categoria } = mensaje;
+			mostrarAlerta(msg, categoria);
+		}
+	}, [mensaje]);
+
 	return (
 		<TableContainer component={Paper}>
 			<Table className={classes.table}>
@@ -69,6 +80,7 @@ const TablaStockTotal = () => {
 			</Table>
 
 			<Modal />
+			{alerta !== null ? <Alerta /> : null}
 		</TableContainer>
 	);
 };
