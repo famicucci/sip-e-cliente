@@ -100,7 +100,14 @@ const StockState = (props) => {
 				payload: { respuesta, fila },
 			});
 		} catch (error) {
-			console.log(error);
+			const alerta = {
+				msg: error.response.data.msg,
+				categoria: 'error',
+			};
+			dispatch({
+				type: ERROR_STOCK,
+				payload: alerta,
+			});
 		}
 	};
 
