@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const Alerta = (props) => {
+const AlertaLogin = (props) => {
 	const { msj } = props;
 
 	const classes = useStyles();
@@ -28,4 +28,4 @@ const Alerta = (props) => {
 	);
 };
 
-export default Alerta;
+export default AlertaLogin;

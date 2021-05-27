@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Copyright from './Copyright';
-import Alerta from '../components/Alerta';
+import AlertaLogin from '../components/AlertaLogin';
 import AuthContext from '../context/autenticacion/authContext';
 import { useRouter } from 'next/router';
 
@@ -130,7 +130,7 @@ function Login() {
 						onChange={onChange}
 					/>
 
-					{alerta.estado ? <Alerta msj={alerta.msj} /> : null}
+					{alerta.estado ? <AlertaLogin msj={alerta.msj} /> : null}
 
 					<Button
 						type="submit"
