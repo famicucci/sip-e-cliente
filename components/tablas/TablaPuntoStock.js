@@ -88,7 +88,7 @@ const TablaPuntoStock = () => {
 							<FilaPuntoStock key={fila.ProductoCodigo} fila={fila} />
 						))
 					) : (
-						<SpinnerTabla cantColumnas={7} />
+						<SpinnerTabla cantColumnas={4} />
 					)}
 
 					{cortePagina.length === 0 ? bodyVacio(columnas) : filasVacias}
