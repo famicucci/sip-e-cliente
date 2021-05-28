@@ -30,7 +30,7 @@ const TablaPuntoStock = () => {
 	const classes = useStyles();
 
 	// context barra de herramientas
-	const { busqueda, handleHerramientasStockProducto } = useContext(
+	const { busqueda, handleHerramientasStockPtoStock } = useContext(
 		BarraHerramientasContext
 	);
 
@@ -38,10 +38,12 @@ const TablaPuntoStock = () => {
 	const {
 		stocks,
 		filas,
+		ptoStock,
 		mensaje,
 		traerStocksPtoStock,
 		handleFilasPtoStock,
 		handleFilasBusqueda,
+		handleFilasBusquedaPtoStock,
 	} = useContext(StockContext);
 
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
@@ -51,18 +53,22 @@ const TablaPuntoStock = () => {
 		usePaginacion(filas);
 
 	useEffect(() => {
-		// handleHerramientasStockPtoStock();
+		handleHerramientasStockPtoStock();
 		traerStocksPtoStock();
 	}, []);
 
 	useEffect(() => {
-		if (stocks.length !== 0) {
-			handleFilasPtoStock();
+		handleFilasPtoStock();
+		if (busqueda !== '') {
+			handleFilasBusqueda(stocks, ptoStock, busqueda);
 		}
-		// if (busqueda !== '') {
-		// 	handleFilasBusqueda(precios, lista, busqueda);
-		// }
 	}, [stocks]);
+
+	useEffect(() => {
+		handleFilasPtoStock();
+		handleFilasBusquedaPtoStock(stocks, ptoStock, busqueda);
+		setPage(0);
+	}, [ptoStock, busqueda]);
 
 	useEffect(() => {
 		if (mensaje) {

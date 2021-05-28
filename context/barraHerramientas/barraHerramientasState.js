@@ -6,6 +6,7 @@ import {
 	HERRAMIENTAS_PRECIOS,
 	BUSQUEDA_ACTUAL,
 	HERRAMIENTAS_STOCK_PRODUCTO,
+	HERRAMIENTAS_STOCK_PTO_STOCK,
 } from '../../types';
 
 const BarraHerramientasState = (props) => {
@@ -31,6 +32,12 @@ const BarraHerramientasState = (props) => {
 		});
 	};
 
+	const handleHerramientasStockPtoStock = () => {
+		dispatch({
+			type: HERRAMIENTAS_STOCK_PTO_STOCK,
+		});
+	};
+
 	const handleBusqueda = (busqueda) => {
 		dispatch({
 			type: BUSQUEDA_ACTUAL,
@@ -47,6 +54,7 @@ const BarraHerramientasState = (props) => {
 				busqueda: state.busqueda,
 				handleHerramientasPrecios,
 				handleHerramientasStockProducto,
+				handleHerramientasStockPtoStock,
 				handleBusqueda,
 			}}
 		>

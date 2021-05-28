@@ -3,12 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
-import { BarraHerramientasContext } from '../../context/BarraHerramientasContext';
+// import { BarraHerramientasContext } from '../../context/BarraHerramientasContext';
 import HeadTabla from './componentes/HeadTabla';
 import usePaginacion from '../../hooks/usePaginacion';
 import TableBody from '@material-ui/core/TableBody';
 import FilaMovimientoStock from './componentes/FilaMovimientoStock';
-import ModalStockProducto from '../modales/ModalStockProducto';
 
 const useStyles = makeStyles({
 	table: {
@@ -87,21 +86,16 @@ const TablaMovimientos = () => {
 
 	const [filas, setFilas] = useState(rows);
 
-	const [
-		FooterTabla,
-		filasVacias,
-		cortePagina,
-		setPage,
-		bodyVacio,
-	] = usePaginacion(filas);
+	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
+		usePaginacion(filas);
 
-	const {
-		busqueda,
-		setBuscador,
-		filtrado,
-		setSelectListaPrecio,
-		setSelectPuntoStock,
-	} = useContext(BarraHerramientasContext);
+	// const {
+	// 	busqueda,
+	// 	setBuscador,
+	// 	filtrado,
+	// 	setSelectListaPrecio,
+	// 	setSelectPuntoStock,
+	// } = useContext(BarraHerramientasContext);
 
 	useEffect(() => {
 		setBuscador(true);
@@ -127,8 +121,6 @@ const TablaMovimientos = () => {
 				</TableBody>
 				<FooterTabla />
 			</Table>
-
-			<ModalStockProducto />
 		</TableContainer>
 	);
 };

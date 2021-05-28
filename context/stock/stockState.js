@@ -7,6 +7,7 @@ import {
 	PTO_STOCK,
 	TRAER_STOCK_PRODUCTO,
 	FILAS_BUSQUEDA,
+	FILAS_BUSQUEDA_PTO_STOCK,
 	FILAS_PTO_STOCK,
 	PRODUCTO_ACTIVO,
 	ACTIVAR_FILA,
@@ -74,6 +75,13 @@ const StockState = (props) => {
 		dispatch({
 			type: FILAS_BUSQUEDA,
 			payload: { stocks, busqueda },
+		});
+	};
+
+	const handleFilasBusquedaPtoStock = (stocks, ptoStock, busqueda) => {
+		dispatch({
+			type: FILAS_BUSQUEDA_PTO_STOCK,
+			payload: { stocks, ptoStock, busqueda },
 		});
 	};
 
@@ -194,6 +202,7 @@ const StockState = (props) => {
 				traerStocksProducto,
 				traerStocksPtoStock,
 				handleFilasBusqueda,
+				handleFilasBusquedaPtoStock,
 				handleFilasPtoStock,
 				handleProductoActivo,
 				handleFilaActiva,

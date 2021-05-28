@@ -2,6 +2,7 @@ import {
 	HERRAMIENTAS_PRECIOS,
 	BUSQUEDA_ACTUAL,
 	HERRAMIENTAS_STOCK_PRODUCTO,
+	HERRAMIENTAS_STOCK_PTO_STOCK,
 } from '../../types';
 
 const PreciosReducer = (state, action) => {
@@ -19,6 +20,13 @@ const PreciosReducer = (state, action) => {
 				buscador: true,
 				selectListaPrecio: false,
 				selectPtoStock: false,
+			};
+		case HERRAMIENTAS_STOCK_PTO_STOCK:
+			return {
+				...state,
+				buscador: true,
+				selectListaPrecio: false,
+				selectPtoStock: true,
 			};
 		case BUSQUEDA_ACTUAL:
 			return {

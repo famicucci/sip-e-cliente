@@ -2,6 +2,7 @@ import {
 	PTO_STOCK,
 	TRAER_STOCK_PRODUCTO,
 	FILAS_BUSQUEDA,
+	FILAS_BUSQUEDA_PTO_STOCK,
 	FILAS_PTO_STOCK,
 	PRODUCTO_ACTIVO,
 	ACTIVAR_FILA,
@@ -30,6 +31,15 @@ const StockReducer = (state, action) => {
 			return {
 				...state,
 				filas: filtrado(action.payload.stocks, action.payload.busqueda),
+			};
+		case FILAS_BUSQUEDA_PTO_STOCK:
+			const filasPtoStock = filtraPuntoStock(
+				action.payload.stocks,
+				action.payload.ptoStock
+			);
+			return {
+				...state,
+				filas: filtrado(filasPtoStock, action.payload.busqueda),
 			};
 		case PRODUCTO_ACTIVO:
 			return {
