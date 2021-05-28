@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import PreciosContext from '../../../context/precios/preciosContext';
+import BarraHerramientasContext from '../../../context/barraHerramientas/barraHerramientasContext';
 
 const useStyles = makeStyles((theme) => ({
 	formControl: {
@@ -35,16 +36,18 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const listas = [
-	{ id: 1, nombre: 'Lista Minorista' },
-	{ id: 2, nombre: 'Lista Mayorista' },
-	{ id: 3, nombre: 'Lista con Descuento' },
-];
-
 const SelectListasPrecio = () => {
 	const classes = useStyles();
 
+	const { listasPrecio, traerListasPrecio } = useContext(
+		BarraHerramientasContext
+	);
+
 	const { lista, handleLista } = useContext(PreciosContext);
+
+	useEffect(() => {
+		traerListasPrecio();
+	}, []);
 
 	const handleChange = (event) => {
 		handleLista(event.target.value);
@@ -64,11 +67,13 @@ const SelectListasPrecio = () => {
 					},
 				}}
 			>
-				{listas.map((lista) => (
-					<MenuItem key={lista.id} value={lista.id}>
-						{lista.nombre}
-					</MenuItem>
-				))}
+				{listasPrecio
+					? listasPrecio.map((lista) => (
+							<MenuItem key={lista.id} value={lista.id}>
+								{lista.descripcion}
+							</MenuItem>
+					  ))
+					: null}
 			</Select>
 		</FormControl>
 	);

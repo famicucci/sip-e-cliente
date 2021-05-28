@@ -9,6 +9,7 @@ import {
 	HERRAMIENTAS_STOCK_PRODUCTO,
 	HERRAMIENTAS_STOCK_PTO_STOCK,
 	PTOS_STOCK,
+	LISTAS_PRECIO,
 } from '../../types';
 
 const BarraHerramientasState = (props) => {
@@ -16,6 +17,7 @@ const BarraHerramientasState = (props) => {
 		buscador: false,
 		selectListaPrecio: false,
 		selectPtoStock: false,
+		listasPrecio: null,
 		ptosStock: null,
 		busqueda: '',
 	};
@@ -52,9 +54,21 @@ const BarraHerramientasState = (props) => {
 		try {
 			const respuesta = await clienteAxios.get(`/api/stock/ptos-stock`);
 
-			console.log(respuesta);
 			dispatch({
 				type: PTOS_STOCK,
+				payload: respuesta.data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const traerListasPrecio = async () => {
+		try {
+			const respuesta = await clienteAxios.get(`/api/precios/listas-precio`);
+
+			dispatch({
+				type: LISTAS_PRECIO,
 				payload: respuesta.data,
 			});
 		} catch (error) {
@@ -70,11 +84,13 @@ const BarraHerramientasState = (props) => {
 				selectPtoStock: state.selectPtoStock,
 				busqueda: state.busqueda,
 				ptosStock: state.ptosStock,
+				listasPrecio: state.listasPrecio,
 				handleHerramientasPrecios,
 				handleHerramientasStockProducto,
 				handleHerramientasStockPtoStock,
 				handleBusqueda,
 				traerPtosStock,
+				traerListasPrecio,
 			}}
 		>
 			{props.children}
