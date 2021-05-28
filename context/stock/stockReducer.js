@@ -26,6 +26,7 @@ const StockReducer = (state, action) => {
 			return {
 				...state,
 				stocks: action.payload,
+				cargando: false,
 			};
 		case FILAS_BUSQUEDA:
 			return {

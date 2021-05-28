@@ -28,6 +28,7 @@ const StockState = (props) => {
 		filaActivaProducto: {},
 		openModal: false,
 		mensaje: null,
+		cargando: true,
 	};
 
 	const [state, dispatch] = useReducer(StockReducer, initialState);
@@ -211,6 +212,7 @@ const StockState = (props) => {
 				filaActivaProducto: state.filaActivaProducto,
 				openModal: state.openModal,
 				mensaje: state.mensaje,
+				cargando: state.cargando,
 				handlePtoStock,
 				traerStocksProducto,
 				traerStocksPtoStock,

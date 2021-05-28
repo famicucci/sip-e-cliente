@@ -9,6 +9,10 @@ import TableBody from '@material-ui/core/TableBody';
 import FilaMovimientoStock from './componentes/FilaMovimientoStock';
 import StockContext from '../../context/stock/stockContext';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
+import SpinnerTabla from '../SpinnerTabla';
+
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
 
 const useStyles = makeStyles({
 	table: {
@@ -36,8 +40,13 @@ const TablaMovimientos = () => {
 	);
 
 	// context stock
-	const { stocks, filas, traerMovimientosStock, handleFilasBusqueda } =
-		useContext(StockContext);
+	const {
+		stocks,
+		filas,
+		cargando,
+		traerMovimientosStock,
+		handleFilasBusqueda,
+	} = useContext(StockContext);
 
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
 		usePaginacion(filas);
@@ -61,12 +70,17 @@ const TablaMovimientos = () => {
 			<Table className={classes.table}>
 				<HeadTabla columnas={columnas} />
 				<TableBody>
-					{cortePagina.map((fila) => (
-						<FilaMovimientoStock key={fila.id} fila={fila} />
-					))}
+					{!cargando ? (
+						cortePagina.map((fila) => (
+							<FilaMovimientoStock key={fila.id} fila={fila} />
+						))
+					) : (
+						<SpinnerTabla cantColumnas={7} />
+					)}
+
 					{cortePagina.length === 0 ? bodyVacio(columnas) : filasVacias}
 				</TableBody>
-				<FooterTabla />
+				{!cargando ? <FooterTabla /> : null}
 			</Table>
 		</TableContainer>
 	);
