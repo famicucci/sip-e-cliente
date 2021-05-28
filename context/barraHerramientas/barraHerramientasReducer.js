@@ -3,6 +3,7 @@ import {
 	BUSQUEDA_ACTUAL,
 	HERRAMIENTAS_STOCK_PRODUCTO,
 	HERRAMIENTAS_STOCK_PTO_STOCK,
+	PTOS_STOCK,
 } from '../../types';
 
 const PreciosReducer = (state, action) => {
@@ -32,6 +33,11 @@ const PreciosReducer = (state, action) => {
 			return {
 				...state,
 				busqueda: action.payload,
+			};
+		case PTOS_STOCK:
+			return {
+				...state,
+				ptosStock: action.payload,
 			};
 
 		default:
