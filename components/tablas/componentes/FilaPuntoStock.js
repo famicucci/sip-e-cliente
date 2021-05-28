@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import CantidadStock from '../componentes/CantidadStock';
 import BotonEditar from '../componentes/BotonEditar';
+import StockContext from '../../../context/stock/stockContext';
+import BotonConfirmarCancelar from '../componentes/BotonConfirmarCancelar';
 
 const StyledTableRow = withStyles((theme) => ({
 	root: {
@@ -16,6 +18,8 @@ const StyledTableRow = withStyles((theme) => ({
 const FilaPuntoStock = (props) => {
 	const { id, ProductoCodigo, cantidad } = props.fila;
 
+	const { filaActivaProducto } = useContext(StockContext);
+
 	return (
 		<StyledTableRow key={id}>
 			<TableCell component="th" scope="row">
@@ -26,7 +30,11 @@ const FilaPuntoStock = (props) => {
 				<CantidadStock cantidad={cantidad} />
 			</TableCell>
 			<TableCell align="center">
-				<BotonEditar fila={props.fila} />
+				{filaActivaProducto.id !== id ? (
+					<BotonEditar fila={props.fila} />
+				) : (
+					<BotonConfirmarCancelar />
+				)}
 			</TableCell>
 		</StyledTableRow>
 	);

@@ -59,7 +59,6 @@ const TablaPuntoStock = () => {
 		// 	handleFilasBusqueda(precios, lista, busqueda);
 		// }
 	}, [stocks]);
-
 	return (
 		<TableContainer component={Paper}>
 			<Table className={classes.table}>

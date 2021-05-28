@@ -5,7 +5,7 @@ import CantidadStock from '../../tablas/componentes/CantidadStock';
 import InputCantidadStock from './InputCantidadStock';
 import StockContext from '../../../context/stock/stockContext';
 import BotonEditar from '../../tablas/componentes/BotonEditar';
-import BotonConfirmarCancelar from './BotonConfirmarCancelar';
+import BotonConfirmarCancelar from '../../tablas/componentes/BotonConfirmarCancelar';
 
 const Fila = ({ fila }) => {
 	const { filaActivaProducto } = useContext(StockContext);

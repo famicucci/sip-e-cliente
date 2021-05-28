@@ -64,9 +64,9 @@ const StockState = (props) => {
 	};
 
 	const handleFilasPtoStock = () => {
-		// dispatch({
-		// 	type: FILAS_PTO_STOCK,
-		// });
+		dispatch({
+			type: FILAS_PTO_STOCK,
+		});
 	};
 
 	const handleFilasBusqueda = (stocks, busqueda) => {

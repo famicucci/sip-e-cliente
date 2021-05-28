@@ -12,7 +12,7 @@ const useStyles = makeStyles({
 	},
 });
 
-const BotonConfirmarCancelar = ({ fila }) => {
+const BotonConfirmarCancelar = () => {
 	const classes = useStyles();
 
 	const { filaActivaProducto, modificarStock, handleFilaActiva } =
