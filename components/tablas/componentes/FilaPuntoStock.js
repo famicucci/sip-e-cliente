@@ -19,7 +19,8 @@ const StyledTableRow = withStyles((theme) => ({
 const FilaPuntoStock = (props) => {
 	const { id, ProductoCodigo, cantidad } = props.fila;
 
-	const { filaActivaProducto } = useContext(StockContext);
+	const { filaActivaProducto, modificarStockPtoStock } =
+		useContext(StockContext);
 
 	return (
 		<StyledTableRow key={id}>
@@ -38,7 +39,7 @@ const FilaPuntoStock = (props) => {
 				{filaActivaProducto.id !== id ? (
 					<BotonEditar fila={props.fila} />
 				) : (
-					<BotonConfirmarCancelar />
+					<BotonConfirmarCancelar confirmar={modificarStockPtoStock} />
 				)}
 			</TableCell>
 		</StyledTableRow>

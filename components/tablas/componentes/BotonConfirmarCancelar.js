@@ -12,17 +12,16 @@ const useStyles = makeStyles({
 	},
 });
 
-const BotonConfirmarCancelar = () => {
+const BotonConfirmarCancelar = ({ confirmar }) => {
 	const classes = useStyles();
 
-	const { filaActivaProducto, modificarStock, handleFilaActiva } =
-		useContext(StockContext);
+	const { filaActivaProducto, handleFilaActiva } = useContext(StockContext);
 
 	return (
 		<ButtonGroup variant="text" aria-label="text primary button group">
 			<IconButton
 				onClick={() => {
-					modificarStock(filaActivaProducto);
+					confirmar(filaActivaProducto);
 				}}
 			>
 				<CheckIcon className={classes.IconoConfirmar} />

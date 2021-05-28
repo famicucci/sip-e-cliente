@@ -8,7 +8,7 @@ import BotonEditar from '../../tablas/componentes/BotonEditar';
 import BotonConfirmarCancelar from '../../tablas/componentes/BotonConfirmarCancelar';
 
 const Fila = ({ fila }) => {
-	const { filaActivaProducto } = useContext(StockContext);
+	const { filaActivaProducto, modificarStock } = useContext(StockContext);
 
 	return (
 		<TableRow key={fila.id}>
@@ -28,7 +28,7 @@ const Fila = ({ fila }) => {
 				{filaActivaProducto.id !== fila.id ? (
 					<BotonEditar fila={fila} />
 				) : (
-					<BotonConfirmarCancelar fila={fila} />
+					<BotonConfirmarCancelar confirmar={modificarStock} />
 				)}
 			</TableCell>
 		</TableRow>

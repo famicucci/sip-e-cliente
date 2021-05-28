@@ -6,6 +6,7 @@ import {
 	PRODUCTO_ACTIVO,
 	ACTIVAR_FILA,
 	CONFIRMAR_CAMBIO_STOCK,
+	CONFIRMAR_CAMBIO_STOCK_PTO_STOCK,
 	NUEVA_CANTIDAD_STOCK,
 	MODAL_OPEN,
 	MODAL_CLOSE,
@@ -45,6 +46,20 @@ const StockReducer = (state, action) => {
 				...state,
 				productoActivo: state.productoActivo.map((fila) =>
 					fila.id === action.payload.fila.id ? action.payload.fila : fila
+				),
+				filaActivaProducto: {},
+				mensaje: {
+					msg: action.payload.respuesta.data.msg,
+					categoria: action.payload.respuesta.data.severity,
+				},
+			};
+		case CONFIRMAR_CAMBIO_STOCK_PTO_STOCK:
+			return {
+				...state,
+				stocks: state.stocks.map((fila) =>
+					fila.id === state.filaActivaProducto.id
+						? state.filaActivaProducto
+						: fila
 				),
 				filaActivaProducto: {},
 				mensaje: {

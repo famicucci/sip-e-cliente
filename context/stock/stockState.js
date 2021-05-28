@@ -11,6 +11,7 @@ import {
 	PRODUCTO_ACTIVO,
 	ACTIVAR_FILA,
 	CONFIRMAR_CAMBIO_STOCK,
+	CONFIRMAR_CAMBIO_STOCK_PTO_STOCK,
 	NUEVA_CANTIDAD_STOCK,
 	MODAL_OPEN,
 	MODAL_CLOSE,
@@ -126,6 +127,33 @@ const StockState = (props) => {
 		}
 	};
 
+	const modificarStockPtoStock = async () => {
+		const datos = {
+			ProductoCodigo: state.filaActivaProducto.ProductoCodigo,
+			PtoStockId: state.filaActivaProducto.PtoStockId,
+			cantidad: state.filaActivaProducto.cantidad,
+			motivo: 'movimiento',
+		};
+
+		try {
+			const respuesta = await clienteAxios.put('/api/stock/', datos);
+
+			dispatch({
+				type: CONFIRMAR_CAMBIO_STOCK_PTO_STOCK,
+				payload: { respuesta },
+			});
+		} catch (error) {
+			const alerta = {
+				msg: error.response.data.msg,
+				categoria: error.response.data.severity,
+			};
+			dispatch({
+				type: ERROR_STOCK,
+				payload: alerta,
+			});
+		}
+	};
+
 	const handleNuevaCantidad = (cantidad) => {
 		dispatch({
 			type: NUEVA_CANTIDAD_STOCK,
@@ -170,6 +198,7 @@ const StockState = (props) => {
 				handleProductoActivo,
 				handleFilaActiva,
 				modificarStock,
+				modificarStockPtoStock,
 				handleNuevaCantidad,
 				handleOpen,
 				handleClose,
