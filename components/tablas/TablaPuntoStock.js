@@ -60,7 +60,7 @@ const TablaPuntoStock = () => {
 	useEffect(() => {
 		handleFilasPtoStock();
 		if (busqueda !== '') {
-			handleFilasBusqueda(stocks, ptoStock, busqueda);
+			handleFilasBusquedaPtoStock(stocks, ptoStock, busqueda);
 		}
 	}, [stocks]);
 
