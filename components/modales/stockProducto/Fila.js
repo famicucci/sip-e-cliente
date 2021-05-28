@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import CantidadStock from '../../tablas/componentes/CantidadStock';
-import InputCantidadStock from './InputCantidadStock';
+import InputCantidadStock from '../../tablas/componentes/InputCantidadStock';
 import StockContext from '../../../context/stock/stockContext';
 import BotonEditar from '../../tablas/componentes/BotonEditar';
 import BotonConfirmarCancelar from '../../tablas/componentes/BotonConfirmarCancelar';
@@ -20,7 +20,7 @@ const Fila = ({ fila }) => {
 				{filaActivaProducto.id !== fila.id ? (
 					<CantidadStock cantidad={fila.cantidad} />
 				) : (
-					<InputCantidadStock fila={fila} />
+					<InputCantidadStock cantidad={fila.cantidad} />
 				)}
 			</TableCell>
 

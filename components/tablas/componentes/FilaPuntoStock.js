@@ -6,6 +6,7 @@ import CantidadStock from '../componentes/CantidadStock';
 import BotonEditar from '../componentes/BotonEditar';
 import StockContext from '../../../context/stock/stockContext';
 import BotonConfirmarCancelar from '../componentes/BotonConfirmarCancelar';
+import InputCantidadStock from '../componentes/InputCantidadStock';
 
 const StyledTableRow = withStyles((theme) => ({
 	root: {
@@ -27,7 +28,11 @@ const FilaPuntoStock = (props) => {
 			</TableCell>
 			<TableCell align="left">{props.fila['Producto.descripcion']}</TableCell>
 			<TableCell align="center">
-				<CantidadStock cantidad={cantidad} />
+				{filaActivaProducto.id !== id ? (
+					<CantidadStock cantidad={cantidad} />
+				) : (
+					<InputCantidadStock cantidad={cantidad} />
+				)}
 			</TableCell>
 			<TableCell align="center">
 				{filaActivaProducto.id !== id ? (

@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const InputCantidadStock = ({ fila }) => {
+const InputCantidadStock = ({ cantidad }) => {
 	const classes = useStyles();
 
 	const { handleNuevaCantidad } = useContext(StockContext);
@@ -20,7 +20,7 @@ const InputCantidadStock = ({ fila }) => {
 	const [cantInput, setCantInput] = useState('');
 
 	useEffect(() => {
-		setCantInput(fila.cantidad);
+		setCantInput(cantidad);
 	}, []);
 
 	useEffect(() => {
