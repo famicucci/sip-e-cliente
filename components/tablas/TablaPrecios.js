@@ -21,7 +21,7 @@ const useStyles = makeStyles({
 const columnas = [
 	{ id: 1, nombre: 'Código', align: 'left', minWidth: 100 },
 	{ id: 2, nombre: 'Descripción', align: 'left', minWidth: 480 },
-	{ id: 3, nombre: 'Precio ($)', align: 'center', minWidth: 100 },
+	{ id: 3, nombre: 'Precio\xa0($)', align: 'center', minWidth: 100 },
 ];
 
 const TablaPrecios = () => {

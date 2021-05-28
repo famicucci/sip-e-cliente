@@ -6,8 +6,8 @@ import TableCell from '@material-ui/core/TableCell';
 
 const StyledTableCell = withStyles((theme) => ({
 	head: {
-		backgroundColor: theme.palette.common.black,
-		color: theme.palette.common.white,
+		fontSize: 15.5,
+		color: theme.palette.common.black,
 	},
 	body: {
 		fontSize: 14,
