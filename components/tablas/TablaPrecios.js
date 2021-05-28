@@ -9,6 +9,7 @@ import usePaginacion from '../../hooks/usePaginacion';
 import FilaPrecio from '../tablas/componentes/FilaPrecio';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import PreciosContext from '../../context/precios/preciosContext';
+import SpinnerTabla from '../../components/SpinnerTabla';
 
 const useStyles = makeStyles({
 	table: {
@@ -36,6 +37,7 @@ const TablaPrecios = () => {
 		precios,
 		filas,
 		lista,
+		cargando,
 		traerPrecios,
 		handleFilasLista,
 		handleFilasBusqueda,
@@ -68,12 +70,14 @@ const TablaPrecios = () => {
 			<Table className={classes.table}>
 				<HeadTabla columnas={columnas} />
 				<TableBody>
-					{cortePagina.map((fila) => (
-						<FilaPrecio key={fila.id} fila={fila} />
-					))}
+					{!cargando ? (
+						cortePagina.map((fila) => <FilaPrecio key={fila.id} fila={fila} />)
+					) : (
+						<SpinnerTabla cantColumnas={3} />
+					)}
 					{cortePagina.length === 0 ? bodyVacio(columnas) : filasVacias}
 				</TableBody>
-				<FooterTabla />
+				{!cargando ? <FooterTabla /> : null}
 			</Table>
 		</TableContainer>
 	);

@@ -17,6 +17,7 @@ const PreciosState = (props) => {
 		filas: [],
 		lista: 1,
 		mensaje: null,
+		cargando: true,
 	};
 
 	const [state, dispatch] = useReducer(PreciosReducer, initialState);
@@ -65,6 +66,7 @@ const PreciosState = (props) => {
 				precios: state.precios,
 				lista: state.lista,
 				filas: state.filas,
+				cargando: state.cargando,
 				traerPrecios,
 				handleLista,
 				handleFilasLista,

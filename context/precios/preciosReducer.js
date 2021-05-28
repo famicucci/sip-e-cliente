@@ -13,6 +13,7 @@ const PreciosReducer = (state, action) => {
 			return {
 				...state,
 				precios: action.payload,
+				cargando: false,
 			};
 		case LISTA_PRECIOS:
 			return {
