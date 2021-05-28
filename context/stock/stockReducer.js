@@ -63,7 +63,7 @@ const StockReducer = (state, action) => {
 		case FILAS_PTO_STOCK:
 			return {
 				...state,
-				filas: filtraPuntoStock(action.payload.stocks, action.payload.ptoStock),
+				filas: filtraPuntoStock(state.stocks, state.ptoStock),
 			};
 		case MODAL_OPEN:
 			return {

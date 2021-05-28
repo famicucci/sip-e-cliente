@@ -1,9 +1,9 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import TableRow from '@material-ui/core/TableRow';
-import ValorCantidad from './ValorCantidadEditable';
-// import BotonCantidadEditable from './BotonCantidadEditable';
 import TableCell from '@material-ui/core/TableCell';
+import CantidadStock from '../componentes/CantidadStock';
+import BotonEditar from '../componentes/BotonEditar';
 
 const StyledTableRow = withStyles((theme) => ({
 	root: {
@@ -14,19 +14,19 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 const FilaPuntoStock = (props) => {
-	const { id, codigo, descripcion } = props.fila;
+	const { id, ProductoCodigo, cantidad } = props.fila;
 
 	return (
 		<StyledTableRow key={id}>
 			<TableCell component="th" scope="row">
-				{codigo}
+				{ProductoCodigo}
 			</TableCell>
-			<TableCell align="left">{descripcion}</TableCell>
+			<TableCell align="left">{props.fila['Producto.descripcion']}</TableCell>
 			<TableCell align="center">
-				<ValorCantidad fila={props.fila} />
+				<CantidadStock cantidad={cantidad} />
 			</TableCell>
 			<TableCell align="center">
-				{/* <BotonCantidadEditable fila={props.fila} /> */}
+				<BotonEditar fila={props.fila} />
 			</TableCell>
 		</StyledTableRow>
 	);

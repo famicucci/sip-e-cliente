@@ -47,11 +47,26 @@ const StockState = (props) => {
 		}
 	};
 
-	const handleFilasPtoStock = (stocks, ptoStock) => {
-		dispatch({
-			type: FILAS_PTO_STOCK,
-			payload: { stocks, ptoStock },
-		});
+	const traerStocksPtoStock = async (id) => {
+		try {
+			const respuesta = await clienteAxios.get('/api/stock/pto-stock/');
+
+			dispatch({
+				type: TRAER_STOCK_PRODUCTO,
+				payload: respuesta.data,
+			});
+		} catch (error) {
+			dispatch({
+				type: ERROR_STOCK,
+				payload: error,
+			});
+		}
+	};
+
+	const handleFilasPtoStock = () => {
+		// dispatch({
+		// 	type: FILAS_PTO_STOCK,
+		// });
 	};
 
 	const handleFilasBusqueda = (stocks, busqueda) => {
@@ -149,6 +164,7 @@ const StockState = (props) => {
 				mensaje: state.mensaje,
 				handlePtoStock,
 				traerStocksProducto,
+				traerStocksPtoStock,
 				handleFilasBusqueda,
 				handleFilasPtoStock,
 				handleProductoActivo,
