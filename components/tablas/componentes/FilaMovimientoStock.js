@@ -2,6 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
+import moment from 'moment';
 
 const StyledTableRow = withStyles((theme) => ({
 	root: {
@@ -12,24 +13,21 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 const FilaMovimientoStock = (props) => {
-	const {
-		codigo,
-		descripcion,
-		cantidad,
-		puntoStock,
-		fecha,
-		usuario,
-		motivo,
-	} = props.fila;
+	const { ProductoCodigo, cantidad, motivo } = props.fila;
+
+	const descripcion = props.fila['Producto.descripcion'];
+	const ptoStock = props.fila['PtoStock.descripcion'];
+	const fecha = moment(props.fila.createdAt).format('DD-MM-YYYY hh:mm');
+	const usuario = props.fila['Usuario.usuario'];
 
 	return (
 		<StyledTableRow>
 			<TableCell component="th" scope="row">
-				{codigo}
+				{ProductoCodigo}
 			</TableCell>
 			<TableCell align="left">{descripcion}</TableCell>
 			<TableCell align="center">{cantidad}</TableCell>
-			<TableCell align="center">{puntoStock}</TableCell>
+			<TableCell align="center">{ptoStock}</TableCell>
 			<TableCell align="center">{fecha}</TableCell>
 			<TableCell align="center">{usuario}</TableCell>
 			<TableCell align="center">{motivo}</TableCell>

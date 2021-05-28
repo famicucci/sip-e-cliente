@@ -65,6 +65,19 @@ const StockState = (props) => {
 		}
 	};
 
+	const traerMovimientosStock = async () => {
+		try {
+			const respuesta = await clienteAxios.get('/api/stock/movimientos/');
+
+			dispatch({
+				type: TRAER_STOCK_PRODUCTO,
+				payload: respuesta.data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	const handleFilasPtoStock = () => {
 		dispatch({
 			type: FILAS_PTO_STOCK,
@@ -201,6 +214,7 @@ const StockState = (props) => {
 				handlePtoStock,
 				traerStocksProducto,
 				traerStocksPtoStock,
+				traerMovimientosStock,
 				handleFilasBusqueda,
 				handleFilasBusquedaPtoStock,
 				handleFilasPtoStock,

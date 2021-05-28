@@ -8,6 +8,7 @@ import {
 	BUSQUEDA_ACTUAL,
 	HERRAMIENTAS_STOCK_PRODUCTO,
 	HERRAMIENTAS_STOCK_PTO_STOCK,
+	HERRAMIENTAS_STOCK_MOVIMIENTOS,
 	PTOS_STOCK,
 	LISTAS_PRECIO,
 } from '../../types';
@@ -40,6 +41,12 @@ const BarraHerramientasState = (props) => {
 	const handleHerramientasStockPtoStock = () => {
 		dispatch({
 			type: HERRAMIENTAS_STOCK_PTO_STOCK,
+		});
+	};
+
+	const handleHerramientasMovimientosStock = () => {
+		dispatch({
+			type: HERRAMIENTAS_STOCK_MOVIMIENTOS,
 		});
 	};
 
@@ -88,6 +95,7 @@ const BarraHerramientasState = (props) => {
 				handleHerramientasPrecios,
 				handleHerramientasStockProducto,
 				handleHerramientasStockPtoStock,
+				handleHerramientasMovimientosStock,
 				handleBusqueda,
 				traerPtosStock,
 				traerListasPrecio,

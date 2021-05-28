@@ -130,7 +130,7 @@ const usePaginacion = (rows) => {
 				<TableRow>
 					<TablePagination
 						rowsPerPageOptions={[5, 10, 25, { label: 'Todas', value: -1 }]}
-						colSpan={3}
+						colSpan={10}
 						count={rows.length}
 						rowsPerPage={rowsPerPage}
 						page={page}

@@ -3,6 +3,7 @@ import {
 	BUSQUEDA_ACTUAL,
 	HERRAMIENTAS_STOCK_PRODUCTO,
 	HERRAMIENTAS_STOCK_PTO_STOCK,
+	HERRAMIENTAS_STOCK_MOVIMIENTOS,
 	PTOS_STOCK,
 	LISTAS_PRECIO,
 } from '../../types';
@@ -29,6 +30,13 @@ const PreciosReducer = (state, action) => {
 				buscador: true,
 				selectListaPrecio: false,
 				selectPtoStock: true,
+			};
+		case HERRAMIENTAS_STOCK_MOVIMIENTOS:
+			return {
+				...state,
+				buscador: true,
+				selectListaPrecio: false,
+				selectPtoStock: false,
 			};
 		case BUSQUEDA_ACTUAL:
 			return {
