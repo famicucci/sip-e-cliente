@@ -11,9 +11,6 @@ import StockContext from '../../context/stock/stockContext';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import SpinnerTabla from '../SpinnerTabla';
 
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
-
 const useStyles = makeStyles({
 	table: {
 		minWidth: 500,

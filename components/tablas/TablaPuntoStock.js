@@ -11,6 +11,7 @@ import Alerta from '../Alerta';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import StockContext from '../../context/stock/stockContext';
 import AlertaContext from '../../context/alertas/alertaContext';
+import SpinnerTabla from '../SpinnerTabla';
 
 const useStyles = makeStyles({
 	table: {
@@ -40,9 +41,9 @@ const TablaPuntoStock = () => {
 		filas,
 		ptoStock,
 		mensaje,
+		cargando,
 		traerStocksPtoStock,
 		handleFilasPtoStock,
-		handleFilasBusqueda,
 		handleFilasBusquedaPtoStock,
 	} = useContext(StockContext);
 
@@ -82,12 +83,17 @@ const TablaPuntoStock = () => {
 			<Table className={classes.table}>
 				<HeadTabla columnas={columnas} />
 				<TableBody>
-					{cortePagina.map((fila) => (
-						<FilaPuntoStock key={fila.ProductoCodigo} fila={fila} />
-					))}
+					{!cargando ? (
+						cortePagina.map((fila) => (
+							<FilaPuntoStock key={fila.ProductoCodigo} fila={fila} />
+						))
+					) : (
+						<SpinnerTabla cantColumnas={7} />
+					)}
+
 					{cortePagina.length === 0 ? bodyVacio(columnas) : filasVacias}
 				</TableBody>
-				<FooterTabla />
+				{!cargando ? <FooterTabla /> : null}
 			</Table>
 			{alerta !== null ? <Alerta /> : null}
 		</TableContainer>
