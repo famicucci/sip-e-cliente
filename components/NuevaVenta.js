@@ -4,6 +4,8 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import BuscarProducto from './BuscarProducto';
 import Divider from '@material-ui/core/Divider';
+import SelectPtoStockVenta from './SelectPtoStockVenta';
+import RadioElegirProductos from './RadioElegirProductos';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -11,10 +13,9 @@ const useStyles = makeStyles((theme) => ({
 	},
 	paper: {
 		padding: theme.spacing(1),
-		textAlign: 'center',
+		textAlign: 'left',
 		color: theme.palette.text.secondary,
 	},
-	texto: { textAlign: 'right' },
 }));
 
 const NuevaVenta = () => {
@@ -26,7 +27,7 @@ const NuevaVenta = () => {
 				<Grid item xs={12} sm={6}>
 					<Paper className={classes.paper} variant="outlined">
 						<BuscarProducto />
-						<p className={classes.texto}>Hola Como estas</p>
+						<RadioElegirProductos />
 						<Divider variant="fullWidth" />
 					</Paper>
 				</Grid>
