@@ -36,6 +36,9 @@ export const CONFIRMAR_CAMBIO_STOCK_PTO_STOCK =
 export const PRODUCTO_STATE = 'PRODUCTO_STATE';
 export const NUEVA_CANTIDAD_STOCK = 'NUEVA_CANTIDAD_STOCK';
 
+// ventas
+export const PRECIOS_PTO_STOCK = 'PRECIOS_PTO_STOCK';
+
 // alertas
 export const MOSTRAR_ALERTA = 'MOSTRAR_ALERTA';
 export const OCULTAR_ALERTA = 'OCULTAR_ALERTA';

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -9,6 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import FilaElegirProducto from './FilaElegirProducto';
+import VentasContext from '../context/ventas/ventasContext';
 
 const columns = [
 	{ id: 'producto', label: 'Producto', minWidth: 120 },
@@ -19,8 +20,6 @@ const columns = [
 function createData(codigo, descripcion, precio, size) {
 	return { codigo, descripcion, precio, size };
 }
-
-// traer de bd id producto, codigo, descripción, precio, lista precio, punto stock
 
 const rows = [
 	createData(
@@ -121,6 +120,13 @@ const useStyles = makeStyles({
 
 const TablaElegirProducto = () => {
 	const classes = useStyles();
+
+	const { traerPreciosPtoStock } = useContext(VentasContext);
+
+	useEffect(() => {
+		traerPreciosPtoStock();
+	}, []);
+
 	const [page, setPage] = React.useState(0);
 	const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
