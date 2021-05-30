@@ -3,9 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import BuscarProducto from './BuscarProducto';
-import Divider from '@material-ui/core/Divider';
-import SelectPtoStockVenta from './SelectPtoStockVenta';
 import RadioElegirProductos from './RadioElegirProductos';
+import TablaElegirProducto from './TablaElegirProducto';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -28,7 +27,7 @@ const NuevaVenta = () => {
 					<Paper className={classes.paper} variant="outlined">
 						<BuscarProducto />
 						<RadioElegirProductos />
-						<Divider variant="fullWidth" />
+						<TablaElegirProducto />
 					</Paper>
 				</Grid>
 				<Grid item xs={12} sm={6}>
