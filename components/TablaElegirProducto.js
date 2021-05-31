@@ -30,7 +30,6 @@ const TablaElegirProducto = () => {
 	const classes = useStyles();
 
 	const {
-		preciosPtoStock,
 		preciosStockTotal,
 		filas,
 		ptoStock,

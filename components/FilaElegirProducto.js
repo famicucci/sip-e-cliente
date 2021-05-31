@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import BotonAgregarCarrito from './BotonAgregarCarrito';
+import VentasContext from '../context/ventas/ventasContext';
+import BotonElegirPtoStock from './BotonElegirPtoStock';
 
 const useStyles = makeStyles({
 	negrita: {
@@ -13,6 +15,8 @@ const useStyles = makeStyles({
 
 const FilaElegirProducto = (props) => {
 	const classes = useStyles();
+
+	const { valorRadio } = useContext(VentasContext);
 
 	const codigo = props.fila.ProductoCodigo;
 	const descripcion = props.fila['Producto.descripcion'];
@@ -27,7 +31,12 @@ const FilaElegirProducto = (props) => {
 			</TableCell>
 			<TableCell align="center">{precio}</TableCell>
 			<TableCell align="center">
-				<BotonAgregarCarrito cantidad={cantidad} />
+				{valorRadio === 'pto-stock' || valorRadio === 'sin-stock' ? (
+					<BotonAgregarCarrito cantidad={cantidad} />
+				) : null}
+				{valorRadio === 'total' ? (
+					<BotonElegirPtoStock cantidad={cantidad} />
+				) : null}
 			</TableCell>
 		</TableRow>
 	);
