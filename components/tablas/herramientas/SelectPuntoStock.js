@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import StockContext from '../../../context/stock/stockContext';
 import BarraHerramientasContext from '../../../context/barraHerramientas/barraHerramientasContext';
 
 const useStyles = makeStyles((theme) => ({
@@ -36,12 +35,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const SelectPuntosStock = () => {
+const SelectPuntosStock = ({ ptoStock, handlePtoStock }) => {
 	const classes = useStyles();
 
 	const { ptosStock, traerPtosStock } = useContext(BarraHerramientasContext);
-
-	const { ptoStock, handlePtoStock } = useContext(StockContext);
 
 	useEffect(() => {
 		traerPtosStock();

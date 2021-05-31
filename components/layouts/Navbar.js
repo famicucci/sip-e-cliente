@@ -15,6 +15,7 @@ import SelectPuntoStock from '../tablas/herramientas/SelectPuntoStock';
 
 import AuthContext from '../../context/autenticacion/authContext';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
+import StockContext from '../../context/stock/stockContext';
 
 const drawerWidth = 240;
 
@@ -64,6 +65,7 @@ const Navbar = (props) => {
 		BarraHerramientasContext
 	);
 	const { usuario, cerrarSesion } = useContext(AuthContext);
+	const { ptoStock, handlePtoStock } = useContext(StockContext);
 
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -184,7 +186,12 @@ const Navbar = (props) => {
 					)}
 					{buscador ? <Buscador /> : null}
 					{selectListaPrecio ? <SelectListasPrecio /> : null}
-					{selectPtoStock ? <SelectPuntoStock /> : null}
+					{selectPtoStock ? (
+						<SelectPuntoStock
+							ptoStock={ptoStock}
+							handlePtoStock={handlePtoStock}
+						/>
+					) : null}
 					<div className={classes.grow} />
 
 					<div className={classes.sectionDesktop}>

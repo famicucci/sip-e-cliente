@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import BarraHerramientasContext from '../context/barraHerramientas/barraHerramientasContext';
 
 const useStyles = makeStyles((theme) => ({
 	formControl: {
@@ -17,16 +18,21 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const SelectPtoStockVenta = () => {
+const SelectPtoStockVenta = ({ ptoStock, handlePtoStock }) => {
 	const classes = useStyles();
-	const [ptoStock, setPtoStock] = useState(1);
+
+	const { ptosStock, traerPtosStock } = useContext(BarraHerramientasContext);
+
+	useEffect(() => {
+		traerPtosStock();
+	}, []);
 
 	const handleChange = (event) => {
-		setPtoStock(event.target.value);
+		handlePtoStock(event.target.value);
 	};
 
 	return (
-		<FormControl className={classes.formControl} disabled>
+		<FormControl className={classes.formControl}>
 			<Select
 				value={ptoStock}
 				onChange={handleChange}
@@ -34,10 +40,13 @@ const SelectPtoStockVenta = () => {
 				className={classes.selectEmpty}
 				inputProps={{ 'aria-label': 'Without label' }}
 			>
-				<MenuItem value={1}>Showroom</MenuItem>
-				<MenuItem value={2}>Depósito</MenuItem>
-				<MenuItem value={3}>Mercado Libre</MenuItem>
-				<MenuItem value={3}>Outlet</MenuItem>
+				{ptosStock
+					? ptosStock.map((ptoStock) => (
+							<MenuItem key={ptoStock.id} value={ptoStock.id}>
+								{ptoStock.descripcion}
+							</MenuItem>
+					  ))
+					: null}
 			</Select>
 		</FormControl>
 	);
