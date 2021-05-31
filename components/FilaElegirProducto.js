@@ -14,7 +14,10 @@ const useStyles = makeStyles({
 const FilaElegirProducto = (props) => {
 	const classes = useStyles();
 
-	const { codigo, descripcion, precio } = props.fila;
+	const codigo = props.fila.ProductoCodigo;
+	const descripcion = props.fila['Producto.descripcion'];
+	const precio = props.fila['Producto.Precios.pu'];
+
 	return (
 		<TableRow hover role="checkbox" tabIndex={-1}>
 			<TableCell>

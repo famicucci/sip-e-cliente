@@ -10,6 +10,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import FilaElegirProducto from './FilaElegirProducto';
 import VentasContext from '../context/ventas/ventasContext';
+import usePaginacion from '../hooks/usePaginacion';
 
 const columns = [
 	{ id: 'producto', label: 'Producto', minWidth: 120 },
@@ -121,8 +122,12 @@ const useStyles = makeStyles({
 const TablaElegirProducto = () => {
 	const classes = useStyles();
 
-	const { preciosPtoStock, traerPreciosPtoStock, handleFilasPtoStock } =
+	const { preciosPtoStock, filas, traerPreciosPtoStock, handleFilasPtoStock } =
 		useContext(VentasContext);
+
+	// hook paginación
+	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
+		usePaginacion(filas);
 
 	useEffect(() => {
 		traerPreciosPtoStock();
@@ -131,18 +136,6 @@ const TablaElegirProducto = () => {
 	useEffect(() => {
 		handleFilasPtoStock();
 	}, [preciosPtoStock]);
-
-	const [page, setPage] = React.useState(0);
-	const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-	const handleChangePage = (event, newPage) => {
-		setPage(newPage);
-	};
-
-	const handleChangeRowsPerPage = (event) => {
-		setRowsPerPage(+event.target.value);
-		setPage(0);
-	};
 
 	return (
 		<Paper className={classes.root}>
@@ -162,23 +155,13 @@ const TablaElegirProducto = () => {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{rows
-							.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-							.map((fila) => (
-								<FilaElegirProducto fila={fila} />
-							))}
+						{cortePagina.map((fila) => (
+							<FilaElegirProducto fila={fila} />
+						))}
 					</TableBody>
+					<FooterTabla />
 				</Table>
 			</TableContainer>
-			<TablePagination
-				rowsPerPageOptions={[10, 25, 100]}
-				component="div"
-				count={rows.length}
-				rowsPerPage={rowsPerPage}
-				page={page}
-				onChangePage={handleChangePage}
-				onChangeRowsPerPage={handleChangeRowsPerPage}
-			/>
 		</Paper>
 	);
 };

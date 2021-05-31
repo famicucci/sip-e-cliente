@@ -39,6 +39,7 @@ const VentasState = (props) => {
 		<VentasContext.Provider
 			value={{
 				preciosPtoStock: state.preciosPtoStock,
+				filas: state.filas,
 				ptoStock: state.ptoStock,
 				traerPreciosPtoStock,
 				handleFilasPtoStock,
