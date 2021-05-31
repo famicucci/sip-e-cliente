@@ -27,7 +27,7 @@ const BotonAgregarCarrito = ({ cantidad }) => {
 				showZero
 			>
 				<IconButton size="small" color="secondary">
-					<AddShoppingCartIcon />
+					<AddShoppingCartIcon fontSize="default" />
 				</IconButton>
 			</Badge>
 		</div>

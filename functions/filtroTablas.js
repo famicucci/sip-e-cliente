@@ -33,9 +33,19 @@ const filtraPtoStockListaPrecio = (filas, ptoStock, lista) => {
 	return filasFiltradas;
 };
 
+// filtra por punto de stock y lista precio
+const filtraStockTotalListaPrecio = (filas, lista) => {
+	const filasFiltradas = filas.filter(
+		(fila) => fila['Producto.Precios.ListaPrecioId'] === lista
+	);
+
+	return filasFiltradas;
+};
+
 export {
 	filtrado,
 	filtraListaPrecio,
 	filtraPuntoStock,
 	filtraPtoStockListaPrecio,
+	filtraStockTotalListaPrecio,
 };

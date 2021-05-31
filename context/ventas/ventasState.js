@@ -7,6 +7,7 @@ import {
 	PRECIOS_PTO_STOCK,
 	PRECIOS_STOCK_TOTAL,
 	PRECIOS_PTO_STOCK_FILAS,
+	PRECIOS_STOCK_TOTAL_FILAS,
 	PTO_STOCK_VENTAS,
 	LISTA_PRECIO_VENTAS,
 	VALOR_RADIO_VENTAS,
@@ -57,6 +58,12 @@ const VentasState = (props) => {
 		});
 	};
 
+	const handleFilasStockTotal = () => {
+		dispatch({
+			type: PRECIOS_STOCK_TOTAL_FILAS,
+		});
+	};
+
 	const handlePtoStock = (ptoStock) => {
 		dispatch({
 			type: PTO_STOCK_VENTAS,
@@ -90,6 +97,7 @@ const VentasState = (props) => {
 				traerPreciosPtoStock,
 				traerPreciosStockTotal,
 				handleFilasPtoStock,
+				handleFilasStockTotal,
 				handlePtoStock,
 				handleListaPrecio,
 				handleValorRadio,

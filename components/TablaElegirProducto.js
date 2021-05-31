@@ -39,6 +39,7 @@ const TablaElegirProducto = () => {
 		traerPreciosPtoStock,
 		traerPreciosStockTotal,
 		handleFilasPtoStock,
+		handleFilasStockTotal,
 	} = useContext(VentasContext);
 
 	// hook paginación
@@ -46,25 +47,39 @@ const TablaElegirProducto = () => {
 		usePaginacion(filas);
 
 	useEffect(() => {
-		traerPreciosPtoStock();
+		const filasPtoStock = async () => {
+			await traerPreciosPtoStock();
+			await handleFilasPtoStock();
+		};
+		filasPtoStock();
 	}, []);
 
 	useEffect(() => {
 		if (valorRadio === 'total' && preciosStockTotal.length === 0) {
-			traerPreciosStockTotal();
+			const filasStockTotal = async () => {
+				await traerPreciosStockTotal();
+				await handleFilasStockTotal();
+			};
+			filasStockTotal();
+		}
+
+		if (valorRadio === 'total' && preciosStockTotal.length > 0) {
+			handleFilasStockTotal();
+		}
+
+		if (valorRadio === 'pto-stock') {
+			handleFilasPtoStock();
 		}
 	}, [valorRadio]);
 
 	useEffect(() => {
-		handleFilasPtoStock();
-	}, [preciosPtoStock]);
+		if (valorRadio === 'pto-stock') {
+			handleFilasPtoStock();
+		}
 
-	useEffect(() => {
-		console.log(preciosStockTotal);
-	}, [preciosStockTotal]);
-
-	useEffect(() => {
-		handleFilasPtoStock();
+		if (valorRadio === 'total') {
+			handleFilasStockTotal();
+		}
 	}, [ptoStock, listaPrecio]);
 
 	return (
