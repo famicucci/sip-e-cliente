@@ -1,11 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import BarraHerramientasContext from '../context/barraHerramientas/barraHerramientasContext';
+import VentasContext from '../context/ventas/ventasContext';
 
 const useStyles = makeStyles((theme) => ({
 	formControl: {
@@ -18,14 +17,24 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const SelectPtoStockVenta = ({ ptoStock, handlePtoStock }) => {
+const SelectPtoStockVenta = () => {
 	const classes = useStyles();
 
-	const { ptosStock, traerPtosStock } = useContext(BarraHerramientasContext);
+	const { ptosStock, mensaje, traerPtosStock } = useContext(
+		BarraHerramientasContext
+	);
+
+	const { ptoStock, handlePtoStock } = useContext(VentasContext);
 
 	useEffect(() => {
 		traerPtosStock();
 	}, []);
+
+	useEffect(() => {
+		if (mensaje) {
+			console.log(mensaje);
+		}
+	}, [mensaje]);
 
 	const handleChange = (event) => {
 		handlePtoStock(event.target.value);

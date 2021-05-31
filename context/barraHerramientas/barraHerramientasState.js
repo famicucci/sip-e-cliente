@@ -11,6 +11,7 @@ import {
 	HERRAMIENTAS_STOCK_MOVIMIENTOS,
 	PTOS_STOCK,
 	LISTAS_PRECIO,
+	ERROR_BARRA_HERRAMIENTAS,
 } from '../../types';
 
 const BarraHerramientasState = (props) => {
@@ -21,6 +22,7 @@ const BarraHerramientasState = (props) => {
 		listasPrecio: null,
 		ptosStock: null,
 		busqueda: '',
+		mensaje: null,
 	};
 
 	const [state, dispatch] = useReducer(BarraHerramientasReducer, initialState);
@@ -66,7 +68,10 @@ const BarraHerramientasState = (props) => {
 				payload: respuesta.data,
 			});
 		} catch (error) {
-			console.log(error);
+			dispatch({
+				type: ERROR_BARRA_HERRAMIENTAS,
+				payload: error,
+			});
 		}
 	};
 

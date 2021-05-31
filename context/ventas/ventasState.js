@@ -3,7 +3,11 @@ import VentasContext from './ventasContext';
 import VentasReducer from './ventasReducer';
 import clienteAxios from '../../config/axios';
 
-import { PRECIOS_PTO_STOCK, PRECIOS_PTO_STOCK_FILAS } from '../../types';
+import {
+	PRECIOS_PTO_STOCK,
+	PRECIOS_PTO_STOCK_FILAS,
+	PTO_STOCK_VENTAS,
+} from '../../types';
 
 const VentasState = (props) => {
 	const initialState = {
@@ -35,6 +39,13 @@ const VentasState = (props) => {
 		});
 	};
 
+	const handlePtoStock = (ptoStock) => {
+		dispatch({
+			type: PTO_STOCK_VENTAS,
+			payload: ptoStock,
+		});
+	};
+
 	return (
 		<VentasContext.Provider
 			value={{
@@ -43,6 +54,7 @@ const VentasState = (props) => {
 				ptoStock: state.ptoStock,
 				traerPreciosPtoStock,
 				handleFilasPtoStock,
+				handlePtoStock,
 			}}
 		>
 			{props.children}

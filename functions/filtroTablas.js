@@ -24,9 +24,6 @@ const filtraPuntoStock = (filas, puntoStock) => {
 
 // filtra por punto de stock y lista precio
 const filtraPtoStockListaPrecio = (filas, ptoStock, lista) => {
-	console.log(filas);
-	// const extrae = filas[0]['cantidad'];
-	// console.log(extrae);
 	const filasFiltradas = filas.filter(
 		(fila) =>
 			fila['Producto.Precios.ListaPrecioId'] === lista &&

@@ -6,21 +6,16 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import FilaElegirProducto from './FilaElegirProducto';
-import VentasContext from '../context/ventas/ventasContext';
 import usePaginacion from '../hooks/usePaginacion';
+import VentasContext from '../context/ventas/ventasContext';
 
 const columns = [
 	{ id: 'producto', label: 'Producto', minWidth: 120 },
 	{ id: 'precio', label: 'Precio\u00a0($)', minWidth: 50 },
 	{ id: 'acciones', label: '', minWidth: 20 },
 ];
-
-function createData(codigo, descripcion, precio, size) {
-	return { codigo, descripcion, precio, size };
-}
 
 const useStyles = makeStyles({
 	root: {
@@ -34,8 +29,13 @@ const useStyles = makeStyles({
 const TablaElegirProducto = () => {
 	const classes = useStyles();
 
-	const { preciosPtoStock, filas, traerPreciosPtoStock, handleFilasPtoStock } =
-		useContext(VentasContext);
+	const {
+		preciosPtoStock,
+		filas,
+		ptoStock,
+		traerPreciosPtoStock,
+		handleFilasPtoStock,
+	} = useContext(VentasContext);
 
 	// hook paginación
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
@@ -48,6 +48,10 @@ const TablaElegirProducto = () => {
 	useEffect(() => {
 		handleFilasPtoStock();
 	}, [preciosPtoStock]);
+
+	useEffect(() => {
+		handleFilasPtoStock();
+	}, [ptoStock]);
 
 	return (
 		<Paper className={classes.root}>

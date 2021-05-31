@@ -4,11 +4,8 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import SelectPtoStockVenta from './SelectPtoStockVenta';
-import StockContext from '../context/stock/stockContext';
 
 const RadioElegirProductos = () => {
-	const { ptoStock, handlePtoStock } = useContext(StockContext);
-
 	const [value, setValue] = useState('pto-stock');
 
 	useEffect(() => {
@@ -31,12 +28,7 @@ const RadioElegirProductos = () => {
 				<FormControlLabel
 					value="pto-stock"
 					control={<Radio color="primary" />}
-					label={
-						<SelectPtoStockVenta
-							ptoStock={ptoStock}
-							handlePtoStock={handlePtoStock}
-						/>
-					}
+					label={<SelectPtoStockVenta />}
 				/>
 				<FormControlLabel
 					value="total"

@@ -6,6 +6,7 @@ import {
 	HERRAMIENTAS_STOCK_MOVIMIENTOS,
 	PTOS_STOCK,
 	LISTAS_PRECIO,
+	ERROR_BARRA_HERRAMIENTAS,
 } from '../../types';
 
 const PreciosReducer = (state, action) => {
@@ -52,6 +53,11 @@ const PreciosReducer = (state, action) => {
 			return {
 				...state,
 				listasPrecio: action.payload,
+			};
+		case ERROR_BARRA_HERRAMIENTAS:
+			return {
+				...state,
+				mensaje: action.payload,
 			};
 
 		default:
