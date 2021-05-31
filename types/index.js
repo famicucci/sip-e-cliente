@@ -38,6 +38,7 @@ export const NUEVA_CANTIDAD_STOCK = 'NUEVA_CANTIDAD_STOCK';
 
 // ventas
 export const PRECIOS_PTO_STOCK = 'PRECIOS_PTO_STOCK';
+export const PRECIOS_PTO_STOCK_FILAS = 'PRECIOS_PTO_STOCK_FILAS';
 
 // alertas
 export const MOSTRAR_ALERTA = 'MOSTRAR_ALERTA';

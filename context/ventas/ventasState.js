@@ -3,11 +3,14 @@ import VentasContext from './ventasContext';
 import VentasReducer from './ventasReducer';
 import clienteAxios from '../../config/axios';
 
-import { PRECIOS_PTO_STOCK } from '../../types';
+import { PRECIOS_PTO_STOCK, PRECIOS_PTO_STOCK_FILAS } from '../../types';
 
 const VentasState = (props) => {
 	const initialState = {
 		preciosPtoStock: [],
+		filas: [],
+		ptoStock: 1,
+		listaPrecio: 1,
 	};
 
 	const [state, dispatch] = useReducer(VentasReducer, initialState);
@@ -17,23 +20,29 @@ const VentasState = (props) => {
 		try {
 			const respuesta = await clienteAxios.get('/api/ventas/pto-stock/');
 
-			console.log(respuesta.data);
 			dispatch({
 				type: PRECIOS_PTO_STOCK,
 				payload: respuesta.data,
 			});
 		} catch (error) {
 			console.log(error);
-			// dispatch({
-			// 	type: ERROR_STOCK,
-			// 	payload: error,
-			// });
 		}
+	};
+
+	const handleFilasPtoStock = () => {
+		dispatch({
+			type: PRECIOS_PTO_STOCK_FILAS,
+		});
 	};
 
 	return (
 		<VentasContext.Provider
-			value={{ preciosPtoStock: state.preciosPtoStock, traerPreciosPtoStock }}
+			value={{
+				preciosPtoStock: state.preciosPtoStock,
+				ptoStock: state.ptoStock,
+				traerPreciosPtoStock,
+				handleFilasPtoStock,
+			}}
 		>
 			{props.children}
 		</VentasContext.Provider>

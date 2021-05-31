@@ -121,11 +121,16 @@ const useStyles = makeStyles({
 const TablaElegirProducto = () => {
 	const classes = useStyles();
 
-	const { traerPreciosPtoStock } = useContext(VentasContext);
+	const { preciosPtoStock, traerPreciosPtoStock, handleFilasPtoStock } =
+		useContext(VentasContext);
 
 	useEffect(() => {
 		traerPreciosPtoStock();
 	}, []);
+
+	useEffect(() => {
+		handleFilasPtoStock();
+	}, [preciosPtoStock]);
 
 	const [page, setPage] = React.useState(0);
 	const [rowsPerPage, setRowsPerPage] = React.useState(10);

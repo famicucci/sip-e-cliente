@@ -22,4 +22,23 @@ const filtraPuntoStock = (filas, puntoStock) => {
 	return rowsFiltradas;
 };
 
-export { filtrado, filtraListaPrecio, filtraPuntoStock };
+// filtra por punto de stock y lista precio
+const filtraPtoStockListaPrecio = (filas, ptoStock, lista) => {
+	console.log(filas);
+	// const extrae = filas[0]['cantidad'];
+	// console.log(extrae);
+	const filasFiltradas = filas.filter(
+		(fila) =>
+			fila['Producto.Precios.ListaPrecioId'] === lista &&
+			fila.PtoStockId === ptoStock
+	);
+
+	return filasFiltradas;
+};
+
+export {
+	filtrado,
+	filtraListaPrecio,
+	filtraPuntoStock,
+	filtraPtoStockListaPrecio,
+};
