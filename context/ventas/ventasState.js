@@ -5,6 +5,7 @@ import clienteAxios from '../../config/axios';
 
 import {
 	PRECIOS_PTO_STOCK,
+	PRECIOS_STOCK_TOTAL,
 	PRECIOS_PTO_STOCK_FILAS,
 	PTO_STOCK_VENTAS,
 	LISTA_PRECIO_VENTAS,
@@ -14,6 +15,7 @@ import {
 const VentasState = (props) => {
 	const initialState = {
 		preciosPtoStock: [],
+		preciosStockTotal: [],
 		filas: [],
 		ptoStock: 1,
 		listaPrecio: 1,
@@ -29,6 +31,19 @@ const VentasState = (props) => {
 
 			dispatch({
 				type: PRECIOS_PTO_STOCK,
+				payload: respuesta.data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const traerPreciosStockTotal = async () => {
+		try {
+			const respuesta = await clienteAxios.get('/api/ventas/total/');
+
+			dispatch({
+				type: PRECIOS_STOCK_TOTAL,
 				payload: respuesta.data,
 			});
 		} catch (error) {
@@ -67,11 +82,13 @@ const VentasState = (props) => {
 		<VentasContext.Provider
 			value={{
 				preciosPtoStock: state.preciosPtoStock,
+				preciosStockTotal: state.preciosStockTotal,
 				filas: state.filas,
 				ptoStock: state.ptoStock,
 				listaPrecio: state.listaPrecio,
 				valorRadio: state.valorRadio,
 				traerPreciosPtoStock,
+				traerPreciosStockTotal,
 				handleFilasPtoStock,
 				handlePtoStock,
 				handleListaPrecio,

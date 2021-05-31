@@ -31,10 +31,13 @@ const TablaElegirProducto = () => {
 
 	const {
 		preciosPtoStock,
+		preciosStockTotal,
 		filas,
 		ptoStock,
 		listaPrecio,
+		valorRadio,
 		traerPreciosPtoStock,
+		traerPreciosStockTotal,
 		handleFilasPtoStock,
 	} = useContext(VentasContext);
 
@@ -47,8 +50,18 @@ const TablaElegirProducto = () => {
 	}, []);
 
 	useEffect(() => {
+		if (valorRadio === 'total' && preciosStockTotal.length === 0) {
+			traerPreciosStockTotal();
+		}
+	}, [valorRadio]);
+
+	useEffect(() => {
 		handleFilasPtoStock();
 	}, [preciosPtoStock]);
+
+	useEffect(() => {
+		console.log(preciosStockTotal);
+	}, [preciosStockTotal]);
 
 	useEffect(() => {
 		handleFilasPtoStock();

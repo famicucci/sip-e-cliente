@@ -1,5 +1,6 @@
 import {
 	PRECIOS_PTO_STOCK,
+	PRECIOS_STOCK_TOTAL,
 	PRECIOS_PTO_STOCK_FILAS,
 	PTO_STOCK_VENTAS,
 	LISTA_PRECIO_VENTAS,
@@ -13,6 +14,11 @@ const VentasReducer = (state, action) => {
 			return {
 				...state,
 				preciosPtoStock: action.payload,
+			};
+		case PRECIOS_STOCK_TOTAL:
+			return {
+				...state,
+				preciosStockTotal: action.payload,
 			};
 		case PRECIOS_PTO_STOCK_FILAS:
 			const filas = filtraPtoStockListaPrecio(

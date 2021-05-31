@@ -9,10 +9,6 @@ import VentasContext from '../context/ventas/ventasContext';
 const RadioElegirProductos = () => {
 	const { valorRadio, handleValorRadio } = useContext(VentasContext);
 
-	useEffect(() => {
-		console.log(valorRadio);
-	}, [valorRadio]);
-
 	const handleChange = (event) => {
 		handleValorRadio(event.target.value);
 	};
