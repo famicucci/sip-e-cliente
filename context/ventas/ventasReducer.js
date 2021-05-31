@@ -3,6 +3,7 @@ import {
 	PRECIOS_PTO_STOCK_FILAS,
 	PTO_STOCK_VENTAS,
 	LISTA_PRECIO_VENTAS,
+	VALOR_RADIO_VENTAS,
 } from '../../types';
 import { filtraPtoStockListaPrecio } from '../../functions/filtroTablas.js';
 
@@ -32,6 +33,11 @@ const VentasReducer = (state, action) => {
 			return {
 				...state,
 				listaPrecio: action.payload,
+			};
+		case VALOR_RADIO_VENTAS:
+			return {
+				...state,
+				valorRadio: action.payload,
 			};
 		default:
 			return state;

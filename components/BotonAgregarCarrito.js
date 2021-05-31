@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const BotonAgregarCarrito = ({ cantidad }) => {
-	console.log(cantidad);
 	const classes = useStyles();
 
 	return (

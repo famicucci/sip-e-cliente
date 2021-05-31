@@ -8,6 +8,7 @@ import {
 	PRECIOS_PTO_STOCK_FILAS,
 	PTO_STOCK_VENTAS,
 	LISTA_PRECIO_VENTAS,
+	VALOR_RADIO_VENTAS,
 } from '../../types';
 
 const VentasState = (props) => {
@@ -16,6 +17,7 @@ const VentasState = (props) => {
 		filas: [],
 		ptoStock: 1,
 		listaPrecio: 1,
+		valorRadio: 'pto-stock',
 	};
 
 	const [state, dispatch] = useReducer(VentasReducer, initialState);
@@ -54,6 +56,13 @@ const VentasState = (props) => {
 		});
 	};
 
+	const handleValorRadio = (valor) => {
+		dispatch({
+			type: VALOR_RADIO_VENTAS,
+			payload: valor,
+		});
+	};
+
 	return (
 		<VentasContext.Provider
 			value={{
@@ -61,10 +70,12 @@ const VentasState = (props) => {
 				filas: state.filas,
 				ptoStock: state.ptoStock,
 				listaPrecio: state.listaPrecio,
+				valorRadio: state.valorRadio,
 				traerPreciosPtoStock,
 				handleFilasPtoStock,
 				handlePtoStock,
 				handleListaPrecio,
+				handleValorRadio,
 			}}
 		>
 			{props.children}

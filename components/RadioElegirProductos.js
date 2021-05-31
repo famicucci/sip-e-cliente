@@ -1,19 +1,20 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import SelectPtoStockVenta from './SelectPtoStockVenta';
+import VentasContext from '../context/ventas/ventasContext';
 
 const RadioElegirProductos = () => {
-	const [value, setValue] = useState('pto-stock');
+	const { valorRadio, handleValorRadio } = useContext(VentasContext);
 
 	useEffect(() => {
-		console.log(value);
-	}, [value]);
+		console.log(valorRadio);
+	}, [valorRadio]);
 
 	const handleChange = (event) => {
-		setValue(event.target.value);
+		handleValorRadio(event.target.value);
 	};
 
 	return (
@@ -23,7 +24,7 @@ const RadioElegirProductos = () => {
 				aria-label="position"
 				name="position"
 				onChange={handleChange}
-				value={value}
+				value={valorRadio}
 			>
 				<FormControlLabel
 					value="pto-stock"
