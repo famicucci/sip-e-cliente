@@ -7,6 +7,7 @@ import {
 	PRECIOS_PTO_STOCK,
 	PRECIOS_PTO_STOCK_FILAS,
 	PTO_STOCK_VENTAS,
+	LISTA_PRECIO_VENTAS,
 } from '../../types';
 
 const VentasState = (props) => {
@@ -46,15 +47,24 @@ const VentasState = (props) => {
 		});
 	};
 
+	const handleListaPrecio = (listaPrecio) => {
+		dispatch({
+			type: LISTA_PRECIO_VENTAS,
+			payload: listaPrecio,
+		});
+	};
+
 	return (
 		<VentasContext.Provider
 			value={{
 				preciosPtoStock: state.preciosPtoStock,
 				filas: state.filas,
 				ptoStock: state.ptoStock,
+				listaPrecio: state.listaPrecio,
 				traerPreciosPtoStock,
 				handleFilasPtoStock,
 				handlePtoStock,
+				handleListaPrecio,
 			}}
 		>
 			{props.children}

@@ -2,6 +2,7 @@ import {
 	PRECIOS_PTO_STOCK,
 	PRECIOS_PTO_STOCK_FILAS,
 	PTO_STOCK_VENTAS,
+	LISTA_PRECIO_VENTAS,
 } from '../../types';
 import { filtraPtoStockListaPrecio } from '../../functions/filtroTablas.js';
 
@@ -26,6 +27,11 @@ const VentasReducer = (state, action) => {
 			return {
 				...state,
 				ptoStock: action.payload,
+			};
+		case LISTA_PRECIO_VENTAS:
+			return {
+				...state,
+				listaPrecio: action.payload,
 			};
 		default:
 			return state;

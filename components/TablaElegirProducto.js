@@ -33,6 +33,7 @@ const TablaElegirProducto = () => {
 		preciosPtoStock,
 		filas,
 		ptoStock,
+		listaPrecio,
 		traerPreciosPtoStock,
 		handleFilasPtoStock,
 	} = useContext(VentasContext);
@@ -51,7 +52,7 @@ const TablaElegirProducto = () => {
 
 	useEffect(() => {
 		handleFilasPtoStock();
-	}, [ptoStock]);
+	}, [ptoStock, listaPrecio]);
 
 	return (
 		<Paper className={classes.root}>

@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import BuscarProducto from './BuscarProducto';
 import RadioElegirProductos from './RadioElegirProductos';
 import TablaElegirProducto from './TablaElegirProducto';
+import SelectListaPrecio from './SelectListaPrecioVenta';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -27,6 +28,7 @@ const NuevaVenta = () => {
 					<Paper className={classes.paper} variant="outlined">
 						<BuscarProducto />
 						<RadioElegirProductos />
+						<SelectListaPrecio />
 						<TablaElegirProducto />
 					</Paper>
 				</Grid>
