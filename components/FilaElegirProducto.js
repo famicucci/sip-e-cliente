@@ -17,6 +17,7 @@ const FilaElegirProducto = (props) => {
 	const codigo = props.fila.ProductoCodigo;
 	const descripcion = props.fila['Producto.descripcion'];
 	const precio = props.fila['Producto.Precios.pu'];
+	const cantidad = props.fila.cantidad;
 
 	return (
 		<TableRow hover role="checkbox" tabIndex={-1}>
@@ -26,7 +27,7 @@ const FilaElegirProducto = (props) => {
 			</TableCell>
 			<TableCell align="center">{precio}</TableCell>
 			<TableCell align="center">
-				<BotonAgregarCarrito />
+				<BotonAgregarCarrito cantidad={cantidad} />
 			</TableCell>
 		</TableRow>
 	);
