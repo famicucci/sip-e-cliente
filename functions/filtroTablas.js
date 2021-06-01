@@ -42,10 +42,21 @@ const filtraStockTotalListaPrecio = (filas, lista) => {
 	return filasFiltradas;
 };
 
+const filtraElegirPtoStock = (filas, codigoProducto, lista) => {
+	const filasFiltradas = filas.filter(
+		(fila) =>
+			fila.ProductoCodigo === codigoProducto &&
+			fila['Producto.Precios.ListaPrecioId'] === lista
+	);
+
+	return filasFiltradas;
+};
+
 export {
 	filtrado,
 	filtraListaPrecio,
 	filtraPuntoStock,
 	filtraPtoStockListaPrecio,
 	filtraStockTotalListaPrecio,
+	filtraElegirPtoStock,
 };

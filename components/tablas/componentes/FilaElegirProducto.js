@@ -35,7 +35,7 @@ const FilaElegirProducto = (props) => {
 					<BotonAgregarCarrito cantidad={cantidad} />
 				) : null}
 				{valorRadio === 'total' ? (
-					<BotonElegirPtoStock cantidad={cantidad} />
+					<BotonElegirPtoStock cantidad={cantidad} codigoProducto={codigo} />
 				) : null}
 			</TableCell>
 		</TableRow>
