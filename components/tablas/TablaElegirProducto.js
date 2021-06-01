@@ -7,9 +7,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import FilaElegirProducto from './FilaElegirProducto';
-import usePaginacion from '../hooks/usePaginacion';
-import VentasContext from '../context/ventas/ventasContext';
+import usePaginacion from '../../hooks/usePaginacion';
+import VentasContext from '../../context/ventas/ventasContext';
+import FilaElegirProducto from '../tablas/componentes/FilaElegirProducto';
 
 const columns = [
 	{ id: 'producto', label: 'Producto', minWidth: 120 },

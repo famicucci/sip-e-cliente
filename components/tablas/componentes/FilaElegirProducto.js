@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import BotonAgregarCarrito from './BotonAgregarCarrito';
-import VentasContext from '../context/ventas/ventasContext';
+import VentasContext from '../../../context/ventas/ventasContext';
 import BotonElegirPtoStock from './BotonElegirPtoStock';
 
 const useStyles = makeStyles({

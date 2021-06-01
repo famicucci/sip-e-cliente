@@ -4,7 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import BuscarProducto from './BuscarProducto';
 import RadioElegirProductos from './RadioElegirProductos';
-import TablaElegirProducto from './TablaElegirProducto';
+import TablaElegirProducto from '../components/tablas/TablaElegirProducto';
 import SelectListaPrecio from './SelectListaPrecioVenta';
 
 const useStyles = makeStyles((theme) => ({

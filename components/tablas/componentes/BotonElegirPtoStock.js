@@ -3,6 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Badge from '@material-ui/core/Badge';
 import { IconButton } from '@material-ui/core';
 import CallMadeIcon from '@material-ui/icons/CallMade';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/themes/light-border.css';
+import TablaElegirPtoStock from '../TablaElegirPtoStock';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -26,9 +30,16 @@ const BotonElegirPtoStock = ({ cantidad }) => {
 				}}
 				showZero
 			>
-				<IconButton size="small" color="secondary">
-					<CallMadeIcon fontSize="default" />
-				</IconButton>
+				<Tippy
+					content={<TablaElegirPtoStock />}
+					interactive={true}
+					theme={'light-border'}
+					placement={'left'}
+				>
+					<IconButton size="small" color="secondary">
+						<CallMadeIcon fontSize="default" />
+					</IconButton>
+				</Tippy>
 			</Badge>
 		</div>
 	);
