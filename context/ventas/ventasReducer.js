@@ -3,6 +3,7 @@ import {
 	PRECIOS_STOCK_TOTAL,
 	PRECIOS_PTO_STOCK_FILAS,
 	PRECIOS_STOCK_TOTAL_FILAS,
+	PRECIOS_PRODUCTOS_SIN_STOCK_FILAS,
 	PTO_STOCK_VENTAS,
 	LISTA_PRECIO_VENTAS,
 	VALOR_RADIO_VENTAS,
@@ -10,6 +11,7 @@ import {
 import {
 	filtraPtoStockListaPrecio,
 	filtraStockTotalListaPrecio,
+	filtraProductosSinStock,
 } from '../../functions/filtroTablas.js';
 
 const VentasReducer = (state, action) => {
@@ -42,6 +44,15 @@ const VentasReducer = (state, action) => {
 			return {
 				...state,
 				filas: filasTotal,
+			};
+		case PRECIOS_PRODUCTOS_SIN_STOCK_FILAS:
+			const filasSinStock = filtraProductosSinStock(
+				state.preciosStockTotal,
+				state.listaPrecio
+			);
+			return {
+				...state,
+				filas: filasSinStock,
 			};
 		case PTO_STOCK_VENTAS:
 			return {

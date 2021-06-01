@@ -27,7 +27,8 @@ const filtraPtoStockListaPrecio = (filas, ptoStock, lista) => {
 	const filasFiltradas = filas.filter(
 		(fila) =>
 			fila['Producto.Precios.ListaPrecioId'] === lista &&
-			fila.PtoStockId === ptoStock
+			fila.PtoStockId === ptoStock &&
+			fila.cantidad !== 0
 	);
 
 	return filasFiltradas;
@@ -36,7 +37,17 @@ const filtraPtoStockListaPrecio = (filas, ptoStock, lista) => {
 // filtra por punto de stock y lista precio
 const filtraStockTotalListaPrecio = (filas, lista) => {
 	const filasFiltradas = filas.filter(
-		(fila) => fila['Producto.Precios.ListaPrecioId'] === lista
+		(fila) =>
+			fila['Producto.Precios.ListaPrecioId'] === lista && fila.cantidad !== '0'
+	);
+
+	return filasFiltradas;
+};
+
+const filtraProductosSinStock = (filas, lista) => {
+	const filasFiltradas = filas.filter(
+		(fila) =>
+			fila['Producto.Precios.ListaPrecioId'] === lista && fila.cantidad === '0'
 	);
 
 	return filasFiltradas;
@@ -59,4 +70,5 @@ export {
 	filtraPtoStockListaPrecio,
 	filtraStockTotalListaPrecio,
 	filtraElegirPtoStock,
+	filtraProductosSinStock,
 };

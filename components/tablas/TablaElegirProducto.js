@@ -39,6 +39,7 @@ const TablaElegirProducto = () => {
 		traerPreciosStockTotal,
 		handleFilasPtoStock,
 		handleFilasStockTotal,
+		handleFilasSinStock,
 	} = useContext(VentasContext);
 
 	// hook paginación
@@ -54,6 +55,10 @@ const TablaElegirProducto = () => {
 	}, []);
 
 	useEffect(() => {
+		if (valorRadio === 'pto-stock') {
+			handleFilasPtoStock();
+		}
+
 		if (valorRadio === 'total' && preciosStockTotal.length === 0) {
 			const filasStockTotal = async () => {
 				await traerPreciosStockTotal();
@@ -65,9 +70,8 @@ const TablaElegirProducto = () => {
 		if (valorRadio === 'total' && preciosStockTotal.length > 0) {
 			handleFilasStockTotal();
 		}
-
-		if (valorRadio === 'pto-stock') {
-			handleFilasPtoStock();
+		if (valorRadio === 'sin-stock') {
+			handleFilasSinStock();
 		}
 	}, [valorRadio]);
 
