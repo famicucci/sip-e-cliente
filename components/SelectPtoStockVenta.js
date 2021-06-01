@@ -20,21 +20,20 @@ const useStyles = makeStyles((theme) => ({
 const SelectPtoStockVenta = () => {
 	const classes = useStyles();
 
-	const { ptosStock, mensaje, traerPtosStock } = useContext(
-		BarraHerramientasContext
-	);
+	const { ptosStock, traerPtosStock } = useContext(BarraHerramientasContext);
 
-	const { ptoStock, handlePtoStock } = useContext(VentasContext);
+	const { ptoStock, valorRadio, handlePtoStock } = useContext(VentasContext);
 
 	useEffect(() => {
 		traerPtosStock();
 	}, []);
 
-	useEffect(() => {
-		if (mensaje) {
-			console.log(mensaje);
-		}
-	}, [mensaje]);
+	let props = {};
+	if (valorRadio !== 'pto-stock') {
+		props = {
+			disabled: 'true',
+		};
+	}
 
 	const handleChange = (event) => {
 		handlePtoStock(event.target.value);
@@ -48,6 +47,7 @@ const SelectPtoStockVenta = () => {
 				displayEmpty
 				className={classes.selectEmpty}
 				inputProps={{ 'aria-label': 'Without label' }}
+				{...props}
 			>
 				{ptosStock
 					? ptosStock.map((ptoStock) => (
