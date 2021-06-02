@@ -10,6 +10,7 @@ import FilaMovimientoStock from './componentes/FilaMovimientoStock';
 import StockContext from '../../context/stock/stockContext';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import SpinnerTabla from '../SpinnerTabla';
+import { filtrado } from '../../functions/filtroTablas';
 
 const useStyles = makeStyles({
 	table: {
@@ -45,9 +46,6 @@ const TablaMovimientos = () => {
 		handleFilasBusqueda,
 	} = useContext(StockContext);
 
-	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
-		usePaginacion(filas);
-
 	useEffect(() => {
 		traerMovimientosStock();
 		handleHerramientasMovimientosStock();
@@ -58,9 +56,13 @@ const TablaMovimientos = () => {
 	}, [stocks]);
 
 	useEffect(() => {
-		handleFilasBusqueda(stocks, busqueda);
 		setPage(0);
 	}, [busqueda]);
+
+	const filasFiltradas = filtrado(filas, busqueda);
+
+	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
+		usePaginacion(filasFiltradas);
 
 	return (
 		<TableContainer component={Paper}>

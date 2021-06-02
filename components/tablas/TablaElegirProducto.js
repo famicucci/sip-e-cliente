@@ -97,6 +97,10 @@ const TablaElegirProducto = () => {
 		setPage(0);
 	}, [ptoStock, listaPrecio]);
 
+	useEffect(() => {
+		setPage(0);
+	}, [busqueda]);
+
 	const filasFiltradas = filtrado(filas, busqueda);
 
 	// hook paginación

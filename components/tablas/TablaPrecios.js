@@ -10,6 +10,7 @@ import FilaPrecio from '../tablas/componentes/FilaPrecio';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import PreciosContext from '../../context/precios/preciosContext';
 import SpinnerTabla from '../../components/SpinnerTabla';
+import { filtrado } from '../../functions/filtroTablas';
 
 const useStyles = makeStyles({
 	table: {
@@ -43,10 +44,6 @@ const TablaPrecios = () => {
 		handleFilasBusqueda,
 	} = useContext(PreciosContext);
 
-	// hook paginación
-	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
-		usePaginacion(filas);
-
 	useEffect(() => {
 		handleHerramientasPrecios();
 		traerPrecios();
@@ -61,9 +58,18 @@ const TablaPrecios = () => {
 
 	useEffect(() => {
 		handleFilasLista(precios, lista);
-		handleFilasBusqueda(precios, lista, busqueda);
 		setPage(0);
-	}, [lista, busqueda]);
+	}, [lista]);
+
+	useEffect(() => {
+		setPage(0);
+	}, [busqueda]);
+
+	const filasFiltradas = filtrado(filas, busqueda);
+
+	// hook paginación
+	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
+		usePaginacion(filasFiltradas);
 
 	return (
 		<TableContainer component={Paper}>
