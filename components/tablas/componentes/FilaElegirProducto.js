@@ -32,7 +32,7 @@ const FilaElegirProducto = (props) => {
 			<TableCell align="center">{precio}</TableCell>
 			<TableCell align="center">
 				{valorRadio === 'pto-stock' || valorRadio === 'sin-stock' ? (
-					<BotonAgregarCarrito cantidad={cantidad} />
+					<BotonAgregarCarrito cantidad={cantidad} codigo={codigo} />
 				) : null}
 				{valorRadio === 'total' ? (
 					<BotonElegirPtoStock cantidad={cantidad} codigoProducto={codigo} />

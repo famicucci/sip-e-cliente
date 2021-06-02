@@ -8,12 +8,14 @@ import {
 	LISTA_PRECIO_VENTAS,
 	VALOR_RADIO_VENTAS,
 	BUSQUEDA_VENTAS,
+	CARRITO_AGREGAR_PRODUCTO,
 } from '../../types';
 import {
 	filtraPtoStockListaPrecio,
 	filtraStockTotalListaPrecio,
 	filtraProductosSinStock,
 } from '../../functions/filtroTablas.js';
+import { agregarCarrito } from '../../functions/ventas.js';
 
 const VentasReducer = (state, action) => {
 	switch (action.type) {
@@ -74,6 +76,18 @@ const VentasReducer = (state, action) => {
 			return {
 				...state,
 				busqueda: action.payload,
+			};
+		case CARRITO_AGREGAR_PRODUCTO:
+			// funcion que toma codigo, pto de stock, lista precio. Recorre state preciosPtoStock y agrega la fila encontrada al carrito (con cantidad 1)
+			const producto = agregarCarrito(
+				action.payload,
+				state.ptoStock,
+				state.listaPrecio,
+				state.preciosPtoStock
+			);
+			return {
+				...state,
+				carrito: [...state.carrito, producto],
 			};
 		default:
 			return state;

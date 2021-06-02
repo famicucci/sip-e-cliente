@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Badge from '@material-ui/core/Badge';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { IconButton } from '@material-ui/core';
+import VentasContext from '../../../context/ventas/ventasContext';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -12,8 +13,14 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const BotonAgregarCarrito = ({ cantidad }) => {
+const BotonAgregarCarrito = ({ cantidad, codigo }) => {
 	const classes = useStyles();
+
+	const { handleCarrito } = useContext(VentasContext);
+
+	const handleClick = (codigo) => {
+		handleCarrito(codigo);
+	};
 
 	return (
 		<div className={classes.root}>
@@ -26,7 +33,11 @@ const BotonAgregarCarrito = ({ cantidad }) => {
 				}}
 				showZero
 			>
-				<IconButton size="small" color="secondary">
+				<IconButton
+					size="small"
+					color="secondary"
+					onClick={() => handleClick(codigo)}
+				>
 					<AddShoppingCartIcon fontSize="default" />
 				</IconButton>
 			</Badge>

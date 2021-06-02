@@ -19,7 +19,10 @@ const TablaElegirPtoStock = ({ producto }) => {
 							</TableCell>
 
 							<TableCell style={{ width: 70 }} align="right">
-								<BotonAgregarCarrito cantidad={fila.cantidad} />
+								<BotonAgregarCarrito
+									cantidad={fila.cantidad}
+									codigo={fila.ProductoCodigo}
+								/>
 							</TableCell>
 						</TableRow>
 					))}
