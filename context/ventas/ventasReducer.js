@@ -79,15 +79,17 @@ const VentasReducer = (state, action) => {
 			};
 		case CARRITO_AGREGAR_PRODUCTO:
 			// funcion que toma codigo, pto de stock, lista precio. Recorre state preciosPtoStock y agrega la fila encontrada al carrito (con cantidad 1)
-			const producto = agregarCarrito(
+			const carrito = agregarCarrito(
 				action.payload,
 				state.ptoStock,
 				state.listaPrecio,
-				state.preciosPtoStock
+				state.preciosPtoStock,
+				state.carrito
 			);
+			localStorage.setItem('carrito', JSON.stringify(carrito));
 			return {
 				...state,
-				carrito: [...state.carrito, producto],
+				carrito: carrito,
 			};
 		default:
 			return state;
