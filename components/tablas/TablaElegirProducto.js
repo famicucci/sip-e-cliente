@@ -12,7 +12,7 @@ import VentasContext from '../../context/ventas/ventasContext';
 import FilaElegirProducto from '../tablas/componentes/FilaElegirProducto';
 import { filtrado } from '../../functions/filtroTablas';
 
-const columns = [
+const columnas = [
 	{ id: 'producto', label: 'Producto', minWidth: 120 },
 	{ id: 'precio', label: 'Precio\u00a0($)', minWidth: 50 },
 	{ id: 'acciones', label: '', minWidth: 20 },
@@ -90,6 +90,11 @@ const TablaElegirProducto = () => {
 		if (valorRadio === 'total') {
 			handleFilasStockTotal();
 		}
+
+		if (valorRadio === 'sin-stock') {
+			handleFilasSinStock();
+		}
+		setPage(0);
 	}, [ptoStock, listaPrecio]);
 
 	const filasFiltradas = filtrado(filas, busqueda);
@@ -104,7 +109,7 @@ const TablaElegirProducto = () => {
 				<Table stickyHeader aria-label="sticky table">
 					<TableHead>
 						<TableRow>
-							{columns.map((column) => (
+							{columnas.map((column) => (
 								<TableCell
 									key={column.id}
 									align={column.align}
@@ -119,7 +124,7 @@ const TablaElegirProducto = () => {
 						{cortePagina.map((fila) => (
 							<FilaElegirProducto fila={fila} />
 						))}
-						{filasVacias}
+						{cortePagina.length === 0 ? bodyVacio(columnas) : filasVacias}
 					</TableBody>
 					<FooterTabla />
 				</Table>
