@@ -23,7 +23,7 @@ const useStyles = makeStyles({
 		width: '100%',
 	},
 	container: {
-		maxHeight: 440,
+		maxHeight: 483,
 	},
 });
 
@@ -96,7 +96,7 @@ const TablaElegirProducto = () => {
 
 	// hook paginación
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
-		usePaginacion(filasFiltradas);
+		usePaginacion(filasFiltradas, 5);
 
 	return (
 		<Paper className={classes.root}>
@@ -119,6 +119,7 @@ const TablaElegirProducto = () => {
 						{cortePagina.map((fila) => (
 							<FilaElegirProducto fila={fila} />
 						))}
+						{filasVacias}
 					</TableBody>
 					<FooterTabla />
 				</Table>
