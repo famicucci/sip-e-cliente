@@ -68,7 +68,16 @@ const TablaElegirProducto = () => {
 		if (valorRadio === 'total' && preciosStockTotal.length > 0) {
 			handleFilasStockTotal();
 		}
-		if (valorRadio === 'sin-stock') {
+
+		if (valorRadio === 'sin-stock' && preciosStockTotal.length === 0) {
+			const filasSinStock = async () => {
+				await traerPreciosStockTotal();
+				await handleFilasSinStock();
+			};
+			filasSinStock();
+		}
+
+		if (valorRadio === 'sin-stock' && preciosStockTotal.length > 0) {
 			handleFilasSinStock();
 		}
 	}, [valorRadio]);
