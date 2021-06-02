@@ -10,6 +10,7 @@ import TableRow from '@material-ui/core/TableRow';
 import usePaginacion from '../../hooks/usePaginacion';
 import VentasContext from '../../context/ventas/ventasContext';
 import FilaElegirProducto from '../tablas/componentes/FilaElegirProducto';
+import { filtrado } from '../../functions/filtroTablas';
 
 const columns = [
 	{ id: 'producto', label: 'Producto', minWidth: 120 },
@@ -35,16 +36,13 @@ const TablaElegirProducto = () => {
 		ptoStock,
 		listaPrecio,
 		valorRadio,
+		busqueda,
 		traerPreciosPtoStock,
 		traerPreciosStockTotal,
 		handleFilasPtoStock,
 		handleFilasStockTotal,
 		handleFilasSinStock,
 	} = useContext(VentasContext);
-
-	// hook paginación
-	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
-		usePaginacion(filas);
 
 	useEffect(() => {
 		const filasPtoStock = async () => {
@@ -84,6 +82,12 @@ const TablaElegirProducto = () => {
 			handleFilasStockTotal();
 		}
 	}, [ptoStock, listaPrecio]);
+
+	const filasFiltradas = filtrado(filas, busqueda);
+
+	// hook paginación
+	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
+		usePaginacion(filasFiltradas);
 
 	return (
 		<Paper className={classes.root}>

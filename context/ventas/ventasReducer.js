@@ -7,6 +7,7 @@ import {
 	PTO_STOCK_VENTAS,
 	LISTA_PRECIO_VENTAS,
 	VALOR_RADIO_VENTAS,
+	BUSQUEDA_VENTAS,
 } from '../../types';
 import {
 	filtraPtoStockListaPrecio,
@@ -68,6 +69,11 @@ const VentasReducer = (state, action) => {
 			return {
 				...state,
 				valorRadio: action.payload,
+			};
+		case BUSQUEDA_VENTAS:
+			return {
+				...state,
+				busqueda: action.payload,
 			};
 		default:
 			return state;
