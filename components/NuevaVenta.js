@@ -6,6 +6,7 @@ import BuscarProducto from './BuscarProducto';
 import RadioElegirProductos from './RadioElegirProductos';
 import TablaElegirProducto from '../components/tablas/TablaElegirProducto';
 import SelectListaPrecio from './SelectListaPrecioVenta';
+import TablaCarrito from './tablas/TablaCarrito';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -34,7 +35,7 @@ const NuevaVenta = () => {
 				</Grid>
 				<Grid item xs={12} sm={6}>
 					<Paper className={classes.paper} variant="outlined">
-						xs=12 sm=6
+						<TablaCarrito />
 					</Paper>
 				</Grid>
 			</Grid>
