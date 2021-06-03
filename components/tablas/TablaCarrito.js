@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -8,6 +8,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import FilaCarrito from '../tablas/componentes/FilaCarrito';
+import VentasContext from '../../context/ventas/ventasContext';
 
 const columnas = [
 	{ id: 'cantidad', label: 'Cant.', minWidth: 20, align: 'center' },
@@ -29,60 +30,63 @@ const useStyles = makeStyles({
 const TablaElegirProducto = () => {
 	const classes = useStyles();
 
-	const carrito = [
-		{
-			codigo: 'PJ100022LM',
-			descripcion: 'Pantalon joggin - lineas verticales - m - gris',
-			pu: '1760.00',
-			cantidad: 6,
-			origen: [
-				{
-					alias: 'stock',
-					ptoStockId: 1,
-					ptoStockDescripcion: 'Showroom',
-					cantidad: 2,
-				},
-				{
-					alias: 'stock',
-					ptoStockId: 2,
-					ptoStockDescripcion: 'Depósito',
-					cantidad: 3,
-				},
-				{
-					alias: 'produccion',
-					cantidad: 1,
-				},
-			],
-		},
-		{
-			codigo: 'RA100031LM',
-			descripcion: 'Remera algodón - basketball - s - negro',
-			pu: '1320.00',
-			cantidad: 3,
-			origen: [
-				{
-					alias: 'stock',
-					ptoStockId: 2,
-					ptoStockDescripcion: 'Outlet',
-					cantidad: 3,
-				},
-			],
-		},
-		{
-			codigo: 'PJ100027LM',
-			descripcion: 'Pantalon joggin - lineas horizontales - m - marrón',
-			pu: '1850.00',
-			cantidad: 3,
-			origen: [
-				{
-					alias: 'stock',
-					ptoStockId: 1,
-					ptoStockDescripcion: 'Mercado Libre',
-					cantidad: 3,
-				},
-			],
-		},
-	];
+	const { carrito } = useContext(VentasContext);
+
+	// const carrito = [
+	// 	{
+	// 		codigo: 'PJ100022LM',
+	// 		descripcion:
+	// 			'Pantalon joggin - lineas verticales - m - grisdfffffffffffffffffffff',
+	// 		pu: '1760.00',
+	// 		cantidad: 6,
+	// 		origen: [
+	// 			{
+	// 				alias: 'stock',
+	// 				ptoStockId: 1,
+	// 				ptoStockDescripcion: 'Showroom',
+	// 				cantidad: 2,
+	// 			},
+	// 			{
+	// 				alias: 'stock',
+	// 				ptoStockId: 2,
+	// 				ptoStockDescripcion: 'Depósito',
+	// 				cantidad: 3,
+	// 			},
+	// 			{
+	// 				alias: 'produccion',
+	// 				cantidad: 1,
+	// 			},
+	// 		],
+	// 	},
+	// 	{
+	// 		codigo: 'RA100031LM',
+	// 		descripcion: 'Remera algodón - basketball - s - negro',
+	// 		pu: '1320.00',
+	// 		cantidad: 3,
+	// 		origen: [
+	// 			{
+	// 				alias: 'stock',
+	// 				ptoStockId: 2,
+	// 				ptoStockDescripcion: 'Outlet',
+	// 				cantidad: 3,
+	// 			},
+	// 		],
+	// 	},
+	// 	{
+	// 		codigo: 'PJ100027LM',
+	// 		descripcion: 'Pantalon joggin - lineas horizontales - m - marrón',
+	// 		pu: '1850.00',
+	// 		cantidad: 3,
+	// 		origen: [
+	// 			{
+	// 				alias: 'stock',
+	// 				ptoStockId: 1,
+	// 				ptoStockDescripcion: 'Mercado Libre',
+	// 				cantidad: 3,
+	// 			},
+	// 		],
+	// 	},
+	// ];
 
 	return (
 		<Paper className={classes.root}>
