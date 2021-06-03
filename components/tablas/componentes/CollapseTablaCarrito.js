@@ -8,18 +8,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-const useRowStyles = makeStyles({
-	root: {
-		'& > *': {
-			borderBottom: 'unset',
-		},
-	},
-});
-
-const CollapseTablaCarrito = () => {
-	const [open, setOpen] = React.useState(false);
-	const classes = useRowStyles();
-
+const CollapseTablaCarrito = ({ open }) => {
 	return (
 		<TableRow>
 			<TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>

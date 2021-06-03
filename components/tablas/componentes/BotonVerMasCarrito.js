@@ -5,6 +5,7 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { IconButton } from '@material-ui/core';
 import VentasContext from '../../../context/ventas/ventasContext';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -14,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const BotonVerMasCarrito = ({ codigoProducto }) => {
+const BotonVerMasCarrito = ({ codigoProducto, setOpen, open }) => {
 	const classes = useStyles();
 
 	const { handleProductoActivoCarrito } = useContext(VentasContext);
@@ -24,10 +25,15 @@ const BotonVerMasCarrito = ({ codigoProducto }) => {
 			<IconButton
 				size="small"
 				onClick={() => {
+					setOpen(!open);
 					handleProductoActivoCarrito(codigoProducto);
 				}}
 			>
-				<ArrowDropDownIcon fontSize="default" fontSize="small" />
+				{!open ? (
+					<ArrowDropDownIcon fontSize="default" fontSize="small" />
+				) : (
+					<ArrowDropUpIcon fontSize="default" fontSize="small" />
+				)}
 			</IconButton>
 		</div>
 	);

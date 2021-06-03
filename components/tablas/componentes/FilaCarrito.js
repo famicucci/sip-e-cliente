@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
@@ -15,6 +15,8 @@ const useStyles = makeStyles({
 
 const FilaCarrito = (props) => {
 	const classes = useStyles();
+
+	const [open, setOpen] = useState(false);
 
 	const codigo = props.producto.codigo;
 	const descripcion = props.producto.descripcion;
@@ -33,10 +35,14 @@ const FilaCarrito = (props) => {
 				<TableCell align="center">{precio}</TableCell>
 				<TableCell align="center">
 					<BotonEliminarDeCarrito codigoProducto={codigo} />
-					<BotonVerMasCarrito codigoProducto={codigo} />
+					<BotonVerMasCarrito
+						codigoProducto={codigo}
+						setOpen={setOpen}
+						open={open}
+					/>
 				</TableCell>
 			</TableRow>
-			<CollapseTablaCarrito />
+			<CollapseTablaCarrito open={open} />
 		</>
 	);
 };

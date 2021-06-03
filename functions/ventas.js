@@ -33,8 +33,6 @@ const agregarCarrito = (codigo, ptoStock, lista, filas, carrito) => {
 			],
 		};
 
-		console.log(productoModificado);
-
 		carrito.push(productoModificado);
 	}
 
