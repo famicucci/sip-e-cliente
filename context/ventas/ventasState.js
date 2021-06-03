@@ -14,6 +14,7 @@ import {
 	VALOR_RADIO_VENTAS,
 	BUSQUEDA_VENTAS,
 	CARRITO_AGREGAR_PRODUCTO,
+	CARRITO_PRODUCTO_ACTIVO,
 } from '../../types';
 
 const VentasState = (props) => {
@@ -26,6 +27,7 @@ const VentasState = (props) => {
 		valorRadio: 'pto-stock',
 		busqueda: '',
 		carrito: [],
+		productoActivoCarrrito: {},
 	};
 
 	const [state, dispatch] = useReducer(VentasReducer, initialState);
@@ -110,6 +112,13 @@ const VentasState = (props) => {
 		});
 	};
 
+	const handleProductoActivoCarrito = (codigo) => {
+		dispatch({
+			type: CARRITO_PRODUCTO_ACTIVO,
+			payload: codigo,
+		});
+	};
+
 	return (
 		<VentasContext.Provider
 			value={{
@@ -121,6 +130,7 @@ const VentasState = (props) => {
 				valorRadio: state.valorRadio,
 				busqueda: state.busqueda,
 				carrito: state.carrito,
+				productoActivoCarrrito: state.productoActivoCarrrito,
 				traerPreciosPtoStock,
 				traerPreciosStockTotal,
 				handleFilasPtoStock,

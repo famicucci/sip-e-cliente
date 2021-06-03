@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const BotonVerMasCarrito = () => {
+const BotonVerMasCarrito = ({ codigoProducto }) => {
 	const classes = useStyles();
 
 	return (

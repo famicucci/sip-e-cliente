@@ -9,6 +9,7 @@ import {
 	VALOR_RADIO_VENTAS,
 	BUSQUEDA_VENTAS,
 	CARRITO_AGREGAR_PRODUCTO,
+	CARRITO_PRODUCTO_ACTIVO,
 } from '../../types';
 import {
 	filtraPtoStockListaPrecio,
@@ -90,6 +91,11 @@ const VentasReducer = (state, action) => {
 			return {
 				...state,
 				carrito: carrito,
+			};
+		case CARRITO_PRODUCTO_ACTIVO:
+			return {
+				...state,
+				productoActivoCarrito: action.payload,
 			};
 		default:
 			return state;
