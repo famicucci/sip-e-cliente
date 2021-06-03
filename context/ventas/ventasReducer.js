@@ -17,6 +17,7 @@ import {
 	filtraProductosSinStock,
 } from '../../functions/filtroTablas.js';
 import { agregarCarrito } from '../../functions/ventas.js';
+import { filtraProducto } from '../../functions/filtroTablas.js';
 
 const VentasReducer = (state, action) => {
 	switch (action.type) {
@@ -93,9 +94,10 @@ const VentasReducer = (state, action) => {
 				carrito: carrito,
 			};
 		case CARRITO_PRODUCTO_ACTIVO:
+			const producto = filtraProducto(state.carrito, action.payload);
 			return {
 				...state,
-				productoActivoCarrito: action.payload,
+				productoActivoCarrito: producto,
 			};
 		default:
 			return state;

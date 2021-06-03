@@ -64,9 +64,9 @@ const filtraElegirPtoStock = (filas, codigoProducto, lista) => {
 };
 
 const filtraProducto = (filas, codigoProducto) => {
-	const filasFiltradas = filas.filter((fila) => fila.codigo === codigoProducto);
+	const fila = filas.find((fila) => fila.codigo === codigoProducto);
 
-	return filasFiltradas;
+	return fila;
 };
 
 export {

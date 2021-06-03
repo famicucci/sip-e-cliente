@@ -27,7 +27,7 @@ const VentasState = (props) => {
 		valorRadio: 'pto-stock',
 		busqueda: '',
 		carrito: [],
-		productoActivoCarrrito: {},
+		productoActivoCarrito: {},
 	};
 
 	const [state, dispatch] = useReducer(VentasReducer, initialState);
@@ -141,6 +141,7 @@ const VentasState = (props) => {
 				handleValorRadio,
 				handleBusqueda,
 				handleCarrito,
+				handleProductoActivoCarrito,
 			}}
 		>
 			{props.children}

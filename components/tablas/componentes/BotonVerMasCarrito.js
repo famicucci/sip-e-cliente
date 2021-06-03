@@ -17,9 +17,16 @@ const useStyles = makeStyles((theme) => ({
 const BotonVerMasCarrito = ({ codigoProducto }) => {
 	const classes = useStyles();
 
+	const { handleProductoActivoCarrito } = useContext(VentasContext);
+
 	return (
 		<div className={classes.root}>
-			<IconButton size="small">
+			<IconButton
+				size="small"
+				onClick={() => {
+					handleProductoActivoCarrito(codigoProducto);
+				}}
+			>
 				<ArrowDropDownIcon fontSize="default" fontSize="small" />
 			</IconButton>
 		</div>
