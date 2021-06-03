@@ -3,7 +3,7 @@ import Layout from '../../components/layouts/Layout';
 import AuthContext from '../../context/autenticacion/authContext';
 import IrLogin from '../../components/IrLogin';
 import SpinnerPantalla from '../../components/SpinnerPantalla';
-import NuevaVenta from '../../components/NuevaVenta';
+import NuevaVenta from '../../components/venta/NuevaVenta';
 
 const Nuevo = () => {
 	const authContext = useContext(AuthContext);

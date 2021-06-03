@@ -25,7 +25,7 @@ const FilaCarrito = (props) => {
 
 	return (
 		<TableRow hover role="checkbox" tabIndex={-1}>
-			<TableCell>{cantidad}</TableCell>
+			<TableCell align="center">{cantidad}</TableCell>
 			<TableCell>
 				<p className={classes.negrita}>{codigo}</p>
 				<p>{descripcion}</p>

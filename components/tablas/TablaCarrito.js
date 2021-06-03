@@ -10,7 +10,7 @@ import TableRow from '@material-ui/core/TableRow';
 import FilaCarrito from '../tablas/componentes/FilaCarrito';
 
 const columnas = [
-	{ id: 'cantidad', label: 'Cant.', minWidth: 20 },
+	{ id: 'cantidad', label: 'Cant.', minWidth: 20, align: 'center' },
 	{ id: 'producto', label: 'Producto', minWidth: 120 },
 	{ id: 'precio', label: 'Precio\u00a0($)', minWidth: 50 },
 	{ id: 'total', label: 'Total\u00a0($)', minWidth: 50, align: 'center' },
@@ -87,7 +87,7 @@ const TablaElegirProducto = () => {
 	return (
 		<Paper className={classes.root}>
 			<TableContainer className={classes.container}>
-				<Table stickyHeader aria-label="sticky table">
+				<Table aria-label="sticky table">
 					<TableHead>
 						<TableRow>
 							{columnas.map((columna) => (
