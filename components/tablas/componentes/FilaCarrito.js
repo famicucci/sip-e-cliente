@@ -23,6 +23,8 @@ const FilaCarrito = (props) => {
 	const precio = props.producto.pu;
 	const cantidad = props.producto.cantidad;
 
+	const origen = props.producto.origen;
+
 	return (
 		<>
 			<TableRow hover role="checkbox" tabIndex={-1}>
@@ -42,7 +44,7 @@ const FilaCarrito = (props) => {
 					/>
 				</TableCell>
 			</TableRow>
-			<CollapseTablaCarrito open={open} />
+			<CollapseTablaCarrito open={open} origen={origen} />
 		</>
 	);
 };

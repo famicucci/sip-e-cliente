@@ -1,5 +1,4 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Collapse from '@material-ui/core/Collapse';
 import Table from '@material-ui/core/Table';
@@ -8,7 +7,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-const CollapseTablaCarrito = ({ open }) => {
+const CollapseTablaCarrito = ({ open, origen }) => {
+	console.log(origen);
 	return (
 		<TableRow>
 			<TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -22,18 +22,14 @@ const CollapseTablaCarrito = ({ open }) => {
 								</TableRow>
 							</TableHead>
 							<TableBody>
-								<TableRow>
-									<TableCell component="th" scope="row">
-										Showroom
-									</TableCell>
-									<TableCell align="center">3</TableCell>
-								</TableRow>
-								<TableRow>
-									<TableCell component="th" scope="row">
-										Outlet
-									</TableCell>
-									<TableCell align="center">1</TableCell>
-								</TableRow>
+								{origen.map((fila) => (
+									<TableRow>
+										<TableCell component="th" scope="row">
+											{fila.ptoStockDescripcion}
+										</TableCell>
+										<TableCell align="center">{fila.cantidad}</TableCell>
+									</TableRow>
+								))}
 							</TableBody>
 						</Table>
 					</Box>
