@@ -8,7 +8,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
 const CollapseTablaCarrito = ({ open, origen }) => {
-	console.log(origen);
 	return (
 		<TableRow>
 			<TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>

@@ -29,7 +29,7 @@ const FilaCarrito = (props) => {
 		<>
 			<TableRow hover role="checkbox" tabIndex={-1}>
 				<TableCell align="center">{cantidad}</TableCell>
-				<TableCell>
+				<TableCell style={{ wordWrap: 'break-word', maxWidth: '250px' }}>
 					<p className={classes.negrita}>{codigo}</p>
 					<p>{descripcion}</p>
 				</TableCell>

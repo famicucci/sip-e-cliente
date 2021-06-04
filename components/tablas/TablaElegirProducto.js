@@ -13,7 +13,7 @@ import FilaElegirProducto from '../tablas/componentes/FilaElegirProducto';
 import { filtrado } from '../../functions/filtroTablas';
 
 const columnas = [
-	{ id: 'producto', label: 'Producto', minWidth: 120 },
+	{ id: 'producto', label: 'Producto', minWidth: 80 },
 	{ id: 'precio', label: 'Precio\u00a0($)', minWidth: 50 },
 	{ id: 'acciones', label: '', minWidth: 20 },
 ];
