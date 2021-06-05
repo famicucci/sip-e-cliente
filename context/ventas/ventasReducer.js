@@ -95,13 +95,15 @@ const VentasReducer = (state, action) => {
 				action.payload,
 				state.ptoStock,
 				state.preciosPtoStock,
+				state.preciosStockTotal,
 				1
 			);
 			localStorage.setItem('carrito', JSON.stringify(carrito));
 
 			return {
 				...state,
-				preciosPtoStock: stockModificado,
+				preciosPtoStock: stockModificado.ptoStock,
+				preciosStockTotal: stockModificado.stockTotal,
 				carrito: carrito,
 			};
 		case CARRITO_PRODUCTO_ACTIVO:

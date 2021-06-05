@@ -103,10 +103,7 @@ const TablaElegirProducto = () => {
 	}, [busqueda]);
 
 	useEffect(() => {
-		console.log('hola');
-		if (valorRadio === 'pto-stock') {
-			handleFilasPtoStock();
-		}
+		handleFilasPtoStock();
 	}, [preciosPtoStock]);
 
 	const filasFiltradas = filtrado(filas, busqueda);
