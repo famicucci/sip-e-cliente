@@ -31,6 +31,7 @@ const TablaElegirProducto = () => {
 	const classes = useStyles();
 
 	const {
+		preciosPtoStock,
 		preciosStockTotal,
 		filas,
 		ptoStock,
@@ -100,6 +101,13 @@ const TablaElegirProducto = () => {
 	useEffect(() => {
 		setPage(0);
 	}, [busqueda]);
+
+	useEffect(() => {
+		console.log('hola');
+		if (valorRadio === 'pto-stock') {
+			handleFilasPtoStock();
+		}
+	}, [preciosPtoStock]);
 
 	const filasFiltradas = filtrado(filas, busqueda);
 

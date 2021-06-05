@@ -146,13 +146,24 @@ const agregarCarrito = (codigo, ptoStock, lista, filas, carrito) => {
 	return carrito;
 };
 
-// const restaCantidadEnStock = (codigo, ptoStock, filas, cantidad) => {
-// 	const producto = filas.find(
-// 		(fila) => fila.ProductoCodigo === codigo && fila.PtoStockId === ptoStock
-// 	);
+const restaCantidadEnStock = (codigo, ptoStock, filas, cantidad) => {
+	let producto;
 
-// 	const nuevaCantidad = producto.cantidad - cantidad;
-// 	producto = { ...producto, cantidad: nuevaCantidad };
-// };
+	console.log(filas);
 
-export { agregarCarrito };
+	producto = filas.find(
+		(fila) => fila.ProductoCodigo === codigo && fila.PtoStockId === ptoStock
+	);
+
+	const nuevaCantidad = producto.cantidad - cantidad;
+
+	const stockModificado = filas.map((fila) =>
+		fila.ProductoCodigo === codigo && fila.PtoStockId === ptoStock
+			? { ...fila, cantidad: nuevaCantidad }
+			: fila
+	);
+
+	return stockModificado;
+};
+
+export { agregarCarrito, restaCantidadEnStock };

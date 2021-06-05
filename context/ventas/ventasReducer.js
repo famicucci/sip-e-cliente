@@ -16,7 +16,10 @@ import {
 	filtraStockTotalListaPrecio,
 	filtraProductosSinStock,
 } from '../../functions/filtroTablas.js';
-import { agregarCarrito } from '../../functions/ventas.js';
+import {
+	agregarCarrito,
+	restaCantidadEnStock,
+} from '../../functions/ventas.js';
 import { filtraProducto } from '../../functions/filtroTablas.js';
 
 const VentasReducer = (state, action) => {
@@ -88,9 +91,17 @@ const VentasReducer = (state, action) => {
 				state.preciosPtoStock,
 				state.carrito
 			);
+			const stockModificado = restaCantidadEnStock(
+				action.payload,
+				state.ptoStock,
+				state.preciosPtoStock,
+				1
+			);
 			localStorage.setItem('carrito', JSON.stringify(carrito));
+
 			return {
 				...state,
+				preciosPtoStock: stockModificado,
 				carrito: carrito,
 			};
 		case CARRITO_PRODUCTO_ACTIVO:
