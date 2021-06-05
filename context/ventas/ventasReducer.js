@@ -98,7 +98,7 @@ const VentasReducer = (state, action) => {
 				state.ptoStock,
 				state.preciosPtoStock,
 				state.preciosStockTotal,
-				1
+				-1
 			);
 			localStorage.setItem('carrito', JSON.stringify(carrito));
 
@@ -115,11 +115,11 @@ const VentasReducer = (state, action) => {
 				productoActivoCarrito: producto,
 			};
 		case CARRITO_QUITAR_PRODUCTO:
-			carrito = quitarProductoCarrito(state.carrito, action.payload);
+			const resultado = quitarProductoCarrito(state.carrito, action.payload);
 			localStorage.setItem('carrito', JSON.stringify(carrito));
 			return {
 				...state,
-				carrito: carrito,
+				carrito: resultado.carrito,
 			};
 		default:
 			return state;

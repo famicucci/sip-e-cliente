@@ -162,7 +162,7 @@ const restaCantidadEnStock = (
 		(fila) => fila.ProductoCodigo === codigo && fila.PtoStockId === ptoStock
 	);
 
-	const nuevaCantidadPtoStock = productoPtoStock.cantidad - cantidad;
+	const nuevaCantidadPtoStock = productoPtoStock.cantidad + cantidad;
 	if (nuevaCantidadPtoStock < 0) {
 		stockModificado = { ptoStock: filasPtoStock, stockTotal: filasStockTotal };
 
@@ -180,7 +180,7 @@ const restaCantidadEnStock = (
 		(fila) => fila.ProductoCodigo === codigo
 	);
 
-	const nuevaCantidadStockTotal = productoStockTotal.cantidad - cantidad;
+	const nuevaCantidadStockTotal = productoStockTotal.cantidad + cantidad;
 	if (nuevaCantidadStockTotal < 0) {
 		stockModificado = { ptoStock: filasPtoStock, stockTotal: filasStockTotal };
 
@@ -203,10 +203,16 @@ const restaCantidadEnStock = (
 
 const quitarProductoCarrito = (carrito, codigo) => {
 	let carritoModificado;
+	let producto;
+
+	producto = carrito.find((fila) => fila.codigo === codigo);
 
 	carritoModificado = carrito.filter((fila) => fila.codigo !== codigo);
+
 	carrito = [...carritoModificado];
-	return carrito;
+
+	const resultado = { carrito, producto };
+	return resultado;
 };
 
 export { agregarCarrito, restaCantidadEnStock, quitarProductoCarrito };
