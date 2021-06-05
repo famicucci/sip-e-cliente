@@ -10,6 +10,7 @@ import {
 	BUSQUEDA_VENTAS,
 	CARRITO_AGREGAR_PRODUCTO,
 	CARRITO_PRODUCTO_ACTIVO,
+	CARRITO_QUITAR_PRODUCTO,
 } from '../../types';
 import {
 	filtraPtoStockListaPrecio,
@@ -19,6 +20,7 @@ import {
 import {
 	agregarCarrito,
 	restaCantidadEnStock,
+	quitarProductoCarrito,
 } from '../../functions/ventas.js';
 import { filtraProducto } from '../../functions/filtroTablas.js';
 
@@ -84,7 +86,7 @@ const VentasReducer = (state, action) => {
 			};
 		case CARRITO_AGREGAR_PRODUCTO:
 			// funcion que toma codigo, pto de stock, lista precio. Recorre state preciosPtoStock y agrega la fila encontrada al carrito (con cantidad 1)
-			const carrito = agregarCarrito(
+			let carrito = agregarCarrito(
 				action.payload,
 				state.ptoStock,
 				state.listaPrecio,
@@ -111,6 +113,13 @@ const VentasReducer = (state, action) => {
 			return {
 				...state,
 				productoActivoCarrito: producto,
+			};
+		case CARRITO_QUITAR_PRODUCTO:
+			carrito = quitarProductoCarrito(state.carrito, action.payload);
+			localStorage.setItem('carrito', JSON.stringify(carrito));
+			return {
+				...state,
+				carrito: carrito,
 			};
 		default:
 			return state;

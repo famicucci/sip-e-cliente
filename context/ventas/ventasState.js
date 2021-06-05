@@ -15,6 +15,7 @@ import {
 	BUSQUEDA_VENTAS,
 	CARRITO_AGREGAR_PRODUCTO,
 	CARRITO_PRODUCTO_ACTIVO,
+	CARRITO_QUITAR_PRODUCTO,
 } from '../../types';
 
 const VentasState = (props) => {
@@ -119,6 +120,13 @@ const VentasState = (props) => {
 		});
 	};
 
+	const handleQuitarProductoCarrito = (codigo) => {
+		dispatch({
+			type: CARRITO_QUITAR_PRODUCTO,
+			payload: codigo,
+		});
+	};
+
 	return (
 		<VentasContext.Provider
 			value={{
@@ -142,6 +150,7 @@ const VentasState = (props) => {
 				handleBusqueda,
 				handleCarrito,
 				handleProductoActivoCarrito,
+				handleQuitarProductoCarrito,
 			}}
 		>
 			{props.children}

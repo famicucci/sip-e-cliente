@@ -201,4 +201,12 @@ const restaCantidadEnStock = (
 	return stockModificado;
 };
 
-export { agregarCarrito, restaCantidadEnStock };
+const quitarProductoCarrito = (carrito, codigo) => {
+	let carritoModificado;
+
+	carritoModificado = carrito.filter((fila) => fila.codigo !== codigo);
+	carrito = [...carritoModificado];
+	return carrito;
+};
+
+export { agregarCarrito, restaCantidadEnStock, quitarProductoCarrito };
