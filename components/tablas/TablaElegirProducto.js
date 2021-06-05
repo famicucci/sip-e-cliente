@@ -49,6 +49,7 @@ const TablaElegirProducto = () => {
 		const filasPtoStock = async () => {
 			await traerPreciosPtoStock();
 			await handleFilasPtoStock();
+			await traerPreciosStockTotal();
 		};
 		filasPtoStock();
 	}, []);
@@ -58,27 +59,11 @@ const TablaElegirProducto = () => {
 			handleFilasPtoStock();
 		}
 
-		if (valorRadio === 'total' && preciosStockTotal.length === 0) {
-			const filasStockTotal = async () => {
-				await traerPreciosStockTotal();
-				await handleFilasStockTotal();
-			};
-			filasStockTotal();
-		}
-
-		if (valorRadio === 'total' && preciosStockTotal.length > 0) {
+		if (valorRadio === 'total') {
 			handleFilasStockTotal();
 		}
 
-		if (valorRadio === 'sin-stock' && preciosStockTotal.length === 0) {
-			const filasSinStock = async () => {
-				await traerPreciosStockTotal();
-				await handleFilasSinStock();
-			};
-			filasSinStock();
-		}
-
-		if (valorRadio === 'sin-stock' && preciosStockTotal.length > 0) {
+		if (valorRadio === 'sin-stock') {
 			handleFilasSinStock();
 		}
 	}, [valorRadio]);

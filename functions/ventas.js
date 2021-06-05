@@ -155,6 +155,7 @@ const restaCantidadEnStock = (
 ) => {
 	let productoPtoStock;
 	let productoStockTotal;
+	let stockModificado = { ptoStock: [], stockTotal: [] };
 
 	// resta de stock en puntos de stock
 	productoPtoStock = filasPtoStock.find(
@@ -162,6 +163,11 @@ const restaCantidadEnStock = (
 	);
 
 	const nuevaCantidadPtoStock = productoPtoStock.cantidad - cantidad;
+	if (nuevaCantidadPtoStock < 0) {
+		stockModificado = { ptoStock: filasPtoStock, stockTotal: filasStockTotal };
+
+		return stockModificado;
+	}
 
 	const stockModificadoPtoStock = filasPtoStock.map((fila) =>
 		fila.ProductoCodigo === codigo && fila.PtoStockId === ptoStock
@@ -175,6 +181,11 @@ const restaCantidadEnStock = (
 	);
 
 	const nuevaCantidadStockTotal = productoStockTotal.cantidad - cantidad;
+	if (nuevaCantidadStockTotal < 0) {
+		stockModificado = { ptoStock: filasPtoStock, stockTotal: filasStockTotal };
+
+		return stockModificado;
+	}
 
 	const stockModificadoStockTotal = filasStockTotal.map((fila) =>
 		fila.ProductoCodigo === codigo
@@ -182,7 +193,7 @@ const restaCantidadEnStock = (
 			: fila
 	);
 
-	const stockModificado = {
+	stockModificado = {
 		ptoStock: stockModificadoPtoStock,
 		stockTotal: stockModificadoStockTotal,
 	};
