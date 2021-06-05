@@ -116,9 +116,47 @@ const VentasReducer = (state, action) => {
 			};
 		case CARRITO_QUITAR_PRODUCTO:
 			const resultado = quitarProductoCarrito(state.carrito, action.payload);
+
+			const arrayOrigen = resultado.producto.origen;
+
+			const modificarCantMultiplesStocks = (
+				codigo,
+				arrayOrigen,
+				ptoStock,
+				stockTotal
+			) => {
+				let filasPtoStock = ptoStock;
+				let filasStockTotal = stockTotal;
+
+				for (let i = 0; i < arrayOrigen.length; i++) {
+					console.log(arrayOrigen[i]['ptoStockId']);
+					const stockModificado = restaCantidadEnStock(
+						codigo,
+						arrayOrigen[i]['ptoStockId'],
+						filasPtoStock,
+						filasStockTotal,
+						arrayOrigen[i]['cantidad']
+					);
+
+					filasPtoStock = stockModificado.ptoStock;
+					filasStockTotal = stockModificado.stockTotal;
+				}
+
+				return { filasPtoStock, filasStockTotal };
+			};
+
+			const stocksModificados = modificarCantMultiplesStocks(
+				action.payload,
+				arrayOrigen,
+				state.preciosPtoStock,
+				state.preciosStockTotal
+			);
+
 			localStorage.setItem('carrito', JSON.stringify(carrito));
 			return {
 				...state,
+				preciosPtoStock: stocksModificados.filasPtoStock,
+				preciosStockTotal: stocksModificados.filasStockTotal,
 				carrito: resultado.carrito,
 			};
 		default:

@@ -162,7 +162,7 @@ const restaCantidadEnStock = (
 		(fila) => fila.ProductoCodigo === codigo && fila.PtoStockId === ptoStock
 	);
 
-	const nuevaCantidadPtoStock = productoPtoStock.cantidad + cantidad;
+	const nuevaCantidadPtoStock = parseInt(productoPtoStock.cantidad) + cantidad;
 	if (nuevaCantidadPtoStock < 0) {
 		stockModificado = { ptoStock: filasPtoStock, stockTotal: filasStockTotal };
 
@@ -180,7 +180,8 @@ const restaCantidadEnStock = (
 		(fila) => fila.ProductoCodigo === codigo
 	);
 
-	const nuevaCantidadStockTotal = productoStockTotal.cantidad + cantidad;
+	const nuevaCantidadStockTotal =
+		parseInt(productoStockTotal.cantidad) + cantidad;
 	if (nuevaCantidadStockTotal < 0) {
 		stockModificado = { ptoStock: filasPtoStock, stockTotal: filasStockTotal };
 
