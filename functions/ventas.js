@@ -11,51 +11,79 @@ const agregarCarrito = (codigo, ptoStock, lista, filas, carrito) => {
 	let productoModificado = {};
 	// agregar cantidad o agregar al carrito segun corresponda
 	if (productoCarrito) {
-		const nuevaCantidad = productoCarrito.cantidad + 1;
-		productoModificado = { ...productoCarrito, cantidad: nuevaCantidad };
+		if (producto.cantidad > 0) {
+			const nuevaCantidad = productoCarrito.cantidad + 1;
+			productoModificado = { ...productoCarrito, cantidad: nuevaCantidad };
 
-		// revisa si el pto stock ya existe
-		const filaOrigen = productoModificado.origen.find(
-			(fila) => fila.ptoStockId === ptoStock
-		);
-
-		// trae el origen actual del producto
-		const origenProductoModificado = productoModificado.origen;
-
-		if (filaOrigen) {
-			// si existe calcula nueva cantidad
-			const nuevaCantidad = filaOrigen.cantidad + 1;
-			const filaOrigenModificada = {
-				...filaOrigen,
-				cantidad: nuevaCantidad,
-			};
-
-			const origenModificado = origenProductoModificado.map((fila) =>
-				fila.ptoStockId === ptoStock ? filaOrigenModificada : fila
+			// revisa si el pto stock ya existe
+			const filaOrigen = productoModificado.origen.find(
+				(fila) => fila.ptoStockId === ptoStock
 			);
 
-			productoModificado = {
-				...productoModificado,
-				origen: origenModificado,
-			};
+			// trae el origen actual del producto
+			const origenProductoModificado = productoModificado.origen;
+
+			if (filaOrigen) {
+				// si existe calcula nueva cantidad
+				const nuevaCantidad = filaOrigen.cantidad + 1;
+				const filaOrigenModificada = {
+					...filaOrigen,
+					cantidad: nuevaCantidad,
+				};
+
+				const origenModificado = origenProductoModificado.map((fila) =>
+					fila.ptoStockId === ptoStock ? filaOrigenModificada : fila
+				);
+
+				productoModificado = {
+					...productoModificado,
+					origen: origenModificado,
+				};
+			} else {
+				const nuevoOrigen = {
+					alias: 'stock',
+					ptoStockId: producto.PtoStockId,
+					ptoStockDescripcion: producto['PtoStock.descripcion'],
+					cantidad: 1,
+				};
+
+				const origenProductoModificado = productoModificado['origen'];
+				origenProductoModificado.push(nuevoOrigen);
+			}
+
+			// sobreescribe carrito
+			const carritoModificado = carrito.map((fila) =>
+				fila.codigo === productoModificado.codigo ? productoModificado : fila
+			);
+
+			carrito = [...carritoModificado];
 		} else {
-			const nuevoOrigen = {
-				alias: 'stock',
-				ptoStockId: producto.PtoStockId,
-				ptoStockDescripcion: producto['PtoStock.descripcion'],
-				cantidad: 1,
+			const nuevaCantidad = productoCarrito.cantidad + 1;
+			productoModificado = { ...productoCarrito, cantidad: nuevaCantidad };
+
+			const filaOrigenProduccion = productoModificado.origen.find(
+				(fila) => fila.alias === 'produccion'
+			);
+
+			const nuevaCantidadOrigen = filaOrigenProduccion.cantidad + 1;
+			const filaOrigenProduccionModificada = {
+				...filaOrigenProduccion,
+				cantidad: nuevaCantidadOrigen,
 			};
 
-			const origenProductoModificado = productoModificado['origen'];
-			origenProductoModificado.push(nuevoOrigen);
+			const origenModificado = productoModificado.origen.map((fila) =>
+				fila.alias === 'produccion' ? filaOrigenProduccionModificada : fila
+			);
+
+			productoModificado = { ...productoModificado, origen: origenModificado };
+
+			// sobreescribe carrito
+			const carritoModificado = carrito.map((fila) =>
+				fila.codigo === productoModificado.codigo ? productoModificado : fila
+			);
+
+			carrito = [...carritoModificado];
 		}
-
-		// sobreescribe carrito
-		const carritoModificado = carrito.map((fila) =>
-			fila.codigo === productoModificado.codigo ? productoModificado : fila
-		);
-
-		carrito = [...carritoModificado];
 	} else {
 		if (producto.cantidad > 0) {
 			productoModificado = {
@@ -96,3 +124,10 @@ const agregarCarrito = (codigo, ptoStock, lista, filas, carrito) => {
 };
 
 export { agregarCarrito };
+
+// productoCarrito === 'true' && producto.cantidad > 0 && filaOrigen === 'true' ---> cambio la cantidad
+// productoCarrito === 'true' && producto.cantidad > 0 && filaOrigen === 'false' ---> hago un push
+// productoCarrito === 'true' && producto.cantidad <= 0 ---> modifica directo la cantidad en produccion
+
+// productoCarrito === 'false' && producto.cantidad > 0
+// productoCarrito === 'false' && producto.cantidad <= 0
