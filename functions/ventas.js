@@ -1,39 +1,95 @@
 const agregarCarrito = (codigo, ptoStock, lista, filas, carrito) => {
+	const producto = filas.find(
+		(fila) =>
+			fila.ProductoCodigo === codigo &&
+			fila.PtoStockId === ptoStock &&
+			fila['Producto.Precios.ListaPrecioId'] === lista
+	);
+
 	const productoCarrito = carrito.find((fila) => fila.codigo === codigo);
 
+	let productoModificado = {};
 	// agregar cantidad o agregar al carrito segun corresponda
 	if (productoCarrito) {
 		const nuevaCantidad = productoCarrito.cantidad + 1;
-		const productoModificado = { ...productoCarrito, cantidad: nuevaCantidad };
+		productoModificado = { ...productoCarrito, cantidad: nuevaCantidad };
 
-		const indice = carrito.findIndex((fila) => fila.codigo === codigo);
-
-		carrito.splice(indice, 1, productoModificado);
-	} else {
-		const producto = filas.find(
-			(fila) =>
-				fila.ProductoCodigo === codigo &&
-				fila.PtoStockId === ptoStock &&
-				fila['Producto.Precios.ListaPrecioId'] === lista
+		// revisa si el pto stock ya existe
+		const filaOrigen = productoModificado.origen.find(
+			(fila) => fila.ptoStockId === ptoStock
 		);
 
-		// const productoModificado = { ...producto, cantidad: 1 };
-		const productoModificado = {
-			codigo: producto.ProductoCodigo,
-			descripcion: producto['Producto.descripcion'],
-			pu: producto['Producto.Precios.pu'],
-			cantidad: 1,
-			origen: [
-				{
-					alias: 'stock',
-					ptoStockId: producto.PtoStockId,
-					ptoStockDescripcion: producto['PtoStock.descripcion'],
-					cantidad: 1,
-				},
-			],
-		};
+		// trae el origen actual del producto
+		const origenProductoModificado = productoModificado.origen;
 
-		carrito.push(productoModificado);
+		if (filaOrigen) {
+			// si existe calcula nueva cantidad
+			const nuevaCantidad = filaOrigen.cantidad + 1;
+			const filaOrigenModificada = {
+				...filaOrigen,
+				cantidad: nuevaCantidad,
+			};
+
+			const origenModificado = origenProductoModificado.map((fila) =>
+				fila.ptoStockId === ptoStock ? filaOrigenModificada : fila
+			);
+
+			productoModificado = {
+				...productoModificado,
+				origen: origenModificado,
+			};
+		} else {
+			const nuevoOrigen = {
+				alias: 'stock',
+				ptoStockId: producto.PtoStockId,
+				ptoStockDescripcion: producto['PtoStock.descripcion'],
+				cantidad: 1,
+			};
+
+			const origenProductoModificado = productoModificado['origen'];
+			origenProductoModificado.push(nuevoOrigen);
+		}
+
+		// sobreescribe carrito
+		const carritoModificado = carrito.map((fila) =>
+			fila.codigo === productoModificado.codigo ? productoModificado : fila
+		);
+
+		carrito = [...carritoModificado];
+	} else {
+		if (producto.cantidad > 0) {
+			productoModificado = {
+				codigo: producto.ProductoCodigo,
+				descripcion: producto['Producto.descripcion'],
+				pu: producto['Producto.Precios.pu'],
+				cantidad: 1,
+				origen: [
+					{
+						alias: 'stock',
+						ptoStockId: producto.PtoStockId,
+						ptoStockDescripcion: producto['PtoStock.descripcion'],
+						cantidad: 1,
+					},
+				],
+			};
+			carrito.push(productoModificado);
+		} else {
+			productoModificado = {
+				codigo: producto.ProductoCodigo,
+				descripcion: producto['Producto.descripcion'],
+				pu: producto['Producto.Precios.pu'],
+				cantidad: 1,
+				origen: [
+					{
+						alias: 'produccion',
+						ptoStockId: 0,
+						ptoStockDescripcion: 'produccion',
+						cantidad: 1,
+					},
+				],
+			};
+			carrito.push(productoModificado);
+		}
 	}
 
 	return carrito;
