@@ -2,6 +2,7 @@ const agregarCarrito = (codigo, ptoStock, lista, filas, carrito) => {
 	let producto;
 	let productoCarrito;
 	let filaOrigen;
+	let nuevoOrigen;
 
 	producto = buscarProductoEnStock(filas, codigo, ptoStock, lista);
 	productoCarrito = buscarProductoEnCarrito(carrito, codigo);
@@ -13,54 +14,45 @@ const agregarCarrito = (codigo, ptoStock, lista, filas, carrito) => {
 	}
 
 	if (!productoCarrito && cant > 0) {
-		productoCarrito = {
-			codigo: producto.ProductoCodigo,
-			descripcion: producto['Producto.descripcion'],
-			pu: producto['Producto.Precios.pu'],
-			cantidad: 1,
-			origen: [
-				{
-					alias: 'stock',
-					ptoStockId: producto.PtoStockId,
-					ptoStockDescripcion: producto['PtoStock.descripcion'],
-					cantidad: 1,
-				},
-			],
-		};
+		productoCarrito = crearProductoCarrito(
+			producto.ProductoCodigo,
+			producto['Producto.descripcion'],
+			producto['Producto.Precios.pu'],
+			1,
+			'stock',
+			producto.PtoStockId,
+			producto['PtoStock.descripcion'],
+			1
+		);
+
 		carrito.push(productoCarrito);
 	} else if (!productoCarrito && cant <= 0) {
-		productoCarrito = {
-			codigo: producto.ProductoCodigo,
-			descripcion: producto['Producto.descripcion'],
-			pu: producto['Producto.Precios.pu'],
-			cantidad: 1,
-			origen: [
-				{
-					alias: 'produccion',
-					ptoStockId: 0,
-					ptoStockDescripcion: 'produccion',
-					cantidad: 1,
-				},
-			],
-		};
+		productoCarrito = crearProductoCarrito(
+			producto.ProductoCodigo,
+			producto['Producto.descripcion'],
+			producto['Producto.Precios.pu'],
+			1,
+			'produccion',
+			0,
+			'produccion',
+			1
+		);
+
 		carrito.push(productoCarrito);
 	} else if (productoCarrito && cant > 0 && !filaOrigen) {
-		const nuevoOrigen = {
-			alias: 'stock',
-			ptoStockId: producto.PtoStockId,
-			ptoStockDescripcion: producto['PtoStock.descripcion'],
-			cantidad: 1,
-		};
+		nuevoOrigen = crearOrigen(
+			'stock',
+			producto.PtoStockId,
+			producto['PtoStock.descripcion'],
+			1
+		);
+
 		productoCarrito.origen.push(nuevoOrigen);
 
 		const nuevaCantidadProducto = productoCarrito.cantidad + 1;
 		productoCarrito = { ...productoCarrito, cantidad: nuevaCantidadProducto };
 
-		// sobreescribe carrito
-		const carritoModificado = carrito.map((fila) =>
-			fila.codigo === productoCarrito.codigo ? productoCarrito : fila
-		);
-
+		const carritoModificado = modificarCarrito(carrito, productoCarrito);
 		carrito = [...carritoModificado];
 	} else if (productoCarrito && cant > 0 && filaOrigen) {
 		const cantidad = filaOrigen.cantidad + 1;
@@ -81,29 +73,17 @@ const agregarCarrito = (codigo, ptoStock, lista, filas, carrito) => {
 		const nuevaCantidadProducto = productoCarrito.cantidad + 1;
 		productoCarrito = { ...productoCarrito, cantidad: nuevaCantidadProducto };
 
-		// sobreescribe carrito
-		const carritoModificado = carrito.map((fila) =>
-			fila.codigo === productoCarrito.codigo ? productoCarrito : fila
-		);
-
+		const carritoModificado = modificarCarrito(carrito, productoCarrito);
 		carrito = [...carritoModificado];
 	} else if (productoCarrito && cant <= 0 && !filaOrigen) {
-		const nuevoOrigen = {
-			alias: 'produccion',
-			ptoStockId: 0,
-			ptoStockDescripcion: 'produccion',
-			cantidad: 1,
-		};
+		nuevoOrigen = crearOrigen('produccion', 0, 'produccion', 1);
+
 		productoCarrito.origen.push(nuevoOrigen);
 
 		const nuevaCantidadProducto = productoCarrito.cantidad + 1;
 		productoCarrito = { ...productoCarrito, cantidad: nuevaCantidadProducto };
 
-		// sobreescribe carrito
-		const carritoModificado = carrito.map((fila) =>
-			fila.codigo === productoCarrito.codigo ? productoCarrito : fila
-		);
-
+		const carritoModificado = modificarCarrito(carrito, productoCarrito);
 		carrito = [...carritoModificado];
 	} else if (productoCarrito && cant <= 0 && filaOrigen) {
 		const cantidad = filaOrigen.cantidad + 1;
@@ -124,11 +104,7 @@ const agregarCarrito = (codigo, ptoStock, lista, filas, carrito) => {
 		const nuevaCantidadProducto = productoCarrito.cantidad + 1;
 		productoCarrito = { ...productoCarrito, cantidad: nuevaCantidadProducto };
 
-		// sobreescribe carrito
-		const carritoModificado = carrito.map((fila) =>
-			fila.codigo === productoCarrito.codigo ? productoCarrito : fila
-		);
-
+		const carritoModificado = modificarCarrito(carrito, productoCarrito);
 		carrito = [...carritoModificado];
 	}
 
@@ -231,6 +207,49 @@ const traerFilaOrigen = (cantidad, productoCarrito, ptoStock) => {
 		respuesta = productoCarrito.origen.find((fila) => fila.ptoStockId === 0);
 	}
 	return respuesta;
+};
+
+const crearProductoCarrito = (
+	codigo,
+	descripcion,
+	precio,
+	cantTotal,
+	aliasOrigen,
+	ptoStockId,
+	ptoStockDescripcion,
+	cantOrigen
+) => {
+	return {
+		codigo: codigo,
+		descripcion: descripcion,
+		pu: precio,
+		cantidad: cantTotal,
+		origen: [
+			{
+				alias: aliasOrigen,
+				ptoStockId: ptoStockId,
+				ptoStockDescripcion: ptoStockDescripcion,
+				cantidad: cantOrigen,
+			},
+		],
+	};
+};
+
+const crearOrigen = (alias, ptoStockId, ptoStockDescripcion, cantidad) => {
+	return {
+		alias,
+		ptoStockId,
+		ptoStockDescripcion,
+		cantidad,
+	};
+};
+
+const modificarCarrito = (arrayProductos, producto) => {
+	const x = arrayProductos.map((fila) =>
+		fila.codigo === producto.codigo ? producto : fila
+	);
+
+	return x;
 };
 
 export { agregarCarrito, restaCantidadEnStock, quitarProductoCarrito };
