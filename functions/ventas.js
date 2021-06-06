@@ -3,27 +3,16 @@ const agregarCarrito = (codigo, ptoStock, lista, filas, carrito) => {
 	let productoCarrito;
 	let filaOrigen;
 
-	// busca el codigo en las filas
-	producto = filas.find(
-		(fila) =>
-			fila.ProductoCodigo === codigo &&
-			fila.PtoStockId === ptoStock &&
-			fila['Producto.Precios.ListaPrecioId'] === lista
-	);
-	// busca el codigo en el carrito
-	productoCarrito = carrito.find((fila) => fila.codigo === codigo);
+	producto = buscarProductoEnStock(filas, codigo, ptoStock, lista);
+	productoCarrito = buscarProductoEnCarrito(carrito, codigo);
 
-	if (productoCarrito && producto.cantidad > 0) {
-		// revisa si existe el pto stock
-		filaOrigen = productoCarrito.origen.find(
-			(fila) => fila.ptoStockId === ptoStock
-		);
-	} else if (productoCarrito && producto.cantidad <= 0) {
-		// revisa si existe la fila origen producción
-		filaOrigen = productoCarrito.origen.find((fila) => fila.ptoStockId === 0);
+	const cant = producto.cantidad;
+
+	if (productoCarrito) {
+		filaOrigen = traerFilaOrigen(cant, productoCarrito, ptoStock);
 	}
 
-	if (!productoCarrito && producto.cantidad > 0) {
+	if (!productoCarrito && cant > 0) {
 		productoCarrito = {
 			codigo: producto.ProductoCodigo,
 			descripcion: producto['Producto.descripcion'],
@@ -39,7 +28,7 @@ const agregarCarrito = (codigo, ptoStock, lista, filas, carrito) => {
 			],
 		};
 		carrito.push(productoCarrito);
-	} else if (!productoCarrito && producto.cantidad <= 0) {
+	} else if (!productoCarrito && cant <= 0) {
 		productoCarrito = {
 			codigo: producto.ProductoCodigo,
 			descripcion: producto['Producto.descripcion'],
@@ -55,7 +44,7 @@ const agregarCarrito = (codigo, ptoStock, lista, filas, carrito) => {
 			],
 		};
 		carrito.push(productoCarrito);
-	} else if (productoCarrito && producto.cantidad > 0 && !filaOrigen) {
+	} else if (productoCarrito && cant > 0 && !filaOrigen) {
 		const nuevoOrigen = {
 			alias: 'stock',
 			ptoStockId: producto.PtoStockId,
@@ -73,7 +62,7 @@ const agregarCarrito = (codigo, ptoStock, lista, filas, carrito) => {
 		);
 
 		carrito = [...carritoModificado];
-	} else if (productoCarrito && producto.cantidad > 0 && filaOrigen) {
+	} else if (productoCarrito && cant > 0 && filaOrigen) {
 		const cantidad = filaOrigen.cantidad + 1;
 		filaOrigen = {
 			...filaOrigen,
@@ -98,7 +87,7 @@ const agregarCarrito = (codigo, ptoStock, lista, filas, carrito) => {
 		);
 
 		carrito = [...carritoModificado];
-	} else if (productoCarrito && producto.cantidad <= 0 && !filaOrigen) {
+	} else if (productoCarrito && cant <= 0 && !filaOrigen) {
 		const nuevoOrigen = {
 			alias: 'produccion',
 			ptoStockId: 0,
@@ -116,7 +105,7 @@ const agregarCarrito = (codigo, ptoStock, lista, filas, carrito) => {
 		);
 
 		carrito = [...carritoModificado];
-	} else if (productoCarrito && producto.cantidad <= 0 && filaOrigen) {
+	} else if (productoCarrito && cant <= 0 && filaOrigen) {
 		const cantidad = filaOrigen.cantidad + 1;
 		filaOrigen = {
 			...filaOrigen,
@@ -214,6 +203,34 @@ const quitarProductoCarrito = (carrito, codigo) => {
 
 	const resultado = { carrito, producto };
 	return resultado;
+};
+
+const buscarProductoEnStock = (filas, codigo, ptoStock, lista) => {
+	const respuesta = filas.find(
+		(fila) =>
+			fila.ProductoCodigo === codigo &&
+			fila.PtoStockId === ptoStock &&
+			fila['Producto.Precios.ListaPrecioId'] === lista
+	);
+	return respuesta;
+};
+
+// busca el codigo en el carrito
+const buscarProductoEnCarrito = (carrito, codigo) => {
+	const respuesta = carrito.find((fila) => fila.codigo === codigo);
+	return respuesta;
+};
+
+const traerFilaOrigen = (cantidad, productoCarrito, ptoStock) => {
+	let respuesta;
+	if (cantidad > 0) {
+		respuesta = productoCarrito.origen.find(
+			(fila) => fila.ptoStockId === ptoStock
+		);
+	} else {
+		respuesta = productoCarrito.origen.find((fila) => fila.ptoStockId === 0);
+	}
+	return respuesta;
 };
 
 export { agregarCarrito, restaCantidadEnStock, quitarProductoCarrito };
