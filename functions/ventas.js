@@ -2,18 +2,17 @@ const agregarCarrito = (codigo, ptoStock, lista, filas, carrito) => {
 	let producto;
 	let productoCarrito;
 	let filaOrigen;
-	let nuevoOrigen;
 
 	producto = buscarProductoEnStock(filas, codigo, ptoStock, lista);
 	productoCarrito = buscarProductoEnCarrito(carrito, codigo);
 
-	const cant = producto.cantidad;
+	const cantStock = producto.cantidad;
 
 	if (productoCarrito) {
-		filaOrigen = traerFilaOrigen(cant, productoCarrito, ptoStock);
+		filaOrigen = traerFilaOrigen(cantStock, productoCarrito, ptoStock);
 	}
 
-	if (!productoCarrito && cant > 0) {
+	if (!productoCarrito && cantStock > 0) {
 		productoCarrito = crearProductoCarrito(
 			producto.ProductoCodigo,
 			producto['Producto.descripcion'],
@@ -26,7 +25,7 @@ const agregarCarrito = (codigo, ptoStock, lista, filas, carrito) => {
 		);
 
 		carrito.push(productoCarrito);
-	} else if (!productoCarrito && cant <= 0) {
+	} else if (!productoCarrito && cantStock <= 0) {
 		productoCarrito = crearProductoCarrito(
 			producto.ProductoCodigo,
 			producto['Producto.descripcion'],
@@ -39,73 +38,43 @@ const agregarCarrito = (codigo, ptoStock, lista, filas, carrito) => {
 		);
 
 		carrito.push(productoCarrito);
-	} else if (productoCarrito && cant > 0 && !filaOrigen) {
-		nuevoOrigen = crearOrigen(
+	} else if (productoCarrito && cantStock > 0 && !filaOrigen) {
+		filaOrigen = crearOrigen(
 			'stock',
 			producto.PtoStockId,
 			producto['PtoStock.descripcion'],
 			1
 		);
 
-		productoCarrito.origen.push(nuevoOrigen);
+		productoCarrito = modProdCarr(productoCarrito, filaOrigen, cantStock, 1);
 
-		const nuevaCantidadProducto = productoCarrito.cantidad + 1;
-		productoCarrito = { ...productoCarrito, cantidad: nuevaCantidadProducto };
-
-		const carritoModificado = modificarCarrito(carrito, productoCarrito);
-		carrito = [...carritoModificado];
-	} else if (productoCarrito && cant > 0 && filaOrigen) {
+		carrito = modificarCarrito(carrito, productoCarrito);
+	} else if (productoCarrito && cantStock > 0 && filaOrigen) {
 		const cantidad = filaOrigen.cantidad + 1;
 		filaOrigen = {
 			...filaOrigen,
 			cantidad: cantidad,
 		};
 
-		const origenModificado = productoCarrito.origen.map((fila) =>
-			fila.ptoStockId === ptoStock ? filaOrigen : fila
-		);
+		productoCarrito = modProdCarr(productoCarrito, filaOrigen, cantStock, 1);
 
-		productoCarrito = {
-			...productoCarrito,
-			origen: origenModificado,
-		};
+		carrito = modificarCarrito(carrito, productoCarrito);
+	} else if (productoCarrito && cantStock <= 0 && !filaOrigen) {
+		filaOrigen = crearOrigen('produccion', 0, 'produccion', 1);
 
-		const nuevaCantidadProducto = productoCarrito.cantidad + 1;
-		productoCarrito = { ...productoCarrito, cantidad: nuevaCantidadProducto };
+		productoCarrito = modProdCarr(productoCarrito, filaOrigen, cantStock, 1);
 
-		const carritoModificado = modificarCarrito(carrito, productoCarrito);
-		carrito = [...carritoModificado];
-	} else if (productoCarrito && cant <= 0 && !filaOrigen) {
-		nuevoOrigen = crearOrigen('produccion', 0, 'produccion', 1);
-
-		productoCarrito.origen.push(nuevoOrigen);
-
-		const nuevaCantidadProducto = productoCarrito.cantidad + 1;
-		productoCarrito = { ...productoCarrito, cantidad: nuevaCantidadProducto };
-
-		const carritoModificado = modificarCarrito(carrito, productoCarrito);
-		carrito = [...carritoModificado];
-	} else if (productoCarrito && cant <= 0 && filaOrigen) {
+		carrito = modificarCarrito(carrito, productoCarrito);
+	} else if (productoCarrito && cantStock <= 0 && filaOrigen) {
 		const cantidad = filaOrigen.cantidad + 1;
 		filaOrigen = {
 			...filaOrigen,
 			cantidad: cantidad,
 		};
 
-		const origenModificado = productoCarrito.origen.map((fila) =>
-			fila.ptoStockId === 0 ? filaOrigen : fila
-		);
+		productoCarrito = modProdCarr(productoCarrito, filaOrigen, cantStock, 1);
 
-		productoCarrito = {
-			...productoCarrito,
-			origen: origenModificado,
-		};
-
-		const nuevaCantidadProducto = productoCarrito.cantidad + 1;
-		productoCarrito = { ...productoCarrito, cantidad: nuevaCantidadProducto };
-
-		const carritoModificado = modificarCarrito(carrito, productoCarrito);
-		carrito = [...carritoModificado];
+		carrito = modificarCarrito(carrito, productoCarrito);
 	}
 
 	return carrito;
@@ -250,6 +219,40 @@ const modificarCarrito = (arrayProductos, producto) => {
 	);
 
 	return x;
+};
+
+const modProdCarr = (producto, origen, cantStock, cantVar) => {
+	// recorrer el origen para ver si el ptoStock existe, si no existe hago un push, si existe reemplazo el origen
+	const existe = producto.origen.find(
+		(fila) => fila.ptoStockId === origen.ptoStockId
+	);
+
+	if (!existe) {
+		producto.origen.push(origen);
+	} else if (existe && cantStock >= 0) {
+		const origenModificado = producto.origen.map((fila) =>
+			fila.ptoStockId === origen.ptoStockId ? origen : fila
+		);
+
+		producto = {
+			...producto,
+			origen: origenModificado,
+		};
+	} else if (existe && cantStock <= 0) {
+		const origenModificado = producto.origen.map((fila) =>
+			fila.ptoStockId === 0 ? origen : fila
+		);
+
+		producto = {
+			...producto,
+			origen: origenModificado,
+		};
+	}
+
+	// tambien modifica la cantidad total
+	const nuevaCant = producto.cantidad + cantVar;
+
+	return { ...producto, cantidad: nuevaCant };
 };
 
 export { agregarCarrito, restaCantidadEnStock, quitarProductoCarrito };
