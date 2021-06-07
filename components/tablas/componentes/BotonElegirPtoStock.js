@@ -7,7 +7,6 @@ import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import 'tippy.js/themes/light-border.css';
 import TablaElegirPtoStock from '../TablaElegirPtoStock';
-import { filtraElegirPtoStock } from '../../../functions/filtroTablas.js';
 import VentasContext from '../../../context/ventas/ventasContext';
 
 const useStyles = makeStyles((theme) => ({
@@ -22,11 +21,9 @@ const BotonElegirPtoStock = ({ cantidad, codigoProducto }) => {
 	const classes = useStyles();
 
 	const [producto, setProducto] = useState(null);
-	const { preciosPtoStock, listaPrecio } = useContext(VentasContext);
 
-	const handleOnShow = async (filas, codigo, lista) => {
-		const producto = await filtraElegirPtoStock(filas, codigo, lista);
-		const tabla = () => <TablaElegirPtoStock producto={producto} />;
+	const handleOnShow = (codigo) => {
+		const tabla = () => <TablaElegirPtoStock codigo={codigo} />;
 		setProducto(tabla);
 	};
 
@@ -47,7 +44,7 @@ const BotonElegirPtoStock = ({ cantidad, codigoProducto }) => {
 					theme={'light-border'}
 					placement={'left'}
 					onShow={() => {
-						handleOnShow(preciosPtoStock, codigoProducto, listaPrecio);
+						handleOnShow(codigoProducto);
 					}}
 				>
 					<IconButton size="small">

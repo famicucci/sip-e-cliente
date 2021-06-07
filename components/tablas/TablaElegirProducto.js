@@ -32,7 +32,6 @@ const TablaElegirProducto = () => {
 
 	const {
 		preciosPtoStock,
-		preciosStockTotal,
 		filas,
 		ptoStock,
 		listaPrecio,
@@ -88,7 +87,17 @@ const TablaElegirProducto = () => {
 	}, [busqueda]);
 
 	useEffect(() => {
-		handleFilasPtoStock();
+		if (valorRadio === 'pto-stock') {
+			handleFilasPtoStock();
+		}
+
+		if (valorRadio === 'total') {
+			handleFilasStockTotal();
+		}
+
+		if (valorRadio === 'sin-stock') {
+			handleFilasSinStock();
+		}
 	}, [preciosPtoStock]);
 
 	const filasFiltradas = filtrado(filas, busqueda);
