@@ -19,7 +19,7 @@ import {
 } from '../../functions/filtroTablas.js';
 import {
 	agregarCarrito,
-	restaCantidadEnStock,
+	modCantStock,
 	quitarProductoCarrito,
 } from '../../functions/ventas.js';
 import { filtraProducto } from '../../functions/filtroTablas.js';
@@ -93,7 +93,7 @@ const VentasReducer = (state, action) => {
 				state.preciosPtoStock,
 				state.carrito
 			);
-			const stockModificado = restaCantidadEnStock(
+			const stockModificado = modCantStock(
 				action.payload,
 				state.ptoStock,
 				state.preciosPtoStock,
@@ -129,8 +129,7 @@ const VentasReducer = (state, action) => {
 				let filasStockTotal = stockTotal;
 
 				for (let i = 0; i < arrayOrigen.length; i++) {
-					console.log(arrayOrigen[i]['ptoStockId']);
-					const stockModificado = restaCantidadEnStock(
+					const stockModificado = modCantStock(
 						codigo,
 						arrayOrigen[i]['ptoStockId'],
 						filasPtoStock,

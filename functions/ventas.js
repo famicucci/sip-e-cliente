@@ -80,7 +80,7 @@ const agregarCarrito = (codigo, ptoStock, lista, filas, carrito) => {
 	return carrito;
 };
 
-const restaCantidadEnStock = (
+const modCantStock = (
 	codigo,
 	ptoStock,
 	filasPtoStock,
@@ -89,7 +89,12 @@ const restaCantidadEnStock = (
 ) => {
 	let productoPtoStock;
 	let productoStockTotal;
-	let stockModificado = { ptoStock: [], stockTotal: [] };
+	let stockModificado = {
+		ptoStock: filasPtoStock,
+		stockTotal: filasStockTotal,
+	};
+
+	if (ptoStock === 0) return stockModificado;
 
 	// resta de stock en puntos de stock
 	productoPtoStock = filasPtoStock.find(
@@ -255,4 +260,4 @@ const modProdCarr = (producto, origen, cantStock, cantVar) => {
 	return { ...producto, cantidad: nuevaCant };
 };
 
-export { agregarCarrito, restaCantidadEnStock, quitarProductoCarrito };
+export { agregarCarrito, modCantStock, quitarProductoCarrito };
