@@ -22,6 +22,7 @@ const TablaElegirPtoStock = ({ producto }) => {
 								<BotonAgregarCarrito
 									cantidad={fila.cantidad}
 									codigo={fila.ProductoCodigo}
+									ptoStock={fila.PtoStockId}
 								/>
 							</TableCell>
 						</TableRow>

@@ -87,15 +87,15 @@ const VentasReducer = (state, action) => {
 		case CARRITO_AGREGAR_PRODUCTO:
 			// funcion que toma codigo, pto de stock, lista precio. Recorre state preciosPtoStock y agrega la fila encontrada al carrito (con cantidad 1)
 			let carrito = agregarCarrito(
-				action.payload,
-				state.ptoStock,
+				action.payload.codigo,
+				action.payload.ptoStock,
 				state.listaPrecio,
 				state.preciosPtoStock,
 				state.carrito
 			);
 			const stockModificado = modCantStock(
-				action.payload,
-				state.ptoStock,
+				action.payload.codigo,
+				action.payload.ptoStock,
 				state.preciosPtoStock,
 				state.preciosStockTotal,
 				-1

@@ -106,10 +106,10 @@ const VentasState = (props) => {
 		});
 	};
 
-	const handleCarrito = (codigo) => {
+	const handleCarrito = (codigo, ptoStock) => {
 		dispatch({
 			type: CARRITO_AGREGAR_PRODUCTO,
-			payload: codigo,
+			payload: { codigo, ptoStock },
 		});
 	};
 
