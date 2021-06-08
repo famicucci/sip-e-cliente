@@ -5,6 +5,7 @@ import {
 	PRECIOS_STOCK_TOTAL_FILAS,
 	PRECIOS_PRODUCTOS_SIN_STOCK_FILAS,
 	PTO_STOCK_VENTAS,
+	PTOS_STOCK_VENTAS,
 	LISTA_PRECIO_VENTAS,
 	VALOR_RADIO_VENTAS,
 	BUSQUEDA_VENTAS,
@@ -23,6 +24,7 @@ import {
 	agregarCarrito,
 	modCantStock,
 	quitarProductoCarrito,
+	modCantProdCarr,
 } from '../../functions/ventas.js';
 
 const VentasReducer = (state, action) => {
@@ -70,6 +72,11 @@ const VentasReducer = (state, action) => {
 				...state,
 				ptoStock: action.payload,
 			};
+		case PTOS_STOCK_VENTAS:
+			return {
+				...state,
+				ptosStock: action.payload,
+			};
 		case LISTA_PRECIO_VENTAS:
 			return {
 				...state,
@@ -89,6 +96,7 @@ const VentasReducer = (state, action) => {
 			const carrito = agregarCarrito(
 				action.payload.codigo,
 				action.payload.ptoStock,
+				state.ptosStock,
 				state.listaPrecio,
 				state.preciosStockTotal,
 				state.carrito
@@ -159,18 +167,18 @@ const VentasReducer = (state, action) => {
 				carrito: resultado.carrito,
 			};
 		case CARRITO_MODIFICAR_CANTIDAD:
-			// carrito = modCantProdCarr(
-			// 	state.carrito,
-			// 	action.payload.codigo,
-			// 	action.payload.ptoStock,
-			// 	action.payload.cantidad,
-			// 	state.preciosPtoStock,
-			// 	state.listaPrecio
-			// );
-			return {
-				...state,
-				carrito: carrito,
-			};
+			const nuevoCarrito = modCantProdCarr(
+				state.carrito,
+				action.payload.codigo,
+				action.payload.ptoStock,
+				action.payload.cantidad,
+				state.preciosPtoStock,
+				state.listaPrecio
+			);
+		// return {
+		// 	...state,
+		// 	carrito: carrito,
+		// };
 		default:
 			return state;
 	}

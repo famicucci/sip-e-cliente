@@ -27,66 +27,10 @@ const useStyles = makeStyles({
 	},
 });
 
-const TablaElegirProducto = () => {
+const TablaCarrito = () => {
 	const classes = useStyles();
 
 	const { carrito } = useContext(VentasContext);
-
-	// const carrito = [
-	// 	{
-	// 		codigo: 'PJ100022LM',
-	// 		descripcion:
-	// 			'Pantalon joggin - lineas verticales - m - grisdfffffffffffffffffffff',
-	// 		pu: '1760.00',
-	// 		cantidad: 6,
-	// 		origen: [
-	// 			{
-	// 				alias: 'stock',
-	// 				ptoStockId: 1,
-	// 				ptoStockDescripcion: 'Showroom',
-	// 				cantidad: 2,
-	// 			},
-	// 			{
-	// 				alias: 'stock',
-	// 				ptoStockId: 2,
-	// 				ptoStockDescripcion: 'Depósito',
-	// 				cantidad: 3,
-	// 			},
-	// 			{
-	// 				alias: 'produccion',
-	// 				cantidad: 1,
-	// 			},
-	// 		],
-	// 	},
-	// 	{
-	// 		codigo: 'RA100031LM',
-	// 		descripcion: 'Remera algodón - basketball - s - negro',
-	// 		pu: '1320.00',
-	// 		cantidad: 3,
-	// 		origen: [
-	// 			{
-	// 				alias: 'stock',
-	// 				ptoStockId: 2,
-	// 				ptoStockDescripcion: 'Outlet',
-	// 				cantidad: 3,
-	// 			},
-	// 		],
-	// 	},
-	// 	{
-	// 		codigo: 'PJ100027LM',
-	// 		descripcion: 'Pantalon joggin - lineas horizontales - m - marrón',
-	// 		pu: '1850.00',
-	// 		cantidad: 3,
-	// 		origen: [
-	// 			{
-	// 				alias: 'stock',
-	// 				ptoStockId: 1,
-	// 				ptoStockDescripcion: 'Mercado Libre',
-	// 				cantidad: 3,
-	// 			},
-	// 		],
-	// 	},
-	// ];
 
 	return (
 		<Paper className={classes.root}>
@@ -116,4 +60,4 @@ const TablaElegirProducto = () => {
 	);
 };
 
-export default TablaElegirProducto;
+export default TablaCarrito;

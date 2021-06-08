@@ -10,6 +10,7 @@ import {
 	PRECIOS_STOCK_TOTAL_FILAS,
 	PRECIOS_PRODUCTOS_SIN_STOCK_FILAS,
 	PTO_STOCK_VENTAS,
+	PTOS_STOCK_VENTAS,
 	LISTA_PRECIO_VENTAS,
 	VALOR_RADIO_VENTAS,
 	BUSQUEDA_VENTAS,
@@ -30,6 +31,7 @@ const VentasState = (props) => {
 		busqueda: '',
 		carrito: [],
 		productoActivoCarrito: {},
+		ptosStock: null,
 	};
 
 	const [state, dispatch] = useReducer(VentasReducer, initialState);
@@ -83,6 +85,13 @@ const VentasState = (props) => {
 		dispatch({
 			type: PTO_STOCK_VENTAS,
 			payload: ptoStock,
+		});
+	};
+
+	const handlePtosStock = (ptosStock) => {
+		dispatch({
+			type: PTOS_STOCK_VENTAS,
+			payload: ptosStock,
 		});
 	};
 
@@ -160,6 +169,7 @@ const VentasState = (props) => {
 				handleProductoActivoCarrito,
 				handleQuitarProductoCarrito,
 				handleCantidadCarrito,
+				handlePtosStock,
 			}}
 		>
 			{props.children}

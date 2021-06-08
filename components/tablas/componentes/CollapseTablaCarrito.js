@@ -23,6 +23,7 @@ const CollapseTablaCarrito = ({ open, origen, codigoProducto }) => {
 												ptoStock={fila.ptoStockId}
 												cantidad={fila.cantidad}
 											/>
+											{/* {fila.cantidad} */}
 										</TableCell>
 										<TableCell component="th" scope="row">
 											{fila.ptoStockDescripcion}

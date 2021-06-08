@@ -22,11 +22,16 @@ const SelectPtoStockVenta = () => {
 
 	const { ptosStock, traerPtosStock } = useContext(BarraHerramientasContext);
 
-	const { ptoStock, valorRadio, handlePtoStock } = useContext(VentasContext);
+	const { ptoStock, valorRadio, handlePtoStock, handlePtosStock } =
+		useContext(VentasContext);
 
 	useEffect(() => {
 		traerPtosStock();
 	}, []);
+
+	useEffect(() => {
+		handlePtosStock(ptosStock);
+	}, [ptosStock]);
 
 	let props = {};
 	if (valorRadio !== 'pto-stock') {

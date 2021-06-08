@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
 
 const BotonVerMasCarrito = ({ codigoProducto, setOpen, open }) => {
 	const classes = useStyles();
-
 	const { handleProductoActivoCarrito } = useContext(VentasContext);
 
 	return (
@@ -26,7 +25,7 @@ const BotonVerMasCarrito = ({ codigoProducto, setOpen, open }) => {
 				size="small"
 				onClick={() => {
 					setOpen(!open);
-					handleProductoActivoCarrito(codigoProducto);
+					// handleProductoActivoCarrito(codigoProducto);
 				}}
 			>
 				{!open ? (

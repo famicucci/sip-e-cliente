@@ -2,6 +2,7 @@
 const agregarCarrito = (
 	codigo,
 	ptoStock,
+	arrayPtosStock,
 	lista,
 	preciosStockTotal,
 	carrito
@@ -14,7 +15,7 @@ const agregarCarrito = (
 
 	// pone el pto de stock id cero si no hay mas stock del producto
 	ptoStock = detPtoStock(ptoStock);
-	const ptoStockDescripcion = detPtoStockDescripcion(producto, ptoStock);
+	const ptoStockDescripcion = detPtoStockDescripcion(ptoStock, arrayPtosStock);
 
 	if (!productoCarrito) {
 		productoCarrito = crearProductoCarrito(
@@ -93,12 +94,13 @@ const detPtoStock = (ptoStock) => {
 };
 
 // devuelve la descripcion del punto de stock segun corresponda al producto
-const detPtoStockDescripcion = (producto, ptoStock) => {
+const detPtoStockDescripcion = (ptoStock, arrayPtosStock) => {
 	let ptoStockDescripcion;
-	if (!ptoStock) {
-		ptoStockDescripcion = 'Producción';
+	if (ptoStock) {
+		const r = arrayPtosStock.find((x) => x.id === ptoStock);
+		ptoStockDescripcion = r.descripcion;
 	} else {
-		ptoStockDescripcion = producto['PtoStock.descripcion'];
+		ptoStockDescripcion = 'Producción';
 	}
 
 	return ptoStockDescripcion;
@@ -252,6 +254,7 @@ const modCantProdCarr = (
 	filasPtoStock,
 	listaPrecio
 ) => {
+	console.log(carrito);
 	// buscar codigo en carrito
 	const producto = buscarProductoEnCarrito(carrito, codigoProducto);
 	let filaOrigen = traerFilaOrigen(99, producto, ptoStock);
@@ -274,7 +277,7 @@ const modCantProdCarr = (
 
 	carrito = modificarCarrito(carrito, productoCarrito);
 
-	return carrito;
+	// return carrito;
 };
 
 const traerFilaOrigen = (cantidad, productoCarrito, ptoStock) => {
