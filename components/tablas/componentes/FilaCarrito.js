@@ -44,7 +44,11 @@ const FilaCarrito = (props) => {
 					/>
 				</TableCell>
 			</TableRow>
-			<CollapseTablaCarrito open={open} origen={origen} />
+			<CollapseTablaCarrito
+				open={open}
+				origen={origen}
+				codigoProducto={codigo}
+			/>
 		</>
 	);
 };

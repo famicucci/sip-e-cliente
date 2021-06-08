@@ -1,85 +1,172 @@
-const agregarCarrito = (codigo, ptoStock, lista, filas, carrito) => {
+// carga el producto al carrito
+const agregarCarrito = (
+	codigo,
+	ptoStock,
+	lista,
+	preciosStockTotal,
+	carrito
+) => {
 	let producto;
 	let productoCarrito;
-	let filaOrigen;
 
-	producto = buscarProductoEnStock(filas, codigo, ptoStock, lista);
+	producto = traeInfoProd(preciosStockTotal, codigo, lista);
 	productoCarrito = buscarProductoEnCarrito(carrito, codigo);
 
-	const cantStock = producto.cantidad;
+	// pone el pto de stock id cero si no hay mas stock del producto
+	ptoStock = detPtoStock(ptoStock);
+	const ptoStockDescripcion = detPtoStockDescripcion(producto, ptoStock);
 
-	if (productoCarrito) {
-		filaOrigen = traerFilaOrigen(cantStock, productoCarrito, ptoStock);
-	}
-
-	if (!productoCarrito && cantStock > 0) {
+	if (!productoCarrito) {
 		productoCarrito = crearProductoCarrito(
-			producto.ProductoCodigo,
+			codigo,
 			producto['Producto.descripcion'],
 			producto['Producto.Precios.pu'],
 			1,
-			'stock',
-			producto.PtoStockId,
-			producto['PtoStock.descripcion'],
+			ptoStock,
+			ptoStockDescripcion,
 			1
 		);
-
 		carrito.push(productoCarrito);
-	} else if (!productoCarrito && cantStock <= 0) {
-		productoCarrito = crearProductoCarrito(
-			producto.ProductoCodigo,
-			producto['Producto.descripcion'],
-			producto['Producto.Precios.pu'],
-			1,
-			'produccion',
-			0,
-			'produccion',
+	} else if (productoCarrito) {
+		// modificar la cantidad en la fila origen que corresponde
+		const origen = modCantPtoStockProdCarr(
+			productoCarrito,
+			ptoStock,
+			ptoStockDescripcion,
 			1
 		);
 
-		carrito.push(productoCarrito);
-	} else if (productoCarrito && cantStock > 0 && !filaOrigen) {
-		filaOrigen = crearOrigen(
-			'stock',
-			producto.PtoStockId,
-			producto['PtoStock.descripcion'],
-			1
-		);
-
-		productoCarrito = modProdCarr(productoCarrito, filaOrigen, cantStock, 1);
-
-		carrito = modificarCarrito(carrito, productoCarrito);
-	} else if (productoCarrito && cantStock > 0 && filaOrigen) {
-		const cantidad = filaOrigen.cantidad + 1;
-		filaOrigen = {
-			...filaOrigen,
-			cantidad: cantidad,
-		};
-
-		productoCarrito = modProdCarr(productoCarrito, filaOrigen, cantStock, 1);
-
-		carrito = modificarCarrito(carrito, productoCarrito);
-	} else if (productoCarrito && cantStock <= 0 && !filaOrigen) {
-		filaOrigen = crearOrigen('produccion', 0, 'produccion', 1);
-
-		productoCarrito = modProdCarr(productoCarrito, filaOrigen, cantStock, 1);
-
-		carrito = modificarCarrito(carrito, productoCarrito);
-	} else if (productoCarrito && cantStock <= 0 && filaOrigen) {
-		const cantidad = filaOrigen.cantidad + 1;
-		filaOrigen = {
-			...filaOrigen,
-			cantidad: cantidad,
-		};
-
-		productoCarrito = modProdCarr(productoCarrito, filaOrigen, cantStock, 1);
-
+		const total = cantTotalProdCarr(origen);
+		productoCarrito = modCantTotProdCarr(productoCarrito, total);
+		productoCarrito = modOrigenProCarr(productoCarrito, origen);
 		carrito = modificarCarrito(carrito, productoCarrito);
 	}
-
 	return carrito;
 };
 
+const traeInfoProd = (filas, codigo, lista) => {
+	let r = filas.find(
+		(fila) =>
+			fila.ProductoCodigo === codigo &&
+			fila['Producto.Precios.ListaPrecioId'] === lista
+	);
+
+	return r;
+};
+
+// busca el codigo en el carrito
+const buscarProductoEnCarrito = (carrito, codigo) => {
+	const respuesta = carrito.find((fila) => fila.codigo === codigo);
+	return respuesta;
+};
+
+const crearProductoCarrito = (
+	codigo,
+	descripcion,
+	precio,
+	cantTotal,
+	ptoStockId,
+	ptoStockDescripcion,
+	cantOrigen
+) => {
+	return {
+		codigo: codigo,
+		descripcion: descripcion,
+		pu: precio,
+		cantidad: cantTotal,
+		origen: [
+			{
+				ptoStockId: ptoStockId,
+				ptoStockDescripcion: ptoStockDescripcion,
+				cantidad: cantOrigen,
+			},
+		],
+	};
+};
+
+// devuelve el punto de stock 0 si no hay mas stock del producto
+const detPtoStock = (ptoStock) => {
+	if (!ptoStock) {
+		ptoStock = 0;
+	}
+	return ptoStock;
+};
+
+// devuelve la descripcion del punto de stock segun corresponda al producto
+const detPtoStockDescripcion = (producto, ptoStock) => {
+	let ptoStockDescripcion;
+	if (!ptoStock) {
+		ptoStockDescripcion = 'Producción';
+	} else {
+		ptoStockDescripcion = producto['PtoStock.descripcion'];
+	}
+
+	return ptoStockDescripcion;
+};
+
+// modifica la cantidad en el punto de stock dado
+const modCantPtoStockProdCarr = (
+	productoCarrito,
+	ptoStock,
+	ptoStockDescripcion,
+	cantVar
+) => {
+	let origen = productoCarrito.origen;
+	let filaOrigen = origen.find((x) => x.ptoStockId === ptoStock);
+
+	if (filaOrigen) {
+		const nuevaCant = filaOrigen.cantidad + cantVar;
+		filaOrigen = { ...filaOrigen, cantidad: nuevaCant };
+
+		const origenModificado = origen.map((x) =>
+			x.ptoStockId === ptoStock ? filaOrigen : x
+		);
+		origen = origenModificado;
+	} else {
+		filaOrigen = crearOrigen(ptoStock, ptoStockDescripcion, cantVar);
+		origen.push(filaOrigen);
+	}
+
+	return origen;
+};
+
+const crearOrigen = (ptoStockId, ptoStockDescripcion, cantidad) => {
+	return {
+		ptoStockId,
+		ptoStockDescripcion,
+		cantidad,
+	};
+};
+
+// calcula la cantidad total del producto
+const cantTotalProdCarr = (filasOrigen) => {
+	const arrayCantidades = filasOrigen.map((fila) => fila.cantidad);
+	const total = arrayCantidades.reduce((acc, el) => acc + el, 0);
+
+	return total;
+};
+
+const modificarCarrito = (arrayProductos, producto) => {
+	const x = arrayProductos.map((fila) =>
+		fila.codigo === producto.codigo ? producto : fila
+	);
+
+	return x;
+};
+
+const modOrigenProCarr = (producto, origen) => {
+	producto = { ...producto, origen: origen };
+
+	return producto;
+};
+
+// funcion que reemplaza el actual total por el que viene
+const modCantTotProdCarr = (prod, tot) => {
+	const r = { ...prod, cantidad: tot };
+	return r;
+};
+
+// saca el producto del stock
 const modCantStock = (
 	codigo,
 	ptoStock,
@@ -94,6 +181,7 @@ const modCantStock = (
 		stockTotal: filasStockTotal,
 	};
 
+	ptoStock = detPtoStock(ptoStock);
 	if (ptoStock === 0) return stockModificado;
 
 	// resta de stock en puntos de stock
@@ -155,20 +243,38 @@ const quitarProductoCarrito = (carrito, codigo) => {
 	return resultado;
 };
 
-const buscarProductoEnStock = (filas, codigo, ptoStock, lista) => {
-	const respuesta = filas.find(
-		(fila) =>
-			fila.ProductoCodigo === codigo &&
-			fila.PtoStockId === ptoStock &&
-			fila['Producto.Precios.ListaPrecioId'] === lista
-	);
-	return respuesta;
-};
+// esto creo que es la funcion que usan los inputs
+const modCantProdCarr = (
+	carrito,
+	codigoProducto,
+	ptoStock,
+	cantidad,
+	filasPtoStock,
+	listaPrecio
+) => {
+	// buscar codigo en carrito
+	const producto = buscarProductoEnCarrito(carrito, codigoProducto);
+	let filaOrigen = traerFilaOrigen(99, producto, ptoStock);
+	filaOrigen = {
+		...filaOrigen,
+		cantidad: parseInt(cantidad),
+	};
 
-// busca el codigo en el carrito
-const buscarProductoEnCarrito = (carrito, codigo) => {
-	const respuesta = carrito.find((fila) => fila.codigo === codigo);
-	return respuesta;
+	// modificar el producto correspondiente con la nueva cantidad
+	const cantStock = buscarProductoEnStock(
+		filasPtoStock,
+		codigoProducto,
+		ptoStock,
+		listaPrecio
+	).cantidad;
+
+	const productoCarrito = modProdCarr(producto, filaOrigen, cantStock, {
+		cantFinal: parseInt(cantidad),
+	});
+
+	carrito = modificarCarrito(carrito, productoCarrito);
+
+	return carrito;
 };
 
 const traerFilaOrigen = (cantidad, productoCarrito, ptoStock) => {
@@ -183,81 +289,4 @@ const traerFilaOrigen = (cantidad, productoCarrito, ptoStock) => {
 	return respuesta;
 };
 
-const crearProductoCarrito = (
-	codigo,
-	descripcion,
-	precio,
-	cantTotal,
-	aliasOrigen,
-	ptoStockId,
-	ptoStockDescripcion,
-	cantOrigen
-) => {
-	return {
-		codigo: codigo,
-		descripcion: descripcion,
-		pu: precio,
-		cantidad: cantTotal,
-		origen: [
-			{
-				alias: aliasOrigen,
-				ptoStockId: ptoStockId,
-				ptoStockDescripcion: ptoStockDescripcion,
-				cantidad: cantOrigen,
-			},
-		],
-	};
-};
-
-const crearOrigen = (alias, ptoStockId, ptoStockDescripcion, cantidad) => {
-	return {
-		alias,
-		ptoStockId,
-		ptoStockDescripcion,
-		cantidad,
-	};
-};
-
-const modificarCarrito = (arrayProductos, producto) => {
-	const x = arrayProductos.map((fila) =>
-		fila.codigo === producto.codigo ? producto : fila
-	);
-
-	return x;
-};
-
-const modProdCarr = (producto, origen, cantStock, cantVar) => {
-	// recorrer el origen para ver si el ptoStock existe, si no existe hago un push, si existe reemplazo el origen
-	const existe = producto.origen.find(
-		(fila) => fila.ptoStockId === origen.ptoStockId
-	);
-
-	if (!existe) {
-		producto.origen.push(origen);
-	} else if (existe && cantStock >= 0) {
-		const origenModificado = producto.origen.map((fila) =>
-			fila.ptoStockId === origen.ptoStockId ? origen : fila
-		);
-
-		producto = {
-			...producto,
-			origen: origenModificado,
-		};
-	} else if (existe && cantStock <= 0) {
-		const origenModificado = producto.origen.map((fila) =>
-			fila.ptoStockId === 0 ? origen : fila
-		);
-
-		producto = {
-			...producto,
-			origen: origenModificado,
-		};
-	}
-
-	// tambien modifica la cantidad total
-	const nuevaCant = producto.cantidad + cantVar;
-
-	return { ...producto, cantidad: nuevaCant };
-};
-
-export { agregarCarrito, modCantStock, quitarProductoCarrito };
+export { agregarCarrito, modCantStock, quitarProductoCarrito, modCantProdCarr };

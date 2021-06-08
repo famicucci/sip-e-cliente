@@ -11,18 +11,19 @@ import {
 	CARRITO_AGREGAR_PRODUCTO,
 	CARRITO_PRODUCTO_ACTIVO,
 	CARRITO_QUITAR_PRODUCTO,
+	CARRITO_MODIFICAR_CANTIDAD,
 } from '../../types';
 import {
 	filtraPtoStockListaPrecio,
 	filtraStockTotalListaPrecio,
 	filtraProductosSinStock,
 } from '../../functions/filtroTablas.js';
+import { filtraProducto } from '../../functions/filtroTablas.js';
 import {
 	agregarCarrito,
 	modCantStock,
 	quitarProductoCarrito,
 } from '../../functions/ventas.js';
-import { filtraProducto } from '../../functions/filtroTablas.js';
 
 const VentasReducer = (state, action) => {
 	switch (action.type) {
@@ -85,12 +86,11 @@ const VentasReducer = (state, action) => {
 				busqueda: action.payload,
 			};
 		case CARRITO_AGREGAR_PRODUCTO:
-			// funcion que toma codigo, pto de stock, lista precio. Recorre state preciosPtoStock y agrega la fila encontrada al carrito (con cantidad 1)
-			let carrito = agregarCarrito(
+			const carrito = agregarCarrito(
 				action.payload.codigo,
 				action.payload.ptoStock,
 				state.listaPrecio,
-				state.preciosPtoStock,
+				state.preciosStockTotal,
 				state.carrito
 			);
 			const stockModificado = modCantStock(
@@ -109,7 +109,7 @@ const VentasReducer = (state, action) => {
 				carrito: carrito,
 			};
 		case CARRITO_PRODUCTO_ACTIVO:
-			const producto = filtraProducto(state.carrito, action.payload);
+			let producto = filtraProducto(state.carrito, action.payload);
 			return {
 				...state,
 				productoActivoCarrito: producto,
@@ -157,6 +157,19 @@ const VentasReducer = (state, action) => {
 				preciosPtoStock: stocksModificados.filasPtoStock,
 				preciosStockTotal: stocksModificados.filasStockTotal,
 				carrito: resultado.carrito,
+			};
+		case CARRITO_MODIFICAR_CANTIDAD:
+			// carrito = modCantProdCarr(
+			// 	state.carrito,
+			// 	action.payload.codigo,
+			// 	action.payload.ptoStock,
+			// 	action.payload.cantidad,
+			// 	state.preciosPtoStock,
+			// 	state.listaPrecio
+			// );
+			return {
+				...state,
+				carrito: carrito,
 			};
 		default:
 			return state;
