@@ -24,7 +24,7 @@ import {
 	agregarCarrito,
 	modCantStock,
 	quitarProductoCarrito,
-	modCantProdCarr,
+	modCantPtoStockProdCarr2,
 } from '../../functions/ventas.js';
 
 const VentasReducer = (state, action) => {
@@ -167,13 +167,11 @@ const VentasReducer = (state, action) => {
 				carrito: resultado.carrito,
 			};
 		case CARRITO_MODIFICAR_CANTIDAD:
-			const nuevoCarrito = modCantProdCarr(
+			const nuevoCarrito = modCantPtoStockProdCarr2(
 				state.carrito,
 				action.payload.codigo,
 				action.payload.ptoStock,
-				action.payload.cantidad,
-				state.preciosPtoStock,
-				state.listaPrecio
+				action.payload.cantidad
 			);
 		// return {
 		// 	...state,

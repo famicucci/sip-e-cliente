@@ -245,51 +245,40 @@ const quitarProductoCarrito = (carrito, codigo) => {
 	return resultado;
 };
 
-// esto creo que es la funcion que usan los inputs
-const modCantProdCarr = (
+const modCantPtoStockProdCarr2 = (
 	carrito,
 	codigoProducto,
 	ptoStock,
-	cantidad,
-	filasPtoStock,
-	listaPrecio
+	cantidad
 ) => {
-	console.log(carrito);
-	// buscar codigo en carrito
+	// buscar producto en carrito
 	const producto = buscarProductoEnCarrito(carrito, codigoProducto);
-	let filaOrigen = traerFilaOrigen(99, producto, ptoStock);
+	let filaOrigen = buscarPtoStock(producto.origen, ptoStock);
+
 	filaOrigen = {
 		...filaOrigen,
 		cantidad: parseInt(cantidad),
 	};
+	console.log(filaOrigen);
 
-	// modificar el producto correspondiente con la nueva cantidad
-	const cantStock = buscarProductoEnStock(
-		filasPtoStock,
-		codigoProducto,
-		ptoStock,
-		listaPrecio
-	).cantidad;
+	// const productoCarrito = modProdCarr(producto, filaOrigen, cantStock, {
+	// 	cantFinal: parseInt(cantidad),
+	// });
 
-	const productoCarrito = modProdCarr(producto, filaOrigen, cantStock, {
-		cantFinal: parseInt(cantidad),
-	});
+	// carrito = modificarCarrito(carrito, productoCarrito);
 
-	carrito = modificarCarrito(carrito, productoCarrito);
-
+	// console.log(carrito);
 	// return carrito;
 };
 
-const traerFilaOrigen = (cantidad, productoCarrito, ptoStock) => {
-	let respuesta;
-	if (cantidad > 0) {
-		respuesta = productoCarrito.origen.find(
-			(fila) => fila.ptoStockId === ptoStock
-		);
-	} else {
-		respuesta = productoCarrito.origen.find((fila) => fila.ptoStockId === 0);
-	}
-	return respuesta;
+const buscarPtoStock = (origen, ptoStock) => {
+	const r = origen.find((x) => x.ptoStockId === ptoStock);
+	return r;
 };
 
-export { agregarCarrito, modCantStock, quitarProductoCarrito, modCantProdCarr };
+export {
+	agregarCarrito,
+	modCantStock,
+	quitarProductoCarrito,
+	modCantPtoStockProdCarr2,
+};
