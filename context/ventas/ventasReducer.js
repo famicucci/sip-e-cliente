@@ -24,7 +24,12 @@ import {
 	agregarCarrito,
 	modCantStock,
 	quitarProductoCarrito,
-	modCantPtoStockProdCarr2,
+	modCantPtoStockProdCarr_final,
+	buscarProductoEnCarrito,
+	cantTotalProdCarr,
+	modCantTotProdCarr,
+	modOrigenProCarr,
+	modificarCarrito,
 } from '../../functions/ventas.js';
 
 const VentasReducer = (state, action) => {
@@ -167,16 +172,20 @@ const VentasReducer = (state, action) => {
 				carrito: resultado.carrito,
 			};
 		case CARRITO_MODIFICAR_CANTIDAD:
-			const nuevoCarrito = modCantPtoStockProdCarr2(
-				state.carrito,
-				action.payload.codigo,
+			let prod = buscarProductoEnCarrito(state.carrito, action.payload.codigo);
+			const nuevoOrigen = modCantPtoStockProdCarr_final(
+				prod,
 				action.payload.ptoStock,
 				action.payload.cantidad
 			);
-		// return {
-		// 	...state,
-		// 	carrito: carrito,
-		// };
+			const total = cantTotalProdCarr(nuevoOrigen);
+			prod = modCantTotProdCarr(prod, total);
+			prod = modOrigenProCarr(prod, nuevoOrigen);
+			const carr = modificarCarrito(state.carrito, prod);
+			return {
+				...state,
+				carrito: carr,
+			};
 		default:
 			return state;
 	}

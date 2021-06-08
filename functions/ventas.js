@@ -30,7 +30,7 @@ const agregarCarrito = (
 		carrito.push(productoCarrito);
 	} else if (productoCarrito) {
 		// modificar la cantidad en la fila origen que corresponde
-		const origen = modCantPtoStockProdCarr(
+		const origen = modCantPtoStockProdCarr_var(
 			productoCarrito,
 			ptoStock,
 			ptoStockDescripcion,
@@ -106,8 +106,8 @@ const detPtoStockDescripcion = (ptoStock, arrayPtosStock) => {
 	return ptoStockDescripcion;
 };
 
-// modifica la cantidad en el punto de stock dado
-const modCantPtoStockProdCarr = (
+// modifica la cantidad en el punto de stock dado (delta)
+const modCantPtoStockProdCarr_var = (
 	productoCarrito,
 	ptoStock,
 	ptoStockDescripcion,
@@ -245,30 +245,23 @@ const quitarProductoCarrito = (carrito, codigo) => {
 	return resultado;
 };
 
-const modCantPtoStockProdCarr2 = (
-	carrito,
-	codigoProducto,
-	ptoStock,
-	cantidad
-) => {
+// modifica la cantidad en el punto de stock dado (cant. final)
+const modCantPtoStockProdCarr_final = (productoCarrito, ptoStock, canFinal) => {
 	// buscar producto en carrito
-	const producto = buscarProductoEnCarrito(carrito, codigoProducto);
-	let filaOrigen = buscarPtoStock(producto.origen, ptoStock);
+	let origen = productoCarrito.origen;
+	let filaOrigen = buscarPtoStock(origen, ptoStock);
 
 	filaOrigen = {
 		...filaOrigen,
-		cantidad: parseInt(cantidad),
+		cantidad: parseInt(canFinal),
 	};
-	console.log(filaOrigen);
 
-	// const productoCarrito = modProdCarr(producto, filaOrigen, cantStock, {
-	// 	cantFinal: parseInt(cantidad),
-	// });
+	const origenModificado = origen.map((x) =>
+		x.ptoStockId === ptoStock ? filaOrigen : x
+	);
+	origen = origenModificado;
 
-	// carrito = modificarCarrito(carrito, productoCarrito);
-
-	// console.log(carrito);
-	// return carrito;
+	return origen;
 };
 
 const buscarPtoStock = (origen, ptoStock) => {
@@ -280,5 +273,10 @@ export {
 	agregarCarrito,
 	modCantStock,
 	quitarProductoCarrito,
-	modCantPtoStockProdCarr2,
+	modCantPtoStockProdCarr_final,
+	buscarProductoEnCarrito,
+	cantTotalProdCarr,
+	modCantTotProdCarr,
+	modOrigenProCarr,
+	modificarCarrito,
 };
