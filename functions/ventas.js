@@ -258,6 +258,9 @@ const modCantPtoStock = (cod, ptoStock, arrayPtoStock, cantVar) => {
 
 	const nuevaCant = cantStock - cantVar;
 
+	// devuelve error si la cantidad es negativa
+	if (nuevaCant < 0) return 'error';
+
 	const r = arrayPtoStock.map((x) =>
 		x.ProductoCodigo === cod && x.PtoStockId === ptoStock
 			? { ...x, cantidad: nuevaCant }
@@ -335,19 +338,30 @@ const modProdCarr = (
 	const total = cantTotalProdCarr(nuevoOrigen);
 	let prodMod = modCantTotProdCarr(prod, total);
 	prodMod = modOrigenProCarr(prodMod, nuevoOrigen);
-	carr = modificarCarrito(carr, prodMod);
+	const carrMod = modificarCarrito(carr, prodMod);
 
 	// función que devuelva el delta cantidad
 	const cantVar = cantVarPtoStockProdCarr(prod, prodMod, ptoStock);
 
+	// estas funciones me devuelven el stock modificado
 	const ptoStockMod = modCantPtoStock(cod, ptoStock, arrayPtoStock, cantVar);
-
 	const stockTotalMod = modCantStockTotal(cod, arrayStockTotal, cantVar);
 
+	// si la nueva cantidad en ptoStockMod da negativo debo retornar carr, ptoStockMod, stockTotalMod sin modificaciones
+	if (ptoStockMod === 'error') {
+		return {
+			carrMod: carr,
+			ptoStockMod: arrayPtoStock,
+			stockTotalMod: arrayPtoStock,
+			msg: 'No hay más unidades en este punto de stock!',
+		};
+	}
+
 	return {
-		carr,
+		carrMod,
 		ptoStockMod,
 		stockTotalMod,
+		msg: null,
 	};
 };
 

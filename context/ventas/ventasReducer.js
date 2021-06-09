@@ -176,9 +176,11 @@ const VentasReducer = (state, action) => {
 				state.preciosStockTotal
 			);
 
+			console.log(r.msg);
+
 			return {
 				...state,
-				carrito: r.carr,
+				carrito: r.carrMod,
 				preciosPtoStock: r.ptoStockMod,
 				preciosStockTotal: r.stockTotalMod,
 			};
