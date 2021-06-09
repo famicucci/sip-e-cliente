@@ -32,6 +32,7 @@ const VentasState = (props) => {
 		carrito: [],
 		productoActivoCarrito: {},
 		ptosStock: null,
+		mensaje: null,
 	};
 
 	const [state, dispatch] = useReducer(VentasReducer, initialState);
@@ -156,6 +157,7 @@ const VentasState = (props) => {
 				busqueda: state.busqueda,
 				carrito: state.carrito,
 				productoActivoCarrrito: state.productoActivoCarrrito,
+				mensaje: state.mensaje,
 				traerPreciosPtoStock,
 				traerPreciosStockTotal,
 				handleFilasPtoStock,

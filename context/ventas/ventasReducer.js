@@ -176,13 +176,12 @@ const VentasReducer = (state, action) => {
 				state.preciosStockTotal
 			);
 
-			console.log(r.msg);
-
 			return {
 				...state,
 				carrito: r.carrMod,
 				preciosPtoStock: r.ptoStockMod,
 				preciosStockTotal: r.stockTotalMod,
+				mensaje: r.msg,
 			};
 		default:
 			return state;
