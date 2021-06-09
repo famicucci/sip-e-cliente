@@ -30,6 +30,8 @@ import {
 	modCantTotProdCarr,
 	modOrigenProCarr,
 	modificarCarrito,
+	modCantPtoStock,
+	cantVarPtoStockProdCarr,
 } from '../../functions/ventas.js';
 
 const VentasReducer = (state, action) => {
@@ -172,19 +174,38 @@ const VentasReducer = (state, action) => {
 				carrito: resultado.carrito,
 			};
 		case CARRITO_MODIFICAR_CANTIDAD:
-			let prod = buscarProductoEnCarrito(state.carrito, action.payload.codigo);
+			const prod = buscarProductoEnCarrito(
+				state.carrito,
+				action.payload.codigo
+			);
 			const nuevoOrigen = modCantPtoStockProdCarr_final(
 				prod,
 				action.payload.ptoStock,
 				action.payload.cantidad
 			);
 			const total = cantTotalProdCarr(nuevoOrigen);
-			prod = modCantTotProdCarr(prod, total);
-			prod = modOrigenProCarr(prod, nuevoOrigen);
-			const carr = modificarCarrito(state.carrito, prod);
+			let prodMod = modCantTotProdCarr(prod, total);
+			prodMod = modOrigenProCarr(prodMod, nuevoOrigen);
+			const carr = modificarCarrito(state.carrito, prodMod);
+
+			// función que devuelva el delta cantidad
+			const cantVar = cantVarPtoStockProdCarr(
+				prod,
+				prodMod,
+				action.payload.ptoStock
+			);
+
+			const ptoStockMod = modCantPtoStock(
+				action.payload.codigo,
+				action.payload.ptoStock,
+				state.preciosPtoStock,
+				cantVar
+			);
+			// preciosStockTotal: stockMod.stockTotal,
 			return {
 				...state,
 				carrito: carr,
+				preciosPtoStock: ptoStockMod,
 			};
 		default:
 			return state;

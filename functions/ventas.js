@@ -182,6 +182,7 @@ const modCantStock = (
 		ptoStock: filasPtoStock,
 		stockTotal: filasStockTotal,
 	};
+	// hacer una nueva: hacer una funcion para modificar stock total, otra para modificar pto stock, otra para controlar que no queden en negativo
 
 	ptoStock = detPtoStock(ptoStock);
 	if (ptoStock === 0) return stockModificado;
@@ -231,6 +232,44 @@ const modCantStock = (
 	return stockModificado;
 };
 
+const modCantPtoStock = (codigo, ptoStock, arrayPtoStock, cantVar) => {
+	if (ptoStock === 0) return arrayPtoStock;
+
+	// traer cantidad actual en el pto de stock
+	const cantStock = buscarProdPtoStock(
+		codigo,
+		ptoStock,
+		arrayPtoStock
+	).cantidad;
+
+	const nuevaCant = cantStock - cantVar;
+
+	const r = arrayPtoStock.map((x) =>
+		x.ProductoCodigo === codigo && x.PtoStockId === ptoStock
+			? { ...x, cantidad: nuevaCant }
+			: x
+	);
+
+	return r;
+};
+
+// toma carrito anterior, nuevo carrito, codigo, ptoStock y calcula cuanto varió la cantidad
+const cantVarPtoStockProdCarr = (prod, prodMod, ptoStock) => {
+	const cantAct = buscarPtoStockProdCarr(prod.origen, ptoStock).cantidad;
+	const cantMod = buscarPtoStockProdCarr(prodMod.origen, ptoStock).cantidad;
+
+	const r = cantMod - cantAct;
+
+	return r;
+};
+
+const buscarProdPtoStock = (codigo, ptoStock, arrayPtoStock) => {
+	const r = arrayPtoStock.find(
+		(x) => x.ProductoCodigo === codigo && x.PtoStockId === ptoStock
+	);
+	return r;
+};
+
 const quitarProductoCarrito = (carrito, codigo) => {
 	let carritoModificado;
 	let producto;
@@ -249,7 +288,7 @@ const quitarProductoCarrito = (carrito, codigo) => {
 const modCantPtoStockProdCarr_final = (productoCarrito, ptoStock, canFinal) => {
 	// buscar producto en carrito
 	let origen = productoCarrito.origen;
-	let filaOrigen = buscarPtoStock(origen, ptoStock);
+	let filaOrigen = buscarPtoStockProdCarr(origen, ptoStock);
 
 	filaOrigen = {
 		...filaOrigen,
@@ -264,7 +303,7 @@ const modCantPtoStockProdCarr_final = (productoCarrito, ptoStock, canFinal) => {
 	return origen;
 };
 
-const buscarPtoStock = (origen, ptoStock) => {
+const buscarPtoStockProdCarr = (origen, ptoStock) => {
 	const r = origen.find((x) => x.ptoStockId === ptoStock);
 	return r;
 };
@@ -279,4 +318,6 @@ export {
 	modCantTotProdCarr,
 	modOrigenProCarr,
 	modificarCarrito,
+	modCantPtoStock,
+	cantVarPtoStockProdCarr,
 };

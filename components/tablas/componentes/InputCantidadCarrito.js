@@ -25,7 +25,7 @@ const InputCantidadCarrito = ({ codigoProducto, ptoStock, cantidad }) => {
 		if (Number.isNaN(parseInt(a))) {
 			a = 0;
 		}
-		setValue(a);
+		setValue(e.target.value);
 		handleCantidadCarrito(codigoProducto, ptoStock, a);
 	};
 
