@@ -235,7 +235,6 @@ const modCantStock = (
 const modCantStockTotal = (cod, arrayStockTotal, cantVar) => {
 	// traer cantidad actual total
 	const cantStock = buscarProdStockTotal(cod, arrayStockTotal).cantidad;
-	console.log(cantVar); // undefined
 
 	const nuevaCant = cantStock - cantVar;
 
@@ -323,17 +322,33 @@ const buscarPtoStockProdCarr = (origen, ptoStock) => {
 	return r;
 };
 
-export {
-	agregarCarrito,
-	modCantStock,
-	quitarProductoCarrito,
-	modCantPtoStockProdCarr_final,
-	buscarProductoEnCarrito,
-	cantTotalProdCarr,
-	modCantTotProdCarr,
-	modOrigenProCarr,
-	modificarCarrito,
-	modCantPtoStock,
-	modCantStockTotal,
-	cantVarPtoStockProdCarr,
+const modProdCarr = (
+	carr,
+	cod,
+	ptoStock,
+	cant,
+	arrayPtoStock,
+	arrayStockTotal
+) => {
+	const prod = buscarProductoEnCarrito(carr, cod);
+	const nuevoOrigen = modCantPtoStockProdCarr_final(prod, ptoStock, cant);
+	const total = cantTotalProdCarr(nuevoOrigen);
+	let prodMod = modCantTotProdCarr(prod, total);
+	prodMod = modOrigenProCarr(prodMod, nuevoOrigen);
+	carr = modificarCarrito(carr, prodMod);
+
+	// función que devuelva el delta cantidad
+	const cantVar = cantVarPtoStockProdCarr(prod, prodMod, ptoStock);
+
+	const ptoStockMod = modCantPtoStock(cod, ptoStock, arrayPtoStock, cantVar);
+
+	const stockTotalMod = modCantStockTotal(cod, arrayStockTotal, cantVar);
+
+	return {
+		carr,
+		ptoStockMod,
+		stockTotalMod,
+	};
 };
+
+export { agregarCarrito, modCantStock, quitarProductoCarrito, modProdCarr };
