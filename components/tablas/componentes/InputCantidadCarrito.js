@@ -20,12 +20,13 @@ const InputCantidadCarrito = ({ codigoProducto, ptoStock, cantidad }) => {
 		setValue(cantidad);
 	}, [cantidad]);
 
-	useEffect(() => {
-		handleCantidadCarrito(codigoProducto, ptoStock, value);
-	}, [value]);
-
 	const onChange = (e) => {
-		setValue(e.target.value);
+		let a = e.target.value;
+		if (Number.isNaN(parseInt(a))) {
+			a = 0;
+		}
+		setValue(a);
+		handleCantidadCarrito(codigoProducto, ptoStock, a);
 	};
 
 	return (
@@ -35,6 +36,11 @@ const InputCantidadCarrito = ({ codigoProducto, ptoStock, cantidad }) => {
 				type="number"
 				value={value}
 				onChange={onChange}
+				InputProps={{
+					inputProps: {
+						min: 0,
+					},
+				}}
 			/>
 		</div>
 	);

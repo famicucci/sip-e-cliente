@@ -23,12 +23,13 @@ const InputCantidadStock = ({ cantidad }) => {
 		setCantInput(cantidad);
 	}, []);
 
-	useEffect(() => {
-		handleNuevaCantidad(cantInput);
-	}, [cantInput]);
-
 	const onChange = (e) => {
-		setCantInput(e.target.value);
+		let a = e.target.value;
+		if (Number.isNaN(parseInt(a))) {
+			a = 0;
+		}
+		setCantInput(a);
+		handleNuevaCantidad(a);
 	};
 
 	return (
