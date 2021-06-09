@@ -14,7 +14,6 @@ const TablaElegirPtoStock = ({ codigo }) => {
 
 	let x = filtraElegirPtoStock(preciosPtoStock, codigo, listaPrecio);
 	const producto = x.filter((fila) => fila.cantidad !== 0);
-	console.log(producto.length);
 
 	return (
 		<TableContainer component={Paper}>

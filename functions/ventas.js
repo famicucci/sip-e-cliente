@@ -232,20 +232,35 @@ const modCantStock = (
 	return stockModificado;
 };
 
-const modCantPtoStock = (codigo, ptoStock, arrayPtoStock, cantVar) => {
+const modCantStockTotal = (cod, arrayStockTotal, cantVar) => {
+	// traer cantidad actual total
+	const cantStock = buscarProdStockTotal(cod, arrayStockTotal).cantidad;
+	console.log(cantVar); // undefined
+
+	const nuevaCant = cantStock - cantVar;
+
+	const r = arrayStockTotal.map((x) =>
+		x.ProductoCodigo === cod ? { ...x, cantidad: nuevaCant } : x
+	);
+
+	return r;
+};
+
+const buscarProdStockTotal = (cod, arrayStockTotal) => {
+	const r = arrayStockTotal.find((x) => x.ProductoCodigo === cod);
+	return r;
+};
+
+const modCantPtoStock = (cod, ptoStock, arrayPtoStock, cantVar) => {
 	if (ptoStock === 0) return arrayPtoStock;
 
 	// traer cantidad actual en el pto de stock
-	const cantStock = buscarProdPtoStock(
-		codigo,
-		ptoStock,
-		arrayPtoStock
-	).cantidad;
+	const cantStock = buscarProdPtoStock(cod, ptoStock, arrayPtoStock).cantidad;
 
 	const nuevaCant = cantStock - cantVar;
 
 	const r = arrayPtoStock.map((x) =>
-		x.ProductoCodigo === codigo && x.PtoStockId === ptoStock
+		x.ProductoCodigo === cod && x.PtoStockId === ptoStock
 			? { ...x, cantidad: nuevaCant }
 			: x
 	);
@@ -253,7 +268,7 @@ const modCantPtoStock = (codigo, ptoStock, arrayPtoStock, cantVar) => {
 	return r;
 };
 
-// toma carrito anterior, nuevo carrito, codigo, ptoStock y calcula cuanto varió la cantidad
+// toma producto anterior, nuevo producto, codigo, ptoStock y calcula cuanto varió la cantidad
 const cantVarPtoStockProdCarr = (prod, prodMod, ptoStock) => {
 	const cantAct = buscarPtoStockProdCarr(prod.origen, ptoStock).cantidad;
 	const cantMod = buscarPtoStockProdCarr(prodMod.origen, ptoStock).cantidad;
@@ -319,5 +334,6 @@ export {
 	modOrigenProCarr,
 	modificarCarrito,
 	modCantPtoStock,
+	modCantStockTotal,
 	cantVarPtoStockProdCarr,
 };

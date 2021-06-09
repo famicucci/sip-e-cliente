@@ -31,6 +31,7 @@ import {
 	modOrigenProCarr,
 	modificarCarrito,
 	modCantPtoStock,
+	modCantStockTotal,
 	cantVarPtoStockProdCarr,
 } from '../../functions/ventas.js';
 
@@ -201,11 +202,17 @@ const VentasReducer = (state, action) => {
 				state.preciosPtoStock,
 				cantVar
 			);
-			// preciosStockTotal: stockMod.stockTotal,
+
+			const stockTotalMod = modCantStockTotal(
+				action.payload.codigo,
+				state.preciosStockTotal,
+				cantVar
+			);
 			return {
 				...state,
 				carrito: carr,
 				preciosPtoStock: ptoStockMod,
+				preciosStockTotal: stockTotalMod,
 			};
 		default:
 			return state;
