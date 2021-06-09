@@ -20,7 +20,6 @@ const NuevaVenta = () => {
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 
 	useEffect(() => {
-		console.log(mensaje);
 		if (mensaje) {
 			const { msg, categoria } = mensaje;
 			mostrarAlerta(msg, categoria);

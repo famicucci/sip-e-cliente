@@ -182,7 +182,6 @@ const modCantStock = (
 		ptoStock: filasPtoStock,
 		stockTotal: filasStockTotal,
 	};
-	// hacer una nueva: hacer una funcion para modificar stock total, otra para modificar pto stock, otra para controlar que no queden en negativo
 
 	ptoStock = detPtoStock(ptoStock);
 	if (ptoStock === 0) return stockModificado;
@@ -368,4 +367,10 @@ const modProdCarr = (
 	};
 };
 
-export { agregarCarrito, modCantStock, quitarProductoCarrito, modProdCarr };
+export {
+	agregarCarrito,
+	modCantStock,
+	quitarProductoCarrito,
+	modProdCarr,
+	buscarProdPtoStock,
+};
