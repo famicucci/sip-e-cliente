@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import VentasContext from '../../context/ventas/ventasContext';
+import { calcTotCarr } from '../../functions/ventas';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -17,6 +19,15 @@ const useStyles = makeStyles((theme) => ({
 const TotalCarrito = () => {
 	const classes = useStyles();
 
+	const [valor, setValor] = useState(0);
+
+	const { carrito } = useContext(VentasContext);
+
+	useEffect(() => {
+		const tot = calcTotCarr(carrito);
+		setValor(tot);
+	}, [carrito, carrito.length]);
+
 	return (
 		<Box display="flex" p={1} bgcolor="background.paper">
 			<Box flexGrow={1}>
@@ -26,7 +37,7 @@ const TotalCarrito = () => {
 			</Box>
 			<Box>
 				<Typography className={classes.texto} variant="overline">
-					7550.00
+					{parseFloat(valor).toFixed(2)}
 				</Typography>
 			</Box>
 		</Box>

@@ -143,9 +143,9 @@ const crearOrigen = (ptoStockId, ptoStockDescripcion, cantidad) => {
 // calcula la cantidad total del producto
 const cantTotalProdCarr = (filasOrigen) => {
 	const arrayCantidades = filasOrigen.map((fila) => fila.cantidad);
-	const total = arrayCantidades.reduce((acc, el) => acc + el, 0);
+	const tot = sumValores(arrayCantidades);
 
-	return total;
+	return tot;
 };
 
 const modificarCarrito = (arrayProductos, producto) => {
@@ -388,6 +388,30 @@ const modPrecioCarr = (cod, pu, carr) => {
 	return carrMod;
 };
 
+const calcSubtotCarr = (pu, cant) => {
+	const a = pu * cant;
+	return a;
+};
+
+const calcTotCarr = (arrayProd) => {
+	if (arrayProd.length === 0) return 0;
+	let arraySubtot = [];
+	for (let i = 0; i < arrayProd.length; i++) {
+		const element = arrayProd[i];
+		const pu = element.pu;
+		const cant = element.cantidad;
+		const subtot = calcSubtotCarr(pu, cant);
+		arraySubtot.push(subtot);
+	}
+	const tot = sumValores(arraySubtot);
+	return tot;
+};
+
+const sumValores = (arrayValores) => {
+	const r = arrayValores.reduce((acc, el) => acc + el, 0);
+	return r;
+};
+
 export {
 	agregarCarrito,
 	modCantStock,
@@ -395,4 +419,6 @@ export {
 	modProdCarr,
 	buscarProdPtoStock,
 	modPrecioCarr,
+	calcSubtotCarr,
+	calcTotCarr,
 };

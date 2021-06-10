@@ -6,6 +6,7 @@ import BotonVerMasCarrito from './BotonVerMasCarrito';
 import BotonEliminarDeCarrito from './BotonBorrarDeCarrito';
 import CollapseTablaCarrito from './CollapseTablaCarrito';
 import PrecioEditableCarrito from './PrecioEditableCarrito';
+import { calcSubtotCarr } from '../../../functions/ventas';
 
 const useStyles = makeStyles({
 	negrita: {
@@ -27,11 +28,7 @@ const FilaCarrito = (props) => {
 	const origen = props.producto.origen;
 
 	useEffect(() => {
-		const calcTotal = () => {
-			const a = precio * cantidad;
-			return a;
-		};
-		const total = calcTotal();
+		const total = calcSubtotCarr(precio, cantidad);
 		setTotal(total);
 	}, [cantidad, precio]);
 
