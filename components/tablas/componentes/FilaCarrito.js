@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
@@ -18,13 +18,22 @@ const FilaCarrito = (props) => {
 	const classes = useStyles();
 
 	const [open, setOpen] = useState(false);
+	const [total, setTotal] = useState(0);
 
 	const codigo = props.producto.codigo;
 	const descripcion = props.producto.descripcion;
 	const precio = props.producto.pu;
 	const cantidad = props.producto.cantidad;
-
 	const origen = props.producto.origen;
+
+	useEffect(() => {
+		const calcTotal = () => {
+			const a = precio * cantidad;
+			return a;
+		};
+		const total = calcTotal();
+		setTotal(total);
+	}, [cantidad, precio]);
 
 	return (
 		<>
@@ -37,7 +46,7 @@ const FilaCarrito = (props) => {
 				<TableCell align="center">
 					<PrecioEditableCarrito codigo={codigo} precio={precio} />
 				</TableCell>
-				<TableCell align="center">{precio}</TableCell>
+				<TableCell align="center">{parseFloat(total).toFixed(2)}</TableCell>
 				<TableCell align="center">
 					<BotonEliminarDeCarrito codigoProducto={codigo} />
 					<BotonVerMasCarrito
