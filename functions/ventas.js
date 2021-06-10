@@ -346,14 +346,26 @@ const modProdCarr = (
 	const ptoStockMod = modCantPtoStock(cod, ptoStock, arrayPtoStock, cantVar);
 	const stockTotalMod = modCantStockTotal(cod, arrayStockTotal, cantVar);
 
+	const detMsg = () => {
+		let r;
+		if (ptoStockMod === 'error') {
+			r = 'No hay más unidades en este punto de stock!';
+		} else if (cant < 0) {
+			r = 'La cantidad no puede ser negativa!';
+		}
+		return r;
+	};
+
+	const msg = detMsg();
+
 	// si la nueva cantidad en ptoStockMod da negativo debo retornar carr, ptoStockMod, stockTotalMod sin modificaciones
-	if (ptoStockMod === 'error') {
+	if (ptoStockMod === 'error' || cant < 0) {
 		return {
 			carrMod: carr,
 			ptoStockMod: arrayPtoStock,
 			stockTotalMod: arrayStockTotal,
 			msg: {
-				msg: 'No hay más unidades en este punto de stock!',
+				msg: msg,
 				categoria: 'error',
 			},
 		};
