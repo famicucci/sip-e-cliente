@@ -5,6 +5,7 @@ import TableCell from '@material-ui/core/TableCell';
 import BotonVerMasCarrito from './BotonVerMasCarrito';
 import BotonEliminarDeCarrito from './BotonBorrarDeCarrito';
 import CollapseTablaCarrito from './CollapseTablaCarrito';
+import PrecioEditableCarrito from './PrecioEditableCarrito';
 
 const useStyles = makeStyles({
 	negrita: {
@@ -33,7 +34,9 @@ const FilaCarrito = (props) => {
 					<p className={classes.negrita}>{codigo}</p>
 					<p>{descripcion}</p>
 				</TableCell>
-				<TableCell align="center">{precio}</TableCell>
+				<TableCell align="center">
+					<PrecioEditableCarrito precio={precio} />
+				</TableCell>
 				<TableCell align="center">{precio}</TableCell>
 				<TableCell align="center">
 					<BotonEliminarDeCarrito codigoProducto={codigo} />
