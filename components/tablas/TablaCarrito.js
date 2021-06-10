@@ -9,6 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import FilaCarrito from '../tablas/componentes/FilaCarrito';
 import VentasContext from '../../context/ventas/ventasContext';
+import BodyVacio from '../BodyVacio';
 
 const columnas = [
 	{ id: 'cantidad', label: 'Cant.', minWidth: 20, align: 'center' },
@@ -53,6 +54,12 @@ const TablaCarrito = () => {
 						{carrito.map((producto) => (
 							<FilaCarrito producto={producto} />
 						))}
+						{carrito.length === 0 ? (
+							<BodyVacio
+								content="Todavía no cargaste productos"
+								columnas={columnas}
+							/>
+						) : null}
 					</TableBody>
 				</Table>
 			</TableContainer>
