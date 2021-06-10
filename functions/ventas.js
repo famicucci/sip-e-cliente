@@ -11,7 +11,7 @@ const agregarCarrito = (
 	let productoCarrito;
 
 	producto = traeInfoProd(preciosStockTotal, codigo, lista);
-	productoCarrito = buscarProductoEnCarrito(carrito, codigo);
+	productoCarrito = buscarProdCarr(carrito, codigo);
 
 	// pone el pto de stock id cero si no hay mas stock del producto
 	ptoStock = detPtoStock(ptoStock);
@@ -56,7 +56,7 @@ const traeInfoProd = (filas, codigo, lista) => {
 };
 
 // busca el codigo en el carrito
-const buscarProductoEnCarrito = (carrito, codigo) => {
+const buscarProdCarr = (carrito, codigo) => {
 	const respuesta = carrito.find((fila) => fila.codigo === codigo);
 	return respuesta;
 };
@@ -332,7 +332,7 @@ const modProdCarr = (
 	arrayPtoStock,
 	arrayStockTotal
 ) => {
-	const prod = buscarProductoEnCarrito(carr, cod);
+	const prod = buscarProdCarr(carr, cod);
 	const nuevoOrigen = modCantPtoStockProdCarr_final(prod, ptoStock, cant);
 	const total = cantTotalProdCarr(nuevoOrigen);
 	let prodMod = modCantTotProdCarr(prod, total);
@@ -379,10 +379,20 @@ const modProdCarr = (
 	};
 };
 
+const modPrecioCarr = (cod, pu, carr) => {
+	if (Number.isNaN(parseFloat(pu))) {
+		pu = 0;
+	}
+
+	const carrMod = carr.map((x) => (x.codigo === cod ? { ...x, pu: pu } : x));
+	return carrMod;
+};
+
 export {
 	agregarCarrito,
 	modCantStock,
 	quitarProductoCarrito,
 	modProdCarr,
 	buscarProdPtoStock,
+	modPrecioCarr,
 };

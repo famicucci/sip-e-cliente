@@ -35,7 +35,7 @@ const FilaCarrito = (props) => {
 					<p>{descripcion}</p>
 				</TableCell>
 				<TableCell align="center">
-					<PrecioEditableCarrito precio={precio} />
+					<PrecioEditableCarrito codigo={codigo} precio={precio} />
 				</TableCell>
 				<TableCell align="center">{precio}</TableCell>
 				<TableCell align="center">

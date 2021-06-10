@@ -1,21 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import TextField from '@material-ui/core/TextField';
+import VentasContext from '../../../context/ventas/ventasContext';
 
-const PrecioEditableCarrito = ({ precio }) => {
+const PrecioEditableCarrito = ({ codigo, precio }) => {
 	const [value, setValue] = useState(0);
 	const [edit, setEdit] = useState(false);
+
+	const { handlePrecioCarr } = useContext(VentasContext);
 
 	useEffect(() => {
 		setValue(precio);
 	}, []);
 
 	const onChange = (e) => {
-		let a = e.target.value;
-		if (Number.isNaN(parseInt(a))) {
-			a = 0;
-		}
-
-		setValue(a);
+		setValue(e.target.value);
 	};
 
 	const onClick = () => {
@@ -23,6 +21,11 @@ const PrecioEditableCarrito = ({ precio }) => {
 	};
 
 	const onBlur = () => {
+		if (Number.isNaN(parseInt(value))) {
+			setValue(0);
+		}
+
+		handlePrecioCarr(codigo, value);
 		setEdit(false);
 	};
 

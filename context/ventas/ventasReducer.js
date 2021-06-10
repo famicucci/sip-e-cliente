@@ -13,6 +13,7 @@ import {
 	CARRITO_PRODUCTO_ACTIVO,
 	CARRITO_QUITAR_PRODUCTO,
 	CARRITO_MODIFICAR_CANTIDAD,
+	CARRITO_MODIFICAR_PRECIO,
 } from '../../types';
 import {
 	filtraPtoStockListaPrecio,
@@ -25,6 +26,7 @@ import {
 	modCantStock,
 	quitarProductoCarrito,
 	modProdCarr,
+	modPrecioCarr,
 } from '../../functions/ventas.js';
 
 const VentasReducer = (state, action) => {
@@ -182,6 +184,16 @@ const VentasReducer = (state, action) => {
 				preciosPtoStock: r.ptoStockMod,
 				preciosStockTotal: r.stockTotalMod,
 				mensaje: r.msg,
+			};
+		case CARRITO_MODIFICAR_PRECIO:
+			const puMod = modPrecioCarr(
+				action.payload.cod,
+				action.payload.pu,
+				state.carrito
+			);
+			return {
+				...state,
+				carrito: puMod,
 			};
 		default:
 			return state;
