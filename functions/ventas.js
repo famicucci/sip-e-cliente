@@ -351,7 +351,7 @@ const modProdCarr = (
 		return {
 			carrMod: carr,
 			ptoStockMod: arrayPtoStock,
-			stockTotalMod: arrayPtoStock,
+			stockTotalMod: arrayStockTotal,
 			msg: {
 				msg: 'No hay más unidades en este punto de stock!',
 				categoria: 'error',

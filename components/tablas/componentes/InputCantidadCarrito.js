@@ -19,13 +19,18 @@ const InputCantidadCarrito = ({ codigoProducto, ptoStock, cantidad }) => {
 	const [maxVal, setMaxVal] = useState(null);
 
 	useEffect(() => {
-		const detMaxVal = (cod, ptoStock, arrayPtoStock) => {
+		const detMaxVal = (cod, ptoStock, arrayPtoStock, cantInicial) => {
 			const cant = buscarProdPtoStock(cod, ptoStock, arrayPtoStock).cantidad;
-			// el input siempre comienza en 1 por lo tanto la cant. máxima es la cantidad en stock + 1
-			return cant + 1;
+			// la cantidad máxima del input debe tener en cuenta la cant en stock más la cant ya agregada al carrito
+			return cant + cantInicial;
 		};
 
-		const maxVal = detMaxVal(codigoProducto, ptoStock, preciosPtoStock);
+		const maxVal = detMaxVal(
+			codigoProducto,
+			ptoStock,
+			preciosPtoStock,
+			cantidad
+		);
 		setMaxVal(maxVal);
 	}, []);
 
