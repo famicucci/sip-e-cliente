@@ -5,10 +5,11 @@ import clienteAxios from '../../config/axios';
 
 import {
 	HERRAMIENTAS_PRECIOS,
-	BUSQUEDA_ACTUAL,
 	HERRAMIENTAS_STOCK_PRODUCTO,
 	HERRAMIENTAS_STOCK_PTO_STOCK,
 	HERRAMIENTAS_STOCK_MOVIMIENTOS,
+	HERRAMIENTAS_NUEVA_VENTA,
+	BUSQUEDA_ACTUAL,
 	PTOS_STOCK,
 	LISTAS_PRECIO,
 	ERROR_BARRA_HERRAMIENTAS,
@@ -49,6 +50,12 @@ const BarraHerramientasState = (props) => {
 	const handleHerramientasMovimientosStock = () => {
 		dispatch({
 			type: HERRAMIENTAS_STOCK_MOVIMIENTOS,
+		});
+	};
+
+	const handleHerrNuevaVenta = () => {
+		dispatch({
+			type: HERRAMIENTAS_NUEVA_VENTA,
 		});
 	};
 
@@ -101,6 +108,7 @@ const BarraHerramientasState = (props) => {
 				handleHerramientasStockProducto,
 				handleHerramientasStockPtoStock,
 				handleHerramientasMovimientosStock,
+				handleHerrNuevaVenta,
 				handleBusqueda,
 				traerPtosStock,
 				traerListasPrecio,

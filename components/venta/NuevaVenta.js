@@ -6,6 +6,7 @@ import Carrito from './Carrito';
 import Alerta from '../Alerta';
 import VentasContext from '../../context/ventas/ventasContext';
 import AlertaContext from '../../context/alertas/alertaContext';
+import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -16,8 +17,13 @@ const useStyles = makeStyles((theme) => ({
 const NuevaVenta = () => {
 	const classes = useStyles();
 
+	const { handleHerrNuevaVenta } = useContext(BarraHerramientasContext);
 	const { mensaje } = useContext(VentasContext);
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
+
+	useEffect(() => {
+		handleHerrNuevaVenta();
+	}, []);
 
 	useEffect(() => {
 		if (mensaje) {
