@@ -37,14 +37,12 @@ const TablaPuntoStock = () => {
 
 	// context stock
 	const {
-		stocks,
 		filas,
 		ptoStock,
 		mensaje,
 		cargando,
 		traerStocksPtoStock,
 		handleFilasPtoStock,
-		handleFilasBusquedaPtoStock,
 	} = useContext(StockContext);
 
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
@@ -59,15 +57,7 @@ const TablaPuntoStock = () => {
 	}, []);
 
 	useEffect(() => {
-		handleFilasPtoStock();
-		if (busqueda !== '') {
-			handleFilasBusquedaPtoStock(stocks, ptoStock, busqueda);
-		}
-	}, [stocks]);
-
-	useEffect(() => {
-		handleFilasPtoStock();
-		handleFilasBusquedaPtoStock(stocks, ptoStock, busqueda);
+		handleFilasPtoStock(busqueda);
 		setPage(0);
 	}, [ptoStock, busqueda]);
 

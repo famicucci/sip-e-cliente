@@ -3,7 +3,7 @@ import {
 	FILAS_BUSQUEDA,
 	FILAS_BUSQUEDA_PTO_STOCK,
 	FILAS_PTO_STOCK,
-	FILAS_STOCK,
+	FILAS_STOCK_TOTAL,
 	PRODUCTO_ACTIVO,
 	ACTIVAR_FILA,
 	CONFIRMAR_CAMBIO_STOCK,
@@ -60,8 +60,15 @@ const StockReducer = (state, action) => {
 				...state,
 				filas: filtrado(filasPtoStock, action.payload.busqueda),
 			};
-		case FILAS_STOCK:
+		case FILAS_STOCK_TOTAL:
 			vars = { bus: action.payload };
+			r = filtro(state.stocks, vars);
+			return {
+				...state,
+				filas: r,
+			};
+		case FILAS_PTO_STOCK:
+			vars = { bus: action.payload, ptoStock: state.ptoStock };
 			r = filtro(state.stocks, vars);
 			return {
 				...state,
@@ -110,11 +117,6 @@ const StockReducer = (state, action) => {
 					...state.filaActivaProducto,
 					cantidad: action.payload,
 				},
-			};
-		case FILAS_PTO_STOCK:
-			return {
-				...state,
-				filas: filtraPuntoStock(state.stocks, state.ptoStock),
 			};
 		case MODAL_OPEN:
 			return {

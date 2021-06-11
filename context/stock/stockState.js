@@ -9,7 +9,7 @@ import {
 	FILAS_BUSQUEDA,
 	FILAS_BUSQUEDA_PTO_STOCK,
 	FILAS_PTO_STOCK,
-	FILAS_STOCK,
+	FILAS_STOCK_TOTAL,
 	PRODUCTO_ACTIVO,
 	ACTIVAR_FILA,
 	CONFIRMAR_CAMBIO_STOCK,
@@ -82,9 +82,17 @@ const StockState = (props) => {
 		}
 	};
 
-	const handleFilasPtoStock = () => {
+	const handleFilasPtoStock = (bus) => {
 		dispatch({
 			type: FILAS_PTO_STOCK,
+			payload: bus,
+		});
+	};
+
+	const handleFilasStockTotal = (bus) => {
+		dispatch({
+			type: FILAS_STOCK_TOTAL,
+			payload: bus,
 		});
 	};
 
@@ -205,13 +213,6 @@ const StockState = (props) => {
 		});
 	};
 
-	const handleFilas = (bus) => {
-		dispatch({
-			type: FILAS_STOCK,
-			payload: bus,
-		});
-	};
-
 	return (
 		<StockContext.Provider
 			value={{
@@ -229,7 +230,7 @@ const StockState = (props) => {
 				traerMovimientosStock,
 				handleFilasBusqueda,
 				handleFilasBusquedaPtoStock,
-				handleFilas,
+				handleFilasStockTotal,
 				handleFilasPtoStock,
 				handleProductoActivo,
 				handleFilaActiva,
