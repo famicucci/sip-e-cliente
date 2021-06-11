@@ -1,18 +1,19 @@
 import {
 	TRAER_PRECIOS,
-	FILAS_LISTA,
 	LISTA_PRECIOS,
-	FILAS_BUSQUEDA,
 	ERROR_PRECIOS,
+	FILAS_PRECIOS,
 } from '../../types';
-import { filtrado, filtraListaPrecio } from '../../functions/filtroTablas.js';
+import { filtro } from '../../functions/filtroTablas.js';
 
 const PreciosReducer = (state, action) => {
 	switch (action.type) {
 		case TRAER_PRECIOS:
+			let r = filtro(action.payload, state.lista, null);
 			return {
 				...state,
 				precios: action.payload,
+				filas: r,
 				cargando: false,
 			};
 		case LISTA_PRECIOS:
@@ -20,19 +21,11 @@ const PreciosReducer = (state, action) => {
 				...state,
 				lista: action.payload,
 			};
-		case FILAS_LISTA:
+		case FILAS_PRECIOS:
+			r = filtro(state.precios, state.lista, action.payload);
 			return {
 				...state,
-				filas: filtraListaPrecio(action.payload.precios, action.payload.lista),
-			};
-		case FILAS_BUSQUEDA:
-			const filasLista = filtraListaPrecio(
-				action.payload.precios,
-				action.payload.lista
-			);
-			return {
-				...state,
-				filas: filtrado(filasLista, action.payload.busqueda),
+				filas: r,
 			};
 		case ERROR_PRECIOS:
 			return {

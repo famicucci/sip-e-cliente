@@ -10,12 +10,6 @@ function filtrado(filas, busqueda) {
 	return rowsFiltradas;
 }
 
-// filtra segun la lista de precio
-function filtraListaPrecio(filas, lista) {
-	const rowsFiltradas = filas.filter((row) => row.ListaPrecioId === lista);
-	return rowsFiltradas;
-}
-
 // filtra segun el punto de stock
 const filtraPuntoStock = (filas, puntoStock) => {
 	const rowsFiltradas = filas.filter((fila) => fila.PtoStockId === puntoStock);
@@ -72,13 +66,42 @@ const filtraProducto = (filas, codigoProducto) => {
 	return fila;
 };
 
+// funcion que reciba lista de precio, busqueda y arrayproductos y devuelva el array filtrado
+const filtro = (arrayProd, lisPre, bus) => {
+	let r = [];
+	// filtrar el array segun la lista
+	r = arrayProd.filter((x) => x.ListaPrecioId === lisPre);
+
+	if (bus !== null) {
+		r = filBus(r, bus);
+	}
+
+	return r;
+};
+
+// filtra las filas segun la búsqueda
+const filBus = (fil, bus) => {
+	const busMod = bus.toLowerCase().replace(/\s+/g, '');
+
+	const r = fil.filter(
+		(x) =>
+			Object.values(x)
+				.join()
+				.replace(/\s+/g, '')
+				.toLowerCase()
+				.indexOf(busMod) !== -1
+	);
+
+	return r;
+};
+
 export {
 	filtrado,
-	filtraListaPrecio,
 	filtraPuntoStock,
 	filtraPtoStockListaPrecio,
 	filtraStockTotalListaPrecio,
 	filtraElegirPtoStock,
 	filtraProductosSinStock,
 	filtraProducto,
+	filtro,
 };

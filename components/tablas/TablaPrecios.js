@@ -10,7 +10,6 @@ import FilaPrecio from '../tablas/componentes/FilaPrecio';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import PreciosContext from '../../context/precios/preciosContext';
 import SpinnerTabla from '../../components/SpinnerTabla';
-import { filtrado } from '../../functions/filtroTablas';
 
 const useStyles = makeStyles({
 	table: {
@@ -34,15 +33,12 @@ const TablaPrecios = () => {
 	);
 
 	// context precios
-	const {
-		precios,
-		filas,
-		lista,
-		cargando,
-		traerPrecios,
-		handleFilasLista,
-		handleFilasBusqueda,
-	} = useContext(PreciosContext);
+	const { filas, lista, traerPrecios, handleFilas, cargando } =
+		useContext(PreciosContext);
+
+	// hook paginación
+	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
+		usePaginacion(filas);
 
 	useEffect(() => {
 		handleHerramientasPrecios();
@@ -50,26 +46,9 @@ const TablaPrecios = () => {
 	}, []);
 
 	useEffect(() => {
-		handleFilasLista(precios, lista);
-		if (busqueda !== '') {
-			handleFilasBusqueda(precios, lista, busqueda);
-		}
-	}, [precios]);
-
-	useEffect(() => {
-		handleFilasLista(precios, lista);
 		setPage(0);
-	}, [lista]);
-
-	useEffect(() => {
-		setPage(0);
-	}, [busqueda]);
-
-	const filasFiltradas = filtrado(filas, busqueda);
-
-	// hook paginación
-	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
-		usePaginacion(filasFiltradas);
+		handleFilas(busqueda);
+	}, [busqueda, lista]);
 
 	return (
 		<TableContainer component={Paper}>
@@ -81,7 +60,9 @@ const TablaPrecios = () => {
 					) : (
 						<SpinnerTabla cantColumnas={3} />
 					)}
-					{cortePagina.length === 0 ? bodyVacio(columnas) : filasVacias}
+					{cortePagina.length === 0 && !cargando
+						? bodyVacio(columnas)
+						: filasVacias}
 				</TableBody>
 				{!cargando ? <FooterTabla /> : null}
 			</Table>
