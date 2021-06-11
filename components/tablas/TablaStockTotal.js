@@ -32,12 +32,10 @@ const TablaStockTotal = () => {
 	const classes = useStyles();
 
 	// context barra de herramientas
-	const { busqueda, handleHerramientasStockProducto } = useContext(
-		BarraHerramientasContext
-	);
+	const { busqueda, handleHerrStockTot } = useContext(BarraHerramientasContext);
 
 	// context stock
-	const { filas, mensaje, cargando, traerStocksProducto, handleFilas } =
+	const { filas, mensaje, cargando, traerStocksTotal, handleFilas } =
 		useContext(StockContext);
 
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
@@ -47,8 +45,8 @@ const TablaStockTotal = () => {
 		usePaginacion(filas);
 
 	useEffect(() => {
-		handleHerramientasStockProducto();
-		traerStocksProducto();
+		handleHerrStockTot();
+		traerStocksTotal();
 	}, []);
 
 	useEffect(() => {

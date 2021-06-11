@@ -35,7 +35,7 @@ const BarraHerramientasState = (props) => {
 		});
 	};
 
-	const handleHerramientasStockProducto = () => {
+	const handleHerrStockTot = () => {
 		dispatch({
 			type: HERRAMIENTAS_STOCK_PRODUCTO,
 		});
@@ -105,7 +105,7 @@ const BarraHerramientasState = (props) => {
 				ptosStock: state.ptosStock,
 				listasPrecio: state.listasPrecio,
 				handleHerramientasPrecios,
-				handleHerramientasStockProducto,
+				handleHerrStockTot,
 				handleHerramientasStockPtoStock,
 				handleHerramientasMovimientosStock,
 				handleHerrNuevaVenta,

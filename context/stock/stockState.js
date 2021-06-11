@@ -35,7 +35,7 @@ const StockState = (props) => {
 	const [state, dispatch] = useReducer(StockReducer, initialState);
 
 	// las funciones
-	const traerStocksProducto = async () => {
+	const traerStocksTotal = async () => {
 		try {
 			const respuesta = await clienteAxios.get('/api/stock/total');
 
@@ -222,7 +222,7 @@ const StockState = (props) => {
 				mensaje: state.mensaje,
 				cargando: state.cargando,
 				handlePtoStock,
-				traerStocksProducto,
+				traerStocksTotal,
 				traerStocksPtoStock,
 				traerMovimientosStock,
 				handleFilasBusqueda,
