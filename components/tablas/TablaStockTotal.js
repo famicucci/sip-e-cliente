@@ -37,14 +37,8 @@ const TablaStockTotal = () => {
 	);
 
 	// context stock
-	const {
-		stocks,
-		filas,
-		mensaje,
-		cargando,
-		traerStocksProducto,
-		handleFilasBusqueda,
-	} = useContext(StockContext);
+	const { filas, mensaje, cargando, traerStocksProducto, handleFilas } =
+		useContext(StockContext);
 
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 
@@ -58,11 +52,7 @@ const TablaStockTotal = () => {
 	}, []);
 
 	useEffect(() => {
-		handleFilasBusqueda(stocks, busqueda);
-	}, [stocks]);
-
-	useEffect(() => {
-		handleFilasBusqueda(stocks, busqueda);
+		handleFilas(busqueda);
 		setPage(0);
 	}, [busqueda]);
 

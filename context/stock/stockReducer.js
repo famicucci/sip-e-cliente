@@ -4,6 +4,7 @@ import {
 	FILAS_BUSQUEDA,
 	FILAS_BUSQUEDA_PTO_STOCK,
 	FILAS_PTO_STOCK,
+	FILAS_STOCK,
 	PRODUCTO_ACTIVO,
 	ACTIVAR_FILA,
 	CONFIRMAR_CAMBIO_STOCK,
@@ -13,7 +14,11 @@ import {
 	MODAL_CLOSE,
 	ERROR_STOCK,
 } from '../../types';
-import { filtrado, filtraPuntoStock } from '../../functions/filtroTablas.js';
+import {
+	filtrado,
+	filtraPuntoStock,
+	filtro,
+} from '../../functions/filtroTablas.js';
 
 const StockReducer = (state, action) => {
 	switch (action.type) {
@@ -26,6 +31,7 @@ const StockReducer = (state, action) => {
 			return {
 				...state,
 				stocks: action.payload,
+				filas: action.payload,
 				cargando: false,
 			};
 		case FILAS_BUSQUEDA:
@@ -41,6 +47,12 @@ const StockReducer = (state, action) => {
 			return {
 				...state,
 				filas: filtrado(filasPtoStock, action.payload.busqueda),
+			};
+		case FILAS_STOCK:
+			const r = filtro(state.stocks, null, action.payload);
+			return {
+				...state,
+				filas: r,
 			};
 		case PRODUCTO_ACTIVO:
 			return {

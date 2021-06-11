@@ -9,6 +9,7 @@ import {
 	FILAS_BUSQUEDA,
 	FILAS_BUSQUEDA_PTO_STOCK,
 	FILAS_PTO_STOCK,
+	FILAS_STOCK,
 	PRODUCTO_ACTIVO,
 	ACTIVAR_FILA,
 	CONFIRMAR_CAMBIO_STOCK,
@@ -202,6 +203,13 @@ const StockState = (props) => {
 		});
 	};
 
+	const handleFilas = (bus) => {
+		dispatch({
+			type: FILAS_STOCK,
+			payload: bus,
+		});
+	};
+
 	return (
 		<StockContext.Provider
 			value={{
@@ -219,6 +227,7 @@ const StockState = (props) => {
 				traerMovimientosStock,
 				handleFilasBusqueda,
 				handleFilasBusquedaPtoStock,
+				handleFilas,
 				handleFilasPtoStock,
 				handleProductoActivo,
 				handleFilaActiva,
