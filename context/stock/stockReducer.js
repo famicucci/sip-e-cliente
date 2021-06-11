@@ -1,6 +1,5 @@
 import {
 	PTO_STOCK,
-	TRAER_STOCK_PRODUCTO,
 	FILAS_BUSQUEDA,
 	FILAS_BUSQUEDA_PTO_STOCK,
 	FILAS_PTO_STOCK,
@@ -13,6 +12,8 @@ import {
 	MODAL_OPEN,
 	MODAL_CLOSE,
 	ERROR_STOCK,
+	TRAER_STOCK_PTO_STOCK,
+	TRAER_STOCK_TOTAL,
 } from '../../types';
 import {
 	filtrado,
@@ -27,11 +28,22 @@ const StockReducer = (state, action) => {
 				...state,
 				ptoStock: action.payload,
 			};
-		case TRAER_STOCK_PRODUCTO:
+		case TRAER_STOCK_PTO_STOCK:
+			let vars = { ptoStock: state.ptoStock };
+			let r = filtro(action.payload, vars);
 			return {
 				...state,
 				stocks: action.payload,
-				filas: action.payload,
+				filas: r,
+				cargando: false,
+			};
+		case TRAER_STOCK_TOTAL:
+			vars = {};
+			r = filtro(action.payload, vars);
+			return {
+				...state,
+				stocks: action.payload,
+				filas: r,
 				cargando: false,
 			};
 		case FILAS_BUSQUEDA:
@@ -49,7 +61,8 @@ const StockReducer = (state, action) => {
 				filas: filtrado(filasPtoStock, action.payload.busqueda),
 			};
 		case FILAS_STOCK:
-			const r = filtro(state.stocks, null, action.payload);
+			vars = { bus: action.payload };
+			r = filtro(state.stocks, vars);
 			return {
 				...state,
 				filas: r,

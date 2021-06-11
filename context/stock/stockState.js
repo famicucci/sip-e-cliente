@@ -18,6 +18,8 @@ import {
 	MODAL_OPEN,
 	MODAL_CLOSE,
 	ERROR_STOCK,
+	TRAER_STOCK_PTO_STOCK,
+	TRAER_STOCK_TOTAL,
 } from '../../types';
 
 const StockState = (props) => {
@@ -40,7 +42,7 @@ const StockState = (props) => {
 			const respuesta = await clienteAxios.get('/api/stock/total');
 
 			dispatch({
-				type: TRAER_STOCK_PRODUCTO,
+				type: TRAER_STOCK_TOTAL,
 				payload: respuesta.data,
 			});
 		} catch (error) {
@@ -56,7 +58,7 @@ const StockState = (props) => {
 			const respuesta = await clienteAxios.get('/api/stock/pto-stock/');
 
 			dispatch({
-				type: TRAER_STOCK_PRODUCTO,
+				type: TRAER_STOCK_PTO_STOCK,
 				payload: respuesta.data,
 			});
 		} catch (error) {

@@ -9,7 +9,8 @@ import { filtro } from '../../functions/filtroTablas.js';
 const PreciosReducer = (state, action) => {
 	switch (action.type) {
 		case TRAER_PRECIOS:
-			let r = filtro(action.payload, state.lista, null);
+			let vars = { lisPre: state.lista };
+			let r = filtro(action.payload, vars);
 			return {
 				...state,
 				precios: action.payload,
@@ -22,7 +23,8 @@ const PreciosReducer = (state, action) => {
 				lista: action.payload,
 			};
 		case FILAS_PRECIOS:
-			r = filtro(state.precios, state.lista, action.payload);
+			vars = { lisPre: state.lista, bus: action.payload };
+			r = filtro(state.precios, vars);
 			return {
 				...state,
 				filas: r,

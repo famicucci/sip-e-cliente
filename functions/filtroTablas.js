@@ -66,14 +66,17 @@ const filtraProducto = (filas, codigoProducto) => {
 	return fila;
 };
 
-// funcion que reciba lista de precio, busqueda y arrayproductos y devuelva el array filtrado
-const filtro = (arrayProd, lisPre, bus) => {
+const filtro = (arrayProd, { lisPre, ptoStock, bus }) => {
 	let r = arrayProd;
 	// filtrar el array segun la lista
 	if (lisPre) {
 		r = arrayProd.filter((x) => x.ListaPrecioId === lisPre);
 	}
 
+	// filtrar el array segun pto stock
+	if (ptoStock) {
+		r = arrayProd.filter((x) => x.PtoStockId === ptoStock);
+	}
 	if (bus) {
 		r = filBus(r, bus);
 	}
