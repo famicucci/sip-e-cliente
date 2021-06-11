@@ -4,13 +4,13 @@ import StockReducer from './stockReducer';
 import clienteAxios from '../../config/axios';
 
 import {
-	PTO_STOCK,
+	TRAER_STOCK_TOTAL,
+	TRAER_STOCK_PTO_STOCK,
 	TRAER_MOVIMIENTOS_STOCK,
-	FILAS_BUSQUEDA,
-	FILAS_BUSQUEDA_PTO_STOCK,
-	FILAS_PTO_STOCK,
 	FILAS_STOCK_TOTAL,
+	FILAS_PTO_STOCK,
 	FILAS_MOVIMIENTOS_STOCK,
+	PTO_STOCK,
 	PRODUCTO_ACTIVO,
 	ACTIVAR_FILA,
 	CONFIRMAR_CAMBIO_STOCK,
@@ -19,8 +19,6 @@ import {
 	MODAL_OPEN,
 	MODAL_CLOSE,
 	ERROR_STOCK,
-	TRAER_STOCK_PTO_STOCK,
-	TRAER_STOCK_TOTAL,
 } from '../../types';
 
 const StockState = (props) => {
@@ -101,20 +99,6 @@ const StockState = (props) => {
 		dispatch({
 			type: FILAS_MOVIMIENTOS_STOCK,
 			payload: bus,
-		});
-	};
-
-	const handleFilasBusqueda = (stocks, busqueda) => {
-		dispatch({
-			type: FILAS_BUSQUEDA,
-			payload: { stocks, busqueda },
-		});
-	};
-
-	const handleFilasBusquedaPtoStock = (stocks, ptoStock, busqueda) => {
-		dispatch({
-			type: FILAS_BUSQUEDA_PTO_STOCK,
-			payload: { stocks, ptoStock, busqueda },
 		});
 	};
 
@@ -236,8 +220,6 @@ const StockState = (props) => {
 				traerStocksTotal,
 				traerStocksPtoStock,
 				traerMovimientosStock,
-				handleFilasBusqueda,
-				handleFilasBusquedaPtoStock,
 				handleFilasStockTotal,
 				handleFilasPtoStock,
 				handleFilasMovStock,
