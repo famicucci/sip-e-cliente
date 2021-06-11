@@ -5,11 +5,12 @@ import clienteAxios from '../../config/axios';
 
 import {
 	PTO_STOCK,
-	TRAER_STOCK_PRODUCTO,
+	TRAER_MOVIMIENTOS_STOCK,
 	FILAS_BUSQUEDA,
 	FILAS_BUSQUEDA_PTO_STOCK,
 	FILAS_PTO_STOCK,
 	FILAS_STOCK_TOTAL,
+	FILAS_MOVIMIENTOS_STOCK,
 	PRODUCTO_ACTIVO,
 	ACTIVAR_FILA,
 	CONFIRMAR_CAMBIO_STOCK,
@@ -74,7 +75,7 @@ const StockState = (props) => {
 			const respuesta = await clienteAxios.get('/api/stock/movimientos/');
 
 			dispatch({
-				type: TRAER_STOCK_PRODUCTO,
+				type: TRAER_MOVIMIENTOS_STOCK,
 				payload: respuesta.data,
 			});
 		} catch (error) {
@@ -92,6 +93,13 @@ const StockState = (props) => {
 	const handleFilasStockTotal = (bus) => {
 		dispatch({
 			type: FILAS_STOCK_TOTAL,
+			payload: bus,
+		});
+	};
+
+	const handleFilasMovStock = (bus) => {
+		dispatch({
+			type: FILAS_MOVIMIENTOS_STOCK,
 			payload: bus,
 		});
 	};
@@ -232,6 +240,7 @@ const StockState = (props) => {
 				handleFilasBusquedaPtoStock,
 				handleFilasStockTotal,
 				handleFilasPtoStock,
+				handleFilasMovStock,
 				handleProductoActivo,
 				handleFilaActiva,
 				modificarStock,

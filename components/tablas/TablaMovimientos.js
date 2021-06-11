@@ -38,31 +38,21 @@ const TablaMovimientos = () => {
 	);
 
 	// context stock
-	const {
-		stocks,
-		filas,
-		cargando,
-		traerMovimientosStock,
-		handleFilasBusqueda,
-	} = useContext(StockContext);
+	const { filas, cargando, traerMovimientosStock, handleFilasMovStock } =
+		useContext(StockContext);
+
+	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
+		usePaginacion(filas);
 
 	useEffect(() => {
-		traerMovimientosStock();
 		handleHerramientasMovimientosStock();
+		traerMovimientosStock();
 	}, []);
 
 	useEffect(() => {
-		handleFilasBusqueda(stocks, busqueda);
-	}, [stocks]);
-
-	useEffect(() => {
 		setPage(0);
+		handleFilasMovStock(busqueda);
 	}, [busqueda]);
-
-	const filasFiltradas = filtrado(filas, busqueda);
-
-	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
-		usePaginacion(filasFiltradas);
 
 	return (
 		<TableContainer component={Paper}>

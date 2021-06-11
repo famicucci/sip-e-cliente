@@ -1,9 +1,11 @@
 import {
 	PTO_STOCK,
+	TRAER_MOVIMIENTOS_STOCK,
 	FILAS_BUSQUEDA,
 	FILAS_BUSQUEDA_PTO_STOCK,
 	FILAS_PTO_STOCK,
 	FILAS_STOCK_TOTAL,
+	FILAS_MOVIMIENTOS_STOCK,
 	PRODUCTO_ACTIVO,
 	ACTIVAR_FILA,
 	CONFIRMAR_CAMBIO_STOCK,
@@ -46,6 +48,15 @@ const StockReducer = (state, action) => {
 				filas: r,
 				cargando: false,
 			};
+		case TRAER_MOVIMIENTOS_STOCK:
+			vars = {};
+			r = filtro(action.payload, vars);
+			return {
+				...state,
+				stocks: action.payload,
+				filas: r,
+				cargando: false,
+			};
 		case FILAS_BUSQUEDA:
 			return {
 				...state,
@@ -69,6 +80,14 @@ const StockReducer = (state, action) => {
 			};
 		case FILAS_PTO_STOCK:
 			vars = { bus: action.payload, ptoStock: state.ptoStock };
+			r = filtro(state.stocks, vars);
+			return {
+				...state,
+				filas: r,
+			};
+		case FILAS_MOVIMIENTOS_STOCK:
+			console.log('hola');
+			vars = { bus: action.payload };
 			r = filtro(state.stocks, vars);
 			return {
 				...state,
