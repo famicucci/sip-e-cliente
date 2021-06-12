@@ -1,26 +1,16 @@
 import {
 	PRODUCTOS_VENTAS,
 	FILAS_VENTAS,
-	PRECIOS_STOCK_TOTAL,
-	PRECIOS_PTO_STOCK_FILAS,
-	PRECIOS_STOCK_TOTAL_FILAS,
-	PRECIOS_PRODUCTOS_SIN_STOCK_FILAS,
 	PTO_STOCK_VENTAS,
 	PTOS_STOCK_VENTAS,
 	LISTA_PRECIO_VENTAS,
 	VALOR_RADIO_VENTAS,
-	BUSQUEDA_VENTAS,
 	CARRITO_AGREGAR_PRODUCTO,
 	CARRITO_PRODUCTO_ACTIVO,
 	CARRITO_QUITAR_PRODUCTO,
 	CARRITO_MODIFICAR_CANTIDAD,
 	CARRITO_MODIFICAR_PRECIO,
 } from '../../types';
-import {
-	filtraPtoStockListaPrecio,
-	filtraStockTotalListaPrecio,
-	filtraProductosSinStock,
-} from '../../functions/filtroTablas.js';
 import {
 	filtraProducto,
 	detArrayPrecios,
@@ -67,39 +57,6 @@ const VentasReducer = (state, action) => {
 				...state,
 				filas: r,
 			};
-		case PRECIOS_STOCK_TOTAL:
-			return {
-				...state,
-				preciosStockTotal: action.payload,
-			};
-		case PRECIOS_PTO_STOCK_FILAS:
-			const filas = filtraPtoStockListaPrecio(
-				state.preciosPtoStock,
-				state.ptoStock,
-				state.listaPrecio
-			);
-			return {
-				...state,
-				filas: filas,
-			};
-		case PRECIOS_STOCK_TOTAL_FILAS:
-			const filasTotal = filtraStockTotalListaPrecio(
-				state.preciosStockTotal,
-				state.listaPrecio
-			);
-			return {
-				...state,
-				filas: filasTotal,
-			};
-		case PRECIOS_PRODUCTOS_SIN_STOCK_FILAS:
-			const filasSinStock = filtraProductosSinStock(
-				state.preciosStockTotal,
-				state.listaPrecio
-			);
-			return {
-				...state,
-				filas: filasSinStock,
-			};
 		case PTO_STOCK_VENTAS:
 			return {
 				...state,
@@ -119,11 +76,6 @@ const VentasReducer = (state, action) => {
 			return {
 				...state,
 				valorRadio: action.payload,
-			};
-		case BUSQUEDA_VENTAS:
-			return {
-				...state,
-				busqueda: action.payload,
 			};
 		case CARRITO_AGREGAR_PRODUCTO:
 			const carrito = agregarCarrito(

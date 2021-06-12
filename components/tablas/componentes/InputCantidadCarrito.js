@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import VentasContext from '../../../context/ventas/ventasContext';
-import { buscarProdPtoStock } from '../../../functions/ventas';
+import { detMaxVal } from '../../../functions/ventas';
 
 const useStyles = makeStyles({
 	input: {
@@ -19,13 +19,6 @@ const InputCantidadCarrito = ({ codigoProducto, ptoStock, cantidad }) => {
 	const [maxVal, setMaxVal] = useState(null);
 
 	useEffect(() => {
-		const detMaxVal = (cod, ptoStock, arrayPtoStock, cantInicial) => {
-			if (ptoStock === 0) return 99;
-			const cant = buscarProdPtoStock(cod, ptoStock, arrayPtoStock).cantidad;
-			// la cantidad máxima del input debe tener en cuenta la cant en stock más la cant ya agregada al carrito
-			return cant + cantInicial;
-		};
-
 		const maxVal = detMaxVal(
 			codigoProducto,
 			ptoStock,

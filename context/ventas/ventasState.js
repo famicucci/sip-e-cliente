@@ -6,15 +6,10 @@ import clienteAxios from '../../config/axios';
 import {
 	PRODUCTOS_VENTAS,
 	FILAS_VENTAS,
-	PRECIOS_STOCK_TOTAL,
-	PRECIOS_PTO_STOCK_FILAS,
-	PRECIOS_STOCK_TOTAL_FILAS,
-	PRECIOS_PRODUCTOS_SIN_STOCK_FILAS,
 	PTO_STOCK_VENTAS,
 	PTOS_STOCK_VENTAS,
 	LISTA_PRECIO_VENTAS,
 	VALOR_RADIO_VENTAS,
-	BUSQUEDA_VENTAS,
 	CARRITO_AGREGAR_PRODUCTO,
 	CARRITO_PRODUCTO_ACTIVO,
 	CARRITO_QUITAR_PRODUCTO,
@@ -30,7 +25,6 @@ const VentasState = (props) => {
 		ptoStock: 1,
 		listaPrecio: 1,
 		valorRadio: 'pto-stock',
-		busqueda: '',
 		carrito: [],
 		productoActivoCarrito: {},
 		ptosStock: null,
@@ -55,12 +49,6 @@ const VentasState = (props) => {
 		} catch (error) {
 			console.log(error);
 		}
-	};
-
-	const handleFilasSinStock = () => {
-		dispatch({
-			type: PRECIOS_PRODUCTOS_SIN_STOCK_FILAS,
-		});
 	};
 
 	const handlePtoStock = (ptoStock) => {
@@ -88,13 +76,6 @@ const VentasState = (props) => {
 		dispatch({
 			type: VALOR_RADIO_VENTAS,
 			payload: valor,
-		});
-	};
-
-	const handleBusqueda = (busqueda) => {
-		dispatch({
-			type: BUSQUEDA_VENTAS,
-			payload: busqueda,
 		});
 	};
 
@@ -149,15 +130,12 @@ const VentasState = (props) => {
 				ptoStock: state.ptoStock,
 				listaPrecio: state.listaPrecio,
 				valorRadio: state.valorRadio,
-				busqueda: state.busqueda,
 				carrito: state.carrito,
 				productoActivoCarrrito: state.productoActivoCarrrito,
 				mensaje: state.mensaje,
-				handleFilasSinStock,
 				handlePtoStock,
 				handleListaPrecio,
 				handleValorRadio,
-				handleBusqueda,
 				handleCarrito,
 				handleProductoActivoCarrito,
 				handleQuitarProductoCarrito,

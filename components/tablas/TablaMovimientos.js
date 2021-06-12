@@ -10,7 +10,6 @@ import FilaMovimientoStock from './componentes/FilaMovimientoStock';
 import StockContext from '../../context/stock/stockContext';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import SpinnerTabla from '../SpinnerTabla';
-import { filtrado } from '../../functions/filtroTablas';
 
 const useStyles = makeStyles({
 	table: {

@@ -10,7 +10,7 @@ import TableRow from '@material-ui/core/TableRow';
 import usePaginacion from '../../hooks/usePaginacion';
 import VentasContext from '../../context/ventas/ventasContext';
 import FilaElegirProducto from '../tablas/componentes/FilaElegirProducto';
-import { filtrado } from '../../functions/filtroTablas';
+import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 
 const columnas = [
 	{ id: 'producto', label: 'Producto', minWidth: 80 },
@@ -30,13 +30,14 @@ const useStyles = makeStyles({
 const TablaElegirProducto = () => {
 	const classes = useStyles();
 
+	const { busqueda } = useContext(BarraHerramientasContext);
+
 	const {
 		preciosPtoStock,
 		filas,
 		ptoStock,
 		listaPrecio,
 		valorRadio,
-		busqueda,
 		traerProductos,
 		handleFilas,
 	} = useContext(VentasContext);
@@ -50,6 +51,7 @@ const TablaElegirProducto = () => {
 	}, []);
 
 	useEffect(() => {
+		setPage(0);
 		handleFilas(busqueda);
 	}, [valorRadio, busqueda, ptoStock, listaPrecio, preciosPtoStock]);
 

@@ -5,7 +5,7 @@ import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import ClearIcon from '@material-ui/icons/Clear';
-import VentasContext from '../../context/ventas/ventasContext';
+import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 const BuscarProducto = () => {
 	const classes = useStyles();
 
-	const { busqueda, handleBusqueda } = useContext(VentasContext);
+	const { busqueda, handleBusqueda } = useContext(BarraHerramientasContext);
 
 	const onChange = (event) => {
 		handleBusqueda(event.target.value);
