@@ -33,7 +33,7 @@ const VentasState = (props) => {
 	const [state, dispatch] = useReducer(VentasReducer, initialState);
 
 	// las funciones
-	const traerProductos = async () => {
+	const traerProductos = async (bus) => {
 		try {
 			let ptoStock = await clienteAxios.get('/api/ventas/pto-stock/');
 			let stockTotal = await clienteAxios.get('/api/ventas/total/');
@@ -43,7 +43,7 @@ const VentasState = (props) => {
 
 			dispatch({
 				type: PRODUCTOS_VENTAS,
-				payload: { ptoStock, stockTotal },
+				payload: { ptoStock, stockTotal, bus },
 			});
 		} catch (error) {
 			console.log(error);

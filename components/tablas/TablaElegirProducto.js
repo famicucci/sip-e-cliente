@@ -47,7 +47,7 @@ const TablaElegirProducto = () => {
 		usePaginacion(filas, 5);
 
 	useEffect(() => {
-		traerProductos();
+		traerProductos(busqueda);
 	}, []);
 
 	useEffect(() => {

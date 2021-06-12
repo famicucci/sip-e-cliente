@@ -27,10 +27,12 @@ const VentasReducer = (state, action) => {
 				action.payload.stockTotal,
 				state.valorRadio
 			);
-			let r = filtro(arrayProd, {
+			let vars = {
 				lisPre: state.listaPrecio,
 				ptoStock: state.ptoStock,
-			});
+				bus: action.payload.bus,
+			};
+			let r = filtro(arrayProd, vars);
 			return {
 				...state,
 				preciosPtoStock: action.payload.ptoStock,
