@@ -101,7 +101,7 @@ const VentasReducer = (state, action) => {
 		case CARRITO_QUITAR_PRODUCTO:
 			const resultado = quitarProductoCarrito(state.carrito, action.payload);
 
-			const arrayOrigen = resultado.producto.origen;
+			const arrayOrigen = resultado.prod.origen;
 
 			const modificarCantMultiplesStocks = (
 				codigo,
@@ -140,7 +140,7 @@ const VentasReducer = (state, action) => {
 				...state,
 				preciosPtoStock: stocksModificados.filasPtoStock,
 				preciosStockTotal: stocksModificados.filasStockTotal,
-				carrito: resultado.carrito,
+				carrito: resultado.carr,
 			};
 		case CARRITO_MODIFICAR_CANTIDAD:
 			r = modProdCarr(

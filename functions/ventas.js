@@ -286,18 +286,13 @@ const buscarProdPtoStock = (codigo, ptoStock, arrayPtoStock) => {
 	return r;
 };
 
-const quitarProductoCarrito = (carrito, codigo) => {
-	let carritoModificado;
-	let producto;
+const quitarProductoCarrito = (carr, cod) => {
+	// para devolver el producto eliminado en el return
+	const prod = carr.find((x) => x.codigo === cod);
 
-	producto = carrito.find((fila) => fila.codigo === codigo);
+	carr = carr.filter((x) => x.codigo !== cod);
 
-	carritoModificado = carrito.filter((fila) => fila.codigo !== codigo);
-
-	carrito = [...carritoModificado];
-
-	const resultado = { carrito, producto };
-	return resultado;
+	return { carr, prod };
 };
 
 // modifica la cantidad en el punto de stock dado (cant. final)
