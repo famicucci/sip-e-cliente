@@ -68,13 +68,13 @@ const StockState = (props) => {
 		}
 	};
 
-	const traerMovimientosStock = async () => {
+	const traerMovimientosStock = async (bus) => {
 		try {
-			const respuesta = await clienteAxios.get('/api/stock/movimientos/');
+			const r = await clienteAxios.get('/api/stock/movimientos/');
 
 			dispatch({
 				type: TRAER_MOVIMIENTOS_STOCK,
-				payload: respuesta.data,
+				payload: { arrayProd: r.data, bus: bus },
 			});
 		} catch (error) {
 			console.log(error);

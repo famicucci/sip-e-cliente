@@ -45,7 +45,7 @@ const TablaMovimientos = () => {
 
 	useEffect(() => {
 		handleHerramientasMovimientosStock();
-		traerMovimientosStock();
+		traerMovimientosStock(busqueda);
 	}, []);
 
 	useEffect(() => {
