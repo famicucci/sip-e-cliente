@@ -7,7 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import BotonAgregarCarrito from './componentes/BotonAgregarCarrito';
 import VentasContext from '../../context/ventas/ventasContext';
-import { filPtosStockProd } from '../../functions/filtroTablas';
+import { filPtosStockProd } from '../../functions/filtros';
 
 const TablaElegirPtoStock = ({ codigo }) => {
 	const { preciosPtoStock, listaPrecio } = useContext(VentasContext);

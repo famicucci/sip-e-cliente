@@ -10,7 +10,7 @@ import {
 	CARRITO_MODIFICAR_CANTIDAD,
 	CARRITO_MODIFICAR_PRECIO,
 } from '../../types';
-import { detArrayPrecios, filtro } from '../../functions/filtroTablas.js';
+import { detArrayPrecios, filtro } from '../../functions/filtros.js';
 import {
 	agregarCarrito,
 	modCantStock,

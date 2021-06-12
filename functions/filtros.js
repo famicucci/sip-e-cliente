@@ -60,25 +60,25 @@ const detArrayPrecios = (arrayPtoStock, arrayStockTotal, valTipo) => {
 	let arrayPre;
 	if (valTipo === 'pto-stock') {
 		arrayPre = arrayPtoStock;
-		arrayPre = traerProdConStock(arrayPre);
+		arrayPre = traerProdsConStock(arrayPre);
 	} else if (valTipo === 'total') {
 		arrayPre = arrayStockTotal;
-		arrayPre = traerProdConStock(arrayPre);
+		arrayPre = traerProdsConStock(arrayPre);
 	} else if (valTipo === 'sin-stock') {
 		arrayPre = arrayStockTotal;
-		arrayPre = traerProdSinStock(arrayPre);
+		arrayPre = traerProdsSinStock(arrayPre);
 	}
 
 	return arrayPre;
 };
 
 // funcion que separe productos con cant cero de productos con cant mayor a cero
-const traerProdSinStock = (arrayProd) => {
+const traerProdsSinStock = (arrayProd) => {
 	const r = arrayProd.filter((x) => parseFloat(x.cantidad) === 0);
 	return r;
 };
 
-const traerProdConStock = (arrayProd) => {
+const traerProdsConStock = (arrayProd) => {
 	const r = arrayProd.filter((x) => x.cantidad > 0);
 	return r;
 };

@@ -15,7 +15,7 @@ import {
 	MODAL_CLOSE,
 	ERROR_STOCK,
 } from '../../types';
-import { filtro } from '../../functions/filtroTablas.js';
+import { filtro } from '../../functions/filtros.js';
 
 const StockReducer = (state, action) => {
 	switch (action.type) {

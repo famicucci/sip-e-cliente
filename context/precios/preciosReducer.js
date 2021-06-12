@@ -4,7 +4,7 @@ import {
 	ERROR_PRECIOS,
 	FILAS_PRECIOS,
 } from '../../types';
-import { filtro } from '../../functions/filtroTablas.js';
+import { filtro } from '../../functions/filtros.js';
 
 const PreciosReducer = (state, action) => {
 	switch (action.type) {
