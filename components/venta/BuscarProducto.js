@@ -32,6 +32,10 @@ const BuscarProducto = () => {
 		handleBusqueda(event.target.value);
 	};
 
+	const onClick = () => {
+		handleBusqueda('');
+	};
+
 	return (
 		<Paper component="form" className={classes.root}>
 			<IconButton className={classes.iconButton}>
@@ -43,7 +47,7 @@ const BuscarProducto = () => {
 				onChange={onChange}
 				placeholder="Producto..."
 			/>
-			<IconButton className={classes.iconButton}>
+			<IconButton className={classes.iconButton} onClick={onClick}>
 				<ClearIcon />
 			</IconButton>
 		</Paper>
