@@ -19,23 +19,18 @@ import { filtro } from '../../functions/filtros.js';
 
 const StockReducer = (state, action) => {
 	switch (action.type) {
-		case PTO_STOCK:
-			return {
-				...state,
-				ptoStock: action.payload,
-			};
-		case TRAER_STOCK_PTO_STOCK:
-			let vars = { ptoStock: state.ptoStock };
-			let r = filtro(action.payload, vars);
-			return {
-				...state,
-				stocks: action.payload,
-				filas: r,
-				cargando: false,
-			};
 		case TRAER_STOCK_TOTAL:
 			vars = { bus: action.payload.bus };
 			r = filtro(action.payload.arrayProd, vars);
+			return {
+				...state,
+				stocks: action.payload.arrayProd,
+				filas: r,
+				cargando: false,
+			};
+		case TRAER_STOCK_PTO_STOCK:
+			let vars = { ptoStock: state.ptoStock, bus: action.payload.bus };
+			let r = filtro(action.payload.arrayProd, vars);
 			return {
 				...state,
 				stocks: action.payload.arrayProd,
@@ -72,6 +67,11 @@ const StockReducer = (state, action) => {
 			return {
 				...state,
 				filas: r,
+			};
+		case PTO_STOCK:
+			return {
+				...state,
+				ptoStock: action.payload,
 			};
 		case PRODUCTO_ACTIVO:
 			return {

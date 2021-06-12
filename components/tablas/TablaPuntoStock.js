@@ -53,7 +53,7 @@ const TablaPuntoStock = () => {
 
 	useEffect(() => {
 		handleHerramientasStockPtoStock();
-		traerStocksPtoStock();
+		traerStocksPtoStock(busqueda);
 	}, []);
 
 	useEffect(() => {

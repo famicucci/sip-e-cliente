@@ -52,13 +52,13 @@ const StockState = (props) => {
 		}
 	};
 
-	const traerStocksPtoStock = async (id) => {
+	const traerStocksPtoStock = async (bus) => {
 		try {
-			const respuesta = await clienteAxios.get('/api/stock/pto-stock/');
+			const r = await clienteAxios.get('/api/stock/pto-stock/');
 
 			dispatch({
 				type: TRAER_STOCK_PTO_STOCK,
-				payload: respuesta.data,
+				payload: { arrayProd: r.data, bus: bus },
 			});
 		} catch (error) {
 			dispatch({
