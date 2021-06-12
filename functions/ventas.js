@@ -295,6 +295,53 @@ const quitarProductoCarrito = (carr, cod) => {
 	return { carr, prod };
 };
 
+const limpiarCarr = (carr, arrayPtoStock, arrayStockTot) => {
+	for (let i = 0; i < carr.length; i++) {
+		const element = carr[i];
+		const cod = element.codigo;
+		const origen = element.origen;
+
+		const r = modificarCantMultiplesStocks(
+			cod,
+			origen,
+			arrayPtoStock,
+			arrayStockTot
+		);
+
+		arrayPtoStock = r.filasPtoStock;
+		arrayStockTot = r.filasStockTotal;
+	}
+
+	carr = [];
+
+	return { carr, arrayPtoStock, arrayStockTot };
+};
+
+const modificarCantMultiplesStocks = (
+	codigo,
+	arrayOrigen,
+	ptoStock,
+	stockTotal
+) => {
+	let filasPtoStock = ptoStock;
+	let filasStockTotal = stockTotal;
+
+	for (let i = 0; i < arrayOrigen.length; i++) {
+		const stockModificado = modCantStock(
+			codigo,
+			arrayOrigen[i]['ptoStockId'],
+			filasPtoStock,
+			filasStockTotal,
+			arrayOrigen[i]['cantidad']
+		);
+
+		filasPtoStock = stockModificado.ptoStock;
+		filasStockTotal = stockModificado.stockTotal;
+	}
+
+	return { filasPtoStock, filasStockTotal };
+};
+
 // modifica la cantidad en el punto de stock dado (cant. final)
 const modCantPtoStockProdCarr_final = (productoCarrito, ptoStock, canFinal) => {
 	// buscar producto en carrito
@@ -424,4 +471,6 @@ export {
 	calcSubtotCarr,
 	calcTotCarr,
 	detMaxVal,
+	modificarCantMultiplesStocks,
+	limpiarCarr,
 };

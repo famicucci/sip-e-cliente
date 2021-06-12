@@ -14,6 +14,7 @@ import {
 	CARRITO_QUITAR_PRODUCTO,
 	CARRITO_MODIFICAR_CANTIDAD,
 	CARRITO_MODIFICAR_PRECIO,
+	LIMPIAR_CARRITO,
 } from '../../types';
 
 const VentasState = (props) => {
@@ -113,6 +114,11 @@ const VentasState = (props) => {
 		});
 	};
 
+	const limpiarCarrito = () => {
+		dispatch({
+			type: LIMPIAR_CARRITO,
+		});
+	};
 	return (
 		<VentasContext.Provider
 			value={{
@@ -135,6 +141,7 @@ const VentasState = (props) => {
 				handlePrecioCarr,
 				traerProductos,
 				handleFilas,
+				limpiarCarrito,
 			}}
 		>
 			{props.children}

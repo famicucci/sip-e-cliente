@@ -9,6 +9,7 @@ import {
 	CARRITO_QUITAR_PRODUCTO,
 	CARRITO_MODIFICAR_CANTIDAD,
 	CARRITO_MODIFICAR_PRECIO,
+	LIMPIAR_CARRITO,
 } from '../../types';
 import { detArrayPrecios, filtro } from '../../functions/filtros.js';
 import {
@@ -17,6 +18,8 @@ import {
 	quitarProductoCarrito,
 	modProdCarr,
 	modPrecioCarr,
+	modificarCantMultiplesStocks,
+	limpiarCarr,
 } from '../../functions/ventas.js';
 
 const VentasReducer = (state, action) => {
@@ -99,34 +102,9 @@ const VentasReducer = (state, action) => {
 				carrito: carrito,
 			};
 		case CARRITO_QUITAR_PRODUCTO:
-			const resultado = quitarProductoCarrito(state.carrito, action.payload);
+			let resultado = quitarProductoCarrito(state.carrito, action.payload);
 
 			const arrayOrigen = resultado.prod.origen;
-
-			const modificarCantMultiplesStocks = (
-				codigo,
-				arrayOrigen,
-				ptoStock,
-				stockTotal
-			) => {
-				let filasPtoStock = ptoStock;
-				let filasStockTotal = stockTotal;
-
-				for (let i = 0; i < arrayOrigen.length; i++) {
-					const stockModificado = modCantStock(
-						codigo,
-						arrayOrigen[i]['ptoStockId'],
-						filasPtoStock,
-						filasStockTotal,
-						arrayOrigen[i]['cantidad']
-					);
-
-					filasPtoStock = stockModificado.ptoStock;
-					filasStockTotal = stockModificado.stockTotal;
-				}
-
-				return { filasPtoStock, filasStockTotal };
-			};
 
 			const stocksModificados = modificarCantMultiplesStocks(
 				action.payload,
@@ -141,6 +119,19 @@ const VentasReducer = (state, action) => {
 				preciosPtoStock: stocksModificados.filasPtoStock,
 				preciosStockTotal: stocksModificados.filasStockTotal,
 				carrito: resultado.carr,
+			};
+		case LIMPIAR_CARRITO:
+			r = limpiarCarr(
+				state.carrito,
+				state.preciosPtoStock,
+				state.preciosStockTotal
+			);
+			localStorage.setItem('carrito', JSON.stringify(r.carr));
+			return {
+				...state,
+				preciosPtoStock: r.arrayPtoStock,
+				preciosStockTotal: r.arrayStockTot,
+				carrito: r.carr,
 			};
 		case CARRITO_MODIFICAR_CANTIDAD:
 			r = modProdCarr(
