@@ -12,6 +12,7 @@ import Logo from './Logo';
 import Buscador from '../tablas/herramientas/Buscador';
 import SelectListasPrecio from '../tablas/herramientas/SelectListasPrecio';
 import SelectPuntoStock from '../tablas/herramientas/SelectPuntoStock';
+import BotonLectorManual from '../BotonLectorManual';
 
 import AuthContext from '../../context/autenticacion/authContext';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
@@ -184,6 +185,7 @@ const Navbar = (props) => {
 							<Logo color="inherit" />
 						</>
 					)}
+					<BotonLectorManual />
 					{buscador ? <Buscador /> : null}
 					{selectListaPrecio ? <SelectListasPrecio /> : null}
 					{selectPtoStock ? (
