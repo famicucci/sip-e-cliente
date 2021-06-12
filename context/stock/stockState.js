@@ -36,13 +36,13 @@ const StockState = (props) => {
 	const [state, dispatch] = useReducer(StockReducer, initialState);
 
 	// las funciones
-	const traerStocksTotal = async () => {
+	const traerStocksTotal = async (bus) => {
 		try {
-			const respuesta = await clienteAxios.get('/api/stock/total');
+			const r = await clienteAxios.get('/api/stock/total');
 
 			dispatch({
 				type: TRAER_STOCK_TOTAL,
-				payload: respuesta.data,
+				payload: { arrayProd: r.data, bus: bus },
 			});
 		} catch (error) {
 			dispatch({

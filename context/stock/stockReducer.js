@@ -34,11 +34,11 @@ const StockReducer = (state, action) => {
 				cargando: false,
 			};
 		case TRAER_STOCK_TOTAL:
-			vars = {};
-			r = filtro(action.payload, vars);
+			vars = { bus: action.payload.bus };
+			r = filtro(action.payload.arrayProd, vars);
 			return {
 				...state,
-				stocks: action.payload,
+				stocks: action.payload.arrayProd,
 				filas: r,
 				cargando: false,
 			};

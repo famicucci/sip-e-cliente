@@ -46,7 +46,7 @@ const TablaStockTotal = () => {
 
 	useEffect(() => {
 		handleHerrStockTot();
-		traerStocksTotal();
+		traerStocksTotal(busqueda);
 	}, []);
 
 	useEffect(() => {
