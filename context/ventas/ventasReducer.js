@@ -10,6 +10,7 @@ import {
 	CARRITO_MODIFICAR_CANTIDAD,
 	CARRITO_MODIFICAR_PRECIO,
 	LIMPIAR_CARRITO,
+	MODO_CARGA_VENTA,
 } from '../../types';
 import { detArrayPrecios, filtro } from '../../functions/filtros.js';
 import {
@@ -159,6 +160,11 @@ const VentasReducer = (state, action) => {
 			return {
 				...state,
 				carrito: puMod,
+			};
+		case MODO_CARGA_VENTA:
+			return {
+				...state,
+				modo: action.payload,
 			};
 		default:
 			return state;
