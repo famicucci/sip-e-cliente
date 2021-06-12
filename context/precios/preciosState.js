@@ -22,13 +22,13 @@ const PreciosState = (props) => {
 	const [state, dispatch] = useReducer(PreciosReducer, initialState);
 
 	// las funciones
-	const traerPrecios = async () => {
+	const traerPrecios = async (bus) => {
 		try {
-			const respuesta = await clienteAxios.get('/api/precios');
+			const r = await clienteAxios.get('/api/precios');
 
 			dispatch({
 				type: TRAER_PRECIOS,
-				payload: respuesta.data,
+				payload: { arrayProd: r.data, bus: bus },
 			});
 		} catch (error) {
 			dispatch({
@@ -38,17 +38,17 @@ const PreciosState = (props) => {
 		}
 	};
 
-	const handleLista = (lista) => {
-		dispatch({
-			type: LISTA_PRECIOS,
-			payload: lista,
-		});
-	};
-
 	const handleFilas = (bus) => {
 		dispatch({
 			type: FILAS_PRECIOS,
 			payload: bus,
+		});
+	};
+
+	const handleLista = (lista) => {
+		dispatch({
+			type: LISTA_PRECIOS,
+			payload: lista,
 		});
 	};
 

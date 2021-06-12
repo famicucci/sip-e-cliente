@@ -9,11 +9,11 @@ import { filtro } from '../../functions/filtros.js';
 const PreciosReducer = (state, action) => {
 	switch (action.type) {
 		case TRAER_PRECIOS:
-			let vars = { lisPre: state.lista };
-			let r = filtro(action.payload, vars);
+			let vars = { lisPre: state.lista, bus: action.payload.bus };
+			let r = filtro(action.payload.arrayProd, vars);
 			return {
 				...state,
-				precios: action.payload,
+				precios: action.payload.arrayProd,
 				filas: r,
 				cargando: false,
 			};

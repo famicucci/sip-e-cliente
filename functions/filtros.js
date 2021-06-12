@@ -1,6 +1,5 @@
 const filtro = (arrayProd, { lisPre, ptoStock, bus }) => {
 	let r = arrayProd;
-
 	// compruebo que el array venga lleno, sino no hay nada que filtrar
 	if (r.length === 0) return r;
 

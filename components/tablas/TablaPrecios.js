@@ -42,7 +42,7 @@ const TablaPrecios = () => {
 
 	useEffect(() => {
 		handleHerramientasPrecios();
-		traerPrecios();
+		traerPrecios(busqueda);
 	}, []);
 
 	useEffect(() => {
