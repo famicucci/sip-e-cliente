@@ -4,7 +4,8 @@ import VentasReducer from './ventasReducer';
 import clienteAxios from '../../config/axios';
 
 import {
-	PRECIOS_PTO_STOCK,
+	PRODUCTOS_VENTAS,
+	FILAS_VENTAS,
 	PRECIOS_STOCK_TOTAL,
 	PRECIOS_PTO_STOCK_FILAS,
 	PRECIOS_STOCK_TOTAL_FILAS,
@@ -39,42 +40,21 @@ const VentasState = (props) => {
 	const [state, dispatch] = useReducer(VentasReducer, initialState);
 
 	// las funciones
-	const traerPreciosPtoStock = async () => {
+	const traerProductos = async () => {
 		try {
-			const respuesta = await clienteAxios.get('/api/ventas/pto-stock/');
+			let ptoStock = await clienteAxios.get('/api/ventas/pto-stock/');
+			let stockTotal = await clienteAxios.get('/api/ventas/total/');
+
+			ptoStock = ptoStock.data;
+			stockTotal = stockTotal.data;
 
 			dispatch({
-				type: PRECIOS_PTO_STOCK,
-				payload: respuesta.data,
+				type: PRODUCTOS_VENTAS,
+				payload: { ptoStock, stockTotal },
 			});
 		} catch (error) {
 			console.log(error);
 		}
-	};
-
-	const traerPreciosStockTotal = async () => {
-		try {
-			const respuesta = await clienteAxios.get('/api/ventas/total/');
-
-			dispatch({
-				type: PRECIOS_STOCK_TOTAL,
-				payload: respuesta.data,
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
-	const handleFilasPtoStock = () => {
-		dispatch({
-			type: PRECIOS_PTO_STOCK_FILAS,
-		});
-	};
-
-	const handleFilasStockTotal = () => {
-		dispatch({
-			type: PRECIOS_STOCK_TOTAL_FILAS,
-		});
 	};
 
 	const handleFilasSinStock = () => {
@@ -153,6 +133,13 @@ const VentasState = (props) => {
 		});
 	};
 
+	const handleFilas = (bus) => {
+		dispatch({
+			type: FILAS_VENTAS,
+			payload: bus,
+		});
+	};
+
 	return (
 		<VentasContext.Provider
 			value={{
@@ -166,10 +153,6 @@ const VentasState = (props) => {
 				carrito: state.carrito,
 				productoActivoCarrrito: state.productoActivoCarrrito,
 				mensaje: state.mensaje,
-				traerPreciosPtoStock,
-				traerPreciosStockTotal,
-				handleFilasPtoStock,
-				handleFilasStockTotal,
 				handleFilasSinStock,
 				handlePtoStock,
 				handleListaPrecio,
@@ -181,6 +164,8 @@ const VentasState = (props) => {
 				handleCantidadCarrito,
 				handlePtosStock,
 				handlePrecioCarr,
+				traerProductos,
+				handleFilas,
 			}}
 		>
 			{props.children}

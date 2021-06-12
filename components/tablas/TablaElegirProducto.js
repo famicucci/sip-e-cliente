@@ -37,74 +37,21 @@ const TablaElegirProducto = () => {
 		listaPrecio,
 		valorRadio,
 		busqueda,
-		traerPreciosPtoStock,
-		traerPreciosStockTotal,
-		handleFilasPtoStock,
-		handleFilasStockTotal,
-		handleFilasSinStock,
+		traerProductos,
+		handleFilas,
 	} = useContext(VentasContext);
-
-	useEffect(() => {
-		const filasPtoStock = async () => {
-			await traerPreciosPtoStock();
-			await handleFilasPtoStock();
-			await traerPreciosStockTotal();
-		};
-		filasPtoStock();
-	}, []);
-
-	useEffect(() => {
-		if (valorRadio === 'pto-stock') {
-			handleFilasPtoStock();
-		}
-
-		if (valorRadio === 'total') {
-			handleFilasStockTotal();
-		}
-
-		if (valorRadio === 'sin-stock') {
-			handleFilasSinStock();
-		}
-	}, [valorRadio]);
-
-	useEffect(() => {
-		if (valorRadio === 'pto-stock') {
-			handleFilasPtoStock();
-		}
-
-		if (valorRadio === 'total') {
-			handleFilasStockTotal();
-		}
-
-		if (valorRadio === 'sin-stock') {
-			handleFilasSinStock();
-		}
-		setPage(0);
-	}, [ptoStock, listaPrecio]);
-
-	useEffect(() => {
-		setPage(0);
-	}, [busqueda]);
-
-	useEffect(() => {
-		if (valorRadio === 'pto-stock') {
-			handleFilasPtoStock();
-		}
-
-		if (valorRadio === 'total') {
-			handleFilasStockTotal();
-		}
-
-		if (valorRadio === 'sin-stock') {
-			handleFilasSinStock();
-		}
-	}, [preciosPtoStock]);
-
-	const filasFiltradas = filtrado(filas, busqueda);
 
 	// hook paginación
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
-		usePaginacion(filasFiltradas, 5);
+		usePaginacion(filas, 5);
+
+	useEffect(() => {
+		traerProductos();
+	}, []);
+
+	useEffect(() => {
+		handleFilas(busqueda);
+	}, [valorRadio, busqueda, ptoStock, listaPrecio, preciosPtoStock]);
 
 	return (
 		<Paper className={classes.root}>

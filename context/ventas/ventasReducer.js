@@ -1,5 +1,6 @@
 import {
-	PRECIOS_PTO_STOCK,
+	PRODUCTOS_VENTAS,
+	FILAS_VENTAS,
 	PRECIOS_STOCK_TOTAL,
 	PRECIOS_PTO_STOCK_FILAS,
 	PRECIOS_STOCK_TOTAL_FILAS,
@@ -20,7 +21,11 @@ import {
 	filtraStockTotalListaPrecio,
 	filtraProductosSinStock,
 } from '../../functions/filtroTablas.js';
-import { filtraProducto } from '../../functions/filtroTablas.js';
+import {
+	filtraProducto,
+	detArrayPrecios,
+	filtro,
+} from '../../functions/filtroTablas.js';
 import {
 	agregarCarrito,
 	modCantStock,
@@ -31,10 +36,36 @@ import {
 
 const VentasReducer = (state, action) => {
 	switch (action.type) {
-		case PRECIOS_PTO_STOCK:
+		case PRODUCTOS_VENTAS:
+			let arrayProd = detArrayPrecios(
+				action.payload.ptoStock,
+				action.payload.stockTotal,
+				state.valorRadio
+			);
+			let r = filtro(arrayProd, {
+				lisPre: state.listaPrecio,
+				ptoStock: state.ptoStock,
+			});
 			return {
 				...state,
-				preciosPtoStock: action.payload,
+				preciosPtoStock: action.payload.ptoStock,
+				preciosStockTotal: action.payload.stockTotal,
+				filas: r,
+			};
+		case FILAS_VENTAS:
+			arrayProd = detArrayPrecios(
+				state.preciosPtoStock,
+				state.preciosStockTotal,
+				state.valorRadio
+			);
+			r = filtro(arrayProd, {
+				lisPre: state.listaPrecio,
+				ptoStock: state.ptoStock,
+				bus: action.payload,
+			});
+			return {
+				...state,
+				filas: r,
 			};
 		case PRECIOS_STOCK_TOTAL:
 			return {
@@ -169,7 +200,7 @@ const VentasReducer = (state, action) => {
 				carrito: resultado.carrito,
 			};
 		case CARRITO_MODIFICAR_CANTIDAD:
-			const r = modProdCarr(
+			r = modProdCarr(
 				state.carrito,
 				action.payload.codigo,
 				action.payload.ptoStock,
