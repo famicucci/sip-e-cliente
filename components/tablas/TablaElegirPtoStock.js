@@ -7,20 +7,20 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import BotonAgregarCarrito from './componentes/BotonAgregarCarrito';
 import VentasContext from '../../context/ventas/ventasContext';
-import { filtraElegirPtoStock } from '../../functions/filtroTablas';
+import { filPtosStockProd } from '../../functions/filtroTablas';
 
 const TablaElegirPtoStock = ({ codigo }) => {
 	const { preciosPtoStock, listaPrecio } = useContext(VentasContext);
 
-	let x = filtraElegirPtoStock(preciosPtoStock, codigo, listaPrecio);
-	const producto = x.filter((fila) => fila.cantidad !== 0);
+	const r = filPtosStockProd(preciosPtoStock, codigo, listaPrecio);
+	const ptosStockProd = r.filter((x) => x.cantidad !== 0);
 
 	return (
 		<TableContainer component={Paper}>
 			<Table>
 				<TableBody>
-					{producto.length > 0 ? (
-						producto.map((fila) => (
+					{ptosStockProd.length > 0 ? (
+						ptosStockProd.map((fila) => (
 							<TableRow>
 								<TableCell component="th" scope="row" style={{ minWidth: 170 }}>
 									{fila['PtoStock.descripcion']}

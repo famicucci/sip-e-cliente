@@ -6,16 +6,11 @@ import {
 	LISTA_PRECIO_VENTAS,
 	VALOR_RADIO_VENTAS,
 	CARRITO_AGREGAR_PRODUCTO,
-	CARRITO_PRODUCTO_ACTIVO,
 	CARRITO_QUITAR_PRODUCTO,
 	CARRITO_MODIFICAR_CANTIDAD,
 	CARRITO_MODIFICAR_PRECIO,
 } from '../../types';
-import {
-	filtraProducto,
-	detArrayPrecios,
-	filtro,
-} from '../../functions/filtroTablas.js';
+import { detArrayPrecios, filtro } from '../../functions/filtroTablas.js';
 import {
 	agregarCarrito,
 	modCantStock,
@@ -100,12 +95,6 @@ const VentasReducer = (state, action) => {
 				preciosPtoStock: stockModificado.ptoStock,
 				preciosStockTotal: stockModificado.stockTotal,
 				carrito: carrito,
-			};
-		case CARRITO_PRODUCTO_ACTIVO:
-			let producto = filtraProducto(state.carrito, action.payload);
-			return {
-				...state,
-				productoActivoCarrito: producto,
 			};
 		case CARRITO_QUITAR_PRODUCTO:
 			const resultado = quitarProductoCarrito(state.carrito, action.payload);

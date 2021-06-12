@@ -11,7 +11,6 @@ import {
 	LISTA_PRECIO_VENTAS,
 	VALOR_RADIO_VENTAS,
 	CARRITO_AGREGAR_PRODUCTO,
-	CARRITO_PRODUCTO_ACTIVO,
 	CARRITO_QUITAR_PRODUCTO,
 	CARRITO_MODIFICAR_CANTIDAD,
 	CARRITO_MODIFICAR_PRECIO,
@@ -86,13 +85,6 @@ const VentasState = (props) => {
 		});
 	};
 
-	const handleProductoActivoCarrito = (codigo) => {
-		dispatch({
-			type: CARRITO_PRODUCTO_ACTIVO,
-			payload: codigo,
-		});
-	};
-
 	const handleQuitarProductoCarrito = (codigo) => {
 		dispatch({
 			type: CARRITO_QUITAR_PRODUCTO,
@@ -137,7 +129,6 @@ const VentasState = (props) => {
 				handleListaPrecio,
 				handleValorRadio,
 				handleCarrito,
-				handleProductoActivoCarrito,
 				handleQuitarProductoCarrito,
 				handleCantidadCarrito,
 				handlePtosStock,

@@ -1,9 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Badge from '@material-ui/core/Badge';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { IconButton } from '@material-ui/core';
-import VentasContext from '../../../context/ventas/ventasContext';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 
@@ -15,9 +12,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const BotonVerMasCarrito = ({ codigoProducto, setOpen, open }) => {
+const BotonVerMasCarrito = ({ setOpen, open }) => {
 	const classes = useStyles();
-	const { handleProductoActivoCarrito } = useContext(VentasContext);
 
 	return (
 		<div className={classes.root}>
@@ -25,7 +21,6 @@ const BotonVerMasCarrito = ({ codigoProducto, setOpen, open }) => {
 				size="small"
 				onClick={() => {
 					setOpen(!open);
-					// handleProductoActivoCarrito(codigoProducto);
 				}}
 			>
 				{!open ? (

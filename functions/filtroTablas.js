@@ -1,19 +1,3 @@
-const filtraElegirPtoStock = (filas, codigoProducto, lista) => {
-	const filasFiltradas = filas.filter(
-		(fila) =>
-			fila.ProductoCodigo === codigoProducto &&
-			fila['Producto.Precios.ListaPrecioId'] === lista
-	);
-
-	return filasFiltradas;
-};
-
-const filtraProducto = (filas, codigoProducto) => {
-	const fila = filas.find((fila) => fila.codigo === codigoProducto);
-
-	return fila;
-};
-
 const filtro = (arrayProd, { lisPre, ptoStock, bus }) => {
 	let r = arrayProd;
 
@@ -99,4 +83,13 @@ const traerProdConStock = (arrayProd) => {
 	return r;
 };
 
-export { filtraElegirPtoStock, filtraProducto, filtro, detArrayPrecios };
+const filPtosStockProd = (arrayProd, cod, lis) => {
+	const r = arrayProd.filter(
+		(x) =>
+			x.ProductoCodigo === cod && x['Producto.Precios.ListaPrecioId'] === lis
+	);
+
+	return r;
+};
+
+export { filPtosStockProd, filtro, detArrayPrecios };

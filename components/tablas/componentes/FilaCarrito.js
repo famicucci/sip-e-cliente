@@ -46,11 +46,7 @@ const FilaCarrito = (props) => {
 				<TableCell align="center">{parseFloat(total).toFixed(2)}</TableCell>
 				<TableCell align="center">
 					<BotonEliminarDeCarrito codigoProducto={codigo} />
-					<BotonVerMasCarrito
-						codigoProducto={codigo}
-						setOpen={setOpen}
-						open={open}
-					/>
+					<BotonVerMasCarrito setOpen={setOpen} open={open} />
 				</TableCell>
 			</TableRow>
 			<CollapseTablaCarrito
