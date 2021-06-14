@@ -7,13 +7,11 @@ import TablaElegirProducto from '../tablas/TablaElegirProducto';
 import Paper from '@material-ui/core/Paper';
 import VentasContext from '../../context/ventas/ventasContext';
 import LectorElegirProducto from './LectorElegirProducto';
-import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
-		height: '100%',
+		height: '86vh',
 		padding: theme.spacing(1),
-		textAlign: 'left',
 		color: theme.palette.text.secondary,
 	},
 }));
@@ -33,17 +31,7 @@ const ElegirProductos = () => {
 					<TablaElegirProducto />
 				</>
 			) : (
-				<Grid
-					container
-					spacing={0}
-					direction="column"
-					alignItems="center"
-					justify="center"
-				>
-					<Grid item xs={3}>
-						<LectorElegirProducto />
-					</Grid>
-				</Grid>
+				<LectorElegirProducto />
 			)}
 		</Paper>
 	);

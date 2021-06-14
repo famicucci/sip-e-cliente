@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import ElegirProductos from './ElegirProductos';
 import Carrito from './Carrito';
@@ -8,18 +7,7 @@ import VentasContext from '../../context/ventas/ventasContext';
 import AlertaContext from '../../context/alertas/alertaContext';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 
-const useStyles = makeStyles((theme) => ({
-	paper: {
-		height: '100%',
-		padding: theme.spacing(1),
-		textAlign: 'left',
-		color: theme.palette.text.secondary,
-	},
-}));
-
 const NuevaVenta = () => {
-	const classes = useStyles();
-
 	const { handleHerrNuevaVenta } = useContext(BarraHerramientasContext);
 	const { mensaje } = useContext(VentasContext);
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
@@ -37,11 +25,11 @@ const NuevaVenta = () => {
 
 	return (
 		<>
-			<Grid container spacing={1} style={{ height: '87vh' }}>
-				<Grid item xs={12} sm={6}>
+			<Grid container spacing={1}>
+				<Grid item xs={12} md={6}>
 					<ElegirProductos />
 				</Grid>
-				<Grid item xs={12} sm={6}>
+				<Grid item xs={12} md={6}>
 					<Carrito />
 				</Grid>
 			</Grid>
