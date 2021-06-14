@@ -23,7 +23,7 @@ const useStyles = makeStyles({
 		width: '100%',
 	},
 	container: {
-		maxHeight: 483,
+		maxHeight: '71vh',
 	},
 });
 
@@ -42,16 +42,11 @@ const TablaElegirProducto = () => {
 		handleFilas,
 	} = useContext(VentasContext);
 
-	// hook paginación
-	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
-		usePaginacion(filas, 5);
-
 	useEffect(() => {
 		traerProductos(busqueda);
 	}, []);
 
 	useEffect(() => {
-		setPage(0);
 		handleFilas(busqueda);
 	}, [valorRadio, busqueda, ptoStock, listaPrecio, preciosPtoStock]);
 
@@ -73,12 +68,10 @@ const TablaElegirProducto = () => {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{cortePagina.map((fila) => (
+						{filas.map((fila) => (
 							<FilaElegirProducto fila={fila} />
 						))}
-						{cortePagina.length === 0 ? bodyVacio(columnas) : filasVacias}
 					</TableBody>
-					<FooterTabla />
 				</Table>
 			</TableContainer>
 		</Paper>

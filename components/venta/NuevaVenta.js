@@ -9,8 +9,11 @@ import AlertaContext from '../../context/alertas/alertaContext';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 
 const useStyles = makeStyles((theme) => ({
-	root: {
-		flexGrow: 1,
+	paper: {
+		height: '100%',
+		padding: theme.spacing(1),
+		textAlign: 'left',
+		color: theme.palette.text.secondary,
 	},
 }));
 
@@ -33,8 +36,8 @@ const NuevaVenta = () => {
 	}, [mensaje]);
 
 	return (
-		<div className={classes.root}>
-			<Grid container spacing={1}>
+		<>
+			<Grid container spacing={1} style={{ height: '87vh' }}>
 				<Grid item xs={12} sm={6}>
 					<ElegirProductos />
 				</Grid>
@@ -43,7 +46,7 @@ const NuevaVenta = () => {
 				</Grid>
 			</Grid>
 			{alerta !== null ? <Alerta /> : null}
-		</div>
+		</>
 	);
 };
 

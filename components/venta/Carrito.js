@@ -6,6 +6,7 @@ import SeccionInferiorCarrito from './SeccionInferiorCarrito';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
+		height: '100%',
 		padding: theme.spacing(1),
 		textAlign: 'left',
 		color: theme.palette.text.secondary,
