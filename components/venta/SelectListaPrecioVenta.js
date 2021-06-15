@@ -36,14 +36,15 @@ const SelectPtoStockVenta = () => {
 		}
 	}, [mensaje]);
 
-	const handleChange = (event) => {
-		handleListaPrecio(event.target.value);
+	const handleChange = (e) => {
+		const filLis = listasPrecio.find((x) => x.id === e.target.value);
+		handleListaPrecio(filLis);
 	};
 
 	return (
 		<FormControl className={classes.formControl}>
 			<Select
-				value={listaPrecio}
+				value={listaPrecio.id}
 				onChange={handleChange}
 				displayEmpty
 				className={classes.selectEmpty}

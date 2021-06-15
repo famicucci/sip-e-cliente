@@ -31,8 +31,8 @@ const VentasReducer = (state, action) => {
 				state.valorRadio
 			);
 			let vars = {
-				lisPre: state.listaPrecio,
-				ptoStock: state.ptoStock,
+				lisPre: state.listaPrecio.id,
+				ptoStock: state.ptoStock.id,
 				bus: action.payload.bus,
 			};
 			let r = filtro(arrayProd, vars);
@@ -49,8 +49,8 @@ const VentasReducer = (state, action) => {
 				state.valorRadio
 			);
 			r = filtro(arrayProd, {
-				lisPre: state.listaPrecio,
-				ptoStock: state.ptoStock,
+				lisPre: state.listaPrecio.id,
+				ptoStock: state.ptoStock.id,
 				bus: action.payload,
 			});
 			return {
@@ -81,7 +81,7 @@ const VentasReducer = (state, action) => {
 			r = prodCarr(
 				action.payload.codigo,
 				action.payload.ptoStock,
-				state.listaPrecio,
+				state.listaPrecio.id,
 				state.modo,
 				state.ptosStock,
 				state.preciosPtoStock,

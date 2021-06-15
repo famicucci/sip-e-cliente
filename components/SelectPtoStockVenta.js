@@ -40,14 +40,16 @@ const SelectPtoStockVenta = () => {
 		};
 	}
 
-	const handleChange = (event) => {
-		handlePtoStock(event.target.value);
+	const handleChange = (e) => {
+		// buscar el pto de stock en el array ptos stock
+		const filaPtoStock = ptosStock.find((x) => x.id === e.target.value);
+		handlePtoStock(filaPtoStock);
 	};
 
 	return (
 		<FormControl className={classes.formControl}>
 			<Select
-				value={ptoStock}
+				value={ptoStock.id}
 				onChange={handleChange}
 				displayEmpty
 				className={classes.selectEmpty}
