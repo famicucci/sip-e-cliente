@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -21,9 +21,7 @@ const columnas = [
 const useStyles = makeStyles({
 	root: {
 		width: '100%',
-	},
-	container: {
-		maxHeight: '71vh',
+		height: '100%',
 	},
 });
 
@@ -31,6 +29,7 @@ const TablaElegirProducto = () => {
 	const classes = useStyles();
 
 	const { busqueda } = useContext(BarraHerramientasContext);
+	const [height, setHeight] = useState('67vh');
 
 	const {
 		preciosPtoStock,
@@ -44,15 +43,18 @@ const TablaElegirProducto = () => {
 
 	useEffect(() => {
 		traerProductos(busqueda);
-	}, []);
+		const elemento = document.getElementById('contenedor-tabla');
+		const alturaTabla = elemento.clientHeight;
+		setHeight(alturaTabla);
+	}, [height]);
 
 	useEffect(() => {
 		handleFilas(busqueda);
 	}, [valorRadio, busqueda, ptoStock, listaPrecio, preciosPtoStock]);
 
 	return (
-		<Paper className={classes.root}>
-			<TableContainer className={classes.container}>
+		<Paper id="contenedor-tabla" className={classes.root}>
+			<TableContainer style={{ maxHeight: height }}>
 				<Table stickyHeader aria-label="sticky table">
 					<TableHead>
 						<TableRow>

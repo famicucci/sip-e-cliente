@@ -1,12 +1,9 @@
 import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import BuscarProducto from './BuscarProducto';
-import RadioElegirProductos from './RadioElegirProductos';
-import SelectListaPrecio from './SelectListaPrecioVenta';
-import TablaElegirProducto from '../tablas/TablaElegirProducto';
 import Paper from '@material-ui/core/Paper';
 import VentasContext from '../../context/ventas/ventasContext';
 import LectorElegirProducto from './LectorElegirProducto';
+import ManualElegirProducto from './ManualElegirProducto';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -23,16 +20,7 @@ const ElegirProductos = () => {
 
 	return (
 		<Paper className={classes.paper} variant="outlined">
-			{modo === 'manual' ? (
-				<>
-					<BuscarProducto />
-					<RadioElegirProductos />
-					<SelectListaPrecio />
-					<TablaElegirProducto />
-				</>
-			) : (
-				<LectorElegirProducto />
-			)}
+			{modo === 'manual' ? <ManualElegirProducto /> : <LectorElegirProducto />}
 		</Paper>
 	);
 };

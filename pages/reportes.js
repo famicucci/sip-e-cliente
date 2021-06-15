@@ -13,14 +13,20 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles((theme) => ({
 	paper: {
 		height: '86vh',
-		padding: theme.spacing(2),
+		padding: theme.spacing(1),
 		color: theme.palette.text.secondary,
 	},
-	gridPadre: {
-		height: 200,
+	boxPadre: {
+		height: '100%',
 		display: 'flex',
 		flexDirection: 'column',
-		justifyContent: 'center',
+	},
+	box2: {
+		flexGrow: 1,
+		marginTop: 10,
+	},
+	box1: {
+		height: 150,
 	},
 }));
 
@@ -47,29 +53,18 @@ const Reportes = () => {
 			<Grid container spacing={3}>
 				<Grid item xs={12} md={6}>
 					<Paper className={classes.paper} variant="outlined">
-						<Grid
-							container
-							direction="column"
-							justify="center"
-							alignItems="stretch"
-							style={{ height: '100%' }}
-							spacing={0}
-						>
-							<Grid item>
-								<Box bgcolor="grey.300" className={classes.gridPadre}>
-									<Typography variant="h6" align="center">
-										Height 25%
-									</Typography>
-								</Box>
-							</Grid>
-							<Grid item>
-								<Box bgcolor="grey.300" className={classes.gridPadre}>
-									<Typography variant="h6" align="center">
-										Height 25%
-									</Typography>
-								</Box>
-							</Grid>
-						</Grid>
+						<Box className={classes.boxPadre}>
+							<Box bgcolor="grey.300" className={classes.box1}>
+								<Typography variant="h6" align="center">
+									Box 1
+								</Typography>
+							</Box>
+							<Box bgcolor="grey.300" className={classes.box2}>
+								<Typography variant="h6" align="center">
+									Box 2
+								</Typography>
+							</Box>
+						</Box>
 					</Paper>
 				</Grid>
 				<Grid item xs={12} md={6}>
