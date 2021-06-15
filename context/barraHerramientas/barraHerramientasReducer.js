@@ -18,6 +18,7 @@ const PreciosReducer = (state, action) => {
 				buscador: true,
 				selectListaPrecio: true,
 				selectPtoStock: false,
+				botonModoCargaVenta: false,
 			};
 		case HERRAMIENTAS_STOCK_PRODUCTO:
 			return {
@@ -25,6 +26,7 @@ const PreciosReducer = (state, action) => {
 				buscador: true,
 				selectListaPrecio: false,
 				selectPtoStock: false,
+				botonModoCargaVenta: false,
 			};
 		case HERRAMIENTAS_STOCK_PTO_STOCK:
 			return {
@@ -32,6 +34,7 @@ const PreciosReducer = (state, action) => {
 				buscador: true,
 				selectListaPrecio: false,
 				selectPtoStock: true,
+				botonModoCargaVenta: false,
 			};
 		case HERRAMIENTAS_STOCK_MOVIMIENTOS:
 			return {
@@ -39,10 +42,12 @@ const PreciosReducer = (state, action) => {
 				buscador: true,
 				selectListaPrecio: false,
 				selectPtoStock: false,
+				botonModoCargaVenta: false,
 			};
 		case HERRAMIENTAS_NUEVA_VENTA:
 			return {
 				...state,
+				botonModoCargaVenta: true,
 				buscador: false,
 				selectListaPrecio: false,
 				selectPtoStock: false,

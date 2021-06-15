@@ -12,7 +12,7 @@ import Logo from './Logo';
 import Buscador from '../tablas/herramientas/Buscador';
 import SelectListasPrecio from '../tablas/herramientas/SelectListasPrecio';
 import SelectPuntoStock from '../tablas/herramientas/SelectPuntoStock';
-import BotonLectorManual from '../BotonLectorManual';
+import BotonModoCargaVenta from '../BotonModoCargaVenta';
 
 import AuthContext from '../../context/autenticacion/authContext';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
@@ -62,9 +62,8 @@ const Navbar = (props) => {
 	const classes = useStyles();
 
 	// setea barra de herramientas
-	const { buscador, selectListaPrecio, selectPtoStock } = useContext(
-		BarraHerramientasContext
-	);
+	const { buscador, selectListaPrecio, selectPtoStock, botonModoCargaVenta } =
+		useContext(BarraHerramientasContext);
 	const { usuario, cerrarSesion } = useContext(AuthContext);
 	const { ptoStock, handlePtoStock } = useContext(StockContext);
 
@@ -185,7 +184,6 @@ const Navbar = (props) => {
 							<Logo color="inherit" />
 						</>
 					)}
-					<BotonLectorManual />
 					{buscador ? <Buscador /> : null}
 					{selectListaPrecio ? <SelectListasPrecio /> : null}
 					{selectPtoStock ? (
@@ -194,6 +192,7 @@ const Navbar = (props) => {
 							handlePtoStock={handlePtoStock}
 						/>
 					) : null}
+					{botonModoCargaVenta ? <BotonModoCargaVenta /> : null}
 					<div className={classes.grow} />
 
 					<div className={classes.sectionDesktop}>

@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const BotonLectorManual = () => {
+const BotonModoCargaVenta = () => {
 	const classes = useStyles();
 
 	const { modo, handleModo } = useContext(VentasContext);
@@ -44,4 +44,4 @@ const BotonLectorManual = () => {
 	);
 };
 
-export default BotonLectorManual;
+export default BotonModoCargaVenta;

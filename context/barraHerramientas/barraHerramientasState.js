@@ -22,6 +22,7 @@ const BarraHerramientasState = (props) => {
 		selectPtoStock: false,
 		listasPrecio: null,
 		ptosStock: null,
+		botonModoCargaVenta: false,
 		busqueda: '',
 		mensaje: null,
 	};
@@ -104,6 +105,7 @@ const BarraHerramientasState = (props) => {
 				busqueda: state.busqueda,
 				ptosStock: state.ptosStock,
 				listasPrecio: state.listasPrecio,
+				botonModoCargaVenta: state.botonModoCargaVenta,
 				handleHerramientasPrecios,
 				handleHerrStockTot,
 				handleHerramientasStockPtoStock,
