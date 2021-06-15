@@ -110,7 +110,7 @@ const VentasReducer = (state, action) => {
 				state.preciosStockTotal
 			);
 
-			localStorage.setItem('carrito', JSON.stringify(carrito));
+			localStorage.setItem('carrito', JSON.stringify(resultado.carr));
 			return {
 				...state,
 				preciosPtoStock: stocksModificados.filasPtoStock,

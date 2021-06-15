@@ -236,7 +236,6 @@ const prodCarr = (
 	);
 
 	if (carr === 'error') {
-		console.log('El producto no tiene cantidad disponible!');
 		r = {
 			...r,
 			msg: {
@@ -342,7 +341,6 @@ const buscarProdStockTotal = (cod, arrayStockTotal) => {
 };
 
 const modCantPtoStock = (cod, ptoStock, arrayPtoStock, cantVar) => {
-	console.log('nuevaCant');
 	if (ptoStock === 0) return arrayPtoStock;
 
 	// traer cantidad actual en el pto de stock

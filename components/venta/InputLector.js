@@ -28,7 +28,7 @@ const InputLector = () => {
 
 		// agarro el codigo y lo saco del punto de stock indicado, con la lista de precio indicada
 		const codigo = valor.trim();
-		handleCarrito(codigo, ptoStock);
+		handleCarrito(codigo, ptoStock.id);
 		setValor('');
 	};
 

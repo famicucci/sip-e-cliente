@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
 const LectorElegirProducto = () => {
 	const classes = useStyles();
 
-	const { ptoStock, listaPrecio, ptosStock } = useContext(VentasContext);
+	const { ptoStock, listaPrecio } = useContext(VentasContext);
 
 	return (
 		<Grid
@@ -49,8 +49,8 @@ const LectorElegirProducto = () => {
 			</Grid>
 			<Grid item>
 				<Box className={classes.item}>
-					<Typography align="center">Showroom</Typography>
-					<Typography align="center">{listaPrecio}</Typography>
+					<Typography align="center">{ptoStock.descripcion}</Typography>
+					<Typography align="center">{listaPrecio.descripcion}</Typography>
 				</Box>
 			</Grid>
 		</Grid>
