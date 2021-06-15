@@ -4,6 +4,7 @@ import CropFreeIcon from '@material-ui/icons/CropFree';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import InputLector from './InputLector';
 
 const useStyles = makeStyles(() => ({
 	item: {
@@ -29,6 +30,11 @@ const LectorElegirProducto = () => {
 			<Grid item>
 				<Box className={classes.item}>
 					<CropFreeIcon fontSize="large" />
+				</Box>
+			</Grid>
+			<Grid item>
+				<Box className={classes.item}>
+					<InputLector />
 				</Box>
 			</Grid>
 			<Grid item>
