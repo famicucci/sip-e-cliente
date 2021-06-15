@@ -14,13 +14,12 @@ import {
 } from '../../types';
 import { detArrayPrecios, filtro } from '../../functions/filtros.js';
 import {
-	agregarCarrito,
-	modCantStock,
 	quitarProductoCarrito,
 	modProdCarr,
 	modPrecioCarr,
 	modificarCantMultiplesStocks,
 	limpiarCarr,
+	prodCarr,
 } from '../../functions/ventas.js';
 
 const VentasReducer = (state, action) => {
@@ -79,28 +78,25 @@ const VentasReducer = (state, action) => {
 				valorRadio: action.payload,
 			};
 		case CARRITO_AGREGAR_PRODUCTO:
-			const carrito = agregarCarrito(
+			r = prodCarr(
 				action.payload.codigo,
 				action.payload.ptoStock,
-				state.ptosStock,
 				state.listaPrecio,
+				state.modo,
+				state.ptosStock,
+				state.preciosPtoStock,
 				state.preciosStockTotal,
 				state.carrito
 			);
-			const stockModificado = modCantStock(
-				action.payload.codigo,
-				action.payload.ptoStock,
-				state.preciosPtoStock,
-				state.preciosStockTotal,
-				-1
-			);
-			localStorage.setItem('carrito', JSON.stringify(carrito));
+
+			localStorage.setItem('carrito', JSON.stringify(r.carr));
 
 			return {
 				...state,
-				preciosPtoStock: stockModificado.ptoStock,
-				preciosStockTotal: stockModificado.stockTotal,
-				carrito: carrito,
+				preciosPtoStock: r.arrayPtoStock,
+				preciosStockTotal: r.arrayStockTotal,
+				carrito: r.carr,
+				mensaje: r.msg,
 			};
 		case CARRITO_QUITAR_PRODUCTO:
 			let resultado = quitarProductoCarrito(state.carrito, action.payload);

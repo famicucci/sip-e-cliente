@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CropFreeIcon from '@material-ui/icons/CropFree';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import InputLector from './InputLector';
+import VentasContext from '../../context/ventas/ventasContext';
 
 const useStyles = makeStyles(() => ({
 	item: {
@@ -17,6 +18,8 @@ const useStyles = makeStyles(() => ({
 
 const LectorElegirProducto = () => {
 	const classes = useStyles();
+
+	const { ptoStock, listaPrecio, ptosStock } = useContext(VentasContext);
 
 	return (
 		<Grid
@@ -42,6 +45,12 @@ const LectorElegirProducto = () => {
 					<Typography align="center">
 						Esperando código de producto...
 					</Typography>
+				</Box>
+			</Grid>
+			<Grid item>
+				<Box className={classes.item}>
+					<Typography align="center">Showroom</Typography>
+					<Typography align="center">{listaPrecio}</Typography>
 				</Box>
 			</Grid>
 		</Grid>

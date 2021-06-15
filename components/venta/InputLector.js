@@ -28,8 +28,8 @@ const InputLector = () => {
 
 		// agarro el codigo y lo saco del punto de stock indicado, con la lista de precio indicada
 		const codigo = valor.trim();
-		console.log(`haz agregado el producto ${codigo}!`);
 		handleCarrito(codigo, ptoStock);
+		setValor('');
 	};
 
 	return (

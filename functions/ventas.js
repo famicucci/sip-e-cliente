@@ -4,6 +4,7 @@ const agregarCarrito = (
 	ptoStock,
 	arrayPtosStock,
 	lista,
+	modo,
 	preciosStockTotal,
 	carrito
 ) => {
@@ -16,6 +17,9 @@ const agregarCarrito = (
 	// pone el pto de stock id cero si no hay mas stock del producto
 	ptoStock = detPtoStock(ptoStock);
 	const ptoStockDescripcion = detPtoStockDescripcion(ptoStock, arrayPtosStock);
+
+	// en modo lector no agrega a producción
+	if (ptoStock === 0 && modo === 'lector') return 'error';
 
 	if (!productoCarrito) {
 		productoCarrito = crearProductoCarrito(
@@ -168,6 +172,91 @@ const modCantTotProdCarr = (prod, tot) => {
 	return r;
 };
 
+// hacer una funcion que agregue un producto al carrito, saque la cantidad del stock, controle si el codigo ingresado existe y controle si se encuentra disponible en el pto de stock indicado
+const prodCarr = (
+	cod,
+	ptoStock,
+	lis,
+	modo,
+	arrayPtosStock,
+	arrayPtoStock,
+	arrayStockTotal,
+	carr
+) => {
+	let r = { arrayPtoStock, arrayStockTotal, carr };
+
+	// controlar si el producto existe en el array
+	const prod = buscarProdStockTotal(cod, arrayStockTotal);
+
+	if (!prod) {
+		r = {
+			...r,
+			msg: {
+				msg: 'El código ingresado no existe!',
+				categoria: 'error',
+			},
+		};
+		return r;
+	}
+
+	// controlar si el producto tiene unidades disponibles en el punto de stock indicado
+	const prodPtoStock = buscarProdPtoStock(cod, ptoStock, arrayPtoStock);
+	if (prodPtoStock) {
+		if (prodPtoStock.cantidad === 0) {
+			r = {
+				...r,
+				msg: {
+					msg: 'El producto no tiene cantidad disponible en este punto de stock!',
+					categoria: 'error',
+				},
+			};
+			return r;
+		}
+	}
+
+	// si la cantidad total es cero el pto stock id es cero
+	if (parseInt(prod.cantidad) === 0) {
+		ptoStock = 0;
+	}
+
+	// quitar una unidad del pto stock y del stock total
+	if (ptoStock !== 0) {
+		arrayPtoStock = modCantPtoStock(cod, ptoStock, arrayPtoStock, 1);
+		arrayStockTotal = modCantStockTotal(cod, arrayStockTotal, 1);
+	}
+
+	carr = agregarCarrito(
+		cod,
+		ptoStock,
+		arrayPtosStock,
+		lis,
+		modo,
+		arrayStockTotal,
+		carr
+	);
+
+	if (carr === 'error') {
+		console.log('El producto no tiene cantidad disponible!');
+		r = {
+			...r,
+			msg: {
+				msg: 'El producto no tiene cantidad disponible!',
+				categoria: 'error',
+			},
+		};
+		return r;
+	}
+
+	r = {
+		arrayPtoStock: arrayPtoStock,
+		arrayStockTotal: arrayStockTotal,
+		carr: carr,
+		msg: null,
+	};
+
+	return r;
+};
+
 // saca el producto del stock
 const modCantStock = (
 	codigo,
@@ -237,6 +326,9 @@ const modCantStockTotal = (cod, arrayStockTotal, cantVar) => {
 
 	const nuevaCant = cantStock - cantVar;
 
+	// devuelve error si la cantidad es negativa
+	if (nuevaCant < 0) return 'error';
+
 	const r = arrayStockTotal.map((x) =>
 		x.ProductoCodigo === cod ? { ...x, cantidad: nuevaCant } : x
 	);
@@ -250,6 +342,7 @@ const buscarProdStockTotal = (cod, arrayStockTotal) => {
 };
 
 const modCantPtoStock = (cod, ptoStock, arrayPtoStock, cantVar) => {
+	console.log('nuevaCant');
 	if (ptoStock === 0) return arrayPtoStock;
 
 	// traer cantidad actual en el pto de stock
@@ -260,6 +353,7 @@ const modCantPtoStock = (cod, ptoStock, arrayPtoStock, cantVar) => {
 	// devuelve error si la cantidad es negativa
 	if (nuevaCant < 0) return 'error';
 
+	// array con la cantidad modificada
 	const r = arrayPtoStock.map((x) =>
 		x.ProductoCodigo === cod && x.PtoStockId === ptoStock
 			? { ...x, cantidad: nuevaCant }
@@ -473,4 +567,5 @@ export {
 	detMaxVal,
 	modificarCantMultiplesStocks,
 	limpiarCarr,
+	prodCarr,
 };
