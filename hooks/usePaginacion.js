@@ -119,11 +119,14 @@ const usePaginacion = (rows, rowsPerPageIniciales) => {
 		</TableRow>
 	);
 
-	const bodyVacio = (columnas) => {
+	const bodyVacio = (columnas, mensaje) => {
+		if (!mensaje) {
+			mensaje = 'No hay datos que mostrar';
+		}
 		return (
 			<TableRow style={{ height: 53 }}>
 				<TableCell align="center" colSpan={columnas.length}>
-					No hay datos que mostrar
+					{mensaje}
 				</TableCell>
 			</TableRow>
 		);

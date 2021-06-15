@@ -41,6 +41,10 @@ const TablaElegirProducto = () => {
 		handleFilas,
 	} = useContext(VentasContext);
 
+	// hook paginación
+	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
+		usePaginacion(filas, 5);
+
 	useEffect(() => {
 		traerProductos(busqueda);
 		const elemento = document.getElementById('contenedor-tabla');
@@ -73,6 +77,9 @@ const TablaElegirProducto = () => {
 						{filas.map((fila) => (
 							<FilaElegirProducto fila={fila} />
 						))}
+						{filas.length === 0
+							? bodyVacio(columnas, 'Ningún producto coincide...')
+							: filasVacias}
 					</TableBody>
 				</Table>
 			</TableContainer>
