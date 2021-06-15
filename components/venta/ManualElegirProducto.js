@@ -7,14 +7,10 @@ import SelectListaPrecio from './SelectListaPrecioVenta';
 import TablaElegirProducto from '../tablas/TablaElegirProducto';
 
 const useStyles = makeStyles(() => ({
-	contenedor: {
+	container: {
 		height: '100%',
 		display: 'flex',
 		flexDirection: 'column',
-	},
-	tabla: {
-		flexGrow: 1,
-		marginTop: 10,
 	},
 }));
 
@@ -22,16 +18,14 @@ const ManualElegirProducto = () => {
 	const classes = useStyles();
 
 	return (
-		<Box className={classes.contenedor}>
+		<div className={classes.container}>
 			<Box>
 				<BuscarProducto />
 				<RadioElegirProductos />
 				<SelectListaPrecio />
 			</Box>
-			<Box className={classes.tabla}>
-				<TablaElegirProducto />
-			</Box>
-		</Box>
+			<TablaElegirProducto />
+		</div>
 	);
 };
 

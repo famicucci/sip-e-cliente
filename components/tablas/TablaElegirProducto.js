@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -19,9 +19,9 @@ const columnas = [
 ];
 
 const useStyles = makeStyles({
-	root: {
-		width: '100%',
-		height: '100%',
+	tableContainer: {
+		flex: 1,
+		minHeight: 0,
 	},
 });
 
@@ -29,7 +29,6 @@ const TablaElegirProducto = () => {
 	const classes = useStyles();
 
 	const { busqueda } = useContext(BarraHerramientasContext);
-	const [height, setHeight] = useState('67vh');
 
 	const {
 		preciosPtoStock,
@@ -47,43 +46,38 @@ const TablaElegirProducto = () => {
 
 	useEffect(() => {
 		traerProductos(busqueda);
-		const elemento = document.getElementById('contenedor-tabla');
-		const alturaTabla = elemento.clientHeight;
-		setHeight(alturaTabla);
-	}, [height]);
+	}, []);
 
 	useEffect(() => {
 		handleFilas(busqueda);
 	}, [valorRadio, busqueda, ptoStock, listaPrecio, preciosPtoStock]);
 
 	return (
-		<Paper id="contenedor-tabla" className={classes.root}>
-			<TableContainer style={{ maxHeight: height }}>
-				<Table stickyHeader aria-label="sticky table">
-					<TableHead>
-						<TableRow>
-							{columnas.map((column) => (
-								<TableCell
-									key={column.id}
-									align={column.align}
-									style={{ minWidth: column.minWidth }}
-								>
-									{column.label}
-								</TableCell>
-							))}
-						</TableRow>
-					</TableHead>
-					<TableBody>
-						{filas.map((fila) => (
-							<FilaElegirProducto fila={fila} />
+		<TableContainer className={classes.tableContainer} component={Paper}>
+			<Table stickyHeader aria-label="sticky table">
+				<TableHead>
+					<TableRow>
+						{columnas.map((column) => (
+							<TableCell
+								key={column.id}
+								align={column.align}
+								style={{ minWidth: column.minWidth }}
+							>
+								{column.label}
+							</TableCell>
 						))}
-						{filas.length === 0
-							? bodyVacio(columnas, 'Ningún producto coincide...')
-							: filasVacias}
-					</TableBody>
-				</Table>
-			</TableContainer>
-		</Paper>
+					</TableRow>
+				</TableHead>
+				<TableBody>
+					{filas.map((fila) => (
+						<FilaElegirProducto fila={fila} />
+					))}
+					{filas.length === 0
+						? bodyVacio(columnas, 'Ningún producto coincide...')
+						: filasVacias}
+				</TableBody>
+			</Table>
+		</TableContainer>
 	);
 };
 
