@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -20,57 +20,46 @@ const columnas = [
 ];
 
 const useStyles = makeStyles({
-	root: {
-		width: '100%',
-		height: '100%',
+	tableContainer: {
+		flex: 1,
+		minHeight: 0,
 	},
 });
 
 const TablaCarrito = () => {
 	const classes = useStyles();
 
-	const [height, setHeight] = useState('67vh');
-
 	const { carrito } = useContext(VentasContext);
 
-	useEffect(() => {
-		const elemento = document.getElementById('contenedor-tabla');
-		const alturaTabla = elemento.clientHeight - 45;
-		setHeight(alturaTabla);
-	}, [height]);
-
 	return (
-		<Paper id="contenedor-tabla" className={classes.root}>
-			<TableContainer style={{ maxHeight: height }}>
-				<Table aria-label="sticky table">
-					<TableHead>
-						<TableRow>
-							{columnas.map((columna) => (
-								<TableCell
-									key={columna.id}
-									align={columna.align}
-									style={{ minWidth: columna.minWidth }}
-								>
-									{columna.label}
-								</TableCell>
-							))}
-						</TableRow>
-					</TableHead>
-					<TableBody>
-						{carrito.map((producto) => (
-							<FilaCarrito producto={producto} />
+		<TableContainer className={classes.tableContainer} component={Paper}>
+			<Table aria-label="sticky table">
+				<TableHead>
+					<TableRow>
+						{columnas.map((columna) => (
+							<TableCell
+								key={columna.id}
+								align={columna.align}
+								style={{ minWidth: columna.minWidth }}
+							>
+								{columna.label}
+							</TableCell>
 						))}
-						{carrito.length === 0 ? (
-							<BodyVacio
-								content="Todavía no cargaste productos"
-								columnas={columnas}
-								height={height - 63}
-							/>
-						) : null}
-					</TableBody>
-				</Table>
-			</TableContainer>
-		</Paper>
+					</TableRow>
+				</TableHead>
+				<TableBody>
+					{carrito.map((producto) => (
+						<FilaCarrito producto={producto} />
+					))}
+					{carrito.length === 0 ? (
+						<BodyVacio
+							content="Todavía no cargaste productos"
+							columnas={columnas}
+						/>
+					) : null}
+				</TableBody>
+			</Table>
+		</TableContainer>
 	);
 };
 

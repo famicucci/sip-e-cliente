@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import TablaCarrito from '../tablas/TablaCarrito';
 import SeccionInferiorCarrito from './SeccionInferiorCarrito';
-import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -11,13 +10,10 @@ const useStyles = makeStyles((theme) => ({
 		padding: theme.spacing(1),
 		color: theme.palette.text.secondary,
 	},
-	contenedor: {
+	container: {
 		height: '100%',
 		display: 'flex',
 		flexDirection: 'column',
-	},
-	tabla: {
-		flexGrow: 1,
 	},
 }));
 
@@ -26,14 +22,10 @@ const Carrito = () => {
 
 	return (
 		<Paper className={classes.paper} variant="outlined">
-			<Box className={classes.contenedor}>
-				<Box className={classes.tabla}>
-					<TablaCarrito />
-				</Box>
-				<Box>
-					<SeccionInferiorCarrito />
-				</Box>
-			</Box>
+			<div className={classes.container}>
+				<TablaCarrito />
+				<SeccionInferiorCarrito />
+			</div>
 		</Paper>
 	);
 };
