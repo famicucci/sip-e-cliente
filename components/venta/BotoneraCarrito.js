@@ -1,10 +1,11 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
 import BotonLimpiarCarrito from '../BotonLimpiarCarrito';
-import BotonAccion from '../BotonAccion';
+import BotonEnvio from './BotonEnvio';
 import BotonNota from '../BotonNota';
 import BotonVerMas from '../tablas/componentes/BotonVerMas';
 import BotonConfirmar from '../../components/BontonConfirmar';
+import BotonCliente from './BotonCliente';
 
 const BotoneraCarrito = () => {
 	return (
@@ -15,7 +16,8 @@ const BotoneraCarrito = () => {
 			<Box>
 				<BotonVerMas />
 				<BotonNota />
-				<BotonAccion />
+				<BotonCliente />
+				<BotonEnvio />
 				<BotonConfirmar contenido="Confirmar Orden" />
 			</Box>
 		</Box>

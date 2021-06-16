@@ -1,7 +1,6 @@
 import React from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import { green, purple } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
 	margin: {
@@ -19,12 +18,12 @@ const ColorButton = withStyles((theme) => ({
 	},
 }))(Button);
 
-const BotonAccion = () => {
+const BotonAccion = (props) => {
 	const classes = useStyles();
 
 	return (
 		<ColorButton variant="contained" className={classes.margin}>
-			Envío
+			{props.children}
 		</ColorButton>
 	);
 };
