@@ -37,7 +37,11 @@ const TotalCarrito = () => {
 			</Box>
 			<Box>
 				<Typography className={classes.texto} variant="overline">
-					{parseFloat(valor).toFixed(2)}
+					{new Intl.NumberFormat('de-De', {
+						style: 'decimal',
+						minimumFractionDigits: 2,
+						maximumFractionDigits: 2,
+					}).format(parseFloat(valor))}
 				</Typography>
 			</Box>
 		</Box>
