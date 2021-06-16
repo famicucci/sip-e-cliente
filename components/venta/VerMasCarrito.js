@@ -3,14 +3,14 @@ import TextField from '@material-ui/core/TextField';
 import Collapse from '@material-ui/core/Collapse';
 import { BotoneraCarrContext } from '../../context/BotoneraCarrContext';
 
-const NotaVenta = () => {
-	const { openNota } = useContext(BotoneraCarrContext);
+const VerMasCarrito = () => {
+	const { openVerMas } = useContext(BotoneraCarrContext);
 
 	return (
-		<Collapse in={openNota} timeout="auto" unmountOnExit>
+		<Collapse in={openVerMas} timeout="auto" unmountOnExit>
 			<TextField
-				label="Nota"
-				placeholder="Escribe la nota aquí..."
+				label="Nº Ecommerce"
+				placeholder="Escribe el identificador aquí.."
 				fullWidth
 				margin="normal"
 				InputLabelProps={{
@@ -24,4 +24,4 @@ const NotaVenta = () => {
 	);
 };
 
-export default NotaVenta;
+export default VerMasCarrito;

@@ -5,6 +5,7 @@ import Divider from '@material-ui/core/Divider';
 import TotalCarrito from './TotalCarrito';
 import BotoneraCarrito from './BotoneraCarrito';
 import NotaVenta from './NotaVenta';
+import VerMasCarrito from './VerMasCarrito';
 import { BotoneraCarrContext } from '../../context/BotoneraCarrContext';
 
 const useStyles = makeStyles((theme) => ({
@@ -18,15 +19,16 @@ const useStyles = makeStyles((theme) => ({
 const SeccionInferiorCarrito = () => {
 	const classes = useStyles();
 
-	const { openNota } = useContext(BotoneraCarrContext);
+	const { openNota, openVerMas } = useContext(BotoneraCarrContext);
 
 	return (
 		<Paper className={classes.root} variant="elevation">
 			<TotalCarrito />
 			<Divider variant="fullWidth" />
 			<BotoneraCarrito />
-			{openNota ? <Divider variant="fullWidth" /> : null}
+			{openNota || openVerMas ? <Divider variant="fullWidth" /> : null}
 			<NotaVenta />
+			<VerMasCarrito />
 		</Paper>
 	);
 };
