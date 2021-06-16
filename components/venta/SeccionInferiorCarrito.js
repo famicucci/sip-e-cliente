@@ -8,6 +8,7 @@ import NotaVenta from './NotaVenta';
 import VerMasCarrito from './VerMasCarrito';
 import { BotoneraCarrContext } from '../../context/BotoneraCarrContext';
 import ClienteCarr from './ClienteCarr';
+import ModalClienteCarr from './ModalClienteCarr';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -32,6 +33,7 @@ const SeccionInferiorCarrito = () => {
 			{openNota || openVerMas ? <Divider variant="fullWidth" /> : null}
 			<NotaVenta />
 			<VerMasCarrito />
+			<ModalClienteCarr />
 		</Paper>
 	);
 };

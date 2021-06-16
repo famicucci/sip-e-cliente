@@ -22,7 +22,11 @@ const BotonAccion = (props) => {
 	const classes = useStyles();
 
 	return (
-		<ColorButton variant="contained" className={classes.margin}>
+		<ColorButton
+			variant="contained"
+			className={classes.margin}
+			onClick={props.onClick}
+		>
 			{props.children}
 		</ColorButton>
 	);
