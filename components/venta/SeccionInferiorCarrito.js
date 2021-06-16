@@ -7,6 +7,7 @@ import BotoneraCarrito from './BotoneraCarrito';
 import NotaVenta from './NotaVenta';
 import VerMasCarrito from './VerMasCarrito';
 import { BotoneraCarrContext } from '../../context/BotoneraCarrContext';
+import ClienteCarr from './ClienteCarr';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -24,6 +25,8 @@ const SeccionInferiorCarrito = () => {
 	return (
 		<Paper className={classes.root} variant="elevation">
 			<TotalCarrito />
+			<Divider variant="fullWidth" />
+			<ClienteCarr />
 			<Divider variant="fullWidth" />
 			<BotoneraCarrito />
 			{openNota || openVerMas ? <Divider variant="fullWidth" /> : null}
