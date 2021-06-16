@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import TotalCarrito from './TotalCarrito';
 import BotoneraCarrito from './BotoneraCarrito';
+import NotaVenta from './NotaVenta';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -21,6 +22,8 @@ const SeccionInferiorCarrito = () => {
 			<TotalCarrito />
 			<Divider variant="fullWidth" />
 			<BotoneraCarrito />
+			<Divider variant="fullWidth" />
+			<NotaVenta />
 		</Paper>
 	);
 };
