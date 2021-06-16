@@ -3,7 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import { BotoneraCarrContext } from '../../context/BotoneraCarrContext';
+import AgregarClienteCarr from '../AgregarClienteCarr';
+import { BotoneraCarrContext } from '../../../context/BotoneraCarrContext';
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles((theme) => ({
 	modal: {
@@ -14,9 +16,8 @@ const useStyles = makeStyles((theme) => ({
 	paper: {
 		backgroundColor: theme.palette.background.paper,
 		boxShadow: theme.shadows[5],
-		padding: theme.spacing(2, 4, 3),
-		maxWidth: 550,
-		borderRadius: '5px',
+		maxWidth: 650,
+		borderRadius: '10px',
 	},
 }));
 
@@ -39,7 +40,9 @@ const ModalClienteCar = () => {
 			}}
 		>
 			<Fade in={openModal}>
-				<h1>Desde Modal abierto por botonera</h1>
+				<Paper className={classes.paper}>
+					<AgregarClienteCarr />
+				</Paper>
 			</Fade>
 		</Modal>
 	);
