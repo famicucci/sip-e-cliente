@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import ClientesContext from '../../context/clientes/clientesContext';
@@ -6,7 +6,19 @@ import ClientesContext from '../../context/clientes/clientesContext';
 const InputNuevoCliente = ({ label, name, placeholder, ancho, required }) => {
 	const [valor, setValor] = useState('');
 
-	const { handleClienteActivo } = useContext(ClientesContext);
+	const { clienteActivo, handleClienteActivo } = useContext(ClientesContext);
+
+	useEffect(() => {
+		// si cambia cliente activo tengo que extraer el valor del cliente activo y hacer setValor
+		let nuevoValor;
+		if (clienteActivo.hasOwnProperty(name)) {
+			nuevoValor = clienteActivo[name];
+			setValor(nuevoValor);
+		} else {
+			nuevoValor = '';
+			setValor(nuevoValor);
+		}
+	}, [clienteActivo]);
 
 	const onChange = (e) => {
 		setValor(e.target.value);

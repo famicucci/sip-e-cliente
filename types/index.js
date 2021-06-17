@@ -55,6 +55,7 @@ export const MODO_CARGA_VENTA = 'MODO_CARGA_VENTA';
 
 // clientes
 export const CAMPO_CLIENTE_ACTIVO = 'CAMPO_CLIENTE_ACTIVO';
+export const LIMPIAR_CLIENTE_ACTIVO = 'LIMPIAR_CLIENTE_ACTIVO';
 
 // alertas
 export const MOSTRAR_ALERTA = 'MOSTRAR_ALERTA';

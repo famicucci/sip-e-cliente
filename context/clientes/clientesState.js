@@ -3,34 +3,35 @@ import ClientesContext from './clientesContext';
 import ClientesReducer from './clientesReducer';
 import clienteAxios from '../../config/axios';
 
-import { CAMPO_CLIENTE_ACTIVO } from '../../types';
+import { CAMPO_CLIENTE_ACTIVO, LIMPIAR_CLIENTE_ACTIVO } from '../../types';
 
 const ClienteState = (props) => {
+	const clienteInicial = {
+		nombre: '',
+		apellido: '',
+		razonSocial: '',
+		email: '',
+		celular: '',
+		instagram: '',
+		facebook: '',
+		calle: '',
+		numero: '',
+		piso: '',
+		depto: '',
+		barrio: '',
+		codPostal: '',
+		ciudad: '',
+		provincia: '',
+		observaciones: '',
+		mascota: '',
+		tipo: 'Minorista',
+		referencia: '',
+		condIva: 'Consumidor Final',
+	};
 	const initialState = {
 		clientes: [],
 		filas: [],
-		clienteActivo: {
-			nombre: '',
-			apellido: '',
-			razonSocial: '',
-			email: '',
-			celular: '',
-			instagram: '',
-			facebook: '',
-			calle: '',
-			numero: '',
-			piso: '',
-			depto: '',
-			barrio: '',
-			codPostal: '',
-			ciudad: '',
-			provincia: '',
-			observaciones: '',
-			mascota: '',
-			tipo: 'Minorista',
-			referencia: '',
-			condIva: 'Consumidor Final',
-		},
+		clienteActivo: { tipo: 'Minorista', condIva: 'Consumidor Final' },
 		mensaje: null,
 		cargando: true,
 	};
@@ -61,9 +62,19 @@ const ClienteState = (props) => {
 		});
 	};
 
+	const limpiarCliente = () => {
+		dispatch({
+			type: LIMPIAR_CLIENTE_ACTIVO,
+		});
+	};
+
 	return (
 		<ClientesContext.Provider
-			value={{ clienteActivo: state.clienteActivo, handleClienteActivo }}
+			value={{
+				clienteActivo: state.clienteActivo,
+				handleClienteActivo,
+				limpiarCliente,
+			}}
 		>
 			{props.children}
 		</ClientesContext.Provider>

@@ -1,19 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Box from '@material-ui/core/Box';
-import BotonLimpiarCarrito from '../BotonLimpiarCarrito';
 import BotonEnvio from './BotonEnvio';
 import BotonNota from '../BotonNota';
 import BotonVerMas from '../tablas/componentes/BotonVerMas';
-import BotonConfirmar from '../../components/BontonConfirmar';
 import BotonCliente from './BotonCliente';
-import BotonAccion from '../BotonAccion';
 import BotonConfirmarAccion from '../BotonConfirmarAccion';
+import VentasContext from '../../context/ventas/ventasContext';
+import BotonLimpiar from '../BotonLimpiar';
 
 const BotoneraCarrito = () => {
+	const { limpiarCarrito } = useContext(VentasContext);
+
 	return (
 		<Box display="flex" bgcolor="background.paper">
 			<Box flexGrow={1}>
-				<BotonLimpiarCarrito />
+				<BotonLimpiar
+					onClick={() => {
+						limpiarCarrito();
+					}}
+				/>
 			</Box>
 			<Box>
 				<BotonVerMas />

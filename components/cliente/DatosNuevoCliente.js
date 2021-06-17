@@ -48,7 +48,7 @@ const DatosNuevoCliente = () => {
 	const classes = useStyles();
 
 	return (
-		<Accordion>
+		<Accordion defaultExpanded="true">
 			<AccordionSummary
 				expandIcon={<ExpandMoreIcon />}
 				aria-controls="panel1a-content"

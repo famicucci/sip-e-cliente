@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import DatosNuevoCliente from './DatosNuevoCliente';
 import ContactoNuevoCliente from './ContactoNuevoCliente';
@@ -7,7 +7,8 @@ import MasDatosNuevoCliente from './MasDatosNuevoCliente';
 import BotonConfimarAccion from '../BotonConfirmarAccion';
 import Divider from '@material-ui/core/Divider';
 import Box from '@material-ui/core/Box';
-import BotonDanger from '../BotonDanger';
+import ClientesContext from '../../context/clientes/clientesContext';
+import BotonLimpiar from '../BotonLimpiar';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -18,6 +19,8 @@ const useStyles = makeStyles((theme) => ({
 
 const NuevoCliente = () => {
 	const classes = useStyles();
+
+	const { limpiarCliente } = useContext(ClientesContext);
 
 	const onSubmit = (e) => {
 		e.preventDefault();
@@ -34,13 +37,16 @@ const NuevoCliente = () => {
 				<MasDatosNuevoCliente />
 			</div>
 			<Divider className={classes.divider} variant="middle" />
-			<Box display="flex" justifyContent="flex-end" bgcolor="background.paper">
-				<Box>
-					<BotonConfimarAccion type="submit" contenido="Aceptar" />
+			<Box display="flex">
+				<Box flexGrow={1}>
+					<BotonLimpiar
+						onClick={() => {
+							limpiarCliente();
+						}}
+					/>
 				</Box>
 				<Box>
-					{/* limpia cliente activo */}
-					<BotonDanger contenido="Cancelar" />
+					<BotonConfimarAccion type="submit" contenido="Aceptar" />
 				</Box>
 			</Box>
 		</form>
