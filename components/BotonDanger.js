@@ -10,25 +10,19 @@ const useStyles = makeStyles((theme) => ({
 
 const ColorButton = withStyles((theme) => ({
 	root: {
-		color: theme.palette.getContrastText(theme.palette.success.main),
-		backgroundColor: theme.palette.success.main,
+		color: theme.palette.getContrastText(theme.palette.error.main),
+		backgroundColor: theme.palette.error.main,
 		'&:hover': {
-			backgroundColor: theme.palette.success.dark,
+			backgroundColor: theme.palette.error.dark,
 		},
 	},
 }))(Button);
 
-const BotonConfirmarAccion = (props) => {
+const BotonDanger = (props) => {
 	const classes = useStyles();
-
-	let type = props.type;
-	if (!type) {
-		type = 'button';
-	}
 
 	return (
 		<ColorButton
-			type={type}
 			variant="contained"
 			className={classes.margin}
 			onClick={props.onClick}
@@ -38,4 +32,4 @@ const BotonConfirmarAccion = (props) => {
 	);
 };
 
-export default BotonConfirmarAccion;
+export default BotonDanger;
