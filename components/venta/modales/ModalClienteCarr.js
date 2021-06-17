@@ -10,8 +10,12 @@ import Paper from '@material-ui/core/Paper';
 const useStyles = makeStyles((theme) => ({
 	modal: {
 		display: 'flex',
+		flexDirection: 'column',
 		alignItems: 'center',
-		justifyContent: 'center',
+		justifyContent: 'flex-start',
+		overflowY: 'auto',
+		paddingTop: 100,
+		paddingBottom: 60,
 	},
 	paper: {
 		backgroundColor: theme.palette.background.paper,
