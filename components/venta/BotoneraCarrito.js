@@ -6,6 +6,8 @@ import BotonNota from '../BotonNota';
 import BotonVerMas from '../tablas/componentes/BotonVerMas';
 import BotonConfirmar from '../../components/BontonConfirmar';
 import BotonCliente from './BotonCliente';
+import BotonAccion from '../BotonAccion';
+import BotonConfirmarAccion from '../BotonConfirmarAccion';
 
 const BotoneraCarrito = () => {
 	return (
@@ -18,7 +20,7 @@ const BotoneraCarrito = () => {
 				<BotonNota />
 				<BotonCliente />
 				<BotonEnvio />
-				<BotonConfirmar contenido="Confirmar Orden" />
+				<BotonConfirmarAccion contenido="Confirmar Orden" />
 			</Box>
 		</Box>
 	);
