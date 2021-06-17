@@ -44,7 +44,7 @@ const selectTipo = {
 };
 
 const selectCondIVA = {
-	name: 'cond-iva',
+	name: 'condIva',
 	label: 'Condicion frente a IVA',
 	ancho: 6,
 	data: [

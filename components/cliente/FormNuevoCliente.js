@@ -21,6 +21,7 @@ const NuevoCliente = () => {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
+		// valida los campos -> los require deben estar llenos
 		// cuando hace el submit inserta el cliente en la base de datos
 	};
 
@@ -38,6 +39,7 @@ const NuevoCliente = () => {
 					<BotonConfimarAccion type="submit" contenido="Aceptar" />
 				</Box>
 				<Box>
+					{/* limpia cliente activo */}
 					<BotonDanger contenido="Cancelar" />
 				</Box>
 			</Box>

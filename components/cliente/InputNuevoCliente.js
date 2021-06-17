@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
+import ClientesContext from '../../context/clientes/clientesContext';
 
 const InputNuevoCliente = ({ label, name, placeholder, ancho, required }) => {
 	const [valor, setValor] = useState('');
 
+	const { handleClienteActivo } = useContext(ClientesContext);
+
 	const onChange = (e) => {
 		setValor(e.target.value);
+		handleClienteActivo(e.target.name, e.target.value);
 	};
 
 	if (required) {

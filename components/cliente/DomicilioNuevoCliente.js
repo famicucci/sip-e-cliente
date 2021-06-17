@@ -47,7 +47,7 @@ const inputs = [
 		ancho: 4,
 	},
 	{
-		name: 'cod-postal',
+		name: 'codPostal',
 		label: 'C.P.',
 		placeholder: 'C.P.',
 		ancho: 2,

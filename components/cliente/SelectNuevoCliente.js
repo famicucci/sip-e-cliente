@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Grid from '@material-ui/core/Grid';
+import ClientesContext from '../../context/clientes/clientesContext';
 
 const useStyles = makeStyles((theme) => ({
 	formControl: {
@@ -20,10 +21,15 @@ const useStyles = makeStyles((theme) => ({
 
 const SelectNuevoCliente = ({ name, label, ancho, data, valDefault }) => {
 	const classes = useStyles();
-	const [tipo, setTipo] = useState(valDefault);
 
-	const handleChange = (event) => {
-		setTipo(event.target.value);
+	const [valor, setValor] = useState(valDefault);
+
+	const { handleClienteActivo } = useContext(ClientesContext);
+
+	const handleChange = (e) => {
+		const desOpt = data.find((x) => x.value === e.target.value).descripcion;
+		setValor(e.target.value);
+		handleClienteActivo(e.target.name, desOpt);
 	};
 
 	return (
@@ -36,7 +42,7 @@ const SelectNuevoCliente = ({ name, label, ancho, data, valDefault }) => {
 					labelId="demo-simple-select-placeholder-label-label"
 					id="demo-simple-select-placeholder-label"
 					name={name}
-					value={tipo}
+					value={valor}
 					onChange={handleChange}
 					displayEmpty
 					className={classes.selectEmpty}

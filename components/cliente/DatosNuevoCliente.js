@@ -31,13 +31,13 @@ const inputs = [
 		required: true,
 	},
 	{
-		name: 'razon-social',
+		name: 'razonSocial',
 		label: 'Razon Social',
 		placeholder: 'Razon Social',
 		ancho: 6,
 	},
 	{
-		name: 'dni-cuit-cuil',
+		name: 'dniCuitCuil',
 		label: 'DNI/CUIL/CUIT',
 		placeholder: 'DNI/CUIL/CUIT',
 		ancho: 6,

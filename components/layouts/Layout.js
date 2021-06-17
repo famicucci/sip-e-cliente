@@ -8,6 +8,7 @@ import AuthContext from '../../context/autenticacion/authContext';
 import PreciosState from '../../context/precios/preciosState';
 import StockState from '../../context/stock/stockState';
 import VentasState from '../../context/ventas/ventasState';
+import ClientesState from '../../context/clientes/clientesState';
 import AlertaState from '../../context/alertas/alertaState';
 
 import Navbar from './Navbar';
@@ -76,26 +77,28 @@ const Layout = (props) => {
 					<PreciosState>
 						<StockState>
 							<VentasState>
-								<div className={classes.root}>
-									<Navbar toggleMenu={toggleMenu} abrir={abrir} />
-									<Hidden>
-										<Cajon
-											variant="persistent"
-											open={abrir}
-											onClose={() => {
-												toggleMenu();
-											}}
-										/>
-									</Hidden>
-									<main
-										className={clsx(classes.content, {
-											[classes.contentShift]: abrir,
-										})}
-									>
-										<div className={classes.drawerHeader} />
-										<div>{props.children}</div>
-									</main>
-								</div>
+								<ClientesState>
+									<div className={classes.root}>
+										<Navbar toggleMenu={toggleMenu} abrir={abrir} />
+										<Hidden>
+											<Cajon
+												variant="persistent"
+												open={abrir}
+												onClose={() => {
+													toggleMenu();
+												}}
+											/>
+										</Hidden>
+										<main
+											className={clsx(classes.content, {
+												[classes.contentShift]: abrir,
+											})}
+										>
+											<div className={classes.drawerHeader} />
+											<div>{props.children}</div>
+										</main>
+									</div>
+								</ClientesState>
 							</VentasState>
 						</StockState>
 					</PreciosState>
