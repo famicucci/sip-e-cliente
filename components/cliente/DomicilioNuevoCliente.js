@@ -15,6 +15,63 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
+const inputs = [
+	{
+		name: 'calle',
+		label: 'Calle',
+		placeholder: 'Calle',
+		ancho: 6,
+	},
+	{
+		name: 'numero',
+		label: 'Numero',
+		placeholder: 'Numero',
+		ancho: 2,
+	},
+	{
+		name: 'piso',
+		label: 'Piso',
+		placeholder: 'Piso',
+		ancho: 2,
+	},
+	{
+		name: 'depto',
+		label: 'Depto.',
+		placeholder: 'Depto.',
+		ancho: 2,
+	},
+	{
+		name: 'barrio',
+		label: 'Barrio',
+		placeholder: 'Barrio',
+		ancho: 4,
+	},
+	{
+		name: 'cod-postal',
+		label: 'C.P.',
+		placeholder: 'C.P.',
+		ancho: 2,
+	},
+	{
+		name: 'ciudad',
+		label: 'Ciudad',
+		placeholder: 'Ciudad',
+		ancho: 6,
+	},
+	{
+		name: 'provincia',
+		label: 'Provincia',
+		placeholder: 'Provincia',
+		ancho: 6,
+	},
+	{
+		name: 'referencia',
+		label: 'Referencia',
+		placeholder: 'Referencia',
+		ancho: 6,
+	},
+];
+
 const DomicilioNuevoCliente = () => {
 	const classes = useStyles();
 
@@ -22,16 +79,23 @@ const DomicilioNuevoCliente = () => {
 		<Accordion>
 			<AccordionSummary
 				expandIcon={<ExpandMoreIcon />}
-				aria-controls="panel2a-content"
-				id="panel2a-header"
+				aria-controls="panel1a-content"
+				id="panel1a-header"
 			>
 				<Typography className={classes.heading}>Domicilio</Typography>
 			</AccordionSummary>
 			<AccordionDetails>
-				<Typography>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-					malesuada lacus ex, sit amet blandit leo lobortis eget.
-				</Typography>
+				<Grid container spacing={2}>
+					{inputs.map((x) => (
+						<InputNuevoCliente
+							name={x.name}
+							label={x.label}
+							placeholder={x.placeholder}
+							ancho={x.ancho}
+							required={x.required}
+						/>
+					))}
+				</Grid>
 			</AccordionDetails>
 		</Accordion>
 	);

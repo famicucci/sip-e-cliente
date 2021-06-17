@@ -15,6 +15,34 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
+const inputs = [
+	{
+		name: 'email',
+		label: 'Email',
+		placeholder: 'Email',
+		ancho: 6,
+		required: true,
+	},
+	{
+		name: 'celular',
+		label: 'Celular',
+		placeholder: 'Celular',
+		ancho: 6,
+	},
+	{
+		name: 'instagram',
+		label: 'Instagram',
+		placeholder: 'Instagram',
+		ancho: 6,
+	},
+	{
+		name: 'facebook',
+		label: 'Facebook',
+		placeholder: 'Facebook',
+		ancho: 6,
+	},
+];
+
 const ContactoNuevoCliente = () => {
 	const classes = useStyles();
 
@@ -22,13 +50,23 @@ const ContactoNuevoCliente = () => {
 		<Accordion>
 			<AccordionSummary
 				expandIcon={<ExpandMoreIcon />}
-				aria-controls="panel2a-content"
-				id="panel2a-header"
+				aria-controls="panel1a-content"
+				id="panel1a-header"
 			>
 				<Typography className={classes.heading}>Contacto</Typography>
 			</AccordionSummary>
 			<AccordionDetails>
-				<InputNuevoCliente label="Facebook" placeholder="Facebook" ancho={6} />
+				<Grid container spacing={2}>
+					{inputs.map((x) => (
+						<InputNuevoCliente
+							name={x.name}
+							label={x.label}
+							placeholder={x.placeholder}
+							ancho={x.ancho}
+							required={x.required}
+						/>
+					))}
+				</Grid>
 			</AccordionDetails>
 		</Accordion>
 	);
