@@ -9,7 +9,6 @@ import {
 	CARRITO_QUITAR_PRODUCTO,
 	CARRITO_MODIFICAR_CANTIDAD,
 	CARRITO_MODIFICAR_PRECIO,
-	CARRITO_LLENAR,
 	LIMPIAR_CARRITO,
 	MODO_CARGA_VENTA,
 	AGREGAR_CLIENTE,
@@ -40,11 +39,17 @@ const VentasReducer = (state, action) => {
 				bus: action.payload.bus,
 			};
 			let r = filtro(arrayProd, vars);
+			let carr;
+			if (localStorage.getItem('carrito')) {
+				carr = JSON.parse(localStorage.getItem('carrito'));
+				// llenarCarrito();
+			}
 			return {
 				...state,
 				preciosPtoStock: action.payload.ptoStock,
 				preciosStockTotal: action.payload.stockTotal,
 				filas: r,
+				carrito: carr,
 			};
 		case FILAS_VENTAS:
 			arrayProd = detArrayPrecios(
@@ -160,15 +165,6 @@ const VentasReducer = (state, action) => {
 			return {
 				...state,
 				carrito: puMod,
-			};
-		case CARRITO_LLENAR:
-			const carr = JSON.parse(localStorage.getItem('carrito'));
-			r = llenarCarr(carr, state.preciosPtoStock, state.preciosStockTotal);
-			return {
-				...state,
-				preciosPtoStock: r.arrayPtoStock,
-				preciosStockTotal: r.arrayStockTotal,
-				carrito: carr,
 			};
 		case MODO_CARGA_VENTA:
 			return {

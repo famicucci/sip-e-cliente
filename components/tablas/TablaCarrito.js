@@ -29,17 +29,7 @@ const useStyles = makeStyles({
 const TablaCarrito = () => {
 	const classes = useStyles();
 
-	const { carrito, llenarCarrito, preciosPtoStock, preciosStockTotal } =
-		useContext(VentasContext);
-
-	useEffect(() => {
-		// if (localStorage.getItem('carrito')) {
-		// 	// const carr = JSON.parse(localStorage.getItem('carrito'));
-		// 	llenarCarrito();
-		// }
-		console.log(preciosPtoStock);
-		console.log(preciosStockTotal);
-	}, [preciosPtoStock, preciosStockTotal]);
+	const { carrito } = useContext(VentasContext);
 
 	return (
 		<TableContainer className={classes.tableContainer} component={Paper}>
