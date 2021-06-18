@@ -382,7 +382,9 @@ const quitarProductoCarrito = (carr, cod) => {
 	// para devolver el producto eliminado en el return
 	const prod = carr.find((x) => x.codigo === cod);
 
-	carr = carr.filter((x) => x.codigo !== cod);
+	if (prod) {
+		carr = carr.filter((x) => x.codigo !== cod);
+	}
 
 	return { carr, prod };
 };
@@ -554,27 +556,92 @@ const detMaxVal = (cod, ptoStock, arrayPtoStock, cantInicial) => {
 };
 
 // funcion que recorra el carritoy saque los productos del stock total y pto stock
-const llenarCarr = (carr, arrayStockTotal, arrayPtoStock) => {
-	console.log(carr);
-	console.log(arrayStockTotal);
-	console.log(arrayPtoStock);
+const llenarCarr = (carr, arrayPtoStock, arrayStockTotal) => {
+	// si la cantidad no está en stock me guardo el codigo y  hago un push a un array.
+	// Al final de la funcion elimino todos los productos del carrito con esos codigos y devuelvo los productos eliminados
+	let prodsSinStockPtoStock = [];
+	let prodsSinStockTotal = [];
+	// recorre productos del carrito
 	for (let i = 0; i < carr.length; i++) {
 		const elementCarr = carr[i];
 		const cod = elementCarr.codigo;
+		const origen = elementCarr.origen;
 
-		arrayStockTotal = modCantStockTotal(cod, arrayStockTotal, 1);
+		let arrayCants = [];
+		// recorre origen del producto
+		for (let k = 0; k < origen.length; k++) {
+			const elementOrigen = origen[k];
+			const ptoStockId = elementOrigen.ptoStockId;
+			const cantPtoStock = elementOrigen.cantidad;
 
-		for (let k = 0; k < elementCarr.origen.length; k++) {
-			const elementOrigen = array[k];
-			const ptoStockId = elementCarr.ptoStockId;
-			const cant = elementCarr.cantidad;
+			const arrayPtoStockMod = modCantPtoStock(
+				cod,
+				ptoStockId,
+				arrayPtoStock,
+				cantPtoStock
+			);
 
-			arrayPtoStock = modCantPtoStock(cod, ptoStockId, arrayPtoStock, 1);
+			if (arrayPtoStockMod !== 'error') {
+				arrayPtoStock = arrayPtoStockMod;
+			} else {
+				prodsSinStockPtoStock.push(cod);
+				// aqui solo debo eliminar el elemento origen del carrito (no el producto)
+				origen = quitarPtoStockOrigen(origen, ptoStockId);
+				elementCarr = modOrigenProCarr(elementCarr, origen);
+			}
+
+			// si ptoStockId es distinto de cero hacer push a arrayCantidades
+			if (ptoStockId !== 0) {
+				arrayCants.push(cantPtoStock);
+			}
+		}
+
+		// hacer la suma del array cantidades
+		const cantTotal = sumValores(arrayCants); // no debe salir del la cantidad total del producto sino de la suma de las cantidades en origen (sin contar producción)
+		const arrayStockTotalMod = modCantStockTotal(
+			cod,
+			arrayStockTotal,
+			cantTotal
+		);
+
+		// ahora si cant total debe sumar los productos en producción
+		const cantTotTot = cantTotalProdCarr(origen);
+		elementCarr = modCantTotProdCarr(elementCarr, cantTotal);
+		carr = modificarCarrito(carr, elementCarr);
+
+		if (arrayStockTotalMod !== 'error') {
+			arrayStockTotal = arrayStockTotalMod;
+		} else {
+			carr = quitarProductoCarrito(carr, cod);
+			prodsSinStockTotal.push(cod);
 		}
 	}
 
-	return { arrayStockTotal, arrayPtoStock };
+	const prodsSinStock = mergeArrays(prodsSinStockPtoStock, prodsSinStockTotal);
+
+	return {
+		carr,
+		arrayPtoStock,
+		arrayStockTotal,
+		prodsSinStock,
+	};
 };
+
+// funcion que haga un merge de dos arrays de codigos y elimine codigos repetidos
+const mergeArrays = (prodsSinStockPtoStock, prodsSinStockTotal) => {
+	const prodsSinCant = [
+		...new Set([...prodsSinStockPtoStock, ...prodsSinStockTotal]),
+	];
+	return prodsSinCant;
+};
+
+const quitarPtoStockOrigen = (origen, ptoStock) => {
+	origen = origen.filter((x) => x.ptoStockId !== ptoStock);
+	return origen;
+};
+
+// funcion que calcule las unidades en produccion de un producto
+const cantProdProduccion = () => {};
 
 export {
 	agregarCarrito,

@@ -39,15 +39,24 @@ const VentasReducer = (state, action) => {
 				bus: action.payload.bus,
 			};
 			let r = filtro(arrayProd, vars);
-			let carr;
+			let carr = state.carrito;
+			let arrayPtoStock = action.payload.ptoStock;
+			let arrayStockTotal = action.payload.stockTotal;
+
+			let r2;
 			if (localStorage.getItem('carrito')) {
 				carr = JSON.parse(localStorage.getItem('carrito'));
-				// llenarCarrito();
+				r2 = llenarCarr(carr, arrayPtoStock, arrayStockTotal);
+				carr = r2.carr;
+				arrayPtoStock = r2.arrayPtoStock;
+				arrayStockTotal = r2.arrayStockTotal;
 			}
+
+			// falta tomar accion en la func llenarCarrito cuando un producto ya no está en stock
 			return {
 				...state,
-				preciosPtoStock: action.payload.ptoStock,
-				preciosStockTotal: action.payload.stockTotal,
+				preciosPtoStock: arrayPtoStock,
+				preciosStockTotal: arrayStockTotal,
 				filas: r,
 				carrito: carr,
 			};
