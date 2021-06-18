@@ -468,6 +468,8 @@ const modProdCarr = (
 	arrayPtoStock,
 	arrayStockTotal
 ) => {
+	let ptoStockMod = arrayPtoStock;
+	let stockTotalMod = arrayStockTotal;
 	const prod = buscarProdCarr(carr, cod);
 	const nuevoOrigen = modCantPtoStockProdCarr_final(prod, ptoStock, cant);
 	const total = cantTotalProdCarr(nuevoOrigen);
@@ -479,8 +481,10 @@ const modProdCarr = (
 	const cantVar = cantVarPtoStockProdCarr(prod, prodMod, ptoStock);
 
 	// estas funciones me devuelven el stock modificado
-	const ptoStockMod = modCantPtoStock(cod, ptoStock, arrayPtoStock, cantVar);
-	const stockTotalMod = modCantStockTotal(cod, arrayStockTotal, cantVar);
+	if (ptoStock !== 0) {
+		ptoStockMod = modCantPtoStock(cod, ptoStock, arrayPtoStock, cantVar);
+		stockTotalMod = modCantStockTotal(cod, arrayStockTotal, cantVar);
+	}
 
 	const detMsg = () => {
 		let r;
