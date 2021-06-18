@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import CantidadStock from '../componentes/CantidadStock';
-import BotonEditar from '../componentes/BotonEditar';
+import BotonFilaTabla from './BotonFilaTabla';
 import StockContext from '../../../context/stock/stockContext';
 import BotonConfirmarCancelar from '../componentes/BotonConfirmarCancelar';
 import InputCantidadStock from '../componentes/InputCantidadStock';
@@ -38,7 +38,7 @@ const FilaPuntoStock = (props) => {
 			</TableCell>
 			<TableCell align="center">
 				{filaActivaProducto.id !== id ? (
-					<BotonEditar
+					<BotonFilaTabla
 						contenido={<EditIcon />}
 						onClick={() => {
 							handleFilaActiva(props.fila);

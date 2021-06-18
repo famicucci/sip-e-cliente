@@ -4,11 +4,13 @@ import TableRow from '@material-ui/core/TableRow';
 import CantidadStock from '../../tablas/componentes/CantidadStock';
 import InputCantidadStock from '../../tablas/componentes/InputCantidadStock';
 import StockContext from '../../../context/stock/stockContext';
-import BotonEditar from '../../tablas/componentes/BotonEditar';
+import BotonFilaTabla from '../../tablas/componentes/BotonFilaTabla';
 import BotonConfirmarCancelar from '../../tablas/componentes/BotonConfirmarCancelar';
+import EditIcon from '@material-ui/icons/Edit';
 
 const Fila = ({ fila }) => {
-	const { filaActivaProducto, modificarStock } = useContext(StockContext);
+	const { filaActivaProducto, handleFilaActiva, modificarStock } =
+		useContext(StockContext);
 
 	return (
 		<TableRow key={fila.id}>
@@ -26,7 +28,12 @@ const Fila = ({ fila }) => {
 
 			<TableCell style={{ width: 160 }} align="right">
 				{filaActivaProducto.id !== fila.id ? (
-					<BotonEditar fila={fila} />
+					<BotonFilaTabla
+						contenido={<EditIcon />}
+						onClick={() => {
+							handleFilaActiva(fila);
+						}}
+					/>
 				) : (
 					<BotonConfirmarCancelar confirmar={modificarStock} />
 				)}
