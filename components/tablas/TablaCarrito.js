@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -29,7 +29,17 @@ const useStyles = makeStyles({
 const TablaCarrito = () => {
 	const classes = useStyles();
 
-	const { carrito } = useContext(VentasContext);
+	const { carrito, llenarCarrito, preciosPtoStock, preciosStockTotal } =
+		useContext(VentasContext);
+
+	useEffect(() => {
+		// if (localStorage.getItem('carrito')) {
+		// 	// const carr = JSON.parse(localStorage.getItem('carrito'));
+		// 	llenarCarrito();
+		// }
+		console.log(preciosPtoStock);
+		console.log(preciosStockTotal);
+	}, [preciosPtoStock, preciosStockTotal]);
 
 	return (
 		<TableContainer className={classes.tableContainer} component={Paper}>

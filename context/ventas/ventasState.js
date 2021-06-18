@@ -14,6 +14,7 @@ import {
 	CARRITO_QUITAR_PRODUCTO,
 	CARRITO_MODIFICAR_CANTIDAD,
 	CARRITO_MODIFICAR_PRECIO,
+	CARRITO_LLENAR,
 	LIMPIAR_CARRITO,
 	MODO_CARGA_VENTA,
 	AGREGAR_CLIENTE,
@@ -119,6 +120,12 @@ const VentasState = (props) => {
 		});
 	};
 
+	const llenarCarrito = () => {
+		dispatch({
+			type: CARRITO_LLENAR,
+		});
+	};
+
 	const limpiarCarrito = () => {
 		dispatch({
 			type: LIMPIAR_CARRITO,
@@ -173,6 +180,7 @@ const VentasState = (props) => {
 				handleModo,
 				handleCliente,
 				limpiarCliente,
+				llenarCarrito,
 			}}
 		>
 			{props.children}

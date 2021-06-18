@@ -553,6 +553,29 @@ const detMaxVal = (cod, ptoStock, arrayPtoStock, cantInicial) => {
 	return cant + cantInicial;
 };
 
+// funcion que recorra el carritoy saque los productos del stock total y pto stock
+const llenarCarr = (carr, arrayStockTotal, arrayPtoStock) => {
+	console.log(carr);
+	console.log(arrayStockTotal);
+	console.log(arrayPtoStock);
+	for (let i = 0; i < carr.length; i++) {
+		const elementCarr = carr[i];
+		const cod = elementCarr.codigo;
+
+		arrayStockTotal = modCantStockTotal(cod, arrayStockTotal, 1);
+
+		for (let k = 0; k < elementCarr.origen.length; k++) {
+			const elementOrigen = array[k];
+			const ptoStockId = elementCarr.ptoStockId;
+			const cant = elementCarr.cantidad;
+
+			arrayPtoStock = modCantPtoStock(cod, ptoStockId, arrayPtoStock, 1);
+		}
+	}
+
+	return { arrayStockTotal, arrayPtoStock };
+};
+
 export {
 	agregarCarrito,
 	modCantStock,
@@ -566,4 +589,5 @@ export {
 	modificarCantMultiplesStocks,
 	limpiarCarr,
 	prodCarr,
+	llenarCarr,
 };
