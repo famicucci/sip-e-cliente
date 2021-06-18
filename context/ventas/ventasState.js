@@ -17,6 +17,7 @@ import {
 	LIMPIAR_CARRITO,
 	MODO_CARGA_VENTA,
 	AGREGAR_CLIENTE,
+	LIMPIAR_CLIENTE,
 } from '../../types';
 
 const VentasState = (props) => {
@@ -29,7 +30,7 @@ const VentasState = (props) => {
 		valorRadio: 'pto-stock',
 		carrito: [],
 		productoActivoCarrito: {},
-		cliente: {},
+		cliente: null,
 		ptosStock: null,
 		modo: 'manual',
 		mensaje: null,
@@ -124,6 +125,12 @@ const VentasState = (props) => {
 		});
 	};
 
+	const limpiarCliente = () => {
+		dispatch({
+			type: LIMPIAR_CLIENTE,
+		});
+	};
+
 	const handleModo = (val) => {
 		dispatch({
 			type: MODO_CARGA_VENTA,
@@ -165,6 +172,7 @@ const VentasState = (props) => {
 				limpiarCarrito,
 				handleModo,
 				handleCliente,
+				limpiarCliente,
 			}}
 		>
 			{props.children}

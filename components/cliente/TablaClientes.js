@@ -72,8 +72,8 @@ const createFila = (
 
 const filas = [
 	createFila(
-		'nombre',
-		'apellido',
+		'Francisco',
+		'Micucci',
 		'razonSocial',
 		'famicucci@gmail.com',
 		'celular',
@@ -94,8 +94,8 @@ const filas = [
 		'condIva'
 	),
 	createFila(
-		'nombre',
-		'apellido',
+		'Yazmín',
+		'Juarez',
 		'razonSocial',
 		'jy.juarez@gmail.com',
 		'celular',

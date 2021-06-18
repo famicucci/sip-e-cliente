@@ -9,7 +9,7 @@ import VentasContext from '../../context/ventas/ventasContext';
 import BotonLimpiar from '../BotonLimpiar';
 
 const BotoneraCarrito = () => {
-	const { limpiarCarrito } = useContext(VentasContext);
+	const { limpiarCarrito, limpiarCliente } = useContext(VentasContext);
 
 	return (
 		<Box display="flex" bgcolor="background.paper">
@@ -17,6 +17,7 @@ const BotoneraCarrito = () => {
 				<BotonLimpiar
 					onClick={() => {
 						limpiarCarrito();
+						limpiarCliente();
 					}}
 				/>
 			</Box>

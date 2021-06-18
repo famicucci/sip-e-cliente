@@ -26,7 +26,6 @@ const SeccionInferiorCarrito = () => {
 	return (
 		<Paper className={classes.root} variant="elevation">
 			<TotalCarrito />
-			<Divider variant="fullWidth" />
 			<ClienteCarr />
 			<Divider variant="fullWidth" />
 			<BotoneraCarrito />
