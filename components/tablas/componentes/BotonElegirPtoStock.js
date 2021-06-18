@@ -7,7 +7,6 @@ import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import 'tippy.js/themes/light-border.css';
 import TablaElegirPtoStock from '../TablaElegirPtoStock';
-import VentasContext from '../../../context/ventas/ventasContext';
 
 const useStyles = makeStyles((theme) => ({
 	root: {

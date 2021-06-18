@@ -7,6 +7,7 @@ import BotonEditar from '../componentes/BotonEditar';
 import StockContext from '../../../context/stock/stockContext';
 import BotonConfirmarCancelar from '../componentes/BotonConfirmarCancelar';
 import InputCantidadStock from '../componentes/InputCantidadStock';
+import EditIcon from '@material-ui/icons/Edit';
 
 const StyledTableRow = withStyles((theme) => ({
 	root: {
@@ -19,7 +20,7 @@ const StyledTableRow = withStyles((theme) => ({
 const FilaPuntoStock = (props) => {
 	const { id, ProductoCodigo, cantidad } = props.fila;
 
-	const { filaActivaProducto, modificarStockPtoStock } =
+	const { filaActivaProducto, handleFilaActiva, modificarStockPtoStock } =
 		useContext(StockContext);
 
 	return (
@@ -37,7 +38,12 @@ const FilaPuntoStock = (props) => {
 			</TableCell>
 			<TableCell align="center">
 				{filaActivaProducto.id !== id ? (
-					<BotonEditar fila={props.fila} />
+					<BotonEditar
+						contenido={<EditIcon />}
+						onClick={() => {
+							handleFilaActiva(props.fila);
+						}}
+					/>
 				) : (
 					<BotonConfirmarCancelar confirmar={modificarStockPtoStock} />
 				)}
