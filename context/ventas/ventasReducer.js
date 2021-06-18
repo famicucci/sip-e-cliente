@@ -11,6 +11,7 @@ import {
 	CARRITO_MODIFICAR_PRECIO,
 	LIMPIAR_CARRITO,
 	MODO_CARGA_VENTA,
+	AGREGAR_CLIENTE,
 } from '../../types';
 import { detArrayPrecios, filtro } from '../../functions/filtros.js';
 import {
@@ -161,6 +162,11 @@ const VentasReducer = (state, action) => {
 			return {
 				...state,
 				modo: action.payload,
+			};
+		case AGREGAR_CLIENTE:
+			return {
+				...state,
+				cliente: action.payload,
 			};
 		default:
 			return state;

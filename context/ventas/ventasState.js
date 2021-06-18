@@ -16,6 +16,7 @@ import {
 	CARRITO_MODIFICAR_PRECIO,
 	LIMPIAR_CARRITO,
 	MODO_CARGA_VENTA,
+	AGREGAR_CLIENTE,
 } from '../../types';
 
 const VentasState = (props) => {
@@ -28,6 +29,7 @@ const VentasState = (props) => {
 		valorRadio: 'pto-stock',
 		carrito: [],
 		productoActivoCarrito: {},
+		cliente: {},
 		ptosStock: null,
 		modo: 'manual',
 		mensaje: null,
@@ -129,6 +131,13 @@ const VentasState = (props) => {
 		});
 	};
 
+	const handleCliente = (obj) => {
+		dispatch({
+			type: AGREGAR_CLIENTE,
+			payload: obj,
+		});
+	};
+
 	return (
 		<VentasContext.Provider
 			value={{
@@ -142,6 +151,7 @@ const VentasState = (props) => {
 				productoActivoCarrrito: state.productoActivoCarrrito,
 				mensaje: state.mensaje,
 				modo: state.modo,
+				cliente: state.cliente,
 				handlePtoStock,
 				handleListaPrecio,
 				handleValorRadio,
@@ -154,6 +164,7 @@ const VentasState = (props) => {
 				handleFilas,
 				limpiarCarrito,
 				handleModo,
+				handleCliente,
 			}}
 		>
 			{props.children}
