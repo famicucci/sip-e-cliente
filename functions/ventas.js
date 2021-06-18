@@ -610,7 +610,7 @@ const llenarCarr = (carr, arrayPtoStock, arrayStockTotal) => {
 
 		// ahora si cant total debe sumar los productos en producción
 		const cantTotTot = cantTotalProdCarr(origen);
-		elementCarr = modCantTotProdCarr(elementCarr, cantTotal);
+		elementCarr = modCantTotProdCarr(elementCarr, cantTotTot);
 		carr = modificarCarrito(carr, elementCarr);
 
 		if (arrayStockTotalMod !== 'error') {
