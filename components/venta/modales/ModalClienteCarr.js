@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 		flexDirection: 'column',
 		alignItems: 'center',
 		justifyContent: 'flex-start',
-		overflowY: 'auto',
+		overflowY: 'scroll',
 		paddingTop: 100,
 		paddingBottom: 60,
 	},

@@ -6,6 +6,8 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import FormNuevoCliente from '../cliente/FormNuevoCliente';
+import TablaClientes from '../cliente/TablaClientes';
+import BuscarProducto from '../venta/BuscarProducto';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -40,7 +42,8 @@ const AgregarClienteCarr = () => {
 				<FormNuevoCliente />
 			</TabPanel>
 			<TabPanel value={value} index={1}>
-				Existente
+				<BuscarProducto style={{ marginBottom: '8px' }} />
+				<TablaClientes />
 			</TabPanel>
 		</div>
 	);

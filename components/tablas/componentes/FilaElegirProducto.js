@@ -25,7 +25,7 @@ const FilaElegirProducto = (props) => {
 	const ptoStock = props.fila.PtoStockId;
 
 	return (
-		<TableRow hover role="checkbox" tabIndex={-1}>
+		<TableRow hover tabIndex={-1}>
 			<TableCell>
 				<p className={classes.negrita}>{codigo}</p>
 				<p>{descripcion}</p>

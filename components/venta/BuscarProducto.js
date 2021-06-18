@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const BuscarProducto = () => {
+const BuscarProducto = (props) => {
 	const classes = useStyles();
 
 	const { busqueda, handleBusqueda } = useContext(BarraHerramientasContext);
@@ -37,7 +37,7 @@ const BuscarProducto = () => {
 	};
 
 	return (
-		<Paper component="form" className={classes.root}>
+		<Paper component="form" className={classes.root} style={{ ...props.style }}>
 			<IconButton className={classes.iconButton}>
 				<SearchIcon />
 			</IconButton>
