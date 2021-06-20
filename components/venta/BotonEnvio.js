@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import BotonAccion from '../BotonAccion';
 import LocalShippingIcon from '@material-ui/icons/LocalShipping';
+import { BotoneraCarrContext } from '../../context/BotoneraCarrContext';
 
 const BotonEnvio = () => {
+	const { handleOpenEnvio } = useContext(BotoneraCarrContext);
+
 	return (
-		<BotonAccion>
+		<BotonAccion
+			onClick={() => {
+				handleOpenEnvio();
+			}}
+		>
 			<LocalShippingIcon />
 		</BotonAccion>
 	);

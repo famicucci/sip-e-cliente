@@ -24,10 +24,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const ModalCentrado = ({ contenido }) => {
+const ModalCentrado = ({ contenido, openModal }) => {
 	const classes = useStyles();
 
-	const { openModal, handleClose } = useContext(BotoneraCarrContext);
+	const { handleClose } = useContext(BotoneraCarrContext);
 
 	return (
 		<Modal

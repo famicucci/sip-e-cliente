@@ -23,7 +23,8 @@ const useStyles = makeStyles((theme) => ({
 const SeccionInferiorCarrito = () => {
 	const classes = useStyles();
 
-	const { openNota, openVerMas } = useContext(BotoneraCarrContext);
+	const { openNota, openVerMas, openModalEnvio } =
+		useContext(BotoneraCarrContext);
 
 	return (
 		<Paper className={classes.root} variant="elevation">
@@ -35,7 +36,10 @@ const SeccionInferiorCarrito = () => {
 			<NotaVenta />
 			<VerMasCarrito />
 			<ModalClienteCarr />
-			<ModalCentrado contenido={<AgregarEnvioCarr />} />
+			<ModalCentrado
+				contenido={<AgregarEnvioCarr />}
+				openModal={openModalEnvio}
+			/>
 		</Paper>
 	);
 };

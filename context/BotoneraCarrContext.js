@@ -7,6 +7,7 @@ const BotoneraCarrProvider = (props) => {
 	const [openNota, setOpenNota] = useState(false);
 	const [openVerMas, setOpenVerMas] = useState(false);
 	const [openModalCliente, setOpenModalCliente] = useState(false);
+	const [openModalEnvio, setOpenModalEnvio] = useState(false);
 
 	const handleNota = () => {
 		if (openVerMas) {
@@ -26,8 +27,13 @@ const BotoneraCarrProvider = (props) => {
 		setOpenModalCliente(true);
 	};
 
+	const handleOpenEnvio = () => {
+		setOpenModalEnvio(true);
+	};
+
 	const handleClose = () => {
 		setOpenModalCliente(false);
+		setOpenModalEnvio(false);
 	};
 
 	return (
@@ -36,9 +42,11 @@ const BotoneraCarrProvider = (props) => {
 				openNota,
 				openVerMas,
 				openModalCliente,
+				openModalEnvio,
 				handleNota,
 				handleVerMas,
 				handleOpenCliente,
+				handleOpenEnvio,
 				setOpenModalCliente,
 				handleClose,
 			}}
