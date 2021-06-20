@@ -37,6 +37,7 @@ const TablaPuntoStock = () => {
 
 	// context stock
 	const {
+		stocks,
 		filas,
 		ptoStock,
 		mensaje,
@@ -59,7 +60,7 @@ const TablaPuntoStock = () => {
 	useEffect(() => {
 		handleFilasPtoStock(busqueda);
 		setPage(0);
-	}, [ptoStock, busqueda]);
+	}, [stocks, ptoStock, busqueda]);
 
 	useEffect(() => {
 		if (mensaje) {

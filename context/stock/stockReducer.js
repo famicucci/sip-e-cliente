@@ -96,6 +96,7 @@ const StockReducer = (state, action) => {
 				},
 			};
 		case CONFIRMAR_CAMBIO_STOCK_PTO_STOCK:
+			console.log(state.filaActivaProducto);
 			return {
 				...state,
 				stocks: state.stocks.map((fila) =>
