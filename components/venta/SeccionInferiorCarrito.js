@@ -9,6 +9,8 @@ import VerMasCarrito from './VerMasCarrito';
 import { BotoneraCarrContext } from '../../context/BotoneraCarrContext';
 import ClienteCarr from './ClienteCarr';
 import ModalClienteCarr from './modales/ModalClienteCarr';
+import ModalCentrado from '../venta/modales/ModalCentrado';
+import AgregarEnvioCarr from './AgregarEnvioCarr';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -33,6 +35,7 @@ const SeccionInferiorCarrito = () => {
 			<NotaVenta />
 			<VerMasCarrito />
 			<ModalClienteCarr />
+			<ModalCentrado contenido={<AgregarEnvioCarr />} />
 		</Paper>
 	);
 };
