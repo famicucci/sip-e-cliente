@@ -4,12 +4,12 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import { BotoneraCarrContext } from '../../context/BotoneraCarrContext';
 
 const BotonCliente = () => {
-	const { handleOpen } = useContext(BotoneraCarrContext);
+	const { handleOpenCliente } = useContext(BotoneraCarrContext);
 
 	return (
 		<BotonAccion
 			onClick={() => {
-				handleOpen();
+				handleOpenCliente();
 			}}
 		>
 			<PersonAddIcon />

@@ -6,7 +6,7 @@ export const BotoneraCarrContext = createContext();
 const BotoneraCarrProvider = (props) => {
 	const [openNota, setOpenNota] = useState(false);
 	const [openVerMas, setOpenVerMas] = useState(false);
-	const [openModal, setOpenModal] = useState(false);
+	const [openModalCliente, setOpenModalCliente] = useState(false);
 
 	const handleNota = () => {
 		if (openVerMas) {
@@ -22,12 +22,12 @@ const BotoneraCarrProvider = (props) => {
 		setOpenVerMas(!openVerMas);
 	};
 
-	const handleOpen = () => {
-		setOpenModal(true);
+	const handleOpenCliente = () => {
+		setOpenModalCliente(true);
 	};
 
 	const handleClose = () => {
-		setOpenModal(false);
+		setOpenModalCliente(false);
 	};
 
 	return (
@@ -35,11 +35,11 @@ const BotoneraCarrProvider = (props) => {
 			value={{
 				openNota,
 				openVerMas,
-				openModal,
+				openModalCliente,
 				handleNota,
 				handleVerMas,
-				handleOpen,
-				setOpenModal,
+				handleOpenCliente,
+				setOpenModalCliente,
 				handleClose,
 			}}
 		>

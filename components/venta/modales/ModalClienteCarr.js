@@ -28,12 +28,12 @@ const useStyles = makeStyles((theme) => ({
 const ModalClienteCar = () => {
 	const classes = useStyles();
 
-	const { openModal, handleClose } = useContext(BotoneraCarrContext);
+	const { openModalCliente, handleClose } = useContext(BotoneraCarrContext);
 
 	return (
 		<Modal
 			className={classes.modal}
-			open={openModal}
+			open={openModalCliente}
 			onClose={() => {
 				handleClose();
 			}}
@@ -43,7 +43,7 @@ const ModalClienteCar = () => {
 				timeout: 500,
 			}}
 		>
-			<Fade in={openModal}>
+			<Fade in={openModalCliente}>
 				<Paper className={classes.paper}>
 					<AgregarClienteCarr />
 				</Paper>
