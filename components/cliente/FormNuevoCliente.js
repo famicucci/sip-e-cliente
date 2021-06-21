@@ -11,9 +11,6 @@ import ClientesContext from '../../context/clientes/clientesContext';
 import BotonLimpiar from '../BotonLimpiar';
 
 const useStyles = makeStyles((theme) => ({
-	root: {
-		width: '100%',
-	},
 	divider: { marginTop: theme.spacing(2), marginBottom: theme.spacing(1) },
 }));
 
@@ -29,7 +26,7 @@ const NuevoCliente = () => {
 	};
 
 	return (
-		<form className={classes.form} noValidate onSubmit={onSubmit}>
+		<form noValidate onSubmit={onSubmit}>
 			<div className={classes.root}>
 				<DatosNuevoCliente />
 				<ContactoNuevoCliente />

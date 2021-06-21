@@ -1,30 +1,31 @@
 import React, { useContext } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { BotoneraCarrContext } from '../../../context/BotoneraCarrContext';
 import Paper from '@material-ui/core/Paper';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
 	modal: {
 		display: 'flex',
-		flexDirection: 'column',
 		alignItems: 'center',
-		justifyContent: 'flex-start',
-		overflowY: 'scroll',
-		paddingTop: 100,
-		paddingBottom: 60,
-	},
-	paper: {
-		backgroundColor: theme.palette.background.paper,
-		boxShadow: theme.shadows[5],
-		maxWidth: 650,
-		borderRadius: '10px',
+		justifyContent: 'center',
 	},
 }));
 
-const ModalCentrado = ({ contenido, openModal }) => {
+const StyledPaper = withStyles((theme) => ({
+	root: {
+		backgroundColor: theme.palette.background.paper,
+		boxShadow: theme.shadows[5],
+		maxWidth: 650,
+		borderRadius: 10,
+		width: 600,
+		padding: (props) => (props.p ? theme.spacing(props.p) : theme.spacing(2)),
+	},
+}))(Paper);
+
+const ModalCentrado = ({ contenido, openModal, p }) => {
 	const classes = useStyles();
 
 	const { handleClose } = useContext(BotoneraCarrContext);
@@ -43,7 +44,7 @@ const ModalCentrado = ({ contenido, openModal }) => {
 			}}
 		>
 			<Fade in={openModal}>
-				<Paper className={classes.paper}>{contenido}</Paper>
+				<StyledPaper p={p}>{contenido}</StyledPaper>
 			</Fade>
 		</Modal>
 	);

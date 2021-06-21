@@ -53,6 +53,7 @@ export const FILAS_VENTAS = 'FILAS_VENTAS';
 export const LIMPIAR_CARRITO = 'LIMPIAR_CARRITO';
 export const MODO_CARGA_VENTA = 'MODO_CARGA_VENTA';
 export const AGREGAR_CLIENTE = 'AGREGAR_CLIENTE';
+export const AGREGAR_ENVIO = 'AGREGAR_ENVIO';
 export const LIMPIAR_CLIENTE = 'LIMPIAR_CLIENTE';
 
 // clientes

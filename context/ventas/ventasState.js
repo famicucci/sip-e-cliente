@@ -17,6 +17,7 @@ import {
 	LIMPIAR_CARRITO,
 	MODO_CARGA_VENTA,
 	AGREGAR_CLIENTE,
+	AGREGAR_ENVIO,
 	LIMPIAR_CLIENTE,
 } from '../../types';
 
@@ -31,6 +32,7 @@ const VentasState = (props) => {
 		carrito: [],
 		productoActivoCarrito: {},
 		cliente: null,
+		envio: null,
 		ptosStock: null,
 		modo: 'manual',
 		mensaje: null,
@@ -145,6 +147,13 @@ const VentasState = (props) => {
 		});
 	};
 
+	const handleEnvio = (attr, val) => {
+		dispatch({
+			type: AGREGAR_ENVIO,
+			payload: { attr, val },
+		});
+	};
+
 	return (
 		<VentasContext.Provider
 			value={{
@@ -172,6 +181,7 @@ const VentasState = (props) => {
 				limpiarCarrito,
 				handleModo,
 				handleCliente,
+				handleEnvio,
 				limpiarCliente,
 			}}
 		>

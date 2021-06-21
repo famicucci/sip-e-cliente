@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -7,7 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import InputNuevoCliente from './InputNuevoCliente';
 import Grid from '@material-ui/core/Grid';
-import SelectNuevoCliente from './selectNuevoCliente';
+import SelectBordeInferior from '../generales/inputs/SelectBordeInferior';
+import ClientesContext from '../../context/clientes/clientesContext';
 
 const useStyles = makeStyles((theme) => ({
 	heading: {
@@ -58,6 +59,8 @@ const selectCondIVA = {
 const MasDatosNuevoCliente = () => {
 	const classes = useStyles();
 
+	const { handleClienteActivo } = useContext(ClientesContext);
+
 	return (
 		<Accordion>
 			<AccordionSummary
@@ -78,19 +81,21 @@ const MasDatosNuevoCliente = () => {
 							required={x.required}
 						/>
 					))}
-					<SelectNuevoCliente
+					<SelectBordeInferior
 						name={selectTipo.name}
 						label={selectTipo.label}
 						ancho={selectTipo.ancho}
 						data={selectTipo.data}
 						valDefault={selectTipo.valDefault}
+						funcModState={handleClienteActivo}
 					/>
-					<SelectNuevoCliente
+					<SelectBordeInferior
 						name={selectCondIVA.name}
 						label={selectCondIVA.label}
 						ancho={selectCondIVA.ancho}
 						data={selectCondIVA.data}
 						valDefault={selectCondIVA.valDefault}
+						funcModState={handleClienteActivo}
 					/>
 				</Grid>
 			</AccordionDetails>

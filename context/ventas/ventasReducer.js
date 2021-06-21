@@ -12,6 +12,7 @@ import {
 	LIMPIAR_CARRITO,
 	MODO_CARGA_VENTA,
 	AGREGAR_CLIENTE,
+	AGREGAR_ENVIO,
 	LIMPIAR_CLIENTE,
 } from '../../types';
 import { detArrayPrecios, filtro } from '../../functions/filtros.js';
@@ -184,6 +185,14 @@ const VentasReducer = (state, action) => {
 			return {
 				...state,
 				cliente: action.payload,
+			};
+		case AGREGAR_ENVIO:
+			return {
+				...state,
+				envio: {
+					...state.envio,
+					[action.payload.attr]: action.payload.val,
+				},
 			};
 		case LIMPIAR_CLIENTE:
 			return {
