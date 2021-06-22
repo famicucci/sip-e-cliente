@@ -16,11 +16,12 @@ const InputNuevoCliente = ({
 	placeholder,
 	ancho,
 	required,
+	valInit,
 	modState,
 }) => {
 	const classes = useStyles();
 
-	const [valor, setValor] = useState('');
+	const [valor, setValor] = useState(valInit);
 
 	const onChange = (e) => {
 		setValor(e.target.value);

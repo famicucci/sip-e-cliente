@@ -71,16 +71,10 @@ const AgregarEnvioCarr = () => {
 	const { handleClose } = useContext(BotoneraCarrContext);
 
 	const [valoresEnvio, setValoresEnvio] = useState({
-		direccion: selectDirecc.data[0].value,
-		tipo: selectTipo.data[0].value,
-		costo: '',
+		direccion: envio ? envio.direccion : selectDirecc.data[0].value,
+		tipo: envio ? envio.tipo : selectTipo.data[0].value,
+		costo: envio ? envio.costo : '',
 	});
-
-	useEffect(() => {
-		if (envio) {
-			setValoresEnvio(envio);
-		}
-	}, [envio]);
 
 	const handleInput = (name, val) => {
 		setValoresEnvio({ ...valoresEnvio, [name]: val });
@@ -142,6 +136,7 @@ const AgregarEnvioCarr = () => {
 					placeholder={inputCosto.placeholder}
 					ancho={inputCosto.ancho}
 					required={inputCosto.required}
+					valInit={valoresEnvio.costo}
 					modState={handleInput}
 				/>
 			</Grid>
