@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -18,24 +18,21 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const SelectNuevoCliente = ({
+const SelectBordeInferior = ({
 	name,
 	label,
 	ancho,
 	data,
-	valDefault,
+	valInit,
 	funcModState,
 }) => {
 	const classes = useStyles();
 
-	const [valor, setValor] = useState(valDefault);
-
-	// const { handleClienteActivo } = useContext(ClientesContext);
+	const [valor, setValor] = useState(valInit);
 
 	const handleChange = (e) => {
-		const desOpt = data.find((x) => x.value === e.target.value).descripcion;
 		setValor(e.target.value);
-		funcModState(e.target.name, desOpt);
+		funcModState(e.target.name, e.target.value);
 	};
 
 	return (
@@ -58,4 +55,4 @@ const SelectNuevoCliente = ({
 	);
 };
 
-export default SelectNuevoCliente;
+export default SelectBordeInferior;

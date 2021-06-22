@@ -70,27 +70,33 @@ const AgregarEnvioCarr = () => {
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 	const { handleClose } = useContext(BotoneraCarrContext);
 
-	const [inputsEnvio, setInputsEnvio] = useState({
-		tipo: selectTipo.data[0].descripcion,
-		direccion: selectDirecc.data[0].descripcion,
+	const [valoresEnvio, setValoresEnvio] = useState({
+		direccion: selectDirecc.data[0].value,
+		tipo: selectTipo.data[0].value,
 		costo: '',
 	});
 
+	useEffect(() => {
+		if (envio) {
+			setValoresEnvio(envio);
+		}
+	}, [envio]);
+
 	const handleInput = (name, val) => {
-		setInputsEnvio({ ...inputsEnvio, [name]: val });
+		setValoresEnvio({ ...valoresEnvio, [name]: val });
 	};
 
 	const onSubmit = (e) => {
 		e.preventDefault();
 
 		// validar
-		if (inputsEnvio.costo.trim() === '') {
+		if (valoresEnvio.costo.trim() === '') {
 			mostrarAlerta('Debe colocar un costo de envío!', 'warning');
 			return;
 		}
 
 		// submit
-		handleEnvio(inputsEnvio);
+		handleEnvio(valoresEnvio);
 
 		// cierro el modal
 		handleClose();
@@ -113,19 +119,21 @@ const AgregarEnvioCarr = () => {
 			<Divider className={classes.divider} variant="fullWidth" />
 			<Grid container spacing={2}>
 				<SelectBordeInferior
+					key={1}
 					name={selectDirecc.name}
 					label={selectDirecc.label}
 					ancho={selectDirecc.ancho}
 					data={selectDirecc.data}
-					valDefault={selectDirecc.valDefault}
+					valInit={valoresEnvio.direccion}
 					funcModState={handleInput}
 				/>
 				<SelectBordeInferior
+					key={2}
 					name={selectTipo.name}
 					label={selectTipo.label}
 					ancho={selectTipo.ancho}
 					data={selectTipo.data}
-					valDefault={selectTipo.valDefault}
+					valInit={valoresEnvio.tipo}
 					funcModState={handleInput}
 				/>
 				<InputNumberBordeInferior
