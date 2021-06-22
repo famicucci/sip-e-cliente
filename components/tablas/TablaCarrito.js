@@ -7,7 +7,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import FilaCarrito from '../tablas/componentes/FilaCarrito';
+import FilaCarrito from '../venta/FilaCarrito';
+import FilaCarrEnvio from '../venta/FilaCarrEnvio';
 import VentasContext from '../../context/ventas/ventasContext';
 import BodyVacio from '../BodyVacio';
 
@@ -48,15 +49,19 @@ const TablaCarrito = () => {
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{carrito.map((producto) => (
-						<FilaCarrito producto={producto} />
-					))}
-					{carrito.length === 0 ? (
+					{carrito.length !== 0 ? (
+						<>
+							{carrito.map((producto) => (
+								<FilaCarrito producto={producto} />
+							))}
+							<FilaCarrEnvio envio={'envio'} />
+						</>
+					) : (
 						<BodyVacio
 							content="Todavía no cargaste productos"
 							columnas={columnas}
 						/>
-					) : null}
+					)}
 				</TableBody>
 			</Table>
 		</TableContainer>

@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import BotonVerMasCarrito from './BotonVerMasCarrito';
-import BotonEliminarDeCarrito from './BotonBorrarDeCarrito';
+import BotonVerMasCarrito from '../tablas/componentes/BotonVerMasCarrito';
+import BotonEliminarDeCarrito from '../tablas/componentes/BotonBorrarDeCarrito';
 import CollapseTablaCarrito from './CollapseTablaCarrito';
-import PrecioEditableCarrito from './PrecioEditableCarrito';
-import { calcSubtotCarr } from '../../../functions/ventas';
+import PrecioEditableCarrito from '../tablas/componentes/PrecioEditableCarrito';
+import { calcSubtotCarr } from '../../functions/ventas';
 
 const useStyles = makeStyles({
 	negrita: {
@@ -15,17 +15,17 @@ const useStyles = makeStyles({
 	},
 });
 
-const FilaCarrito = (props) => {
+const FilaCarrEnvio = (props) => {
 	const classes = useStyles();
 
 	const [open, setOpen] = useState(false);
 	const [total, setTotal] = useState(0);
 
-	const codigo = props.producto.codigo;
-	const descripcion = props.producto.descripcion;
-	const precio = props.producto.pu;
-	const cantidad = props.producto.cantidad;
-	const origen = props.producto.origen;
+	const codigo = 'Envío';
+	const descripcion = 'tipo y dirección';
+	const precio = 345;
+	const cantidad = 1;
+	const direccion = { value: 'Av. Julio a Roca 342' };
 
 	useEffect(() => {
 		const total = calcSubtotCarr(precio, cantidad);
@@ -49,13 +49,9 @@ const FilaCarrito = (props) => {
 					<BotonVerMasCarrito setOpen={setOpen} open={open} />
 				</TableCell>
 			</TableRow>
-			<CollapseTablaCarrito
-				open={open}
-				origen={origen}
-				codigoProducto={codigo}
-			/>
+			<CollapseTablaCarrito open={open} direccion={direccion} />
 		</>
 	);
 };
 
-export default FilaCarrito;
+export default FilaCarrEnvio;
