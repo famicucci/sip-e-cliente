@@ -147,10 +147,10 @@ const VentasState = (props) => {
 		});
 	};
 
-	const handleEnvio = (attr, val) => {
+	const handleEnvio = (obj) => {
 		dispatch({
 			type: AGREGAR_ENVIO,
-			payload: { attr, val },
+			payload: obj,
 		});
 	};
 
@@ -168,6 +168,7 @@ const VentasState = (props) => {
 				mensaje: state.mensaje,
 				modo: state.modo,
 				cliente: state.cliente,
+				envio: state.envio,
 				handlePtoStock,
 				handleListaPrecio,
 				handleValorRadio,

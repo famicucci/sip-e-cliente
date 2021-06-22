@@ -1,9 +1,13 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography, Divider } from '@material-ui/core';
+import { Grid, Typography, Divider, Box } from '@material-ui/core';
 import SelectBordeInferior from '../generales/inputs/SelectBordeInferior';
 import InputNumberBordeInferior from '../generales/inputs/InputNumberBordeInferior';
-// import VentasContext from '../../context/ventas/ventasContext';
+import BotonSuccess from '../generales/botones/BontonSuccess';
+import Alerta from '../Alerta';
+import VentasContext from '../../context/ventas/ventasContext';
+import AlertaContext from '../../context/alertas/alertaContext';
+import { BotoneraCarrContext } from '../../context/BotoneraCarrContext';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -13,6 +17,13 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	divider: { marginTop: theme.spacing(1), marginBottom: theme.spacing(1) },
+	botonAceptar: {
+		float: 'right',
+		width: '100%',
+	},
+	footer: {
+		marginLeft: theme.spacing(2),
+	},
 }));
 
 // label, ancho, valores, descripcionValores
@@ -54,16 +65,35 @@ const inputCosto = {
 
 const AgregarEnvioCarr = () => {
 	const classes = useStyles();
-	// const { handleEnvio } = useContext(VentasContext);
 
-	const [envio, setEnvio] = useState({
+	const { envio, handleEnvio } = useContext(VentasContext);
+	const { alerta, mostrarAlerta } = useContext(AlertaContext);
+	const { handleClose } = useContext(BotoneraCarrContext);
+
+	const [inputsEnvio, setInputsEnvio] = useState({
 		tipo: selectTipo.data[0].descripcion,
 		direccion: selectDirecc.data[0].descripcion,
 		costo: '',
 	});
 
-	const handleEnvio = (name, val) => {
-		setEnvio({ ...envio, [name]: val });
+	const handleInput = (name, val) => {
+		setInputsEnvio({ ...inputsEnvio, [name]: val });
+	};
+
+	const onSubmit = (e) => {
+		e.preventDefault();
+
+		// validar
+		if (inputsEnvio.costo.trim() === '') {
+			mostrarAlerta('Debe colocar un costo de envío!', 'warning');
+			return;
+		}
+
+		// submit
+		handleEnvio(inputsEnvio);
+
+		// cierro el modal
+		handleClose();
 	};
 
 	// esto deberia estar dentro de un form
@@ -71,7 +101,12 @@ const AgregarEnvioCarr = () => {
 	// cuando apreto aceptar se agrega al state venta
 
 	return (
-		<form className={classes.root} noValidate autoComplete="off">
+		<form
+			className={classes.root}
+			noValidate
+			autoComplete="off"
+			onSubmit={onSubmit}
+		>
 			<Typography variant="h5" align="center">
 				Envío
 			</Typography>
@@ -83,7 +118,7 @@ const AgregarEnvioCarr = () => {
 					ancho={selectDirecc.ancho}
 					data={selectDirecc.data}
 					valDefault={selectDirecc.valDefault}
-					funcModState={handleEnvio}
+					funcModState={handleInput}
 				/>
 				<SelectBordeInferior
 					name={selectTipo.name}
@@ -91,7 +126,7 @@ const AgregarEnvioCarr = () => {
 					ancho={selectTipo.ancho}
 					data={selectTipo.data}
 					valDefault={selectTipo.valDefault}
-					funcModState={handleEnvio}
+					funcModState={handleInput}
 				/>
 				<InputNumberBordeInferior
 					name={inputCosto.name}
@@ -99,9 +134,18 @@ const AgregarEnvioCarr = () => {
 					placeholder={inputCosto.placeholder}
 					ancho={inputCosto.ancho}
 					required={inputCosto.required}
-					modState={handleEnvio}
+					modState={handleInput}
 				/>
 			</Grid>
+			<Divider className={classes.divider} variant="fullWidth" />
+			<Box className={classes.footer}>
+				<BotonSuccess
+					type="submit"
+					contenido="Aceptar"
+					className={classes.botonAceptar}
+				/>
+			</Box>
+			{alerta !== null ? <Alerta /> : null}
 		</form>
 	);
 };

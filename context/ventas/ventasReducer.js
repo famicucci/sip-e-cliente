@@ -189,10 +189,7 @@ const VentasReducer = (state, action) => {
 		case AGREGAR_ENVIO:
 			return {
 				...state,
-				envio: {
-					...state.envio,
-					[action.payload.attr]: action.payload.val,
-				},
+				envio: action.payload,
 			};
 		case LIMPIAR_CLIENTE:
 			return {
