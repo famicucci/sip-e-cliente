@@ -20,6 +20,7 @@ import {
 	AGREGAR_ENVIO,
 	LIMPIAR_CLIENTE,
 	AGREGAR_NOTA,
+	AGREGAR_ORDEN_ECOMMERCE,
 } from '../../types';
 
 const VentasState = (props) => {
@@ -36,6 +37,7 @@ const VentasState = (props) => {
 		envio: null,
 		ptosStock: null,
 		nota: null,
+		ordenEcommerce: null,
 		modo: 'manual',
 		mensaje: null,
 	};
@@ -205,6 +207,13 @@ const VentasState = (props) => {
 		});
 	};
 
+	const handleInputOrdenEcommerce = (val) => {
+		dispatch({
+			type: AGREGAR_ORDEN_ECOMMERCE,
+			payload: val,
+		});
+	};
+
 	return (
 		<VentasContext.Provider
 			value={{
@@ -221,6 +230,7 @@ const VentasState = (props) => {
 				cliente: state.cliente,
 				envio: state.envio,
 				nota: state.nota,
+				ordenEcommerce: state.ordenEcommerce,
 				handlePtoStock,
 				handleListaPrecio,
 				handleValorRadio,
@@ -238,6 +248,7 @@ const VentasState = (props) => {
 				limpiarCliente,
 				crearOrden,
 				handleInputNota,
+				handleInputOrdenEcommerce,
 			}}
 		>
 			{props.children}
