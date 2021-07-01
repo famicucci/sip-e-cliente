@@ -14,6 +14,7 @@ import {
 	AGREGAR_CLIENTE,
 	AGREGAR_ENVIO,
 	LIMPIAR_CLIENTE,
+	AGREGAR_NOTA,
 } from '../../types';
 import { detArrayPrecios, filtro } from '../../functions/filtros.js';
 import {
@@ -195,6 +196,11 @@ const VentasReducer = (state, action) => {
 			return {
 				...state,
 				cliente: null,
+			};
+		case AGREGAR_NOTA:
+			return {
+				...state,
+				nota: action.payload,
 			};
 
 		default:

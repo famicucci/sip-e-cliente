@@ -19,6 +19,7 @@ import {
 	AGREGAR_CLIENTE,
 	AGREGAR_ENVIO,
 	LIMPIAR_CLIENTE,
+	AGREGAR_NOTA,
 } from '../../types';
 
 const VentasState = (props) => {
@@ -34,6 +35,7 @@ const VentasState = (props) => {
 		cliente: null,
 		envio: null,
 		ptosStock: null,
+		nota: null,
 		modo: 'manual',
 		mensaje: null,
 	};
@@ -158,12 +160,13 @@ const VentasState = (props) => {
 		// conectar con la bd y crear la orden
 		try {
 			const paraCrearOrden = {
-				observaciones: 'Estas son las observaciones',
+				observaciones: 'Estas son las observaciones', // poner en el state
 				direccionEnvio: 'Kepe 221',
 				tarifaEnvio: 500,
 				ClienteId: 1,
-				PtoVentaId: 1,
-				OrdenEstadoId: 1,
+				ordenEcommerce: 7654,
+				PtoVentaId: 1, // poner en el state
+				OrdenEstadoId: 1, // va en automático
 				TipoEnvioId: 1,
 				detalleOrden: [
 					{
@@ -195,6 +198,13 @@ const VentasState = (props) => {
 		}
 	};
 
+	const handleInputNota = (val) => {
+		dispatch({
+			type: AGREGAR_NOTA,
+			payload: val,
+		});
+	};
+
 	return (
 		<VentasContext.Provider
 			value={{
@@ -210,6 +220,7 @@ const VentasState = (props) => {
 				modo: state.modo,
 				cliente: state.cliente,
 				envio: state.envio,
+				nota: state.nota,
 				handlePtoStock,
 				handleListaPrecio,
 				handleValorRadio,
@@ -226,6 +237,7 @@ const VentasState = (props) => {
 				handleEnvio,
 				limpiarCliente,
 				crearOrden,
+				handleInputNota,
 			}}
 		>
 			{props.children}

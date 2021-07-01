@@ -2,13 +2,21 @@ import React, { useContext } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Collapse from '@material-ui/core/Collapse';
 import { BotoneraCarrContext } from '../../context/BotoneraCarrContext';
+import VentasContext from '../../context/ventas/ventasContext';
 
 const NotaVenta = () => {
 	const { openNota } = useContext(BotoneraCarrContext);
+	const { nota, handleInputNota } = useContext(VentasContext);
+
+	const onChange = (e) => {
+		handleInputNota(e.target.value);
+	};
 
 	return (
 		<Collapse in={openNota} timeout="auto" unmountOnExit>
 			<TextField
+				value={nota}
+				onChange={onChange}
 				label="Nota"
 				placeholder="Escribe la nota aquí..."
 				fullWidth
