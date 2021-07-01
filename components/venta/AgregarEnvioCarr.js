@@ -43,16 +43,14 @@ const selectTipo = {
 	label: 'Tipo',
 	ancho: 6,
 	data: [
-		{ value: 10, descripcion: 'Retiro' },
-		{ value: 20, descripcion: 'Moto Nico' },
-		{ value: 30, descripcion: 'Moto Guille' },
-		{ value: 40, descripcion: 'OCA' },
-		{ value: 50, descripcion: 'Correo Argentino' },
-		{ value: 60, descripcion: 'PUDO' },
-		{ value: 70, descripcion: 'MD' },
-		{ value: 80, descripcion: 'Otro' },
+		{ value: 1, descripcion: 'Retiro' },
+		{ value: 2, descripcion: 'OCA' },
+		{ value: 3, descripcion: 'Correo Argentino' },
+		{ value: 4, descripcion: 'PUDO' },
+		{ value: 5, descripcion: 'MD' },
+		{ value: 6, descripcion: 'Otro' },
 	],
-	valDefault: 10,
+	valDefault: 1,
 };
 
 const inputCosto = {
@@ -71,7 +69,7 @@ const AgregarEnvioCarr = () => {
 	const { handleClose } = useContext(BotoneraCarrContext);
 
 	const [valoresEnvio, setValoresEnvio] = useState({
-		direccion: envio ? envio.direccion : selectDirecc.data[0].value,
+		direccion: envio.direccion ? envio.direccion : selectDirecc.data[0].value,
 		tipo: envio ? envio.tipo : selectTipo.data[0].value,
 		costo: envio ? envio.costo : '',
 	});
@@ -84,21 +82,26 @@ const AgregarEnvioCarr = () => {
 		e.preventDefault();
 
 		// validar
-		if (valoresEnvio.costo.trim() === '') {
-			mostrarAlerta('Debe colocar un costo de envío!', 'warning');
-			return;
+		if (valoresEnvio.tipo !== 1 && valoresEnvio.costo === 0) {
+			mostrarAlerta(
+				'Aviso: debes enviar el/los productos pero no colocaste un costo de envío',
+				'warning'
+			);
 		}
 
+		// obtener la descripcion de la direccion
+		const direcc = selectDirecc.data.filter(
+			(x) => x.value === valoresEnvio.direccion
+		);
+		const descripcionDirecc = direcc[0].descripcion;
+		const envio = { ...valoresEnvio, direccion: descripcionDirecc };
+
 		// submit
-		handleEnvio(valoresEnvio);
+		handleEnvio(envio);
 
 		// cierro el modal
 		handleClose();
 	};
-
-	// esto deberia estar dentro de un form
-	// debe tener su propio state
-	// cuando apreto aceptar se agrega al state venta
 
 	return (
 		<form

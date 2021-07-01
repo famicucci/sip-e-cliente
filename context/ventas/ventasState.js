@@ -37,7 +37,7 @@ const VentasState = (props) => {
 		carrito: [],
 		productoActivoCarrito: {},
 		cliente: null,
-		envio: null,
+		envio: { direccion: null, tipo: 1, costo: 0 },
 		ptosStock: null,
 		ptosVenta: null,
 		nota: null,
@@ -163,17 +163,20 @@ const VentasState = (props) => {
 	};
 
 	const crearOrden = async () => {
+		console.log(state.envio);
+
+		// validar los campos null
 		// conectar con la bd y crear la orden
 		try {
 			const paraCrearOrden = {
-				observaciones: 'Estas son las observaciones', // poner en el state
-				direccionEnvio: 'Kepe 221',
-				tarifaEnvio: 500,
+				observaciones: state.nota,
+				direccionEnvio: state.envio.direccion,
+				tarifaEnvio: state.envio.costo,
+				TipoEnvioId: state.envio.tipo,
 				ClienteId: 1,
 				ordenEcommerce: 7654,
-				PtoVentaId: 1, // poner en el state
+				PtoVentaId: 1,
 				OrdenEstadoId: 1, // va en automático
-				TipoEnvioId: 1,
 				detalleOrden: [
 					{
 						cantidad: 3,
@@ -191,6 +194,10 @@ const VentasState = (props) => {
 					},
 				],
 			};
+
+			console.log(paraCrearOrden);
+
+			return;
 
 			let orden = await clienteAxios.post('/api/ordenes/', paraCrearOrden);
 
