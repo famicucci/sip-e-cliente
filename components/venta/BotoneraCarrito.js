@@ -4,12 +4,13 @@ import BotonEnvio from './BotonEnvio';
 import BotonNota from '../BotonNota';
 import BotonVerMas from '../tablas/componentes/BotonVerMas';
 import BotonCliente from './BotonCliente';
-import BotonConfirmarAccion from '../BotonConfirmarAccion';
 import VentasContext from '../../context/ventas/ventasContext';
 import BotonLimpiar from '../BotonLimpiar';
+import BotonSuccess from '../generales/botones/BontonSuccess';
 
 const BotoneraCarrito = () => {
-	const { limpiarCarrito, limpiarCliente } = useContext(VentasContext);
+	const { limpiarCarrito, limpiarCliente, crearOrden } =
+		useContext(VentasContext);
 
 	return (
 		<Box display="flex" bgcolor="background.paper">
@@ -26,7 +27,13 @@ const BotoneraCarrito = () => {
 				<BotonNota />
 				<BotonCliente />
 				<BotonEnvio />
-				<BotonConfirmarAccion contenido="Confirmar Orden" />
+				<BotonSuccess
+					type="button"
+					contenido="Confirmar Orden"
+					onClick={() => {
+						crearOrden();
+					}}
+				/>
 			</Box>
 		</Box>
 	);

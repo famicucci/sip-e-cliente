@@ -154,6 +154,47 @@ const VentasState = (props) => {
 		});
 	};
 
+	const crearOrden = async () => {
+		// conectar con la bd y crear la orden
+		try {
+			const paraCrearOrden = {
+				observaciones: 'Estas son las observaciones',
+				direccionEnvio: 'Kepe 221',
+				tarifaEnvio: 500,
+				ClienteId: 1,
+				PtoVentaId: 1,
+				OrdenEstadoId: 1,
+				TipoEnvioId: 1,
+				detalleOrden: [
+					{
+						cantidad: 3,
+						pu: 3456,
+						origen: 'PtoStock',
+						ProductoCodigo: 'PJ100022LM',
+						PtoStockId: 3,
+					},
+					{
+						cantidad: 3,
+						pu: 3456,
+						origen: 'PtoStock',
+						ProductoCodigo: 'PJ100027LM',
+						PtoStockId: 2,
+					},
+				],
+			};
+
+			let orden = await clienteAxios.post('/api/ordenes/', paraCrearOrden);
+
+			console.log(orden);
+			// dispatch({
+			// 	type: PRODUCTOS_VENTAS,
+			// 	payload: { ptoStock, stockTotal, bus },
+			// });
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
 		<VentasContext.Provider
 			value={{
@@ -184,6 +225,7 @@ const VentasState = (props) => {
 				handleCliente,
 				handleEnvio,
 				limpiarCliente,
+				crearOrden,
 			}}
 		>
 			{props.children}
