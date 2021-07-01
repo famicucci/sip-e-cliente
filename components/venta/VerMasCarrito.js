@@ -3,11 +3,16 @@ import TextField from '@material-ui/core/TextField';
 import Collapse from '@material-ui/core/Collapse';
 import { BotoneraCarrContext } from '../../context/BotoneraCarrContext';
 import VentasContext from '../../context/ventas/ventasContext';
+import SelectPtoVenta from '../venta/SelectPtoVenta';
 
 const VerMasCarrito = () => {
 	const { openVerMas } = useContext(BotoneraCarrContext);
-	const { ordenEcommerce, handleInputOrdenEcommerce } =
-		useContext(VentasContext);
+	const {
+		ptoVenta,
+		ordenEcommerce,
+		handleInputOrdenEcommerce,
+		handlePtoVenta,
+	} = useContext(VentasContext);
 
 	const onChange = (e) => {
 		handleInputOrdenEcommerce(e.target.value);
@@ -15,6 +20,7 @@ const VerMasCarrito = () => {
 
 	return (
 		<Collapse in={openVerMas} timeout="auto" unmountOnExit>
+			<SelectPtoVenta ptoVenta={ptoVenta} handlePtoVenta={handlePtoVenta} />
 			<TextField
 				value={ordenEcommerce}
 				onChange={onChange}

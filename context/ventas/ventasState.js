@@ -21,6 +21,8 @@ import {
 	LIMPIAR_CLIENTE,
 	AGREGAR_NOTA,
 	AGREGAR_ORDEN_ECOMMERCE,
+	PTOS_VENTA,
+	PTO_VENTA,
 } from '../../types';
 
 const VentasState = (props) => {
@@ -29,6 +31,7 @@ const VentasState = (props) => {
 		preciosStockTotal: [],
 		filas: [],
 		ptoStock: { descripcion: 'Showroom', id: 1 },
+		ptoVenta: 1,
 		listaPrecio: { descripcion: 'Lista Minorista', id: 1 },
 		valorRadio: 'pto-stock',
 		carrito: [],
@@ -36,6 +39,7 @@ const VentasState = (props) => {
 		cliente: null,
 		envio: null,
 		ptosStock: null,
+		ptosVenta: null,
 		nota: null,
 		ordenEcommerce: null,
 		modo: 'manual',
@@ -214,6 +218,30 @@ const VentasState = (props) => {
 		});
 	};
 
+	const traerPtosVenta = async () => {
+		try {
+			const respuesta = await clienteAxios.get(`/api/ventas/ptos-venta`);
+
+			dispatch({
+				type: PTOS_VENTA,
+				payload: respuesta.data,
+			});
+		} catch (error) {
+			console.log(error);
+			// dispatch({
+			// 	type: ERROR_BARRA_HERRAMIENTAS,
+			// 	payload: error,
+			// });
+		}
+	};
+
+	const handlePtoVenta = (opt) => {
+		dispatch({
+			type: PTO_VENTA,
+			payload: opt,
+		});
+	};
+
 	return (
 		<VentasContext.Provider
 			value={{
@@ -231,6 +259,8 @@ const VentasState = (props) => {
 				envio: state.envio,
 				nota: state.nota,
 				ordenEcommerce: state.ordenEcommerce,
+				ptosVenta: state.ptosVenta,
+				ptoVenta: state.ptoVenta,
 				handlePtoStock,
 				handleListaPrecio,
 				handleValorRadio,
@@ -249,6 +279,8 @@ const VentasState = (props) => {
 				crearOrden,
 				handleInputNota,
 				handleInputOrdenEcommerce,
+				traerPtosVenta,
+				handlePtoVenta,
 			}}
 		>
 			{props.children}

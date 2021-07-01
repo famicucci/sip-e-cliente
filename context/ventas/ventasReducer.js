@@ -16,6 +16,8 @@ import {
 	LIMPIAR_CLIENTE,
 	AGREGAR_NOTA,
 	AGREGAR_ORDEN_ECOMMERCE,
+	PTOS_VENTA,
+	PTO_VENTA,
 } from '../../types';
 import { detArrayPrecios, filtro } from '../../functions/filtros.js';
 import {
@@ -208,7 +210,16 @@ const VentasReducer = (state, action) => {
 				...state,
 				ordenEcommerce: action.payload,
 			};
-
+		case PTOS_VENTA:
+			return {
+				...state,
+				ptosVenta: action.payload,
+			};
+		case PTO_VENTA:
+			return {
+				...state,
+				ptoVenta: action.payload,
+			};
 		default:
 			return state;
 	}
