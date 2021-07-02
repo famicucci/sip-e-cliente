@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
@@ -11,6 +11,7 @@ import ClienteCarr from './ClienteCarr';
 import ModalClienteCarr from './modales/ModalClienteCarr';
 import ModalCentrado from '../venta/modales/ModalCentrado';
 import AgregarEnvioCarr from './AgregarEnvioCarr';
+import VentasContext from '../../context/ventas/ventasContext';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -25,6 +26,13 @@ const SeccionInferiorCarrito = () => {
 
 	const { openNota, openVerMas, openModalEnvio } =
 		useContext(BotoneraCarrContext);
+
+	const { traerTiposEnvio } = useContext(VentasContext);
+
+	useEffect(() => {
+		// poner los tipos de envio al state ventas
+		traerTiposEnvio();
+	}, []);
 
 	return (
 		<Paper className={classes.root} variant="elevation">

@@ -17,7 +17,7 @@ const InputNuevoCliente = ({
 	ancho,
 	required,
 	valInit,
-	modState,
+	funcModState,
 }) => {
 	const classes = useStyles();
 
@@ -25,7 +25,7 @@ const InputNuevoCliente = ({
 
 	const onChange = (e) => {
 		setValor(e.target.value);
-		modState(e.target.name, e.target.value);
+		funcModState(e.target.name, e.target.value);
 	};
 
 	if (required) {

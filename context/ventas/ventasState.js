@@ -22,6 +22,7 @@ import {
 	AGREGAR_NOTA,
 	AGREGAR_ORDEN_ECOMMERCE,
 	PTOS_VENTA,
+	TIPOS_ENVIO,
 	PTO_VENTA,
 } from '../../types';
 
@@ -37,9 +38,16 @@ const VentasState = (props) => {
 		carrito: [],
 		productoActivoCarrito: {},
 		cliente: null,
-		envio: { direccion: null, tipo: 1, costo: 0 },
+		envio: {
+			modoDirecc: 'select',
+			input: { direccion: '' },
+			select: { id: null, direccion: '' },
+			tipo: 1, // esto lo tengo que setear apenas me traigo los tipos de envio de la bd
+			costo: 0,
+		},
 		ptosStock: null,
 		ptosVenta: null,
+		tiposEnvio: null,
 		nota: null,
 		ordenEcommerce: null,
 		modo: 'manual',
@@ -242,6 +250,23 @@ const VentasState = (props) => {
 		}
 	};
 
+	const traerTiposEnvio = async () => {
+		try {
+			const r = await clienteAxios.get(`/api/tipos-envio`);
+
+			dispatch({
+				type: TIPOS_ENVIO,
+				payload: r.data,
+			});
+		} catch (error) {
+			console.log(error);
+			// dispatch({
+			// 	type: ERROR_BARRA_HERRAMIENTAS,
+			// 	payload: error,
+			// });
+		}
+	};
+
 	const handlePtoVenta = (opt) => {
 		dispatch({
 			type: PTO_VENTA,
@@ -268,6 +293,7 @@ const VentasState = (props) => {
 				ordenEcommerce: state.ordenEcommerce,
 				ptosVenta: state.ptosVenta,
 				ptoVenta: state.ptoVenta,
+				tiposEnvio: state.tiposEnvio,
 				handlePtoStock,
 				handleListaPrecio,
 				handleValorRadio,
@@ -286,6 +312,7 @@ const VentasState = (props) => {
 				crearOrden,
 				handleInputNota,
 				handleInputOrdenEcommerce,
+				traerTiposEnvio,
 				traerPtosVenta,
 				handlePtoVenta,
 			}}

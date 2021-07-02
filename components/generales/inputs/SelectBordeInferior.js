@@ -47,7 +47,7 @@ const SelectBordeInferior = ({
 					className={classes.selectEmpty}
 				>
 					{data.map((x) => (
-						<MenuItem value={x.value}>{x.descripcion}</MenuItem>
+						<MenuItem value={x.id}>{x.descripcion}</MenuItem>
 					))}
 				</Select>
 			</FormControl>

@@ -17,6 +17,7 @@ import {
 	AGREGAR_NOTA,
 	AGREGAR_ORDEN_ECOMMERCE,
 	PTOS_VENTA,
+	TIPOS_ENVIO,
 	PTO_VENTA,
 } from '../../types';
 import { detArrayPrecios, filtro } from '../../functions/filtros.js';
@@ -219,6 +220,11 @@ const VentasReducer = (state, action) => {
 			return {
 				...state,
 				ptoVenta: action.payload,
+			};
+		case TIPOS_ENVIO:
+			return {
+				...state,
+				tiposEnvio: action.payload,
 			};
 		default:
 			return state;
