@@ -3,7 +3,12 @@ import ClientesContext from './clientesContext';
 import ClientesReducer from './clientesReducer';
 import clienteAxios from '../../config/axios';
 
-import { CAMPO_CLIENTE_ACTIVO, LIMPIAR_CLIENTE_ACTIVO } from '../../types';
+import {
+	TRAER_CLIENTES,
+	CAMPO_CLIENTE_ACTIVO,
+	LIMPIAR_CLIENTE_ACTIVO,
+	MOSTRAR_ERROR,
+} from '../../types';
 
 const ClienteState = (props) => {
 	const clienteInicial = {
@@ -38,6 +43,22 @@ const ClienteState = (props) => {
 
 	const [state, dispatch] = useReducer(ClientesReducer, initialState);
 
+	const traerClientes = async () => {
+		try {
+			const r = await clienteAxios.get('/api/clientes/');
+
+			dispatch({
+				type: TRAER_CLIENTES,
+				payload: r.data,
+			});
+		} catch (error) {
+			dispatch({
+				type: MOSTRAR_ERROR,
+				payload: { msg: 'Hubo un error', categoria: 'error' },
+			});
+		}
+	};
+
 	// las funciones
 	const crearCliente = async (clien) => {
 		// enviar a la base de datos
@@ -71,7 +92,9 @@ const ClienteState = (props) => {
 	return (
 		<ClientesContext.Provider
 			value={{
+				clientes: state.clientes,
 				clienteActivo: state.clienteActivo,
+				traerClientes,
 				handleClienteActivo,
 				limpiarCliente,
 			}}

@@ -62,8 +62,10 @@ export const PTO_VENTA = 'PTO_VENTA';
 export const TIPOS_ENVIO = 'TIPOS_ENVIO';
 
 // clientes
+export const TRAER_CLIENTES = 'TRAER_CLIENTES';
 export const CAMPO_CLIENTE_ACTIVO = 'CAMPO_CLIENTE_ACTIVO';
 export const LIMPIAR_CLIENTE_ACTIVO = 'LIMPIAR_CLIENTE_ACTIVO';
+export const MOSTRAR_ERROR = 'MOSTRAR_ERROR';
 
 // alertas
 export const MOSTRAR_ALERTA = 'MOSTRAR_ALERTA';

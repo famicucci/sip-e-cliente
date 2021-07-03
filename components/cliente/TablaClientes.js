@@ -10,6 +10,7 @@ import FilaCliente from './FilaCliente';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import PreciosContext from '../../context/precios/preciosContext';
 import SpinnerTabla from '../../components/SpinnerTabla';
+import ClientesContext from '../../context/clientes/clientesContext';
 
 const useStyles = makeStyles({
 	table: {
@@ -208,23 +209,17 @@ const filas = [
 const TablaClientes = () => {
 	const classes = useStyles();
 
-	// // context herramientas
 	// const { busqueda, handleHerramientasPrecios } = useContext(
 	// 	BarraHerramientasContext
 	// );
+	const { traerClientes } = useContext(ClientesContext);
 
-	// // context precios
-	// const { filas, lista, traerPrecios, handleFilas, cargando } =
-	// 	useContext(PreciosContext);
-
-	// hook paginación
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
 		usePaginacion(filas, 5);
 
-	// useEffect(() => {
-	// 	handleHerramientasPrecios();
-	// 	traerPrecios(busqueda);
-	// }, []);
+	useEffect(() => {
+		traerClientes();
+	}, []);
 
 	// useEffect(() => {
 	// 	setPage(0);
