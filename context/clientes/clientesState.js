@@ -5,6 +5,7 @@ import clienteAxios from '../../config/axios';
 
 import {
 	TRAER_CLIENTES,
+	FILAS_CLIENTES,
 	CAMPO_CLIENTE_ACTIVO,
 	LIMPIAR_CLIENTE_ACTIVO,
 	MOSTRAR_ERROR,
@@ -43,13 +44,13 @@ const ClienteState = (props) => {
 
 	const [state, dispatch] = useReducer(ClientesReducer, initialState);
 
-	const traerClientes = async () => {
+	const traerClientes = async (bus) => {
 		try {
 			const r = await clienteAxios.get('/api/clientes/');
 
 			dispatch({
 				type: TRAER_CLIENTES,
-				payload: r.data,
+				payload: { clientes: r.data, bus: bus },
 			});
 		} catch (error) {
 			dispatch({
@@ -89,6 +90,13 @@ const ClienteState = (props) => {
 		});
 	};
 
+	const handleFilas = (bus) => {
+		dispatch({
+			type: FILAS_CLIENTES,
+			payload: bus,
+		});
+	};
+
 	return (
 		<ClientesContext.Provider
 			value={{
@@ -97,6 +105,7 @@ const ClienteState = (props) => {
 				traerClientes,
 				handleClienteActivo,
 				limpiarCliente,
+				handleFilas,
 			}}
 		>
 			{props.children}

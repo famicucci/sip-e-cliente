@@ -91,4 +91,4 @@ const filPtosStockProd = (arrayProd, cod, lis) => {
 	return r;
 };
 
-export { filPtosStockProd, filtro, detArrayPrecios };
+export { filBus, filPtosStockProd, filtro, detArrayPrecios };

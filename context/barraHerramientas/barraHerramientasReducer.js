@@ -5,6 +5,7 @@ import {
 	HERRAMIENTAS_STOCK_MOVIMIENTOS,
 	HERRAMIENTAS_NUEVA_VENTA,
 	BUSQUEDA_ACTUAL,
+	BUSQUEDA_ACTUAL_CLIENTE,
 	PTOS_STOCK,
 	LISTAS_PRECIO,
 	ERROR_BARRA_HERRAMIENTAS,
@@ -56,6 +57,11 @@ const PreciosReducer = (state, action) => {
 			return {
 				...state,
 				busqueda: action.payload,
+			};
+		case BUSQUEDA_ACTUAL_CLIENTE:
+			return {
+				...state,
+				busquedaCliente: action.payload,
 			};
 		case PTOS_STOCK:
 			return {

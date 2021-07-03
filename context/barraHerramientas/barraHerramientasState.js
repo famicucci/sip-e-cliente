@@ -10,6 +10,7 @@ import {
 	HERRAMIENTAS_STOCK_MOVIMIENTOS,
 	HERRAMIENTAS_NUEVA_VENTA,
 	BUSQUEDA_ACTUAL,
+	BUSQUEDA_ACTUAL_CLIENTE,
 	PTOS_STOCK,
 	LISTAS_PRECIO,
 	ERROR_BARRA_HERRAMIENTAS,
@@ -24,6 +25,7 @@ const BarraHerramientasState = (props) => {
 		ptosStock: null,
 		botonModoCargaVenta: false,
 		busqueda: '',
+		busquedaCliente: '',
 		mensaje: null,
 	};
 
@@ -67,6 +69,13 @@ const BarraHerramientasState = (props) => {
 		});
 	};
 
+	const handleBusquedaCliente = (bus) => {
+		dispatch({
+			type: BUSQUEDA_ACTUAL_CLIENTE,
+			payload: bus,
+		});
+	};
+
 	const traerPtosStock = async () => {
 		try {
 			const respuesta = await clienteAxios.get(`/api/stock/ptos-stock`);
@@ -106,6 +115,7 @@ const BarraHerramientasState = (props) => {
 				ptosStock: state.ptosStock,
 				listasPrecio: state.listasPrecio,
 				botonModoCargaVenta: state.botonModoCargaVenta,
+				busquedaCliente: state.busquedaCliente,
 				handleHerramientasPrecios,
 				handleHerrStockTot,
 				handleHerramientasStockPtoStock,

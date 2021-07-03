@@ -209,22 +209,21 @@ const filas = [
 const TablaClientes = () => {
 	const classes = useStyles();
 
-	// const { busqueda, handleHerramientasPrecios } = useContext(
-	// 	BarraHerramientasContext
-	// );
-	const { traerClientes } = useContext(ClientesContext);
+	const { busquedaCliente } = useContext(BarraHerramientasContext);
+	const { clientes, traerClientes, handleFilas } = useContext(ClientesContext);
 
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
 		usePaginacion(filas, 5);
 
 	useEffect(() => {
-		traerClientes();
+		// crear state busqueda y traer busqueda en context clientes
+		traerClientes(busquedaCliente);
 	}, []);
 
-	// useEffect(() => {
-	// 	setPage(0);
-	// 	handleFilas(busqueda);
-	// }, [busqueda, lista]);
+	useEffect(() => {
+		setPage(0);
+		handleFilas(busquedaCliente);
+	}, [busquedaCliente]);
 
 	const cargando = false;
 	return (
