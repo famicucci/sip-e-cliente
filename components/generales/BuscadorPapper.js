@@ -1,11 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import ClearIcon from '@material-ui/icons/Clear';
-import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -23,10 +22,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const BuscarProducto = (props) => {
+const BuscadorPapper = ({ busqueda, handleBusqueda, estilos }) => {
 	const classes = useStyles();
-
-	const { busqueda, handleBusqueda } = useContext(BarraHerramientasContext);
 
 	const onChange = (event) => {
 		handleBusqueda(event.target.value);
@@ -37,7 +34,7 @@ const BuscarProducto = (props) => {
 	};
 
 	return (
-		<Paper component="form" className={classes.root} style={{ ...props.style }}>
+		<Paper component="form" className={classes.root} style={{ ...estilos }}>
 			<IconButton className={classes.iconButton}>
 				<SearchIcon />
 			</IconButton>
@@ -54,4 +51,4 @@ const BuscarProducto = (props) => {
 	);
 };
 
-export default BuscarProducto;
+export default BuscadorPapper;

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import BuscarProducto from './BuscarProducto';
+import BuscadorPapper from '../generales/BuscadorPapper';
 import RadioElegirProductos from './RadioElegirProductos';
 import SelectListaPrecio from './SelectListaPrecioVenta';
 import TablaElegirProducto from '../tablas/TablaElegirProducto';
+import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 
 const useStyles = makeStyles(() => ({
 	container: {
@@ -17,10 +18,12 @@ const useStyles = makeStyles(() => ({
 const ManualElegirProducto = () => {
 	const classes = useStyles();
 
+	const { busqueda, handleBusqueda } = useContext(BarraHerramientasContext);
+
 	return (
 		<div className={classes.container}>
 			<Box>
-				<BuscarProducto />
+				<BuscadorPapper busqueda={busqueda} handleBusqueda={handleBusqueda} />
 				<RadioElegirProductos />
 				<SelectListaPrecio />
 			</Box>

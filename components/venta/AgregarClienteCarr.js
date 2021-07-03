@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -7,7 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import FormNuevoCliente from '../cliente/FormNuevoCliente';
 import TablaClientes from '../cliente/TablaClientes';
-import BuscarProducto from '../venta/BuscarProducto';
+import BuscadorPapper from '../generales/BuscadorPapper';
+import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -21,6 +22,10 @@ const useStyles = makeStyles((theme) => ({
 const AgregarClienteCarr = () => {
 	const classes = useStyles();
 	const [value, setValue] = useState(0);
+
+	const { busquedaCliente, handleBusquedaCliente } = useContext(
+		BarraHerramientasContext
+	);
 
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
@@ -42,7 +47,12 @@ const AgregarClienteCarr = () => {
 				<FormNuevoCliente />
 			</TabPanel>
 			<TabPanel value={value} index={1}>
-				<BuscarProducto style={{ marginBottom: '8px' }} />
+				{/* generalizar este buscador para  */}
+				<BuscadorPapper
+					estilos={{ marginBottom: '8px' }}
+					busqueda={busquedaCliente}
+					handleBusqueda={handleBusquedaCliente}
+				/>
 				<TablaClientes />
 			</TabPanel>
 		</div>

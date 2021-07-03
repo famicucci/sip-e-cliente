@@ -122,6 +122,7 @@ const BarraHerramientasState = (props) => {
 				handleHerramientasMovimientosStock,
 				handleHerrNuevaVenta,
 				handleBusqueda,
+				handleBusquedaCliente,
 				traerPtosStock,
 				traerListasPrecio,
 			}}
