@@ -7,10 +7,22 @@ import BotonCliente from './BotonCliente';
 import VentasContext from '../../context/ventas/ventasContext';
 import BotonLimpiar from '../BotonLimpiar';
 import BotonSuccess from '../generales/botones/BontonSuccess';
+import AlertaContext from '../../context/alertas/alertaContext';
+import Alerta from '../Alerta';
 
 const BotoneraCarrito = () => {
-	const { limpiarCarrito, limpiarCliente, crearOrden } =
+	const { cliente, limpiarCarrito, limpiarCliente, crearOrden } =
 		useContext(VentasContext);
+	const { alerta, mostrarAlerta } = useContext(AlertaContext);
+
+	const onClickConfirmarOrden = () => {
+		// validar si existe cliente
+		if (!cliente) {
+			mostrarAlerta('Debes cargar un cliente!', 'error');
+			return;
+		}
+		crearOrden();
+	};
 
 	return (
 		<Box display="flex" bgcolor="background.paper">
@@ -30,11 +42,10 @@ const BotoneraCarrito = () => {
 				<BotonSuccess
 					type="button"
 					contenido="Confirmar Orden"
-					onClick={() => {
-						crearOrden();
-					}}
+					onClick={onClickConfirmarOrden}
 				/>
 			</Box>
+			{alerta !== null ? <Alerta /> : null}
 		</Box>
 	);
 };

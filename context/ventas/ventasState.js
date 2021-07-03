@@ -224,9 +224,8 @@ const VentasState = (props) => {
 
 		console.log(paraCrearOrden);
 
+		return;
 		try {
-			return;
-
 			let orden = await clienteAxios.post('/api/ordenes/', paraCrearOrden);
 
 			console.log(orden);
