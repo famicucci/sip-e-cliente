@@ -46,7 +46,7 @@ const VentasState = (props) => {
 			costo: 0,
 		},
 		ptosStock: null,
-		ptosVenta: null,
+		ptosVenta: 1,
 		tiposEnvio: null,
 		nota: null,
 		ordenEcommerce: null,
@@ -171,40 +171,60 @@ const VentasState = (props) => {
 	};
 
 	const crearOrden = async () => {
-		console.log(state.envio);
+		let direccionEnvio;
+		if (state.envio.modoDirecc === 'select') {
+			direccionEnvio = state.envio.select.descripcion;
+		} else if (state.envio.modoDirecc === 'input') {
+			direccionEnvio = state.envio.input;
+		}
+
+		// procesar los productos del carrito
+		let detalleOrden = [];
+		for (let i = 0; i < state.carrito.length; i++) {
+			const a = state.carrito[i];
+			const codigo = a.codigo;
+			const pu = a.pu;
+			for (let k = 0; k < a.origen.length; k++) {
+				const b = a.origen[k];
+				let ptoStockId = b.ptoStockId;
+				const cantidad = b.cantidad;
+
+				let origen;
+				if (ptoStockId === 0) {
+					ptoStockId = null;
+					origen = 'Producción';
+				} else {
+					origen = 'Disponible';
+				}
+
+				const obj = {
+					cantidad: cantidad,
+					pu: pu,
+					origen: origen,
+					ProductoCodigo: codigo,
+					PtoStockId: ptoStockId,
+				};
+				detalleOrden.push(obj);
+			}
+		}
 
 		// validar los campos null
 		// conectar con la bd y crear la orden
+		const paraCrearOrden = {
+			observaciones: state.nota,
+			direccionEnvio: direccionEnvio,
+			tarifaEnvio: state.envio.costo,
+			TipoEnvioId: state.envio.tipo,
+			ClienteId: state.cliente.id,
+			ordenEcommerce: state.ordenEcommerce,
+			PtoVentaId: state.ptoVenta,
+			OrdenEstadoId: 1, // va en automático
+			detalleOrden: detalleOrden,
+		};
+
+		console.log(paraCrearOrden);
+
 		try {
-			const paraCrearOrden = {
-				observaciones: state.nota,
-				direccionEnvio: state.envio.direccion,
-				tarifaEnvio: state.envio.costo,
-				TipoEnvioId: state.envio.tipo,
-				ClienteId: 1,
-				ordenEcommerce: 7654,
-				PtoVentaId: 1,
-				OrdenEstadoId: 1, // va en automático
-				detalleOrden: [
-					{
-						cantidad: 3,
-						pu: 3456,
-						origen: 'PtoStock',
-						ProductoCodigo: 'PJ100022LM',
-						PtoStockId: 3,
-					},
-					{
-						cantidad: 3,
-						pu: 3456,
-						origen: 'PtoStock',
-						ProductoCodigo: 'PJ100027LM',
-						PtoStockId: 2,
-					},
-				],
-			};
-
-			console.log(paraCrearOrden);
-
 			return;
 
 			let orden = await clienteAxios.post('/api/ordenes/', paraCrearOrden);
