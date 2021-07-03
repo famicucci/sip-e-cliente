@@ -10,7 +10,6 @@ import VentasContext from '../../context/ventas/ventasContext';
 import { filPtosStockProd } from '../../functions/filtros';
 
 const TablaElegirPtoStock = ({ codigo }) => {
-	console.log(codigo);
 	const { preciosPtoStock, listaPrecio } = useContext(VentasContext);
 
 	const r = filPtosStockProd(preciosPtoStock, codigo, listaPrecio.id);

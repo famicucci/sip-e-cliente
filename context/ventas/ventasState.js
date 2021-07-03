@@ -180,6 +180,7 @@ const VentasState = (props) => {
 
 		// procesar los productos del carrito
 		let detalleOrden = [];
+		let OrdenEstadoId = 2;
 		for (let i = 0; i < state.carrito.length; i++) {
 			const a = state.carrito[i];
 			const codigo = a.codigo;
@@ -193,6 +194,9 @@ const VentasState = (props) => {
 				if (ptoStockId === 0) {
 					ptoStockId = null;
 					origen = 'Producción';
+					if (cantidad !== 0) {
+						OrdenEstadoId = 1;
+					}
 				} else {
 					origen = 'Disponible';
 				}
@@ -218,7 +222,7 @@ const VentasState = (props) => {
 			ClienteId: state.cliente.id,
 			ordenEcommerce: state.ordenEcommerce,
 			PtoVentaId: state.ptoVenta,
-			OrdenEstadoId: 1, // va en automático
+			OrdenEstadoId: OrdenEstadoId, // va en automático
 			detalleOrden: detalleOrden,
 		};
 
