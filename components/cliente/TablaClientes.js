@@ -8,7 +8,6 @@ import TableBody from '@material-ui/core/TableBody';
 import usePaginacion from '../../hooks/usePaginacion';
 import FilaCliente from './FilaCliente';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
-import PreciosContext from '../../context/precios/preciosContext';
 import SpinnerTabla from '../../components/SpinnerTabla';
 import ClientesContext from '../../context/clientes/clientesContext';
 
@@ -25,198 +24,17 @@ const columnas = [
 	{ id: 2, nombre: '', align: 'center', minWidth: 60 },
 ];
 
-const createFila = (
-	nombre,
-	apellido,
-	razonSocial,
-	email,
-	celular,
-	instagram,
-	facebook,
-	calle,
-	numero,
-	piso,
-	depto,
-	barrio,
-	codPostal,
-	ciudad,
-	provincia,
-	observaciones,
-	mascota,
-	tipo,
-	referencia,
-	condIva
-) => {
-	return {
-		nombre,
-		apellido,
-		razonSocial,
-		email,
-		celular,
-		instagram,
-		facebook,
-		calle,
-		numero,
-		piso,
-		depto,
-		barrio,
-		codPostal,
-		ciudad,
-		provincia,
-		observaciones,
-		mascota,
-		tipo,
-		referencia,
-		condIva,
-	};
-};
-
-const filas = [
-	createFila(
-		'Francisco',
-		'Micucci',
-		'razonSocial',
-		'famicucci@gmail.com',
-		'celular',
-		'instagram',
-		'facebook',
-		'calle',
-		'numero',
-		'piso',
-		'depto',
-		'barrio',
-		'codPostal',
-		'ciudad',
-		'provincia',
-		'observaciones',
-		'mascota',
-		'tipo',
-		'referencia',
-		'condIva'
-	),
-	createFila(
-		'Yazmín',
-		'Juarez',
-		'razonSocial',
-		'jy.juarez@gmail.com',
-		'celular',
-		'instagram',
-		'facebook',
-		'calle',
-		'numero',
-		'piso',
-		'depto',
-		'barrio',
-		'codPostal',
-		'ciudad',
-		'provincia',
-		'observaciones',
-		'mascota',
-		'tipo',
-		'referencia',
-		'condIva'
-	),
-	createFila(
-		'nombre',
-		'apellido',
-		'razonSocial',
-		'email',
-		'celular',
-		'instagram',
-		'facebook',
-		'calle',
-		'numero',
-		'piso',
-		'depto',
-		'barrio',
-		'codPostal',
-		'ciudad',
-		'provincia',
-		'observaciones',
-		'mascota',
-		'tipo',
-		'referencia',
-		'condIva'
-	),
-	createFila(
-		'nombre',
-		'apellido',
-		'razonSocial',
-		'email',
-		'celular',
-		'instagram',
-		'facebook',
-		'calle',
-		'numero',
-		'piso',
-		'depto',
-		'barrio',
-		'codPostal',
-		'ciudad',
-		'provincia',
-		'observaciones',
-		'mascota',
-		'tipo',
-		'referencia',
-		'condIva'
-	),
-	createFila(
-		'nombre',
-		'apellido',
-		'razonSocial',
-		'email',
-		'celular',
-		'instagram',
-		'facebook',
-		'calle',
-		'numero',
-		'piso',
-		'depto',
-		'barrio',
-		'codPostal',
-		'ciudad',
-		'provincia',
-		'observaciones',
-		'mascota',
-		'tipo',
-		'referencia',
-		'condIva'
-	),
-	createFila(
-		'nombre',
-		'apellido',
-		'razonSocial',
-		'email',
-		'celular',
-		'instagram',
-		'facebook',
-		'calle',
-		'numero',
-		'piso',
-		'depto',
-		'barrio',
-		'codPostal',
-		'ciudad',
-		'provincia',
-		'observaciones',
-		'mascota',
-		'tipo',
-		'referencia',
-		'condIva'
-	),
-];
-
 const TablaClientes = () => {
 	const classes = useStyles();
 
 	const { busquedaCliente } = useContext(BarraHerramientasContext);
-	const { clientes, traerClientes, handleFilas } = useContext(ClientesContext);
+	const { filas, cargando, traerClientes, handleFilas } =
+		useContext(ClientesContext);
 
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
 		usePaginacion(filas, 5);
 
 	useEffect(() => {
-		// crear state busqueda y traer busqueda en context clientes
 		traerClientes(busquedaCliente);
 	}, []);
 
@@ -225,7 +43,6 @@ const TablaClientes = () => {
 		handleFilas(busquedaCliente);
 	}, [busquedaCliente]);
 
-	const cargando = false;
 	return (
 		<TableContainer component={Paper}>
 			<Table className={classes.table}>

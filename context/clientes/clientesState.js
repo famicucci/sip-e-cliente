@@ -101,7 +101,9 @@ const ClienteState = (props) => {
 		<ClientesContext.Provider
 			value={{
 				clientes: state.clientes,
+				filas: state.filas,
 				clienteActivo: state.clienteActivo,
+				cargando: state.cargando,
 				traerClientes,
 				handleClienteActivo,
 				limpiarCliente,

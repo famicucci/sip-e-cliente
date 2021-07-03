@@ -15,6 +15,7 @@ const ClientesReducer = (state, action) => {
 				...state,
 				clientes: action.payload.clientes,
 				filas: filas,
+				cargando: false,
 			};
 		case FILAS_CLIENTES:
 			filas = filBus(state.clientes, action.payload);
