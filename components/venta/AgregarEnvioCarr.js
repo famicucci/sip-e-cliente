@@ -8,7 +8,7 @@ import Alerta from '../Alerta';
 import VentasContext from '../../context/ventas/ventasContext';
 import AlertaContext from '../../context/alertas/alertaContext';
 import { BotoneraCarrContext } from '../../context/BotoneraCarrContext';
-import BotonEditar from '../tablas/componentes/BotonFilaTabla';
+import BotonFilaTabla from '../tablas/componentes/BotonFilaTabla';
 import FlipCameraAndroidIcon from '@material-ui/icons/FlipCameraAndroid';
 import InputBordeInferior from '../generales/inputs/InputBordeInferior';
 
@@ -196,7 +196,7 @@ const AgregarEnvioCarr = () => {
 						justifyContent="center"
 						alignItems="flex-end"
 					>
-						<BotonEditar
+						<BotonFilaTabla
 							contenido={<FlipCameraAndroidIcon />}
 							onClick={() => {
 								handleSwitchDireccion();

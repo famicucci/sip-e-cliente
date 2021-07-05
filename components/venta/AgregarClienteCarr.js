@@ -41,6 +41,21 @@ const AgregarClienteCarr = () => {
 		handleClose();
 	};
 
+	// columnas de la tabla
+	const columnas = [
+		{ id: 1, nombre: 'Nombre y Apellido', align: 'left', minWidth: 290 },
+		{ id: 2, nombre: 'Email', align: 'left', minWidth: 220 },
+		{
+			id: 10,
+			nombre: 'Agregar',
+			align: 'center',
+			minWidth: 60,
+			boton: true,
+			contenidoBoton: <AddIcon />,
+			funcBoton: funcBoton,
+		},
+	];
+
 	return (
 		<div className={classes.root}>
 			<AppBar position="static" className={classes.appbar}>
@@ -57,13 +72,12 @@ const AgregarClienteCarr = () => {
 				<FormNuevoCliente />
 			</TabPanel>
 			<TabPanel value={value} index={1}>
-				{/* generalizar este buscador para  */}
 				<BuscadorPapper
 					estilos={{ marginBottom: '8px' }}
 					busqueda={busquedaCliente}
 					handleBusqueda={handleBusquedaCliente}
 				/>
-				<TablaClientes contenidoBoton={<AddIcon />} funcBoton={funcBoton} />
+				<TablaClientes columnas={columnas} />
 			</TabPanel>
 		</div>
 	);

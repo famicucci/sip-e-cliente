@@ -26,7 +26,7 @@ const HeadTabla = (props) => {
 						align={columna.align}
 						style={{ minWidth: columna.minWidth }}
 					>
-						{columna.nombre}
+						{!columna.boton ? columna.nombre : null}
 					</StyledTableCell>
 				))}
 			</TableRow>

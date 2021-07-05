@@ -1,7 +1,7 @@
 import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
 
-const BotonEditar = ({ contenido, onClick }) => {
+const BotonFilaTabla = ({ contenido, onClick }) => {
 	return (
 		<IconButton size="small" edge="start" onClick={onClick}>
 			{contenido}
@@ -9,4 +9,4 @@ const BotonEditar = ({ contenido, onClick }) => {
 	);
 };
 
-export default BotonEditar;
+export default BotonFilaTabla;

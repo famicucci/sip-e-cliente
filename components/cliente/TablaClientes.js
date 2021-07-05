@@ -10,8 +10,7 @@ import FilaCliente from './FilaCliente';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import SpinnerTabla from '../../components/SpinnerTabla';
 import ClientesContext from '../../context/clientes/clientesContext';
-import BotonEditar from '../tablas/componentes/BotonFilaTabla';
-import AddIcon from '@material-ui/icons/Add';
+import BotonFilaTabla from '../tablas/componentes/BotonFilaTabla';
 
 const useStyles = makeStyles({
 	table: {
@@ -19,19 +18,14 @@ const useStyles = makeStyles({
 	},
 });
 
-// columnas de la tabla
-const columnas = [
-	{ id: 1, nombre: 'Nombre y Apellido', align: 'left', minWidth: 300 },
-	{ id: 2, nombre: 'Email', align: 'left', minWidth: 240 },
-	{ id: 2, nombre: '', align: 'center', minWidth: 60 },
-];
-
-const TablaClientes = ({ contenidoBoton, funcBoton }) => {
+const TablaClientes = ({ columnas }) => {
 	const classes = useStyles();
 
 	const { busquedaCliente } = useContext(BarraHerramientasContext);
 	const { filas, cargando, traerClientes, handleFilas } =
 		useContext(ClientesContext);
+
+	console.log(filas);
 
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
 		usePaginacion(filas, 5);
@@ -45,6 +39,14 @@ const TablaClientes = ({ contenidoBoton, funcBoton }) => {
 		handleFilas(busquedaCliente);
 	}, [busquedaCliente]);
 
+	// extraer los id de las columnas
+	const colIndex = columnas.reduce(
+		(acc, el) => ({ ...acc, [el.nombre]: el }),
+		{}
+	);
+
+	console.log(colIndex);
+
 	return (
 		<TableContainer component={Paper}>
 			<Table className={classes.table}>
@@ -52,18 +54,7 @@ const TablaClientes = ({ contenidoBoton, funcBoton }) => {
 				<TableBody>
 					{!cargando ? (
 						cortePagina.map((x) => (
-							<FilaCliente
-								key={x.id}
-								fila={x}
-								boton={
-									<BotonEditar
-										contenido={contenidoBoton}
-										onClick={() => {
-											funcBoton(x);
-										}}
-									/>
-								}
-							/>
+							<FilaCliente key={x.id} fila={x} colIndex={colIndex} />
 						))
 					) : (
 						<SpinnerTabla cantColumnas={3} />
