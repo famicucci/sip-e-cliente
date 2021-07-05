@@ -61,7 +61,6 @@ const StockReducer = (state, action) => {
 				filas: r,
 			};
 		case FILAS_MOVIMIENTOS_STOCK:
-			console.log('hola');
 			vars = { bus: action.payload };
 			r = filtro(state.stocks, vars);
 			return {
@@ -96,7 +95,6 @@ const StockReducer = (state, action) => {
 				},
 			};
 		case CONFIRMAR_CAMBIO_STOCK_PTO_STOCK:
-			console.log(state.filaActivaProducto);
 			return {
 				...state,
 				stocks: state.stocks.map((fila) =>

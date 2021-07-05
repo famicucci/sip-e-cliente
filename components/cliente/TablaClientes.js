@@ -10,7 +10,6 @@ import FilaCliente from './FilaCliente';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import SpinnerTabla from '../../components/SpinnerTabla';
 import ClientesContext from '../../context/clientes/clientesContext';
-import BotonFilaTabla from '../tablas/componentes/BotonFilaTabla';
 
 const useStyles = makeStyles({
 	table: {
@@ -24,8 +23,6 @@ const TablaClientes = ({ columnas }) => {
 	const { busquedaCliente } = useContext(BarraHerramientasContext);
 	const { filas, cargando, traerClientes, handleFilas } =
 		useContext(ClientesContext);
-
-	console.log(filas);
 
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
 		usePaginacion(filas, 5);
@@ -44,8 +41,6 @@ const TablaClientes = ({ columnas }) => {
 		(acc, el) => ({ ...acc, [el.nombre]: el }),
 		{}
 	);
-
-	console.log(colIndex);
 
 	return (
 		<TableContainer component={Paper}>

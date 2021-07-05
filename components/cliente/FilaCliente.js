@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import moment from 'moment';
 import BotonFilaTabla from '../tablas/componentes/BotonFilaTabla';
+import Tippy from '@tippyjs/react';
+import { IconButton } from '@material-ui/core';
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/themes/light-border.css';
+import DireccionesCliente from './DireccionesCliente';
 
 const FilaCliente = ({ fila, colIndex }) => {
-	console.log(fila);
+	const [direccionesCliente, setDireccionesCliente] = useState(null);
+
+	const handleOnShowDirecciones = (direcciones) => {
+		const a = <DireccionesCliente direcciones={direcciones} />;
+		setDireccionesCliente(a);
+	};
 
 	return (
 		<TableRow hover>
@@ -13,6 +23,9 @@ const FilaCliente = ({ fila, colIndex }) => {
 				{`${fila.nombre} ${fila.apellido}`}
 			</TableCell>
 			<TableCell align="left">{fila.email}</TableCell>
+			{colIndex['Celular'] ? (
+				<TableCell align="left">{fila.celular}</TableCell>
+			) : null}
 			{colIndex['Razon Social'] ? (
 				<TableCell align="left">{fila.razonSocial}</TableCell>
 			) : null}
@@ -26,9 +39,6 @@ const FilaCliente = ({ fila, colIndex }) => {
 				<TableCell align="left">
 					{moment(fila.createdAt).format('DD-MM-YYYY')}
 				</TableCell>
-			) : null}
-			{colIndex['Celular'] ? (
-				<TableCell align="left">{fila.celular}</TableCell>
 			) : null}
 			{colIndex['Tipo'] ? (
 				<TableCell align="left">{fila.tipo}</TableCell>
@@ -45,11 +55,28 @@ const FilaCliente = ({ fila, colIndex }) => {
 			) : null}
 			{colIndex['Direcciones'] ? (
 				<TableCell align="left">
+					<Tippy
+						content={direccionesCliente}
+						interactive={true}
+						theme={'light-border'}
+						placement={'left'}
+						onShow={() => {
+							handleOnShowDirecciones(fila.direcciones);
+						}}
+					>
+						<IconButton size="small">
+							{colIndex['Direcciones'].contenidoBoton}
+						</IconButton>
+					</Tippy>
+				</TableCell>
+			) : null}
+			{colIndex['Ver Más'] ? (
+				<TableCell align="center">
 					<BotonFilaTabla
-						contenido={colIndex['Direcciones'].contenidoBoton}
-						// onClick={() => {
-						// 	colIndex['Agregar'].funcBoton(fila);
-						// }}
+						contenido={colIndex['Ver Más'].contenidoBoton}
+						onClick={() => {
+							colIndex['Ver Más'].funcBoton(fila);
+						}}
 					/>
 				</TableCell>
 			) : null}
