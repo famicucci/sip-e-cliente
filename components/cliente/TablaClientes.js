@@ -10,6 +10,8 @@ import FilaCliente from './FilaCliente';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import SpinnerTabla from '../../components/SpinnerTabla';
 import ClientesContext from '../../context/clientes/clientesContext';
+import BotonEditar from '../tablas/componentes/BotonFilaTabla';
+import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles({
 	table: {
@@ -24,7 +26,7 @@ const columnas = [
 	{ id: 2, nombre: '', align: 'center', minWidth: 60 },
 ];
 
-const TablaClientes = () => {
+const TablaClientes = ({ contenidoBoton, funcBoton }) => {
 	const classes = useStyles();
 
 	const { busquedaCliente } = useContext(BarraHerramientasContext);
@@ -49,7 +51,20 @@ const TablaClientes = () => {
 				<HeadTabla columnas={columnas} />
 				<TableBody>
 					{!cargando ? (
-						cortePagina.map((x) => <FilaCliente key={x.id} fila={x} />)
+						cortePagina.map((x) => (
+							<FilaCliente
+								key={x.id}
+								fila={x}
+								boton={
+									<BotonEditar
+										contenido={contenidoBoton}
+										onClick={() => {
+											funcBoton(x);
+										}}
+									/>
+								}
+							/>
+						))
 					) : (
 						<SpinnerTabla cantColumnas={3} />
 					)}

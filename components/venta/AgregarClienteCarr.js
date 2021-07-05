@@ -9,6 +9,9 @@ import FormNuevoCliente from '../cliente/FormNuevoCliente';
 import TablaClientes from '../cliente/TablaClientes';
 import BuscadorPapper from '../generales/BuscadorPapper';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
+import VentasContext from '../../context/ventas/ventasContext';
+import { BotoneraCarrContext } from '../../context/BotoneraCarrContext';
+import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -26,9 +29,16 @@ const AgregarClienteCarr = () => {
 	const { busquedaCliente, handleBusquedaCliente } = useContext(
 		BarraHerramientasContext
 	);
+	const { handleCliente } = useContext(VentasContext);
+	const { handleClose } = useContext(BotoneraCarrContext);
 
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
+	};
+
+	const funcBoton = (x) => {
+		handleCliente(x);
+		handleClose();
 	};
 
 	return (
@@ -53,7 +63,7 @@ const AgregarClienteCarr = () => {
 					busqueda={busquedaCliente}
 					handleBusqueda={handleBusquedaCliente}
 				/>
-				<TablaClientes />
+				<TablaClientes contenidoBoton={<AddIcon />} funcBoton={funcBoton} />
 			</TabPanel>
 		</div>
 	);
