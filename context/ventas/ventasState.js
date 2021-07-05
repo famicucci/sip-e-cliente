@@ -24,6 +24,7 @@ import {
 	PTOS_VENTA,
 	TIPOS_ENVIO,
 	PTO_VENTA,
+	CREAR_ORDEN,
 } from '../../types';
 
 const VentasState = (props) => {
@@ -226,17 +227,15 @@ const VentasState = (props) => {
 			detalleOrden: detalleOrden,
 		};
 
-		console.log(paraCrearOrden);
+		// console.log(paraCrearOrden);
+		// return;
 
-		return;
 		try {
 			let orden = await clienteAxios.post('/api/ordenes/', paraCrearOrden);
 
-			console.log(orden);
-			// dispatch({
-			// 	type: PRODUCTOS_VENTAS,
-			// 	payload: { ptoStock, stockTotal, bus },
-			// });
+			dispatch({
+				type: CREAR_ORDEN,
+			});
 		} catch (error) {
 			console.log(error);
 		}

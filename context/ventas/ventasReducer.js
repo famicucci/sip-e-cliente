@@ -19,6 +19,7 @@ import {
 	PTOS_VENTA,
 	TIPOS_ENVIO,
 	PTO_VENTA,
+	CREAR_ORDEN,
 } from '../../types';
 import { detArrayPrecios, filtro } from '../../functions/filtros.js';
 import {
@@ -225,6 +226,13 @@ const VentasReducer = (state, action) => {
 			return {
 				...state,
 				tiposEnvio: action.payload,
+			};
+		case CREAR_ORDEN:
+			// limpiar localStorage
+			localStorage.removeItem('carrito');
+			// mensaje
+			return {
+				...state,
 			};
 		default:
 			return state;

@@ -61,6 +61,7 @@ export const AGREGAR_ORDEN_ECOMMERCE = 'AGREGAR_ORDEN_ECOMMERCE';
 export const PTOS_VENTA = 'PTOS_VENTA';
 export const PTO_VENTA = 'PTO_VENTA';
 export const TIPOS_ENVIO = 'TIPOS_ENVIO';
+export const CREAR_ORDEN = 'CREAR_ORDEN';
 
 // clientes
 export const TRAER_CLIENTES = 'TRAER_CLIENTES';
