@@ -5,9 +5,11 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import VentasContext from '../../context/ventas/ventasContext';
 import ClientesContext from '../../context/clientes/clientesContext';
 import ModalScroll from '../generales/ModalScroll';
+import TablaMostrarOrdenes from '../venta/TablaMostrarOrdenes';
+import NoteOutlinedIcon from '@material-ui/icons/NoteOutlined';
+import CallMadeOutlinedIcon from '@material-ui/icons/CallMadeOutlined';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -18,31 +20,43 @@ const useStyles = makeStyles((theme) => ({
 	appbar: { borderTopLeftRadius: '10px', borderTopRightRadius: '10px' },
 }));
 
-const InformacionCliente = () => {
+const FacsOrdsCliente = () => {
 	const classes = useStyles();
 	const [value, setValue] = useState(0);
 
-	const { handleCliente } = useContext(VentasContext);
-	const { openInfoCliente, handleClose } = useContext(ClientesContext);
+	const { openInfoCliente, handleClose, ordenesClienteActivo, cargando } =
+		useContext(ClientesContext);
 
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
 	};
 
 	// columnas de la tabla
-	// const columnas = [
-	// 	{ id: 1, nombre: 'Nombre y Apellido', align: 'left', minWidth: 290 },
-	// 	{ id: 2, nombre: 'Email', align: 'left', minWidth: 220 },
-	// 	{
-	// 		id: 10,
-	// 		nombre: 'Agregar',
-	// 		align: 'center',
-	// 		minWidth: 60,
-	// 		boton: true,
-	// 		contenidoBoton: <AddIcon />,
-	// 		funcBoton: funcBoton,
-	// 	},
-	// ];
+	const columnasOrds = [
+		{ id: 1, nombre: 'Nº', align: 'center', minWidth: 60 },
+		{ id: 1, nombre: 'Ord. Ecommerce', align: 'left', minWidth: 110 },
+		{ id: 1, nombre: 'Creación', align: 'center', minWidth: 110 },
+		{ id: 1, nombre: 'Pto. Venta', align: 'left', minWidth: 110 },
+		{ id: 1, nombre: 'Estado', align: 'left', minWidth: 130 },
+		{ id: 1, nombre: 'Tipo Envio', align: 'center', minWidth: 110 },
+		{
+			id: 2,
+			nombre: 'Observaciones',
+			align: 'center',
+			minWidth: 60,
+			boton: true,
+			contenidoBoton: <NoteOutlinedIcon />,
+		},
+		{
+			id: 2,
+			nombre: 'Ver Detalle',
+			align: 'center',
+			minWidth: 60,
+			boton: true,
+			contenidoBoton: <CallMadeOutlinedIcon />,
+			funcBoton: null,
+		},
+	];
 
 	return (
 		<ModalScroll openModal={openInfoCliente} handleClose={handleClose}>
@@ -58,7 +72,11 @@ const InformacionCliente = () => {
 					</Tabs>
 				</AppBar>
 				<TabPanel value={value} index={0}>
-					<h4>Órdenes</h4>
+					<TablaMostrarOrdenes
+						columnas={columnasOrds}
+						filas={ordenesClienteActivo}
+						cargando={cargando}
+					/>
 				</TabPanel>
 				<TabPanel value={value} index={1}>
 					<h4>Facturas</h4>
@@ -68,7 +86,7 @@ const InformacionCliente = () => {
 	);
 };
 
-export default InformacionCliente;
+export default FacsOrdsCliente;
 
 // funciones para los tabs
 function TabPanel(props) {

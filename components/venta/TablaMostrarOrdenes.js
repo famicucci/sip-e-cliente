@@ -6,11 +6,8 @@ import Paper from '@material-ui/core/Paper';
 import HeadTabla from '../tablas/componentes/HeadTabla';
 import TableBody from '@material-ui/core/TableBody';
 import usePaginacion from '../../hooks/usePaginacion';
-import FilaCliente from './FilaCliente';
-import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
+import FilaMostrarOrdenes from './FilaMostrarOrdenes';
 import SpinnerTabla from '../../components/SpinnerTabla';
-import ClientesContext from '../../context/clientes/clientesContext';
-import FacsOrdsCliente from '../cliente/FacsOrdsCliente';
 
 const useStyles = makeStyles({
 	table: {
@@ -18,24 +15,11 @@ const useStyles = makeStyles({
 	},
 });
 
-const TablaClientes = ({ columnas }) => {
+const TablaMostrarOrdenes = ({ columnas, filas, cargando }) => {
 	const classes = useStyles();
-
-	const { busquedaCliente } = useContext(BarraHerramientasContext);
-	const { filas, cargando, traerClientes, handleFilas } =
-		useContext(ClientesContext);
 
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
 		usePaginacion(filas, 5);
-
-	useEffect(() => {
-		traerClientes(busquedaCliente);
-	}, []);
-
-	useEffect(() => {
-		setPage(0);
-		handleFilas(busquedaCliente);
-	}, [busquedaCliente]);
 
 	// extraer los id de las columnas
 	const colIndex = columnas.reduce(
@@ -50,7 +34,7 @@ const TablaClientes = ({ columnas }) => {
 				<TableBody>
 					{!cargando ? (
 						cortePagina.map((x) => (
-							<FilaCliente key={x.id} fila={x} colIndex={colIndex} />
+							<FilaMostrarOrdenes key={x.id} fila={x} colIndex={colIndex} />
 						))
 					) : (
 						<SpinnerTabla cantColumnas={3} />
@@ -61,9 +45,8 @@ const TablaClientes = ({ columnas }) => {
 				</TableBody>
 				{!cargando ? <FooterTabla /> : null}
 			</Table>
-			<FacsOrdsCliente />
 		</TableContainer>
 	);
 };
 
-export default TablaClientes;
+export default TablaMostrarOrdenes;
