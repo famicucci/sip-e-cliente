@@ -6,12 +6,13 @@ import SpinnerPantalla from '../components/SpinnerPantalla';
 import TablaClientes from '../components/cliente/TablaClientes';
 import RoomIcon from '@material-ui/icons/Room';
 import CallMadeIcon from '@material-ui/icons/CallMade';
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import ClientesContext from '../context/clientes/clientesContext';
 
 const Clientes = () => {
 	const authContext = useContext(AuthContext);
 	const { autenticado, cargando, usuarioAutenticado } = authContext;
-	const { handleOpeninfoCliente } = useContext(ClientesContext);
+	const { handleOpenFacsOrdsCliente } = useContext(ClientesContext);
 
 	useEffect(() => {
 		usuarioAutenticado();
@@ -50,8 +51,8 @@ const Clientes = () => {
 			align: 'left',
 			minWidth: 60,
 			boton: true,
-			contenidoBoton: <CallMadeIcon />,
-			funcBoton: handleOpeninfoCliente,
+			contenidoBoton: <AccountBalanceWalletIcon />,
+			funcBoton: handleOpenFacsOrdsCliente,
 		},
 	];
 

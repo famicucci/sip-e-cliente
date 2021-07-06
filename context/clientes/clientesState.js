@@ -14,32 +14,12 @@ import {
 } from '../../types';
 
 const ClienteState = (props) => {
-	const clienteInicial = {
-		nombre: '',
-		apellido: '',
-		razonSocial: '',
-		email: '',
-		celular: '',
-		instagram: '',
-		facebook: '',
-		calle: '',
-		numero: '',
-		piso: '',
-		depto: '',
-		barrio: '',
-		codPostal: '',
-		ciudad: '',
-		provincia: '',
-		observaciones: '',
-		mascota: '',
-		tipo: 'Minorista',
-		referencia: '',
-		condIva: 'Consumidor Final',
-	};
 	const initialState = {
 		clientes: [],
 		filas: [],
 		clienteActivo: { tipo: 'Minorista', condIva: 'Consumidor Final' },
+		ordenesClienteActivo: null,
+		facturasClienteActivo: null,
 		openInfoCliente: false,
 		mensaje: null,
 		cargando: true,
@@ -100,12 +80,26 @@ const ClienteState = (props) => {
 		});
 	};
 
-	const handleOpeninfoCliente = (obj) => {
-		console.log(obj);
-		dispatch({
-			type: OPEN_INFORMACION_CLIENTE,
-			payload: obj,
-		});
+	const handleOpenFacsOrdsCliente = async (obj) => {
+		// funcion que traiga las ordenes de un cliente
+		try {
+			const ordenes = await clienteAxios.get(`/api/ordenes/cliente/${obj.id}`);
+			const facturas = await clienteAxios.get(
+				`/api/facturas/cliente/${obj.id}`
+			);
+
+			dispatch({
+				type: OPEN_INFORMACION_CLIENTE,
+				payload: { obj: obj, ordenes: ordenes.data, facturas: facturas.data },
+			});
+		} catch (error) {
+			dispatch({
+				type: MOSTRAR_ERROR,
+				payload: { msg: 'Hubo un error', categoria: 'error' },
+			});
+		}
+
+		// funcion que traiga las facturas de un cliente
 	};
 
 	const handleClose = () => {
@@ -121,12 +115,14 @@ const ClienteState = (props) => {
 				filas: state.filas,
 				openInfoCliente: state.openInfoCliente,
 				clienteActivo: state.clienteActivo,
+				ordenesClienteActivo: state.ordenesClienteActivo,
+				facturasClienteActivo: state.facturasClienteActivo,
 				cargando: state.cargando,
 				traerClientes,
 				handleClienteActivo,
 				limpiarCliente,
 				handleFilas,
-				handleOpeninfoCliente,
+				handleOpenFacsOrdsCliente,
 				handleClose,
 			}}
 		>
