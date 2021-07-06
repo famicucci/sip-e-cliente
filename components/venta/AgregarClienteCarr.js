@@ -12,6 +12,7 @@ import BarraHerramientasContext from '../../context/barraHerramientas/barraHerra
 import VentasContext from '../../context/ventas/ventasContext';
 import { BotoneraCarrContext } from '../../context/BotoneraCarrContext';
 import AddIcon from '@material-ui/icons/Add';
+import ModalScroll from '../generales/ModalScroll';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -30,7 +31,7 @@ const AgregarClienteCarr = () => {
 		BarraHerramientasContext
 	);
 	const { handleCliente } = useContext(VentasContext);
-	const { handleClose } = useContext(BotoneraCarrContext);
+	const { handleClose, openModalCliente } = useContext(BotoneraCarrContext);
 
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
@@ -57,29 +58,31 @@ const AgregarClienteCarr = () => {
 	];
 
 	return (
-		<div className={classes.root}>
-			<AppBar position="static" className={classes.appbar}>
-				<Tabs
-					value={value}
-					onChange={handleChange}
-					aria-label="simple tabs example"
-				>
-					<Tab label="Nuevo" {...a11yProps(0)} />
-					<Tab label="Existente" {...a11yProps(1)} />
-				</Tabs>
-			</AppBar>
-			<TabPanel value={value} index={0}>
-				<FormNuevoCliente />
-			</TabPanel>
-			<TabPanel value={value} index={1}>
-				<BuscadorPapper
-					estilos={{ marginBottom: '8px' }}
-					busqueda={busquedaCliente}
-					handleBusqueda={handleBusquedaCliente}
-				/>
-				<TablaClientes columnas={columnas} />
-			</TabPanel>
-		</div>
+		<ModalScroll openModal={openModalCliente} handleClose={handleClose}>
+			<div className={classes.root}>
+				<AppBar position="static" className={classes.appbar}>
+					<Tabs
+						value={value}
+						onChange={handleChange}
+						aria-label="simple tabs example"
+					>
+						<Tab label="Nuevo" {...a11yProps(0)} />
+						<Tab label="Existente" {...a11yProps(1)} />
+					</Tabs>
+				</AppBar>
+				<TabPanel value={value} index={0}>
+					<FormNuevoCliente />
+				</TabPanel>
+				<TabPanel value={value} index={1}>
+					<BuscadorPapper
+						estilos={{ marginBottom: '8px' }}
+						busqueda={busquedaCliente}
+						handleBusqueda={handleBusquedaCliente}
+					/>
+					<TablaClientes columnas={columnas} />
+				</TabPanel>
+			</div>
+		</ModalScroll>
 	);
 };
 
