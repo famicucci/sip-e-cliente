@@ -3,6 +3,8 @@ import {
 	FILAS_CLIENTES,
 	CAMPO_CLIENTE_ACTIVO,
 	LIMPIAR_CLIENTE_ACTIVO,
+	OPEN_INFORMACION_CLIENTE,
+	CLOSE_MODAL,
 	MOSTRAR_ERROR,
 } from '../../types';
 import { filBus } from '../../functions/filtros';
@@ -35,6 +37,17 @@ const ClientesReducer = (state, action) => {
 			return {
 				...state,
 				clienteActivo: { tipo: 'Minorista', condIva: 'Consumidor Final' },
+			};
+		case OPEN_INFORMACION_CLIENTE:
+			return {
+				...state,
+				clienteActivo: action.payload,
+				openInfoCliente: true,
+			};
+		case CLOSE_MODAL:
+			return {
+				...state,
+				openInfoCliente: false,
 			};
 		case MOSTRAR_ERROR:
 			return {

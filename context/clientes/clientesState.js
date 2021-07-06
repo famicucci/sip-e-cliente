@@ -8,6 +8,8 @@ import {
 	FILAS_CLIENTES,
 	CAMPO_CLIENTE_ACTIVO,
 	LIMPIAR_CLIENTE_ACTIVO,
+	OPEN_INFORMACION_CLIENTE,
+	CLOSE_MODAL,
 	MOSTRAR_ERROR,
 } from '../../types';
 
@@ -38,6 +40,7 @@ const ClienteState = (props) => {
 		clientes: [],
 		filas: [],
 		clienteActivo: { tipo: 'Minorista', condIva: 'Consumidor Final' },
+		openInfoCliente: false,
 		mensaje: null,
 		cargando: true,
 	};
@@ -97,17 +100,34 @@ const ClienteState = (props) => {
 		});
 	};
 
+	const handleOpeninfoCliente = (obj) => {
+		console.log(obj);
+		dispatch({
+			type: OPEN_INFORMACION_CLIENTE,
+			payload: obj,
+		});
+	};
+
+	const handleClose = () => {
+		dispatch({
+			type: CLOSE_MODAL,
+		});
+	};
+
 	return (
 		<ClientesContext.Provider
 			value={{
 				clientes: state.clientes,
 				filas: state.filas,
+				openInfoCliente: state.openInfoCliente,
 				clienteActivo: state.clienteActivo,
 				cargando: state.cargando,
 				traerClientes,
 				handleClienteActivo,
 				limpiarCliente,
 				handleFilas,
+				handleOpeninfoCliente,
+				handleClose,
 			}}
 		>
 			{props.children}

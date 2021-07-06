@@ -10,6 +10,7 @@ import FilaCliente from './FilaCliente';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import SpinnerTabla from '../../components/SpinnerTabla';
 import ClientesContext from '../../context/clientes/clientesContext';
+import InformacionCliente from '../cliente/InformacionCliente';
 
 const useStyles = makeStyles({
 	table: {
@@ -60,6 +61,7 @@ const TablaClientes = ({ columnas }) => {
 				</TableBody>
 				{!cargando ? <FooterTabla /> : null}
 			</Table>
+			<InformacionCliente />
 		</TableContainer>
 	);
 };
