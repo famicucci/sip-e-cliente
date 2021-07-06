@@ -8,7 +8,7 @@ import { IconButton } from '@material-ui/core';
 import 'tippy.js/dist/tippy.css';
 import 'tippy.js/themes/light-border.css';
 
-const FilaMostrarOrdenes = ({ fila, colIndex }) => {
+const FilaMostrarFacturas = ({ fila, colIndex }) => {
 	const [observacionesCliente, setObservacionesCliente] = useState(null);
 
 	const handleOnShowDirecciones = (observaciones) => {
@@ -16,25 +16,38 @@ const FilaMostrarOrdenes = ({ fila, colIndex }) => {
 		setObservacionesCliente(a);
 	};
 
+	const estado = (estado) => {
+		if (estado === 'v') {
+			estado = 'Vigente';
+		} else if (estado === 'c') {
+			estado = 'Cancelada';
+		}
+
+		return estado;
+	};
+
 	return (
 		<TableRow hover>
 			{colIndex['Nº'] ? <TableCell align="center">{fila.id}</TableCell> : null}
-			{colIndex['Ord. Ecommerce'] ? ( // poner como ícono
-				<TableCell align="left">{fila.ordenEcommerce}</TableCell>
+			{colIndex['Tipo'] ? (
+				<TableCell align="center">{fila.tipo}</TableCell>
+			) : null}
+			{colIndex['Estado'] ? (
+				<TableCell align="center">{estado(fila.estado)}</TableCell>
+			) : null}
+			{colIndex['Importe Final'] ? (
+				<TableCell align="center">{fila.importeFinal}</TableCell>
 			) : null}
 			{colIndex['Creación'] ? (
 				<TableCell align="center">
 					{moment(fila.createdAt).format('DD-MM-YYYY')}
 				</TableCell>
 			) : null}
-			{colIndex['Pto. Venta'] ? (
-				<TableCell align="left">{fila.PtoVenta.descripcion}</TableCell>
+			{colIndex['Nº Orden'] ? (
+				<TableCell align="center">{fila.OrdenId}</TableCell>
 			) : null}
-			{colIndex['Estado'] ? (
-				<TableCell align="left">{fila.OrdenEstado.descripcion}</TableCell>
-			) : null}
-			{colIndex['Tipo Envio'] ? (
-				<TableCell align="center">{fila.TipoEnvio.descripcion}</TableCell>
+			{colIndex['Estado Pago'] ? (
+				<TableCell align="center">{fila.estadoPago}</TableCell>
 			) : null}
 			{colIndex['Observaciones'] ? (
 				<TableCell align="left">
@@ -69,4 +82,4 @@ const FilaMostrarOrdenes = ({ fila, colIndex }) => {
 	);
 };
 
-export default FilaMostrarOrdenes;
+export default FilaMostrarFacturas;

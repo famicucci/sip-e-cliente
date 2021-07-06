@@ -6,16 +6,16 @@ import Paper from '@material-ui/core/Paper';
 import HeadTabla from '../tablas/componentes/HeadTabla';
 import TableBody from '@material-ui/core/TableBody';
 import usePaginacion from '../../hooks/usePaginacion';
-import FilaMostrarOrdenes from './FilaMostrarOrdenes';
-import SpinnerTabla from '../../components/SpinnerTabla';
+import FilaMostrarFacturas from './FilaMostrarFacturas';
+import SpinnerTabla from '../SpinnerTabla';
 
 const useStyles = makeStyles({
 	table: {
-		minWidth: 750,
+		minWidth: 600,
 	},
 });
 
-const TablaMostrarOrdenes = ({ columnas, filas, cargando }) => {
+const TablaMostrarFacturas = ({ columnas, filas, cargando }) => {
 	const classes = useStyles();
 
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
@@ -34,7 +34,7 @@ const TablaMostrarOrdenes = ({ columnas, filas, cargando }) => {
 				<TableBody>
 					{!cargando ? (
 						cortePagina.map((x) => (
-							<FilaMostrarOrdenes key={x.id} fila={x} colIndex={colIndex} />
+							<FilaMostrarFacturas key={x.id} fila={x} colIndex={colIndex} />
 						))
 					) : (
 						<SpinnerTabla cantColumnas={3} />
@@ -49,4 +49,4 @@ const TablaMostrarOrdenes = ({ columnas, filas, cargando }) => {
 	);
 };
 
-export default TablaMostrarOrdenes;
+export default TablaMostrarFacturas;

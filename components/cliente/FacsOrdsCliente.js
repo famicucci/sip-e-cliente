@@ -10,6 +10,7 @@ import ModalScroll from '../generales/ModalScroll';
 import TablaMostrarOrdenes from '../venta/TablaMostrarOrdenes';
 import NoteOutlinedIcon from '@material-ui/icons/NoteOutlined';
 import CallMadeOutlinedIcon from '@material-ui/icons/CallMadeOutlined';
+import TablaMostrarFacturas from '../venta/TablaMostrarFacturas';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -24,8 +25,13 @@ const FacsOrdsCliente = () => {
 	const classes = useStyles();
 	const [value, setValue] = useState(0);
 
-	const { openInfoCliente, handleClose, ordenesClienteActivo, cargando } =
-		useContext(ClientesContext);
+	const {
+		openInfoCliente,
+		handleClose,
+		ordenesClienteActivo,
+		facturasClienteActivo,
+		cargando,
+	} = useContext(ClientesContext);
 
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
@@ -37,8 +43,35 @@ const FacsOrdsCliente = () => {
 		{ id: 1, nombre: 'Ord. Ecommerce', align: 'left', minWidth: 110 },
 		{ id: 1, nombre: 'Creación', align: 'center', minWidth: 110 },
 		{ id: 1, nombre: 'Pto. Venta', align: 'left', minWidth: 110 },
-		{ id: 1, nombre: 'Estado', align: 'left', minWidth: 130 },
+		{ id: 1, nombre: 'Estado', align: 'left', minWidth: 110 },
 		{ id: 1, nombre: 'Tipo Envio', align: 'center', minWidth: 110 },
+		{
+			id: 2,
+			nombre: 'Observaciones',
+			align: 'center',
+			minWidth: 60,
+			boton: true,
+			contenidoBoton: <NoteOutlinedIcon />,
+		},
+		{
+			id: 2,
+			nombre: 'Ver Detalle',
+			align: 'center',
+			minWidth: 60,
+			boton: true,
+			contenidoBoton: <CallMadeOutlinedIcon />,
+			funcBoton: null,
+		},
+	];
+
+	const columnasFacts = [
+		{ id: 1, nombre: 'Nº', align: 'center', minWidth: 60 },
+		{ id: 1, nombre: 'Tipo', align: 'center', minWidth: 50 },
+		{ id: 1, nombre: 'Estado', align: 'center', minWidth: 100 },
+		{ id: 1, nombre: 'Importe Final', align: 'center', minWidth: 110 },
+		{ id: 1, nombre: 'Creación', align: 'center', minWidth: 110 },
+		{ id: 1, nombre: 'Nº Orden', align: 'center', minWidth: 60 },
+		{ id: 1, nombre: 'Estado Pago', align: 'left', minWidth: 110 },
 		{
 			id: 2,
 			nombre: 'Observaciones',
@@ -79,7 +112,11 @@ const FacsOrdsCliente = () => {
 					/>
 				</TabPanel>
 				<TabPanel value={value} index={1}>
-					<h4>Facturas</h4>
+					<TablaMostrarFacturas
+						columnas={columnasFacts}
+						filas={facturasClienteActivo}
+						cargando={cargando}
+					/>
 				</TabPanel>
 			</div>
 		</ModalScroll>
