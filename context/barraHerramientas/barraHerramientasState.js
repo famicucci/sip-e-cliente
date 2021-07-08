@@ -9,6 +9,7 @@ import {
 	HERRAMIENTAS_STOCK_PTO_STOCK,
 	HERRAMIENTAS_STOCK_MOVIMIENTOS,
 	HERRAMIENTAS_NUEVA_VENTA,
+	HERRAMIENTAS_EDITAR_VENTAS,
 	BUSQUEDA_ACTUAL,
 	BUSQUEDA_ACTUAL_CLIENTE,
 	PTOS_STOCK,
@@ -53,6 +54,12 @@ const BarraHerramientasState = (props) => {
 	const handleHerramientasMovimientosStock = () => {
 		dispatch({
 			type: HERRAMIENTAS_STOCK_MOVIMIENTOS,
+		});
+	};
+
+	const handleHerramientasEditarVentas = () => {
+		dispatch({
+			type: HERRAMIENTAS_EDITAR_VENTAS,
 		});
 	};
 
@@ -120,6 +127,7 @@ const BarraHerramientasState = (props) => {
 				handleHerrStockTot,
 				handleHerramientasStockPtoStock,
 				handleHerramientasMovimientosStock,
+				handleHerramientasEditarVentas,
 				handleHerrNuevaVenta,
 				handleBusqueda,
 				handleBusquedaCliente,

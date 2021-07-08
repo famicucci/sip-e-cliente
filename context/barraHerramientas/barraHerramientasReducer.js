@@ -4,6 +4,7 @@ import {
 	HERRAMIENTAS_STOCK_PTO_STOCK,
 	HERRAMIENTAS_STOCK_MOVIMIENTOS,
 	HERRAMIENTAS_NUEVA_VENTA,
+	HERRAMIENTAS_EDITAR_VENTAS,
 	BUSQUEDA_ACTUAL,
 	BUSQUEDA_ACTUAL_CLIENTE,
 	PTOS_STOCK,
@@ -50,6 +51,14 @@ const PreciosReducer = (state, action) => {
 				...state,
 				botonModoCargaVenta: true,
 				buscador: false,
+				selectListaPrecio: false,
+				selectPtoStock: false,
+			};
+		case HERRAMIENTAS_EDITAR_VENTAS:
+			return {
+				...state,
+				botonModoCargaVenta: false,
+				buscador: true,
 				selectListaPrecio: false,
 				selectPtoStock: false,
 			};

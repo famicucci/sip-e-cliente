@@ -6,6 +6,7 @@ import clienteAxios from '../../config/axios';
 import {
 	PRODUCTOS_VENTAS,
 	FILAS_VENTAS,
+	FILAS_ORDENES,
 	PTO_STOCK_VENTAS,
 	PTOS_STOCK_VENTAS,
 	LISTA_PRECIO_VENTAS,
@@ -25,13 +26,17 @@ import {
 	TIPOS_ENVIO,
 	PTO_VENTA,
 	CREAR_ORDEN,
+	TRAER_ORDENES,
+	FILAS_ORDENES_FILTRO,
 } from '../../types';
 
 const VentasState = (props) => {
 	const initialState = {
 		preciosPtoStock: [],
 		preciosStockTotal: [],
+		ordenes: [],
 		filas: [],
+		filasOrdenes: [],
 		ptoStock: { descripcion: 'Showroom', id: 1 },
 		ptoVenta: 1,
 		listaPrecio: { descripcion: 'Lista Minorista', id: 1 },
@@ -134,6 +139,19 @@ const VentasState = (props) => {
 	const handleFilas = (bus) => {
 		dispatch({
 			type: FILAS_VENTAS,
+			payload: bus,
+		});
+	};
+
+	const handleFilasOrdenes = (bus) => {
+		dispatch({
+			type: FILAS_ORDENES,
+		});
+	};
+
+	const handleFilasOrdenesFiltro = (bus) => {
+		dispatch({
+			type: FILAS_ORDENES_FILTRO,
 			payload: bus,
 		});
 	};
@@ -293,12 +311,27 @@ const VentasState = (props) => {
 		});
 	};
 
+	const traerOrdenes = async () => {
+		try {
+			let r = await clienteAxios.get('/api/ordenes/');
+
+			dispatch({
+				type: TRAER_ORDENES,
+				payload: r.data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
 		<VentasContext.Provider
 			value={{
 				preciosPtoStock: state.preciosPtoStock,
 				preciosStockTotal: state.preciosStockTotal,
+				ordenes: state.ordenes,
 				filas: state.filas,
+				filasOrdenes: state.filasOrdenes,
 				ptoStock: state.ptoStock,
 				listaPrecio: state.listaPrecio,
 				valorRadio: state.valorRadio,
@@ -323,6 +356,7 @@ const VentasState = (props) => {
 				handlePrecioCarr,
 				traerProductos,
 				handleFilas,
+				handleFilasOrdenes,
 				limpiarCarrito,
 				handleModo,
 				handleCliente,
@@ -334,6 +368,8 @@ const VentasState = (props) => {
 				traerTiposEnvio,
 				traerPtosVenta,
 				handlePtoVenta,
+				traerOrdenes,
+				handleFilasOrdenesFiltro,
 			}}
 		>
 			{props.children}

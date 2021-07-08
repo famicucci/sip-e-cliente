@@ -7,7 +7,6 @@ import { ThemeProvider, makeStyles } from '@material-ui/core/styles';
 import AuthContext from '../../context/autenticacion/authContext';
 import PreciosState from '../../context/precios/preciosState';
 import StockState from '../../context/stock/stockState';
-import VentasState from '../../context/ventas/ventasState';
 import AlertaState from '../../context/alertas/alertaState';
 
 import Navbar from './Navbar';
@@ -75,28 +74,26 @@ const Layout = (props) => {
 				<AlertaState>
 					<PreciosState>
 						<StockState>
-							<VentasState>
-								<div className={classes.root}>
-									<Navbar toggleMenu={toggleMenu} abrir={abrir} />
-									<Hidden>
-										<Cajon
-											variant="persistent"
-											open={abrir}
-											onClose={() => {
-												toggleMenu();
-											}}
-										/>
-									</Hidden>
-									<main
-										className={clsx(classes.content, {
-											[classes.contentShift]: abrir,
-										})}
-									>
-										<div className={classes.drawerHeader} />
-										<div>{props.children}</div>
-									</main>
-								</div>
-							</VentasState>
+							<div className={classes.root}>
+								<Navbar toggleMenu={toggleMenu} abrir={abrir} />
+								<Hidden>
+									<Cajon
+										variant="persistent"
+										open={abrir}
+										onClose={() => {
+											toggleMenu();
+										}}
+									/>
+								</Hidden>
+								<main
+									className={clsx(classes.content, {
+										[classes.contentShift]: abrir,
+									})}
+								>
+									<div className={classes.drawerHeader} />
+									<div>{props.children}</div>
+								</main>
+							</div>
 						</StockState>
 					</PreciosState>
 				</AlertaState>

@@ -42,6 +42,11 @@ const filtro = (arrayProd, { lisPre, ptoStock, bus }) => {
 const filBus = (fil, bus) => {
 	const busMod = bus.toLowerCase().replace(/\s+/g, '');
 
+	if (fil.length > 0) {
+		console.log(fil[0]);
+		console.log(Object.values(fil[0]));
+	}
+
 	const r = fil.filter(
 		(x) =>
 			Object.values(x)

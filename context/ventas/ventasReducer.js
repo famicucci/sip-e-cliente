@@ -1,6 +1,7 @@
 import {
 	PRODUCTOS_VENTAS,
 	FILAS_VENTAS,
+	FILAS_ORDENES,
 	PTO_STOCK_VENTAS,
 	PTOS_STOCK_VENTAS,
 	LISTA_PRECIO_VENTAS,
@@ -20,8 +21,10 @@ import {
 	TIPOS_ENVIO,
 	PTO_VENTA,
 	CREAR_ORDEN,
+	TRAER_ORDENES,
+	FILAS_ORDENES_FILTRO,
 } from '../../types';
-import { detArrayPrecios, filtro } from '../../functions/filtros.js';
+import { detArrayPrecios, filtro, filBus } from '../../functions/filtros.js';
 import {
 	quitarProductoCarrito,
 	modProdCarr,
@@ -233,6 +236,46 @@ const VentasReducer = (state, action) => {
 			// mensaje
 			return {
 				...state,
+			};
+		case TRAER_ORDENES:
+			let filasTablaOrdenes = action.payload.map((x) => ({
+				idOrden: x.id,
+				ordenEstado: x.OrdenEstado.descripcion,
+				nombreCliente: x.Cliente.nombre,
+				apellidoCliente: x.Cliente.apellido,
+				fecha: x.createdAt,
+				idFactura: x.Facturas.length > 0 ? x.Facturas[0].id : null,
+				estadoPago: x.Facturas.length > 0 ? x.Facturas[0].estadoPago : null,
+				tipoEnvio: x.TipoEnvio.descripcion,
+				observaciones: x.observaciones,
+			}));
+			return {
+				...state,
+				ordenes: action.payload,
+				filasOrdenes: filasTablaOrdenes,
+				filas: filasTablaOrdenes,
+			};
+		case FILAS_ORDENES:
+			filasTablaOrdenes = state.ordenes.map((x) => ({
+				idOrden: x.id,
+				ordenEstado: x.OrdenEstado.descripcion,
+				nombreCliente: x.Cliente.nombre,
+				apellidoCliente: x.Cliente.apellido,
+				fecha: x.createdAt,
+				idFactura: x.Facturas.length > 0 ? x.Facturas[0].id : null,
+				estadoPago: x.Facturas.length > 0 ? x.Facturas[0].estadoPago : null,
+				tipoEnvio: x.TipoEnvio.descripcion,
+				observaciones: x.observaciones,
+			}));
+			return {
+				...state,
+				filasOrdenes: filasTablaOrdenes,
+			};
+		case FILAS_ORDENES_FILTRO:
+			r = filBus(state.filasOrdenes, action.payload);
+			return {
+				...state,
+				filas: r,
 			};
 		default:
 			return state;
