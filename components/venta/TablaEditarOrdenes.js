@@ -45,8 +45,10 @@ const TablaEditarOrdenes = () => {
 		ordenes,
 		filas,
 		traerOrdenes,
+		cargando,
 		handleFilasOrdenes,
 		handleFilasOrdenesFiltro,
+		traerEstadosOrden,
 	} = useContext(VentasContext);
 
 	const { handleHerramientasEditarVentas, busqueda } = useContext(
@@ -59,6 +61,7 @@ const TablaEditarOrdenes = () => {
 	useEffect(() => {
 		handleHerramientasEditarVentas();
 		traerOrdenes();
+		traerEstadosOrden();
 	}, []);
 
 	useEffect(() => {
@@ -76,8 +79,6 @@ const TablaEditarOrdenes = () => {
 		(acc, el) => ({ ...acc, [el.nombre]: el }),
 		{}
 	);
-
-	const cargando = false;
 
 	return (
 		<TableContainer component={Paper}>

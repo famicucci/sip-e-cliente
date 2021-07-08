@@ -23,6 +23,7 @@ import {
 	CREAR_ORDEN,
 	TRAER_ORDENES,
 	FILAS_ORDENES_FILTRO,
+	TRAER_ESTADOS_ORDEN,
 } from '../../types';
 import { detArrayPrecios, filtro, filBus } from '../../functions/filtros.js';
 import {
@@ -34,6 +35,7 @@ import {
 	prodCarr,
 	llenarCarr,
 } from '../../functions/ventas.js';
+import { crearFilasTablaEditarOrdenes } from '../../functions/editarordenes';
 
 const VentasReducer = (state, action) => {
 	switch (action.type) {
@@ -238,44 +240,29 @@ const VentasReducer = (state, action) => {
 				...state,
 			};
 		case TRAER_ORDENES:
-			let filasTablaOrdenes = action.payload.map((x) => ({
-				idOrden: x.id,
-				ordenEstado: x.OrdenEstado.descripcion,
-				nombreCliente: x.Cliente.nombre,
-				apellidoCliente: x.Cliente.apellido,
-				fecha: x.createdAt,
-				idFactura: x.Facturas.length > 0 ? x.Facturas[0].id : null,
-				estadoPago: x.Facturas.length > 0 ? x.Facturas[0].estadoPago : null,
-				tipoEnvio: x.TipoEnvio.descripcion,
-				observaciones: x.observaciones,
-			}));
+			r = crearFilasTablaEditarOrdenes(action.payload);
 			return {
 				...state,
 				ordenes: action.payload,
-				filasOrdenes: filasTablaOrdenes,
-				filas: filasTablaOrdenes,
+				filasOrdenes: r,
+				filas: r,
 			};
 		case FILAS_ORDENES:
-			filasTablaOrdenes = state.ordenes.map((x) => ({
-				idOrden: x.id,
-				ordenEstado: x.OrdenEstado.descripcion,
-				nombreCliente: x.Cliente.nombre,
-				apellidoCliente: x.Cliente.apellido,
-				fecha: x.createdAt,
-				idFactura: x.Facturas.length > 0 ? x.Facturas[0].id : null,
-				estadoPago: x.Facturas.length > 0 ? x.Facturas[0].estadoPago : null,
-				tipoEnvio: x.TipoEnvio.descripcion,
-				observaciones: x.observaciones,
-			}));
+			r = crearFilasTablaEditarOrdenes(state.ordenes);
 			return {
 				...state,
-				filasOrdenes: filasTablaOrdenes,
+				filasOrdenes: r,
 			};
 		case FILAS_ORDENES_FILTRO:
 			r = filBus(state.filasOrdenes, action.payload);
 			return {
 				...state,
 				filas: r,
+			};
+		case TRAER_ESTADOS_ORDEN:
+			return {
+				...state,
+				estadosOrden: action.payload,
 			};
 		default:
 			return state;

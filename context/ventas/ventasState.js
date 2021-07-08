@@ -28,6 +28,7 @@ import {
 	CREAR_ORDEN,
 	TRAER_ORDENES,
 	FILAS_ORDENES_FILTRO,
+	TRAER_ESTADOS_ORDEN,
 } from '../../types';
 
 const VentasState = (props) => {
@@ -54,9 +55,11 @@ const VentasState = (props) => {
 		ptosStock: null,
 		ptosVenta: 1,
 		tiposEnvio: null,
+		estadosOrden: [],
 		nota: null,
 		ordenEcommerce: null,
 		modo: 'manual',
+		cargando: false,
 		mensaje: null,
 	};
 
@@ -324,6 +327,19 @@ const VentasState = (props) => {
 		}
 	};
 
+	const traerEstadosOrden = async () => {
+		try {
+			const r = await clienteAxios.get('/api/estados-orden/');
+
+			dispatch({
+				type: TRAER_ESTADOS_ORDEN,
+				payload: r.data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
 		<VentasContext.Provider
 			value={{
@@ -346,6 +362,8 @@ const VentasState = (props) => {
 				ptosVenta: state.ptosVenta,
 				ptoVenta: state.ptoVenta,
 				tiposEnvio: state.tiposEnvio,
+				estadosOrden: state.estadosOrden,
+				cargando: state.cargando,
 				handlePtoStock,
 				handleListaPrecio,
 				handleValorRadio,
@@ -370,6 +388,7 @@ const VentasState = (props) => {
 				handlePtoVenta,
 				traerOrdenes,
 				handleFilasOrdenesFiltro,
+				traerEstadosOrden,
 			}}
 		>
 			{props.children}

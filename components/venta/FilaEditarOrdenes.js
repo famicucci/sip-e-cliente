@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableRow';
 import moment from 'moment';
 import BotonFilaTabla from '../tablas/componentes/BotonFilaTabla';
 import Tippy from '@tippyjs/react';
 import { IconButton } from '@material-ui/core';
 import 'tippy.js/dist/tippy.css';
 import 'tippy.js/themes/light-border.css';
+import SelectOrdenEstado from './SelectOrdenEstado';
+import RowColorIntercalado from '../generales/RowColorIntercalado';
 
 const FilaEditarClientes = ({ fila, colIndex }) => {
 	const [nota, setNota] = useState(null);
@@ -17,12 +18,14 @@ const FilaEditarClientes = ({ fila, colIndex }) => {
 	};
 
 	return (
-		<TableRow hover>
+		<RowColorIntercalado>
 			{colIndex['Nº'] ? (
 				<TableCell align="center">{fila.idOrden}</TableCell>
 			) : null}
 			{colIndex['Estado'] ? (
-				<TableCell align="center">{fila.ordenEstado}</TableCell>
+				<TableCell align="center">
+					<SelectOrdenEstado valInit={fila.ordenEstadoId} />
+				</TableCell>
 			) : null}
 			{colIndex['Cliente'] ? (
 				<TableCell align="center">{`${fila.nombreCliente} ${fila.apellidoCliente}`}</TableCell>
@@ -64,7 +67,7 @@ const FilaEditarClientes = ({ fila, colIndex }) => {
 					</Tippy>
 				</TableCell>
 			) : null}
-		</TableRow>
+		</RowColorIntercalado>
 	);
 };
 
