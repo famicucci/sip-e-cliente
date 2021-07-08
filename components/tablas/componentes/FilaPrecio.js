@@ -1,27 +1,18 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableRow';
-
-const StyledTableRow = withStyles((theme) => ({
-	root: {
-		'&:nth-of-type(odd)': {
-			backgroundColor: theme.palette.action.hover,
-		},
-	},
-}))(TableRow);
+import RowColorIntercalado from '../../generales/RowColorIntercalado';
 
 const Fila = (props) => {
 	const { ProductoCodigo, pu } = props.fila;
 
 	return (
-		<StyledTableRow>
+		<RowColorIntercalado>
 			<TableCell component="th" scope="row">
 				{ProductoCodigo}
 			</TableCell>
 			<TableCell align="left">{props.fila['Producto.descripcion']}</TableCell>
 			<TableCell align="right">{pu}</TableCell>
-		</StyledTableRow>
+		</RowColorIntercalado>
 	);
 };
 
