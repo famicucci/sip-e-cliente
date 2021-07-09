@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import VentasContext from '../../context/ventas/ventasContext';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
@@ -31,17 +31,7 @@ const BootstrapButton = withStyles({
 	},
 })(Button);
 
-const useStyles = makeStyles(() => ({
-	boton: {
-		'&:focus': {
-			boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
-		},
-	},
-}));
-
 const SelectOrdenEstado = ({ idOrden, ordenEstadoId }) => {
-	const classes = useStyles();
-
 	const { estadosOrden, handleEstadoOrden, mensaje } =
 		useContext(VentasContext);
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
@@ -84,7 +74,6 @@ const SelectOrdenEstado = ({ idOrden, ordenEstadoId }) => {
 				variant="outlined"
 				color="primary"
 				disableRipple
-				className={classes.boton}
 				onClick={handleClickBoton}
 				style={{
 					border: `1px solid ${color}`,
