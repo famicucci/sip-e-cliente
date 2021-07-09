@@ -1,22 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import moment from 'moment';
-import BotonFilaTabla from '../tablas/componentes/BotonFilaTabla';
-import Tippy from '@tippyjs/react';
-import { IconButton } from '@material-ui/core';
 import 'tippy.js/dist/tippy.css';
 import 'tippy.js/themes/light-border.css';
 import SelectOrdenEstado from './SelectOrdenEstado';
 import RowColorIntercalado from '../generales/RowColorIntercalado';
+import BotonTippyHoverTabla from '../generales/BotonTippyHoverTabla';
 
 const FilaEditarClientes = ({ fila, colIndex }) => {
-	const [nota, setNota] = useState(null);
-
-	const handleOnShowDirecciones = (observaciones) => {
-		const a = <p>{observaciones}</p>;
-		setNota(a);
-	};
-
 	return (
 		<RowColorIntercalado>
 			{colIndex['Nº'] ? (
@@ -24,10 +15,6 @@ const FilaEditarClientes = ({ fila, colIndex }) => {
 			) : null}
 			{colIndex['Estado'] ? (
 				<TableCell align="center">
-					{/* <p>
-						{fila.ordenEstadoId} {fila.ordenEstado}
-					</p> */}
-					{/* <p>{fila.ordenEstadoId}</p> */}
 					<SelectOrdenEstado
 						idOrden={fila.idOrden}
 						ordenEstadoId={fila.ordenEstadoId}
@@ -57,21 +44,12 @@ const FilaEditarClientes = ({ fila, colIndex }) => {
 			) : null}
 			{colIndex['Nota'] ? (
 				<TableCell align="left">
-					{/* <Tippy
-						content={nota}
-						interactive={true}
-						theme={'light-border'}
-						placement={'left'}
-						onShow={() => {
-							handleOnShowDirecciones(fila.observaciones);
-						}}
-					>
-						{fila.observaciones ? (
-							<IconButton size="small">
-								{colIndex['Nota'].contenidoBoton}
-							</IconButton>
-						) : null}
-					</Tippy> */}
+					{fila.observaciones ? (
+						<BotonTippyHoverTabla
+							icono={colIndex['Nota'].contenidoBoton}
+							contenidoTippy={fila.observaciones}
+						/>
+					) : null}
 				</TableCell>
 			) : null}
 		</RowColorIntercalado>
