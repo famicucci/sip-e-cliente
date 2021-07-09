@@ -24,6 +24,7 @@ import {
 	TRAER_ORDENES,
 	FILAS_ORDENES_FILTRO,
 	TRAER_ESTADOS_ORDEN,
+	MODIFICAR_ESTADO_ORDEN,
 } from '../../types';
 import { detArrayPrecios, filtro, filBus } from '../../functions/filtros.js';
 import {
@@ -35,7 +36,10 @@ import {
 	prodCarr,
 	llenarCarr,
 } from '../../functions/ventas.js';
-import { crearFilasTablaEditarOrdenes } from '../../functions/editarordenes';
+import {
+	crearFilasTablaEditarOrdenes,
+	modEstadoOrden,
+} from '../../functions/editarordenes';
 
 const VentasReducer = (state, action) => {
 	switch (action.type) {
@@ -252,6 +256,7 @@ const VentasReducer = (state, action) => {
 			return {
 				...state,
 				filasOrdenes: r,
+				filas: r,
 			};
 		case FILAS_ORDENES_FILTRO:
 			r = filBus(state.filasOrdenes, action.payload);
@@ -263,6 +268,17 @@ const VentasReducer = (state, action) => {
 			return {
 				...state,
 				estadosOrden: action.payload,
+			};
+		case MODIFICAR_ESTADO_ORDEN:
+			const ordenModificadas = modEstadoOrden(
+				state.ordenes,
+				action.payload.orden,
+				action.payload.value,
+				action.payload.descripcion
+			);
+			return {
+				...state,
+				ordenes: ordenModificadas,
 			};
 		default:
 			return state;

@@ -14,4 +14,13 @@ const crearFilasTablaEditarOrdenes = (arrayFilas) => {
 	return filasTablaOrdenes;
 };
 
-export { crearFilasTablaEditarOrdenes };
+const modEstadoOrden = (ordenes, ordenId, value, descripcion) => {
+	const r = ordenes.map((x) =>
+		x.id === ordenId
+			? { ...x, OrdenEstado: { id: value, descripcion: descripcion } }
+			: x
+	);
+	return r;
+};
+
+export { crearFilasTablaEditarOrdenes, modEstadoOrden };

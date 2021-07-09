@@ -24,7 +24,11 @@ const FilaEditarClientes = ({ fila, colIndex }) => {
 			) : null}
 			{colIndex['Estado'] ? (
 				<TableCell align="center">
-					<SelectOrdenEstado valInit={fila.ordenEstadoId} />
+					{/* <p>
+						{fila.ordenEstadoId} {fila.ordenEstado}
+					</p> */}
+					{/* <p>{fila.ordenEstadoId}</p> */}
+					<SelectOrdenEstado idOrden={fila.idOrden} estado={fila.ordenEstado} />
 				</TableCell>
 			) : null}
 			{colIndex['Cliente'] ? (
@@ -50,7 +54,7 @@ const FilaEditarClientes = ({ fila, colIndex }) => {
 			) : null}
 			{colIndex['Nota'] ? (
 				<TableCell align="left">
-					<Tippy
+					{/* <Tippy
 						content={nota}
 						interactive={true}
 						theme={'light-border'}
@@ -64,7 +68,7 @@ const FilaEditarClientes = ({ fila, colIndex }) => {
 								{colIndex['Nota'].contenidoBoton}
 							</IconButton>
 						) : null}
-					</Tippy>
+					</Tippy> */}
 				</TableCell>
 			) : null}
 		</RowColorIntercalado>

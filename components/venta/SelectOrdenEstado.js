@@ -1,21 +1,25 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputBase from '@material-ui/core/InputBase';
 import VentasContext from '../../context/ventas/ventasContext';
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
-const BootstrapInput = withStyles((theme) => ({
-	input: {
-		borderRadius: 10,
-		position: 'relative',
-		backgroundColor: theme.palette.background.paper,
+const BootstrapButton = withStyles({
+	root: {
+		boxShadow: 'none',
+		color: 'red',
+		textTransform: 'none',
 		fontSize: 16,
-		fontWeight: 'bold',
-		padding: '7px 26px 7px 12px',
-		transition: theme.transitions.create(['border-color', 'box-shadow']),
-		// Use the system font instead of the default Roboto font.
+		padding: '6px 12px',
+		border: '1px solid',
+		borderRadius: '10px',
+		lineHeight: 1.5,
+		// backgroundColor: '#0063cc',
+		borderColor: 'red',
 		fontFamily: [
 			'-apple-system',
 			'BlinkMacSystemFont',
@@ -28,53 +32,94 @@ const BootstrapInput = withStyles((theme) => ({
 			'"Segoe UI Emoji"',
 			'"Segoe UI Symbol"',
 		].join(','),
+		'&:hover': {
+			backgroundColor: '#0069d9',
+			borderColor: '#0062cc',
+			boxShadow: 'none',
+		},
+		'&:active': {
+			boxShadow: 'none',
+			backgroundColor: '#0062cc',
+			borderColor: '#005cbf',
+		},
 		'&:focus': {
-			borderRadius: 10,
+			boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
 		},
 	},
-}))(InputBase);
+})(Button);
 
-const SelectOrdenEstado = ({ valInit }) => {
-	const { estadosOrden } = useContext(VentasContext);
+const useStyles = makeStyles((theme) => ({
+	margin: {
+		margin: theme.spacing(1),
+	},
+}));
 
-	const [estadoOrden, setEstadoOrden] = useState('');
+const SelectOrdenEstado = ({ idOrden, estado }) => {
+	const classes = useStyles();
 
-	useEffect(() => {
-		setEstadoOrden(valInit);
-	}, []);
+	const { estadosOrden, handleEstadoOrden } = useContext(VentasContext);
+
+	const [estadoOrden, setEstadoOrden] = useState(null);
+	const [anchorEl, setAnchorEl] = useState(null);
+
+	const handleClick = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
+
+	const handleClickItem = (orden, value, descripcion) => {
+		console.log(orden);
+		console.log(value);
+		console.log(descripcion);
+		handleEstadoOrden(orden, value, descripcion);
+		setEstadoOrden(value);
+		setAnchorEl(null);
+	};
+
+	const handleClose = (event) => {
+		setAnchorEl(null);
+	};
 
 	const handleColor = (estados, value) => {
 		const r = estados.find((x) => x.id === value);
 		return r ? r.color : null;
 	};
 
-	const handleChange = (event) => {
-		setEstadoOrden(event.target.value);
-	};
-
 	return (
-		<FormControl>
-			<Select
-				value={estadoOrden}
-				onChange={handleChange}
-				input={
-					<BootstrapInput
-						style={{
-							border: `1px solid ${handleColor(estadosOrden, estadoOrden)}`,
-							borderRadius: 10,
-						}}
-					/>
-				}
+		<div>
+			<BootstrapButton
+				variant="outlined"
+				color="primary"
+				disableRipple
+				className={classes.margin}
+				onClick={handleClick}
+				style={{
+					border: `1px solid ${handleColor(estadosOrden, estadoOrden)}`,
+					borderRadius: 10,
+				}}
+			>
+				{estado}
+			</BootstrapButton>
+			<Menu
+				id="simple-menu"
+				anchorEl={anchorEl}
+				keepMounted
+				open={Boolean(anchorEl)}
+				onClose={handleClose}
 			>
 				{estadosOrden.map((x) => (
-					<MenuItem value={x.id}>
+					<MenuItem
+						value={x.id}
+						onClick={() => {
+							handleClickItem(idOrden, x.id, x.descripcion);
+						}}
+					>
 						<span style={{ color: `${x.color}`, fontWeight: 'bold' }}>
 							{x.descripcion}
 						</span>
 					</MenuItem>
 				))}
-			</Select>
-		</FormControl>
+			</Menu>
+		</div>
 	);
 };
 
