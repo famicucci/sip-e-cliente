@@ -276,9 +276,11 @@ const VentasReducer = (state, action) => {
 				action.payload.value,
 				action.payload.descripcion
 			);
+			console.log(action.payload.r);
 			return {
 				...state,
 				ordenes: ordenModificadas,
+				mensaje: action.payload.r,
 			};
 		default:
 			return state;

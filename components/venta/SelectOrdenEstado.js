@@ -1,25 +1,21 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import InputBase from '@material-ui/core/InputBase';
 import VentasContext from '../../context/ventas/ventasContext';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import AlertaContext from '../../context/alertas/alertaContext';
+import Alerta from '../Alerta';
 
 const BootstrapButton = withStyles({
 	root: {
 		boxShadow: 'none',
-		color: 'red',
 		textTransform: 'none',
 		fontSize: 16,
 		padding: '6px 12px',
 		border: '1px solid',
 		borderRadius: '10px',
 		lineHeight: 1.5,
-		// backgroundColor: '#0063cc',
-		borderColor: 'red',
 		fontFamily: [
 			'-apple-system',
 			'BlinkMacSystemFont',
@@ -32,56 +28,54 @@ const BootstrapButton = withStyles({
 			'"Segoe UI Emoji"',
 			'"Segoe UI Symbol"',
 		].join(','),
-		'&:hover': {
-			backgroundColor: '#0069d9',
-			borderColor: '#0062cc',
-			boxShadow: 'none',
-		},
-		'&:active': {
-			boxShadow: 'none',
-			backgroundColor: '#0062cc',
-			borderColor: '#005cbf',
-		},
+	},
+})(Button);
+
+const useStyles = makeStyles(() => ({
+	boton: {
 		'&:focus': {
 			boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
 		},
 	},
-})(Button);
-
-const useStyles = makeStyles((theme) => ({
-	margin: {
-		margin: theme.spacing(1),
-	},
 }));
 
-const SelectOrdenEstado = ({ idOrden, estado }) => {
+const SelectOrdenEstado = ({ idOrden, ordenEstadoId }) => {
 	const classes = useStyles();
 
-	const { estadosOrden, handleEstadoOrden } = useContext(VentasContext);
+	const { estadosOrden, handleEstadoOrden, mensaje } =
+		useContext(VentasContext);
+	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 
-	const [estadoOrden, setEstadoOrden] = useState(null);
+	const [ordenEstadoDescripcion, setOrdenEstadoDescripcion] = useState(null);
+	const [color, setColor] = useState(null);
 	const [anchorEl, setAnchorEl] = useState(null);
 
-	const handleClick = (event) => {
+	useEffect(() => {
+		const modEstadoDescripcionColor = (estados, ordenEstadoId) => {
+			const r = estados.find((x) => x.id === ordenEstadoId);
+			setOrdenEstadoDescripcion(r ? r.descripcion : null);
+			setColor(r ? r.color : null);
+		};
+		modEstadoDescripcionColor(estadosOrden, ordenEstadoId);
+	}, [estadosOrden, ordenEstadoId]);
+
+	useEffect(() => {
+		if (mensaje) {
+			mostrarAlerta(mensaje.msg, mensaje.categoria);
+		}
+	}, [mensaje]);
+
+	const handleClickBoton = (event) => {
 		setAnchorEl(event.currentTarget);
 	};
 
 	const handleClickItem = (orden, value, descripcion) => {
-		console.log(orden);
-		console.log(value);
-		console.log(descripcion);
 		handleEstadoOrden(orden, value, descripcion);
-		setEstadoOrden(value);
 		setAnchorEl(null);
 	};
 
 	const handleClose = (event) => {
 		setAnchorEl(null);
-	};
-
-	const handleColor = (estados, value) => {
-		const r = estados.find((x) => x.id === value);
-		return r ? r.color : null;
 	};
 
 	return (
@@ -90,14 +84,14 @@ const SelectOrdenEstado = ({ idOrden, estado }) => {
 				variant="outlined"
 				color="primary"
 				disableRipple
-				className={classes.margin}
-				onClick={handleClick}
+				className={classes.boton}
+				onClick={handleClickBoton}
 				style={{
-					border: `1px solid ${handleColor(estadosOrden, estadoOrden)}`,
-					borderRadius: 10,
+					border: `1px solid ${color}`,
+					color: `${color}`,
 				}}
 			>
-				{estado}
+				{ordenEstadoDescripcion}
 			</BootstrapButton>
 			<Menu
 				id="simple-menu"
@@ -119,6 +113,7 @@ const SelectOrdenEstado = ({ idOrden, estado }) => {
 					</MenuItem>
 				))}
 			</Menu>
+			{alerta !== null ? <Alerta /> : null}
 		</div>
 	);
 };

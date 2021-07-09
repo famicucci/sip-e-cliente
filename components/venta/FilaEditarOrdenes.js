@@ -28,7 +28,10 @@ const FilaEditarClientes = ({ fila, colIndex }) => {
 						{fila.ordenEstadoId} {fila.ordenEstado}
 					</p> */}
 					{/* <p>{fila.ordenEstadoId}</p> */}
-					<SelectOrdenEstado idOrden={fila.idOrden} estado={fila.ordenEstado} />
+					<SelectOrdenEstado
+						idOrden={fila.idOrden}
+						ordenEstadoId={fila.ordenEstadoId}
+					/>
 				</TableCell>
 			) : null}
 			{colIndex['Cliente'] ? (
