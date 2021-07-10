@@ -1,4 +1,5 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
 import moment from 'moment';
 import 'tippy.js/dist/tippy.css';
@@ -7,7 +8,19 @@ import SelectOrdenEstado from './SelectOrdenEstado';
 import RowColorIntercalado from '../generales/RowColorIntercalado';
 import BotonTippyHoverTabla from '../generales/BotonTippyHoverTabla';
 
+const useStyles = makeStyles((theme) => ({
+	estadoPago: {
+		color: (props) =>
+			props.estadoPago === 'Pago'
+				? theme.palette.success.main
+				: theme.palette.error.main,
+		fontWeight: theme.typography.fontWeightMedium,
+	},
+}));
+
 const FilaEditarClientes = ({ fila, colIndex }) => {
+	const classes = useStyles(fila);
+
 	return (
 		<RowColorIntercalado>
 			{colIndex['Nº'] ? (
@@ -36,7 +49,9 @@ const FilaEditarClientes = ({ fila, colIndex }) => {
 			) : null}
 			{colIndex['Estado Pago'] ? (
 				<TableCell align="center">
-					{fila.estadoPago ? fila.estadoPago : '-'}
+					<span className={classes.estadoPago}>
+						{fila.estadoPago ? fila.estadoPago : '-'}
+					</span>
 				</TableCell>
 			) : null}
 			{colIndex['M. Envío'] ? (
