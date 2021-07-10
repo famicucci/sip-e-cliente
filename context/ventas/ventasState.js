@@ -30,6 +30,7 @@ import {
 	FILAS_ORDENES_FILTRO,
 	TRAER_ESTADOS_ORDEN,
 	MODIFICAR_ESTADO_ORDEN,
+	BORRAR_MENSAJE,
 } from '../../types';
 
 const VentasState = (props) => {
@@ -361,6 +362,10 @@ const VentasState = (props) => {
 		} catch (error) {
 			console.log(error);
 		}
+
+		dispatch({
+			type: BORRAR_MENSAJE,
+		});
 	};
 
 	return (

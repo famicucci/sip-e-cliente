@@ -25,6 +25,7 @@ import {
 	FILAS_ORDENES_FILTRO,
 	TRAER_ESTADOS_ORDEN,
 	MODIFICAR_ESTADO_ORDEN,
+	BORRAR_MENSAJE,
 } from '../../types';
 import { detArrayPrecios, filtro, filBus } from '../../functions/filtros.js';
 import {
@@ -281,6 +282,11 @@ const VentasReducer = (state, action) => {
 				...state,
 				ordenes: ordenModificadas,
 				mensaje: action.payload.r,
+			};
+		case BORRAR_MENSAJE:
+			return {
+				...state,
+				mensaje: null,
 			};
 		default:
 			return state;
