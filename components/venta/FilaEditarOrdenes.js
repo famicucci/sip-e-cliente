@@ -8,6 +8,7 @@ import SelectOrdenEstado from './SelectOrdenEstado';
 import RowColorIntercalado from '../generales/RowColorIntercalado';
 import BotonTippyHoverTabla from '../generales/BotonTippyHoverTabla';
 import BotonFilaTabla from '../tablas/componentes/BotonFilaTabla';
+import BotonCustonFilaTabla from '../generales/BotonCustomFilaTabla';
 
 const useStyles = makeStyles((theme) => ({
 	estadoPago: {
@@ -47,7 +48,9 @@ const FilaEditarClientes = ({ fila, colIndex }) => {
 			) : null}
 			{colIndex['Nº Fact.'] ? (
 				<TableCell align="center">
-					{fila.idFactura ? fila.idFactura : '-'}
+					<BotonCustonFilaTabla>
+						{fila.idFactura ? fila.idFactura : 'Crear Factura'}
+					</BotonCustonFilaTabla>
 				</TableCell>
 			) : null}
 			{colIndex['Estado Pago'] ? (
