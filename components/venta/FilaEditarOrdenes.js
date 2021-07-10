@@ -7,6 +7,7 @@ import 'tippy.js/themes/light-border.css';
 import SelectOrdenEstado from './SelectOrdenEstado';
 import RowColorIntercalado from '../generales/RowColorIntercalado';
 import BotonTippyHoverTabla from '../generales/BotonTippyHoverTabla';
+import BotonFilaTabla from '../tablas/componentes/BotonFilaTabla';
 
 const useStyles = makeStyles((theme) => ({
 	estadoPago: {
@@ -24,7 +25,9 @@ const FilaEditarClientes = ({ fila, colIndex }) => {
 	return (
 		<RowColorIntercalado>
 			{colIndex['Nº'] ? (
-				<TableCell align="center">{fila.idOrden}</TableCell>
+				<TableCell align="center">
+					<BotonFilaTabla contenido={fila.idOrden} onClick={null} />
+				</TableCell>
 			) : null}
 			{colIndex['Estado'] ? (
 				<TableCell align="center">
