@@ -9,6 +9,7 @@ import RowColorIntercalado from '../generales/RowColorIntercalado';
 import BotonTippyHoverTabla from '../generales/BotonTippyHoverTabla';
 import BotonFilaTabla from '../tablas/componentes/BotonFilaTabla';
 import BotonCustonFilaTabla from '../generales/BotonCustomFilaTabla';
+import BotonSinFormato from '../generales/BotonSinFormato';
 
 const useStyles = makeStyles((theme) => ({
 	estadoPago: {
@@ -39,7 +40,11 @@ const FilaEditarClientes = ({ fila, colIndex }) => {
 				</TableCell>
 			) : null}
 			{colIndex['Cliente'] ? (
-				<TableCell align="center">{`${fila.nombreCliente} ${fila.apellidoCliente}`}</TableCell>
+				<TableCell align="center">
+					<BotonSinFormato>
+						{`${fila.nombreCliente} ${fila.apellidoCliente}`}
+					</BotonSinFormato>
+				</TableCell>
 			) : null}
 			{colIndex['Fecha'] ? (
 				<TableCell align="center">

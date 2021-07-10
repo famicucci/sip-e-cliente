@@ -14,7 +14,7 @@ const BootstrapButton = withStyles({
 		fontSize: 16,
 		padding: '6px 12px',
 		border: '1px solid',
-		borderRadius: '10px',
+		borderRadius: '5px',
 		lineHeight: 1.5,
 		fontFamily: [
 			'-apple-system',
