@@ -2,6 +2,7 @@ import {
 	PRODUCTOS_VENTAS,
 	FILAS_VENTAS,
 	FILAS_ORDENES,
+	FILA_ACTIVA_ORDEN,
 	PTO_STOCK_VENTAS,
 	PTOS_STOCK_VENTAS,
 	LISTA_PRECIO_VENTAS,
@@ -283,6 +284,13 @@ const VentasReducer = (state, action) => {
 				ordenes: ordenModificadas,
 				mensaje: action.payload.r,
 			};
+		case FILA_ACTIVA_ORDEN:
+			r = state.ordenes.find((x) => x.id === action.payload);
+			return {
+				...state,
+				filaActiva: r,
+			};
+
 		case BORRAR_MENSAJE:
 			return {
 				...state,

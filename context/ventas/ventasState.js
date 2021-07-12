@@ -7,6 +7,7 @@ import {
 	PRODUCTOS_VENTAS,
 	FILAS_VENTAS,
 	FILAS_ORDENES,
+	FILA_ACTIVA_ORDEN,
 	PTO_STOCK_VENTAS,
 	PTOS_STOCK_VENTAS,
 	LISTA_PRECIO_VENTAS,
@@ -40,6 +41,7 @@ const VentasState = (props) => {
 		ordenes: [],
 		filas: [],
 		filasOrdenes: [],
+		filaActiva: null,
 		ptoStock: { descripcion: 'Showroom', id: 1 },
 		ptoVenta: 1,
 		listaPrecio: { descripcion: 'Lista Minorista', id: 1 },
@@ -151,6 +153,13 @@ const VentasState = (props) => {
 	const handleFilasOrdenes = () => {
 		dispatch({
 			type: FILAS_ORDENES,
+		});
+	};
+
+	const handleFilaActivaOrden = (id) => {
+		dispatch({
+			type: FILA_ACTIVA_ORDEN,
+			payload: id,
 		});
 	};
 
@@ -376,6 +385,7 @@ const VentasState = (props) => {
 				ordenes: state.ordenes,
 				filas: state.filas,
 				filasOrdenes: state.filasOrdenes,
+				filaActiva: state.filaActiva,
 				ptoStock: state.ptoStock,
 				listaPrecio: state.listaPrecio,
 				valorRadio: state.valorRadio,
@@ -418,6 +428,7 @@ const VentasState = (props) => {
 				traerOrdenes,
 				traerEstadosOrden,
 				handleEstadoOrden,
+				handleFilaActivaOrden,
 			}}
 		>
 			{props.children}

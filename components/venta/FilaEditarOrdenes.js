@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
 import moment from 'moment';
@@ -10,6 +10,7 @@ import BotonTippyHoverTabla from '../generales/BotonTippyHoverTabla';
 import BotonFilaTabla from '../tablas/componentes/BotonFilaTabla';
 import BotonCustonFilaTabla from '../generales/BotonCustomFilaTabla';
 import BotonSinFormato from '../generales/BotonSinFormato';
+import VentasContext from '../../context/ventas/ventasContext';
 
 const useStyles = makeStyles((theme) => ({
 	estadoPago: {
@@ -24,11 +25,18 @@ const useStyles = makeStyles((theme) => ({
 const FilaEditarClientes = ({ fila, colIndex }) => {
 	const classes = useStyles(fila);
 
+	const { handleFilaActivaOrden } = useContext(VentasContext);
+
 	return (
 		<RowColorIntercalado>
 			{colIndex['Nº'] ? (
 				<TableCell align="center">
-					<BotonFilaTabla contenido={fila.idOrden} onClick={null} />
+					<BotonFilaTabla
+						contenido={fila.idOrden}
+						onClick={() => {
+							handleFilaActivaOrden(fila.idOrden);
+						}}
+					/>
 				</TableCell>
 			) : null}
 			{colIndex['Estado'] ? (
