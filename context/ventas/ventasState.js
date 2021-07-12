@@ -32,6 +32,8 @@ import {
 	TRAER_ESTADOS_ORDEN,
 	MODIFICAR_ESTADO_ORDEN,
 	BORRAR_MENSAJE,
+	MODAL_DETALLE_ORDEN,
+	MODAL_CLOSE,
 } from '../../types';
 
 const VentasState = (props) => {
@@ -63,6 +65,7 @@ const VentasState = (props) => {
 		nota: null,
 		ordenEcommerce: null,
 		modo: 'manual',
+		openModalDetalleOrden: false,
 		cargando: false,
 		mensaje: null,
 	};
@@ -377,6 +380,18 @@ const VentasState = (props) => {
 		});
 	};
 
+	const handleOpenModalDetalleOrden = () => {
+		dispatch({
+			type: MODAL_DETALLE_ORDEN,
+		});
+	};
+
+	const handleCloseModal = () => {
+		dispatch({
+			type: MODAL_CLOSE,
+		});
+	};
+
 	return (
 		<VentasContext.Provider
 			value={{
@@ -402,6 +417,7 @@ const VentasState = (props) => {
 				tiposEnvio: state.tiposEnvio,
 				estadosOrden: state.estadosOrden,
 				cargando: state.cargando,
+				openModalDetalleOrden: state.openModalDetalleOrden,
 				handlePtoStock,
 				handleListaPrecio,
 				handleValorRadio,
@@ -429,6 +445,8 @@ const VentasState = (props) => {
 				traerEstadosOrden,
 				handleEstadoOrden,
 				handleFilaActivaOrden,
+				handleOpenModalDetalleOrden,
+				handleCloseModal,
 			}}
 		>
 			{props.children}

@@ -27,6 +27,8 @@ import {
 	TRAER_ESTADOS_ORDEN,
 	MODIFICAR_ESTADO_ORDEN,
 	BORRAR_MENSAJE,
+	MODAL_DETALLE_ORDEN,
+	MODAL_CLOSE,
 } from '../../types';
 import { detArrayPrecios, filtro, filBus } from '../../functions/filtros.js';
 import {
@@ -296,6 +298,17 @@ const VentasReducer = (state, action) => {
 				...state,
 				mensaje: null,
 			};
+		case MODAL_DETALLE_ORDEN:
+			return {
+				...state,
+				openModalDetalleOrden: true,
+			};
+		case MODAL_CLOSE:
+			return {
+				...state,
+				openModalDetalleOrden: false,
+			};
+
 		default:
 			return state;
 	}

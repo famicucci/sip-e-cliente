@@ -25,7 +25,8 @@ const useStyles = makeStyles((theme) => ({
 const FilaEditarClientes = ({ fila, colIndex }) => {
 	const classes = useStyles(fila);
 
-	const { handleFilaActivaOrden } = useContext(VentasContext);
+	const { handleFilaActivaOrden, handleOpenModalDetalleOrden } =
+		useContext(VentasContext);
 
 	return (
 		<RowColorIntercalado>
@@ -35,6 +36,7 @@ const FilaEditarClientes = ({ fila, colIndex }) => {
 						contenido={fila.idOrden}
 						onClick={() => {
 							handleFilaActivaOrden(fila.idOrden);
+							handleOpenModalDetalleOrden();
 						}}
 					/>
 				</TableCell>

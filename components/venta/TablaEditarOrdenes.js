@@ -12,6 +12,7 @@ import FacsOrdsCliente from '../cliente/FacsOrdsCliente';
 import VentasContext from '../../context/ventas/ventasContext';
 import FilaEditarOrdenes from '../venta/FilaEditarOrdenes';
 import NoteOutlinedIcon from '@material-ui/icons/NoteOutlined';
+import DetalleOrden from './DetalleOrden';
 
 const useStyles = makeStyles({
 	table: {
@@ -99,6 +100,7 @@ const TablaEditarOrdenes = () => {
 				{!cargando ? <FooterTabla /> : null}
 			</Table>
 			<FacsOrdsCliente />
+			<DetalleOrden />
 		</TableContainer>
 	);
 };
