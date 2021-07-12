@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ModalScroll from '../generales/ModalScroll';
 import { Typography, Divider } from '@material-ui/core';
 import VentasContext from '../../context/ventas/ventasContext';
 import Productos from './Productos';
+import Envio from './Envio';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -29,10 +30,16 @@ const useStyles = makeStyles((theme) => ({
 const DetalleOrden = () => {
 	const classes = useStyles();
 
-	const { openModalDetalleOrden, filaActiva, handleCloseModal } =
-		useContext(VentasContext);
+	const {
+		openModalDetalleOrden,
+		filaActiva,
+		handleCloseModal,
+		traerTiposEnvio,
+	} = useContext(VentasContext);
 
-	console.log(filaActiva);
+	useEffect(() => {
+		traerTiposEnvio();
+	}, []);
 
 	if (!openModalDetalleOrden) return null;
 
@@ -49,10 +56,11 @@ const DetalleOrden = () => {
 				// onSubmit={onSubmit}
 			>
 				<Typography variant="h5" align="center">
-					Envío
+					Orden
 				</Typography>
 				<Divider className={classes.divider} variant="fullWidth" />
 				<Productos productos={filaActiva.detalleOrden} />
+				<Envio />
 			</form>
 		</ModalScroll>
 	);
