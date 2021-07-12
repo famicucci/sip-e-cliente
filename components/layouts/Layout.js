@@ -8,6 +8,8 @@ import AuthContext from '../../context/autenticacion/authContext';
 import PreciosState from '../../context/precios/preciosState';
 import StockState from '../../context/stock/stockState';
 import AlertaState from '../../context/alertas/alertaState';
+import EnvioProvider from '../../context/EnvioContext';
+import VentasContext from '../../context/ventas/ventasContext';
 
 import Navbar from './Navbar';
 import Cajon from './Cajon';
@@ -49,6 +51,7 @@ const Layout = (props) => {
 
 	const authContext = useContext(AuthContext);
 	const { usuarioAutenticado } = authContext;
+	const { envio } = useContext(VentasContext);
 
 	useEffect(() => {
 		usuarioAutenticado();
@@ -74,26 +77,28 @@ const Layout = (props) => {
 				<AlertaState>
 					<PreciosState>
 						<StockState>
-							<div className={classes.root}>
-								<Navbar toggleMenu={toggleMenu} abrir={abrir} />
-								<Hidden>
-									<Cajon
-										variant="persistent"
-										open={abrir}
-										onClose={() => {
-											toggleMenu();
-										}}
-									/>
-								</Hidden>
-								<main
-									className={clsx(classes.content, {
-										[classes.contentShift]: abrir,
-									})}
-								>
-									<div className={classes.drawerHeader} />
-									<div>{props.children}</div>
-								</main>
-							</div>
+							<EnvioProvider envio={envio}>
+								<div className={classes.root}>
+									<Navbar toggleMenu={toggleMenu} abrir={abrir} />
+									<Hidden>
+										<Cajon
+											variant="persistent"
+											open={abrir}
+											onClose={() => {
+												toggleMenu();
+											}}
+										/>
+									</Hidden>
+									<main
+										className={clsx(classes.content, {
+											[classes.contentShift]: abrir,
+										})}
+									>
+										<div className={classes.drawerHeader} />
+										<div>{props.children}</div>
+									</main>
+								</div>
+							</EnvioProvider>
 						</StockState>
 					</PreciosState>
 				</AlertaState>

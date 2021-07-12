@@ -11,22 +11,9 @@ import { BotoneraCarrContext } from '../../context/BotoneraCarrContext';
 import BotonFilaTabla from '../tablas/componentes/BotonFilaTabla';
 import FlipCameraAndroidIcon from '@material-ui/icons/FlipCameraAndroid';
 import InputBordeInferior from '../generales/inputs/InputBordeInferior';
+import { EnvioContext } from '../../context/EnvioContext';
 
 const useStyles = makeStyles((theme) => ({
-	root: {
-		'& .MuiTextField-root': {
-			marginBottom: theme.spacing(1),
-			width: '100%',
-		},
-	},
-	divider: { marginTop: theme.spacing(1), marginBottom: theme.spacing(1) },
-	botonAceptar: {
-		float: 'right',
-		width: '100%',
-	},
-	footer: {
-		marginLeft: theme.spacing(2),
-	},
 	boton: {
 		width: '100%',
 		height: '100%',

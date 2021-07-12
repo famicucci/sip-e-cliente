@@ -7,6 +7,7 @@ import VentasContext from '../../context/ventas/ventasContext';
 import AlertaContext from '../../context/alertas/alertaContext';
 import { BotoneraCarrContext } from '../../context/BotoneraCarrContext';
 import FormularioEnvio from './FormularioEnvio';
+import { EnvioContext } from '../../context/EnvioContext';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -22,10 +23,6 @@ const useStyles = makeStyles((theme) => ({
 	},
 	footer: {
 		marginLeft: theme.spacing(2),
-	},
-	boton: {
-		width: '100%',
-		height: '100%',
 	},
 }));
 
@@ -44,36 +41,18 @@ const AgregarEnvioCarr = () => {
 	const { envio, handleEnvio } = useContext(VentasContext);
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 	const { handleClose } = useContext(BotoneraCarrContext);
-
-	const [modoDirecc, setModoDirecc] = useState(envio.modoDirecc);
-
-	let initSelectDireccion;
-	if (!envio.select.id) {
-		initSelectDireccion = cliente.direcciones[0].id;
-	} else if (envio.select.id) {
-		initSelectDireccion = envio.select.id;
-	}
-	const [valSelectDireccion, setValSelectDireccion] =
-		useState(initSelectDireccion);
-	const [valInputDireccion, setValInputDireccion] = useState(envio.input);
-	const [valSelectTipo, setValSelectTipo] = useState(envio.tipo);
-	const [valInputCosto, setValInputCosto] = useState(envio.costo);
-
-	const handleSelectDireccion = (name, val) => {
-		setValSelectDireccion(val);
-	};
-
-	const handleInputDireccion = (name, val) => {
-		setValInputDireccion(val);
-	};
-
-	const handleSelectTipo = (name, val) => {
-		setValSelectTipo(val);
-	};
-
-	const handleInputCosto = (name, val) => {
-		setValInputCosto(val);
-	};
+	const {
+		modoDirecc,
+		setModoDirecc,
+		valSelectDireccion,
+		valInputDireccion,
+		valSelectTipo,
+		valInputCosto,
+		handleSelectDireccion,
+		handleInputDireccion,
+		handleSelectTipo,
+		handleInputCosto,
+	} = useContext(EnvioContext);
 
 	const onSubmit = (e) => {
 		e.preventDefault();
