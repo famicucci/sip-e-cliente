@@ -1,10 +1,7 @@
-import React, { createContext, useState } from 'react';
+import React, { useState } from 'react';
 
-// crear context
-export const EnvioContext = createContext();
-
-const EnvioProvider = (props) => {
-	const envio = props.envio;
+const useEnvio = (props) => {
+	const envio = props;
 	const cliente = {
 		nombre: 'julieta',
 		apellido: 'almis',
@@ -14,14 +11,14 @@ const EnvioProvider = (props) => {
 		],
 	};
 
-	const [modoDirecc, setModoDirecc] = useState(envio.modoDirecc);
-
 	let initSelectDireccion;
 	if (!envio.select.id) {
 		initSelectDireccion = cliente.direcciones[0].id;
 	} else if (envio.select.id) {
 		initSelectDireccion = envio.select.id;
 	}
+
+	const [modoDirecc, setModoDirecc] = useState(envio.modoDirecc);
 	const [valSelectDireccion, setValSelectDireccion] =
 		useState(initSelectDireccion);
 	const [valInputDireccion, setValInputDireccion] = useState(envio.input);
@@ -44,24 +41,18 @@ const EnvioProvider = (props) => {
 		setValInputCosto(val);
 	};
 
-	return (
-		<EnvioContext.Provider
-			value={{
-				modoDirecc,
-				valSelectDireccion,
-				valInputDireccion,
-				valSelectTipo,
-				valInputCosto,
-				setModoDirecc,
-				handleSelectDireccion,
-				handleInputDireccion,
-				handleSelectTipo,
-				handleInputCosto,
-			}}
-		>
-			{props.children}
-		</EnvioContext.Provider>
-	);
+	return [
+		modoDirecc,
+		valSelectDireccion,
+		valInputDireccion,
+		valSelectTipo,
+		valInputCosto,
+		setModoDirecc,
+		handleSelectDireccion,
+		handleInputDireccion,
+		handleSelectTipo,
+		handleInputCosto,
+	];
 };
 
-export default EnvioProvider;
+export default useEnvio;

@@ -1,17 +1,12 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography, Divider, Box } from '@material-ui/core';
+import { Grid, Box } from '@material-ui/core';
 import SelectBordeInferior from '../generales/inputs/SelectBordeInferior';
 import InputNumberBordeInferior from '../generales/inputs/InputNumberBordeInferior';
-import BotonSuccess from '../generales/botones/BontonSuccess';
-import Alerta from '../Alerta';
 import VentasContext from '../../context/ventas/ventasContext';
-import AlertaContext from '../../context/alertas/alertaContext';
-import { BotoneraCarrContext } from '../../context/BotoneraCarrContext';
 import BotonFilaTabla from '../tablas/componentes/BotonFilaTabla';
 import FlipCameraAndroidIcon from '@material-ui/icons/FlipCameraAndroid';
 import InputBordeInferior from '../generales/inputs/InputBordeInferior';
-import { EnvioContext } from '../../context/EnvioContext';
 
 const useStyles = makeStyles((theme) => ({
 	boton: {
@@ -25,10 +20,6 @@ const selectDirecc = {
 	name: 'direccion',
 	label: 'Dirección',
 	ancho: 11,
-	// data: [
-	// 	{ id: 1, descripcion: 'Nora Lange 962, VGB, Córdoba, Argentina' },
-	// 	{ id: 2, descripcion: 'Av. Julio a Roca 147, VGB, Córdoba, Argentina' }, // esto va a estar en el state
-	// ],
 	valDefault: 10,
 };
 
@@ -64,7 +55,6 @@ const FormularioEnvio = ({
 
 	const { tiposEnvio } = useContext(VentasContext);
 
-	// necesito modoDirecc, selectDirecc, cliente, valInputDireccion, handleInputDireccion
 	const handleSwitchDireccion = () => {
 		if (modoDirecc === 'select') {
 			setModoDirecc('input');

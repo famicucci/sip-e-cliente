@@ -7,7 +7,7 @@ import VentasContext from '../../context/ventas/ventasContext';
 import AlertaContext from '../../context/alertas/alertaContext';
 import { BotoneraCarrContext } from '../../context/BotoneraCarrContext';
 import FormularioEnvio from './FormularioEnvio';
-import { EnvioContext } from '../../context/EnvioContext';
+import useEnvio from '../../hooks/hookEnvio';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -41,18 +41,18 @@ const AgregarEnvioCarr = () => {
 	const { envio, handleEnvio } = useContext(VentasContext);
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 	const { handleClose } = useContext(BotoneraCarrContext);
-	const {
+	const [
 		modoDirecc,
-		setModoDirecc,
 		valSelectDireccion,
 		valInputDireccion,
 		valSelectTipo,
 		valInputCosto,
+		setModoDirecc,
 		handleSelectDireccion,
 		handleInputDireccion,
 		handleSelectTipo,
 		handleInputCosto,
-	} = useContext(EnvioContext);
+	] = useEnvio(envio);
 
 	const onSubmit = (e) => {
 		e.preventDefault();
