@@ -20,11 +20,12 @@ const useStyles = makeStyles((theme) => ({
 		boxShadow: theme.shadows[5],
 		maxWidth: 800,
 		borderRadius: '10px',
+		padding: (props) => (props.padding ? props.padding : null),
 	},
 }));
 
 const ModalScroll = (props) => {
-	const classes = useStyles();
+	const classes = useStyles(props);
 
 	return (
 		<Modal
