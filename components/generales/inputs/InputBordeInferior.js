@@ -31,7 +31,7 @@ const InputBordeInferior = ({
 				label={label}
 				placeholder={placeholder}
 				fullWidth
-				margin="normal"
+				// margin="normal"
 				InputLabelProps={{
 					shrink: true,
 				}}

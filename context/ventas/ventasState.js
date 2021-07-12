@@ -59,7 +59,7 @@ const VentasState = (props) => {
 			costo: 0,
 		},
 		ptosStock: null,
-		ptosVenta: 1,
+		ptosVenta: [],
 		tiposEnvio: null,
 		estadosOrden: [],
 		nota: null,

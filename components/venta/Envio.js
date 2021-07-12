@@ -42,13 +42,13 @@ const Envio = () => {
 	] = useEnvio(envio);
 
 	return (
-		<Accordion defaultExpanded="true">
+		<Accordion>
 			<AccordionSummary
 				expandIcon={<ExpandMoreIcon />}
 				aria-controls="panel1a-content"
 				id="panel1a-header"
 			>
-				<Typography className={classes.heading}>Envio</Typography>
+				<Typography className={classes.heading}>Envío</Typography>
 			</AccordionSummary>
 			<AccordionDetails>
 				<FormularioEnvio

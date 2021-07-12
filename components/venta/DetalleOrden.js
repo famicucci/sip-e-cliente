@@ -5,6 +5,7 @@ import { Typography, Divider } from '@material-ui/core';
 import VentasContext from '../../context/ventas/ventasContext';
 import Productos from './Productos';
 import Envio from './Envio';
+import MasInformacion from './MasInformacion';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -61,6 +62,7 @@ const DetalleOrden = () => {
 				<Divider className={classes.divider} variant="fullWidth" />
 				<Productos productos={filaActiva.detalleOrden} />
 				<Envio />
+				<MasInformacion />
 			</form>
 		</ModalScroll>
 	);
