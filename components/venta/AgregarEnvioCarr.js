@@ -1,16 +1,12 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography, Divider, Box } from '@material-ui/core';
-import SelectBordeInferior from '../generales/inputs/SelectBordeInferior';
-import InputNumberBordeInferior from '../generales/inputs/InputNumberBordeInferior';
+import { Typography, Divider, Box } from '@material-ui/core';
 import BotonSuccess from '../generales/botones/BontonSuccess';
 import Alerta from '../Alerta';
 import VentasContext from '../../context/ventas/ventasContext';
 import AlertaContext from '../../context/alertas/alertaContext';
 import { BotoneraCarrContext } from '../../context/BotoneraCarrContext';
-import BotonFilaTabla from '../tablas/componentes/BotonFilaTabla';
-import FlipCameraAndroidIcon from '@material-ui/icons/FlipCameraAndroid';
-import InputBordeInferior from '../generales/inputs/InputBordeInferior';
+import FormularioEnvio from './FormularioEnvio';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -33,18 +29,6 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-// label, ancho, valores, descripcionValores
-const selectDirecc = {
-	name: 'direccion',
-	label: 'Dirección',
-	ancho: 11,
-	// data: [
-	// 	{ id: 1, descripcion: 'Nora Lange 962, VGB, Córdoba, Argentina' },
-	// 	{ id: 2, descripcion: 'Av. Julio a Roca 147, VGB, Córdoba, Argentina' }, // esto va a estar en el state
-	// ],
-	valDefault: 10,
-};
-
 const cliente = {
 	nombre: 'julieta',
 	apellido: 'almis',
@@ -54,25 +38,10 @@ const cliente = {
 	],
 };
 
-const selectTipo = {
-	name: 'tipo',
-	label: 'Tipo',
-	ancho: 6,
-	valDefault: 1,
-};
-
-const inputCosto = {
-	name: 'costo',
-	label: 'Costo ($)',
-	placeholder: 'Costo',
-	ancho: 6,
-	required: true,
-};
-
 const AgregarEnvioCarr = () => {
 	const classes = useStyles();
 
-	const { envio, handleEnvio, tiposEnvio } = useContext(VentasContext);
+	const { envio, handleEnvio } = useContext(VentasContext);
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 	const { handleClose } = useContext(BotoneraCarrContext);
 
@@ -96,14 +65,6 @@ const AgregarEnvioCarr = () => {
 
 	const handleInputDireccion = (name, val) => {
 		setValInputDireccion(val);
-	};
-
-	const handleSwitchDireccion = () => {
-		if (modoDirecc === 'select') {
-			setModoDirecc('input');
-		} else if (modoDirecc === 'input') {
-			setModoDirecc('select');
-		}
 	};
 
 	const handleSelectTipo = (name, val) => {
@@ -167,63 +128,19 @@ const AgregarEnvioCarr = () => {
 				Envío
 			</Typography>
 			<Divider className={classes.divider} variant="fullWidth" />
-			<Grid container spacing={2}>
-				{modoDirecc === 'select' ? (
-					<SelectBordeInferior
-						key={1}
-						name={selectDirecc.name}
-						label={selectDirecc.label}
-						ancho={selectDirecc.ancho}
-						data={cliente.direcciones}
-						valInit={valSelectDireccion}
-						funcModState={handleSelectDireccion}
-					/>
-				) : (
-					<InputBordeInferior
-						label="Dirección"
-						name="direccion"
-						placeholder="Dirección"
-						ancho={11}
-						valInit={valInputDireccion}
-						funcModState={handleInputDireccion}
-					/>
-				)}
-
-				<Grid item xs={1}>
-					<Box
-						className={classes.boton}
-						display="flex"
-						justifyContent="center"
-						alignItems="flex-end"
-					>
-						<BotonFilaTabla
-							contenido={<FlipCameraAndroidIcon />}
-							onClick={() => {
-								handleSwitchDireccion();
-							}}
-						/>
-					</Box>
-				</Grid>
-
-				<SelectBordeInferior
-					key={2}
-					name={selectTipo.name}
-					label={selectTipo.label}
-					ancho={selectTipo.ancho}
-					data={tiposEnvio}
-					valInit={valSelectTipo}
-					funcModState={handleSelectTipo}
-				/>
-				<InputNumberBordeInferior
-					name={inputCosto.name}
-					label={inputCosto.label}
-					placeholder={inputCosto.placeholder}
-					ancho={inputCosto.ancho}
-					required={inputCosto.required}
-					valInit={valInputCosto}
-					funcModState={handleInputCosto}
-				/>
-			</Grid>
+			<FormularioEnvio
+				modoDirecc={modoDirecc}
+				cliente={cliente}
+				valSelectDireccion={valSelectDireccion}
+				handleSelectDireccion={handleSelectDireccion}
+				valInputDireccion={valInputDireccion}
+				handleInputDireccion={handleInputDireccion}
+				valSelectTipo={valSelectTipo}
+				handleSelectTipo={handleSelectTipo}
+				valInputCosto={valInputCosto}
+				handleInputCosto={handleInputCosto}
+				setModoDirecc={setModoDirecc}
+			/>
 			<Divider className={classes.divider} variant="fullWidth" />
 			<Box className={classes.footer}>
 				<BotonSuccess
