@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ModalScroll from '../generales/ModalScroll';
-import { Typography, Divider } from '@material-ui/core';
+import { Typography, Divider, Box } from '@material-ui/core';
 import VentasContext from '../../context/ventas/ventasContext';
 import Productos from './Productos';
 import Envio from './Envio';
@@ -14,17 +14,13 @@ const useStyles = makeStyles((theme) => ({
 			width: '100%',
 		},
 	},
-	divider: { marginTop: theme.spacing(1), marginBottom: theme.spacing(1) },
-	botonAceptar: {
-		float: 'right',
-		width: '100%',
+	dividerHorizontal: {
+		marginTop: theme.spacing(1),
+		marginBottom: theme.spacing(1),
 	},
-	footer: {
+	dividerVertical: {
+		marginRight: theme.spacing(2),
 		marginLeft: theme.spacing(2),
-	},
-	boton: {
-		width: '100%',
-		height: '100%',
 	},
 }));
 
@@ -56,10 +52,23 @@ const DetalleOrden = () => {
 				autoComplete="off"
 				// onSubmit={onSubmit}
 			>
-				<Typography variant="h5" align="center">
-					Orden
-				</Typography>
-				<Divider className={classes.divider} variant="fullWidth" />
+				<Box display="flex" justifyContent="flex-center" alignItems="flex-end">
+					<Box>
+						<Typography variant="h5" align="left">
+							{`Orden ${filaActiva.id}`}
+						</Typography>
+					</Box>
+					<Divider
+						className={classes.dividerVertical}
+						orientation="vertical"
+						variant="inset"
+						flexItem
+					/>
+					<Box>
+						<Typography align="left">{`${filaActiva.Cliente.nombre} ${filaActiva.Cliente.apellido}`}</Typography>
+					</Box>
+				</Box>
+				<Divider className={classes.dividerHorizontal} variant="fullWidth" />
 				<Productos productos={filaActiva.detalleOrden} />
 				<Envio />
 				<MasInformacion />

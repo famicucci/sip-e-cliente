@@ -44,26 +44,26 @@ const VentasState = (props) => {
 		filas: [],
 		filasOrdenes: [],
 		filaActiva: null,
-		ptoStock: { descripcion: 'Showroom', id: 1 },
-		ptoVenta: 1,
-		listaPrecio: { descripcion: 'Lista Minorista', id: 1 },
-		valorRadio: 'pto-stock',
-		carrito: [],
-		productoActivoCarrito: {},
-		cliente: null,
+		ptoStock: { descripcion: 'Showroom', id: 1 }, //
+		ptoVenta: 1, //
+		ordenEcommerce: null, //
+		cliente: null, //
 		envio: {
 			modoDirecc: 'select',
 			input: { direccion: '' },
 			select: { id: null, direccion: '' },
 			tipo: 1, // esto lo tengo que setear apenas me traigo los tipos de envio de la bd
 			costo: 0,
-		},
+		}, //
+		nota: null, //
+		listaPrecio: { descripcion: 'Lista Minorista', id: 1 },
+		valorRadio: 'pto-stock',
+		carrito: [],
+		productoActivoCarrito: {},
 		ptosStock: null,
 		ptosVenta: [],
 		tiposEnvio: null,
 		estadosOrden: [],
-		nota: null,
-		ordenEcommerce: null,
 		modo: 'manual',
 		openModalDetalleOrden: false,
 		cargando: false,
