@@ -45,7 +45,7 @@ const VentasState = (props) => {
 		filasOrdenes: [],
 		filaActiva: null,
 		ptoStock: { descripcion: 'Showroom', id: 1 }, //
-		ptoVenta: 1, //
+		ptoVenta: null, //
 		ordenEcommerce: null, //
 		cliente: null, //
 		envio: {
