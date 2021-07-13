@@ -6,6 +6,9 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import TablaListaProductos from '../generales/TablaListaProductos';
+import AccordionActions from '@material-ui/core/AccordionActions';
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles((theme) => ({
 	heading: {
@@ -19,16 +22,19 @@ const Productos = ({ productos }) => {
 
 	return (
 		<Accordion defaultExpanded="true">
-			<AccordionSummary
-				expandIcon={<ExpandMoreIcon />}
-				aria-controls="panel1a-content"
-				id="panel1a-header"
-			>
+			<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 				<Typography className={classes.heading}>Productos</Typography>
 			</AccordionSummary>
 			<AccordionDetails>
 				<TablaListaProductos productos={productos} />
 			</AccordionDetails>
+			<Divider />
+			<AccordionActions>
+				<Button size="small">Cancelar</Button>
+				<Button size="small" color="primary">
+					Guardar
+				</Button>
+			</AccordionActions>
 		</Accordion>
 	);
 };

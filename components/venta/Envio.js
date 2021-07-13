@@ -8,6 +8,9 @@ import Typography from '@material-ui/core/Typography';
 import FormularioEnvio from './FormularioEnvio';
 import useEnvio from '../../hooks/hookEnvio';
 import VentasContext from '../../context/ventas/ventasContext';
+import AccordionActions from '@material-ui/core/AccordionActions';
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles((theme) => ({
 	heading: {
@@ -43,11 +46,7 @@ const Envio = () => {
 
 	return (
 		<Accordion>
-			<AccordionSummary
-				expandIcon={<ExpandMoreIcon />}
-				aria-controls="panel1a-content"
-				id="panel1a-header"
-			>
+			<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 				<Typography className={classes.heading}>Envío</Typography>
 			</AccordionSummary>
 			<AccordionDetails>
@@ -65,6 +64,13 @@ const Envio = () => {
 					setModoDirecc={setModoDirecc}
 				/>
 			</AccordionDetails>
+			<Divider />
+			<AccordionActions>
+				<Button size="small">Cancelar</Button>
+				<Button size="small" color="primary">
+					Guardar
+				</Button>
+			</AccordionActions>
 		</Accordion>
 	);
 };

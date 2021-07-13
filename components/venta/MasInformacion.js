@@ -9,6 +9,9 @@ import SelectPtoVenta from './SelectPtoVenta';
 import VentasContext from '../../context/ventas/ventasContext';
 import { Grid } from '@material-ui/core';
 import InputBordeInferior from '../generales/inputs/InputBordeInferior';
+import AccordionActions from '@material-ui/core/AccordionActions';
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles((theme) => ({
 	heading: {
@@ -38,11 +41,7 @@ const MasInformacion = () => {
 
 	return (
 		<Accordion>
-			<AccordionSummary
-				expandIcon={<ExpandMoreIcon />}
-				aria-controls="panel1a-content"
-				id="panel1a-header"
-			>
+			<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 				<Typography className={classes.heading}>Más información</Typography>
 			</AccordionSummary>
 			<AccordionDetails>
@@ -73,6 +72,13 @@ const MasInformacion = () => {
 					/>
 				</Grid>
 			</AccordionDetails>
+			<Divider />
+			<AccordionActions>
+				<Button size="small">Cancelar</Button>
+				<Button size="small" color="primary">
+					Guardar
+				</Button>
+			</AccordionActions>
 		</Accordion>
 	);
 };
