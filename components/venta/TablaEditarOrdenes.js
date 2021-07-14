@@ -13,6 +13,7 @@ import VentasContext from '../../context/ventas/ventasContext';
 import FilaEditarOrdenes from '../venta/FilaEditarOrdenes';
 import NoteOutlinedIcon from '@material-ui/icons/NoteOutlined';
 import DetalleOrden from './DetalleOrden';
+import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
 
 const useStyles = makeStyles({
 	table: {
@@ -42,15 +43,23 @@ const columnas = [
 const TablaEditarOrdenes = () => {
 	const classes = useStyles();
 
+	// const {
+	// 	ordenes,
+	// 	filas,
+	// 	traerOrdenes,
+	// 	cargando,
+	// 	handleFilasOrdenes,
+	// 	handleFilasOrdenesFiltro,
+	// 	traerEstadosOrden,
+	// } = useContext(VentasContext);
 	const {
 		ordenes,
 		filas,
-		traerOrdenes,
 		cargando,
-		handleFilasOrdenes,
-		handleFilasOrdenesFiltro,
+		traerOrdenes,
 		traerEstadosOrden,
-	} = useContext(VentasContext);
+		handleFilasOrdenes,
+	} = useContext(EditarOrdenesContext);
 
 	const { handleHerramientasEditarVentas, busqueda } = useContext(
 		BarraHerramientasContext
@@ -70,10 +79,10 @@ const TablaEditarOrdenes = () => {
 		handleFilasOrdenes();
 	}, [ordenes]);
 
-	useEffect(() => {
-		setPage(0);
-		handleFilasOrdenesFiltro(busqueda);
-	}, [busqueda]);
+	// useEffect(() => {
+	// 	setPage(0);
+	// 	handleFilasOrdenesFiltro(busqueda);
+	// }, [busqueda]);
 
 	// extraer los id de las columnas
 	const colIndex = columnas.reduce(

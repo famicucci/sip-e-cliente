@@ -6,6 +6,7 @@ import VentasContext from '../../context/ventas/ventasContext';
 import Productos from './Productos';
 import Envio from './Envio';
 import MasInformacion from './MasInformacion';
+import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -27,12 +28,9 @@ const useStyles = makeStyles((theme) => ({
 const DetalleOrden = () => {
 	const classes = useStyles();
 
-	const {
-		openModalDetalleOrden,
-		filaActiva,
-		handleCloseModal,
-		traerTiposEnvio,
-	} = useContext(VentasContext);
+	const { openModalDetalleOrden, handleCloseModal, traerTiposEnvio } =
+		useContext(VentasContext);
+	const { filaActiva } = useContext(EditarOrdenesContext);
 
 	useEffect(() => {
 		traerTiposEnvio();

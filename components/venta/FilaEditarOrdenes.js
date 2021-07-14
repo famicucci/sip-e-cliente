@@ -11,6 +11,7 @@ import BotonFilaTabla from '../tablas/componentes/BotonFilaTabla';
 import BotonCustonFilaTabla from '../generales/BotonCustomFilaTabla';
 import BotonSinFormato from '../generales/BotonSinFormato';
 import VentasContext from '../../context/ventas/ventasContext';
+import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
 
 const useStyles = makeStyles((theme) => ({
 	estadoPago: {
@@ -25,8 +26,8 @@ const useStyles = makeStyles((theme) => ({
 const FilaEditarClientes = ({ fila, colIndex }) => {
 	const classes = useStyles(fila);
 
-	const { handleFilaActivaOrden, handleOpenModalDetalleOrden } =
-		useContext(VentasContext);
+	const { handleOpenModalDetalleOrden } = useContext(VentasContext);
+	const { handleFilaActivaOrden } = useContext(EditarOrdenesContext);
 
 	return (
 		<RowColorIntercalado>

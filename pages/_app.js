@@ -4,6 +4,7 @@ import AuthState from '../context/autenticacion/authState';
 import BarraHerramientas from '../context/barraHerramientas/barraHerramientasState';
 import ClientesState from '../context/clientes/clientesState';
 import VentasState from '../context/ventas/ventasState';
+import EditarOrdenesState from '../context/ventas/editarordenes/EditarOrdenesState';
 
 function MyApp({ Component, pageProps }) {
 	return (
@@ -11,9 +12,11 @@ function MyApp({ Component, pageProps }) {
 			<MenuProvider>
 				<BarraHerramientas>
 					<VentasState>
-						<ClientesState>
-							<Component {...pageProps} />
-						</ClientesState>
+						<EditarOrdenesState>
+							<ClientesState>
+								<Component {...pageProps} />
+							</ClientesState>
+						</EditarOrdenesState>
 					</VentasState>
 				</BarraHerramientas>
 			</MenuProvider>

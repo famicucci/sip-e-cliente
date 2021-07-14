@@ -6,6 +6,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import AlertaContext from '../../context/alertas/alertaContext';
 import Alerta from '../Alerta';
+import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
 
 const BootstrapButton = withStyles({
 	root: {
@@ -32,8 +33,11 @@ const BootstrapButton = withStyles({
 })(Button);
 
 const SelectOrdenEstado = ({ idOrden, ordenEstadoId }) => {
+	// const { estadosOrden, handleEstadoOrden, mensaje } =
+	// 	useContext(VentasContext);
 	const { estadosOrden, handleEstadoOrden, mensaje } =
-		useContext(VentasContext);
+		useContext(EditarOrdenesContext);
+
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 
 	const [ordenEstadoDescripcion, setOrdenEstadoDescripcion] = useState(null);
