@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 
 const useEnvio = (props) => {
 	const envio = props;
+
+	// if(!envio){setear envioInit}
+
 	const cliente = {
 		nombre: 'julieta',
 		apellido: 'almis',
@@ -18,40 +21,45 @@ const useEnvio = (props) => {
 		initSelectDireccion = envio.select.id;
 	}
 
-	const [modoDirecc, setModoDirecc] = useState(envio.modoDirecc);
-	const [valSelectDireccion, setValSelectDireccion] =
-		useState(initSelectDireccion);
-	const [valInputDireccion, setValInputDireccion] = useState(envio.input);
-	const [valSelectTipo, setValSelectTipo] = useState(envio.tipo);
-	const [valInputCosto, setValInputCosto] = useState(envio.costo);
+	const [stateEnvio, setStateEnvio] = useState({
+		modoDirecc: envio.modoDirecc,
+		valSelectDireccion: initSelectDireccion,
+		valInputDireccion: envio.input,
+		valSelectTipo: envio.tipo,
+		valInputCosto: envio.costo,
+	});
+
+	const handleSwitchDireccion = () => {
+		if (stateEnvio.modoDirecc === 'select') {
+			setStateEnvio({ ...stateEnvio, modoDirecc: 'input' });
+		} else if (stateEnvio.modoDirecc === 'input') {
+			setStateEnvio({ ...stateEnvio, modoDirecc: 'select' });
+		}
+	};
 
 	const handleSelectDireccion = (name, val) => {
-		setValSelectDireccion(val);
+		setStateEnvio({ ...stateEnvio, valSelectDireccion: val });
 	};
 
 	const handleInputDireccion = (name, val) => {
-		setValInputDireccion(val);
+		setStateEnvio({ ...stateEnvio, valInputDireccion: val });
 	};
 
 	const handleSelectTipo = (name, val) => {
-		setValSelectTipo(val);
+		setStateEnvio({ ...stateEnvio, valSelectTipo: val });
 	};
 
 	const handleInputCosto = (name, val) => {
-		setValInputCosto(val);
+		setStateEnvio({ ...stateEnvio, valInputCosto: val });
 	};
 
 	return [
-		modoDirecc,
-		valSelectDireccion,
-		valInputDireccion,
-		valSelectTipo,
-		valInputCosto,
-		setModoDirecc,
+		stateEnvio,
 		handleSelectDireccion,
 		handleInputDireccion,
 		handleSelectTipo,
 		handleInputCosto,
+		handleSwitchDireccion,
 	];
 };
 

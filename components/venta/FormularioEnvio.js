@@ -9,6 +9,12 @@ import FlipCameraAndroidIcon from '@material-ui/icons/FlipCameraAndroid';
 import InputBordeInferior from '../generales/inputs/InputBordeInferior';
 
 const useStyles = makeStyles((theme) => ({
+	root: {
+		'& .MuiTextField-root': {
+			marginBottom: theme.spacing(1),
+			width: '100%',
+		},
+	},
 	boton: {
 		width: '100%',
 		height: '100%',
@@ -40,87 +46,91 @@ const inputCosto = {
 
 const FormularioEnvio = ({
 	cliente,
-	modoDirecc,
-	setModoDirecc,
-	valSelectDireccion,
-	valInputDireccion,
-	valSelectTipo,
-	valInputCosto,
+	stateEnvio,
 	handleSelectDireccion,
 	handleInputDireccion,
 	handleSelectTipo,
 	handleInputCosto,
+	handleSwitchDireccion,
+	onSubmit,
 }) => {
 	const classes = useStyles();
 
+	const {
+		modoDirecc,
+		valSelectDireccion,
+		valInputDireccion,
+		valSelectTipo,
+		valInputCosto,
+	} = stateEnvio;
 	const { tiposEnvio } = useContext(VentasContext);
 
-	const handleSwitchDireccion = () => {
-		if (modoDirecc === 'select') {
-			setModoDirecc('input');
-		} else if (modoDirecc === 'input') {
-			setModoDirecc('select');
-		}
-	};
-
 	return (
-		<Grid container spacing={2}>
-			{modoDirecc === 'select' ? (
-				<SelectBordeInferior
-					key={1}
-					name={selectDirecc.name}
-					label={selectDirecc.label}
-					ancho={selectDirecc.ancho}
-					data={cliente.direcciones}
-					valInit={valSelectDireccion}
-					funcModState={handleSelectDireccion}
-				/>
-			) : (
-				<InputBordeInferior
-					label="Dirección"
-					name="direccion"
-					placeholder="Dirección"
-					ancho={11}
-					valInit={valInputDireccion}
-					funcModState={handleInputDireccion}
-				/>
-			)}
-
-			<Grid item xs={1}>
-				<Box
-					className={classes.boton}
-					display="flex"
-					justifyContent="center"
-					alignItems="flex-end"
-				>
-					<BotonFilaTabla
-						contenido={<FlipCameraAndroidIcon />}
-						onClick={() => {
-							handleSwitchDireccion();
-						}}
+		<form
+			className={classes.root}
+			noValidate
+			autoComplete="off"
+			onSubmit={onSubmit}
+			id="form-envio"
+		>
+			<Grid container spacing={2}>
+				{modoDirecc === 'select' ? (
+					<SelectBordeInferior
+						key={1}
+						name={selectDirecc.name}
+						label={selectDirecc.label}
+						ancho={selectDirecc.ancho}
+						data={cliente.direcciones}
+						valInit={valSelectDireccion}
+						funcModState={handleSelectDireccion}
 					/>
-				</Box>
-			</Grid>
+				) : (
+					<InputBordeInferior
+						label="Dirección"
+						name="direccion"
+						placeholder="Dirección"
+						ancho={11}
+						valInit={valInputDireccion}
+						funcModState={handleInputDireccion}
+					/>
+				)}
 
-			<SelectBordeInferior
-				key={2}
-				name={selectTipo.name}
-				label={selectTipo.label}
-				ancho={selectTipo.ancho}
-				data={tiposEnvio}
-				valInit={valSelectTipo}
-				funcModState={handleSelectTipo}
-			/>
-			<InputNumberBordeInferior
-				name={inputCosto.name}
-				label={inputCosto.label}
-				placeholder={inputCosto.placeholder}
-				ancho={inputCosto.ancho}
-				required={inputCosto.required}
-				valInit={valInputCosto}
-				funcModState={handleInputCosto}
-			/>
-		</Grid>
+				<Grid item xs={1}>
+					<Box
+						className={classes.boton}
+						display="flex"
+						justifyContent="center"
+						alignItems="flex-end"
+					>
+						<BotonFilaTabla
+							contenido={<FlipCameraAndroidIcon />}
+							onClick={() => {
+								handleSwitchDireccion();
+							}}
+						/>
+					</Box>
+				</Grid>
+
+				<SelectBordeInferior
+					key={2}
+					name={selectTipo.name}
+					label={selectTipo.label}
+					ancho={selectTipo.ancho}
+					data={tiposEnvio}
+					valInit={valSelectTipo}
+					funcModState={handleSelectTipo}
+				/>
+				<InputNumberBordeInferior
+					name={inputCosto.name}
+					label={inputCosto.label}
+					placeholder={inputCosto.placeholder}
+					ancho={inputCosto.ancho}
+					required={inputCosto.required}
+					valInit={valInputCosto}
+					funcModState={handleInputCosto}
+				/>
+			</Grid>
+		</form>
 	);
 };
 

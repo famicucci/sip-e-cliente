@@ -15,7 +15,12 @@ const ColorButton = withStyles((theme) => ({
 
 const BotonSuccess = (props) => {
 	return (
-		<ColorButton type={props.type} variant="contained" {...props}>
+		<ColorButton
+			type={props.type}
+			form={props.envio}
+			variant="contained"
+			{...props}
+		>
 			{props.contenido}
 		</ColorButton>
 	);

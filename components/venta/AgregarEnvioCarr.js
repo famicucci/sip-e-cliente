@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Divider, Box } from '@material-ui/core';
 import BotonSuccess from '../generales/botones/BontonSuccess';
@@ -10,12 +10,6 @@ import FormularioEnvio from './FormularioEnvio';
 import useEnvio from '../../hooks/hookEnvio';
 
 const useStyles = makeStyles((theme) => ({
-	root: {
-		'& .MuiTextField-root': {
-			marginBottom: theme.spacing(1),
-			width: '100%',
-		},
-	},
 	divider: { marginTop: theme.spacing(1), marginBottom: theme.spacing(1) },
 	botonAceptar: {
 		float: 'right',
@@ -42,23 +36,19 @@ const AgregarEnvioCarr = () => {
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 	const { handleClose } = useContext(BotoneraCarrContext);
 	const [
-		modoDirecc,
-		valSelectDireccion,
-		valInputDireccion,
-		valSelectTipo,
-		valInputCosto,
-		setModoDirecc,
+		stateEnvio,
 		handleSelectDireccion,
 		handleInputDireccion,
 		handleSelectTipo,
 		handleInputCosto,
+		handleSwitchDireccion,
 	] = useEnvio(envio);
 
 	const onSubmit = (e) => {
 		e.preventDefault();
 
 		// validar
-		if (valSelectTipo !== 1 && valInputCosto === 0) {
+		if (stateEnvio.valSelectTipo !== 1 && stateEnvio.valInputCosto === 0) {
 			mostrarAlerta(
 				'Aviso: debes enviar el/los productos pero no colocaste un costo de envío',
 				'warning'
@@ -66,27 +56,29 @@ const AgregarEnvioCarr = () => {
 		}
 
 		if (
-			modoDirecc === 'input' &&
-			valSelectTipo !== 1 &&
-			valInputDireccion.trim() === ''
+			stateEnvio.modoDirecc === 'input' &&
+			stateEnvio.valSelectTipo !== 1 &&
+			stateEnvio.valInputDireccion.trim() === ''
 		) {
 			mostrarAlerta('Debes colocar una direccion de envío', 'warning');
 			return;
 		}
 
 		let envioMod;
-		if (modoDirecc === 'select') {
-			const r = cliente.direcciones.find((x) => x.id === valSelectDireccion);
+		if (stateEnvio.modoDirecc === 'select') {
+			const r = cliente.direcciones.find(
+				(x) => x.id === stateEnvio.valSelectDireccion
+			);
 			envioMod = { ...envio, select: r };
-		} else if (modoDirecc === 'input') {
-			envioMod = { ...envio, input: valInputDireccion };
+		} else if (stateEnvio.modoDirecc === 'input') {
+			envioMod = { ...envio, input: stateEnvio.valInputDireccion };
 		}
 
 		envioMod = {
 			...envioMod,
-			tipo: valSelectTipo,
-			costo: valInputCosto,
-			modoDirecc: modoDirecc,
+			tipo: stateEnvio.valSelectTipo,
+			costo: stateEnvio.valInputCosto,
+			modoDirecc: stateEnvio.modoDirecc,
 		};
 
 		// submit;
@@ -97,39 +89,32 @@ const AgregarEnvioCarr = () => {
 	};
 
 	return (
-		<form
-			className={classes.root}
-			noValidate
-			autoComplete="off"
-			onSubmit={onSubmit}
-		>
+		<>
 			<Typography variant="h5" align="center">
 				Envío
 			</Typography>
 			<Divider className={classes.divider} variant="fullWidth" />
 			<FormularioEnvio
-				modoDirecc={modoDirecc}
 				cliente={cliente}
-				valSelectDireccion={valSelectDireccion}
+				stateEnvio={stateEnvio}
 				handleSelectDireccion={handleSelectDireccion}
-				valInputDireccion={valInputDireccion}
 				handleInputDireccion={handleInputDireccion}
-				valSelectTipo={valSelectTipo}
 				handleSelectTipo={handleSelectTipo}
-				valInputCosto={valInputCosto}
 				handleInputCosto={handleInputCosto}
-				setModoDirecc={setModoDirecc}
+				handleSwitchDireccion={handleSwitchDireccion}
+				onSubmit={onSubmit}
 			/>
 			<Divider className={classes.divider} variant="fullWidth" />
 			<Box className={classes.footer}>
 				<BotonSuccess
 					type="submit"
+					form="form-envio"
 					contenido="Aceptar"
 					className={classes.botonAceptar}
 				/>
 			</Box>
 			{alerta !== null ? <Alerta /> : null}
-		</form>
+		</>
 	);
 };
 
