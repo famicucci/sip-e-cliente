@@ -1,45 +1,13 @@
 import React, { useState } from 'react';
+import { Direccion } from '../functions/envio';
 
 const useEnvio = (envio, direcciones) => {
-	const creaDireccionesSelect = (direcciones) => {
-		let dataDirecciones = [];
-
-		if (direcciones.length === 0) {
-			dataDirecciones = [
-				{ id: 0, descripcion: 'No hay direcciones para este cliente' },
-			];
-		} else {
-			dataDirecciones = direcciones.map((x) => ({
-				id: x.id,
-				descripcion: `${x.calle} ${x.numeroCalle}, ${x.piso}, ${x.depto}, ${x.barrio}, ${x.ciudad}`,
-			}));
-		}
-
-		return dataDirecciones;
-	};
-
-	const creaInitSelectDireccion = (direcciones, dataDirecciones, valActual) => {
-		let initSelectDireccion;
-		if (direcciones.length === 0) {
-			initSelectDireccion = dataDirecciones[0].id;
-		} else {
-			if (valActual) {
-				initSelectDireccion = valActual;
-			} else {
-				initSelectDireccion = dataDirecciones[0].id;
-			}
-		}
-		return initSelectDireccion;
-	};
+	const direccionClienteElegido = new Direccion(direcciones, envio.select.id);
 
 	const [stateEnvio, setStateEnvio] = useState({
 		modoDirecc: envio.modoDirecc,
-		dataDirecciones: creaDireccionesSelect(direcciones),
-		valSelectDireccion: creaInitSelectDireccion(
-			direcciones,
-			creaDireccionesSelect(direcciones),
-			envio.select.id
-		),
+		dataDirecciones: direccionClienteElegido.creaDireccionesSelect(),
+		valSelectDireccion: direccionClienteElegido.creaInitSelectDireccion(),
 		valInputDireccion: envio.input,
 		valSelectTipo: envio.tipo,
 		valInputCosto: envio.costo,
