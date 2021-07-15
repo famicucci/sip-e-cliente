@@ -45,7 +45,7 @@ const inputCosto = {
 };
 
 const FormularioEnvio = ({
-	cliente,
+	// direcciones,
 	stateEnvio,
 	handleSelectDireccion,
 	handleInputDireccion,
@@ -58,6 +58,7 @@ const FormularioEnvio = ({
 
 	const {
 		modoDirecc,
+		dataDirecciones,
 		valSelectDireccion,
 		valInputDireccion,
 		valSelectTipo,
@@ -80,7 +81,7 @@ const FormularioEnvio = ({
 						name={selectDirecc.name}
 						label={selectDirecc.label}
 						ancho={selectDirecc.ancho}
-						data={cliente.direcciones}
+						data={dataDirecciones}
 						valInit={valSelectDireccion}
 						funcModState={handleSelectDireccion}
 					/>

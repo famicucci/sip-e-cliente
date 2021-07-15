@@ -20,19 +20,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const cliente = {
-	nombre: 'julieta',
-	apellido: 'almis',
-	direcciones: [
-		{ id: 1, descripcion: 'Nora Lange 962, VGB, Córdoba, Argentina' },
-		{ id: 2, descripcion: 'Av. Julio a Roca 147, VGB, Córdoba, Argentina' },
-	],
-};
-
 const AgregarEnvioCarr = () => {
 	const classes = useStyles();
 
-	const { envio, handleEnvio } = useContext(VentasContext);
+	const { envio, cliente, handleEnvio } = useContext(VentasContext);
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 	const { handleClose } = useContext(BotoneraCarrContext);
 	const [
@@ -42,7 +33,7 @@ const AgregarEnvioCarr = () => {
 		handleSelectTipo,
 		handleInputCosto,
 		handleSwitchDireccion,
-	] = useEnvio(envio);
+	] = useEnvio(envio, cliente.direcciones);
 
 	const onSubmit = (e) => {
 		e.preventDefault();
@@ -95,7 +86,6 @@ const AgregarEnvioCarr = () => {
 			</Typography>
 			<Divider className={classes.divider} variant="fullWidth" />
 			<FormularioEnvio
-				cliente={cliente}
 				stateEnvio={stateEnvio}
 				handleSelectDireccion={handleSelectDireccion}
 				handleInputDireccion={handleInputDireccion}

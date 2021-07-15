@@ -1,29 +1,45 @@
 import React, { useState } from 'react';
 
-const useEnvio = (props) => {
-	const envio = props;
+const useEnvio = (envio, direcciones) => {
+	const creaDireccionesSelect = (direcciones) => {
+		let dataDirecciones = [];
 
-	// if(!envio){setear envioInit}
+		if (direcciones.length === 0) {
+			dataDirecciones = [
+				{ id: 0, descripcion: 'No hay direcciones para este cliente' },
+			];
+		} else {
+			dataDirecciones = direcciones.map((x) => ({
+				id: x.id,
+				descripcion: `${x.calle} ${x.numeroCalle}, ${x.piso}, ${x.depto}, ${x.barrio}, ${x.ciudad}`,
+			}));
+		}
 
-	const cliente = {
-		nombre: 'julieta',
-		apellido: 'almis',
-		direcciones: [
-			{ id: 1, descripcion: 'Nora Lange 962, VGB, Córdoba, Argentina' },
-			{ id: 2, descripcion: 'Av. Julio a Roca 147, VGB, Córdoba, Argentina' },
-		],
+		return dataDirecciones;
 	};
 
-	let initSelectDireccion;
-	if (!envio.select.id) {
-		initSelectDireccion = cliente.direcciones[0].id;
-	} else if (envio.select.id) {
-		initSelectDireccion = envio.select.id;
-	}
+	const creaInitSelectDireccion = (direcciones, dataDirecciones, valActual) => {
+		let initSelectDireccion;
+		if (direcciones.length === 0) {
+			initSelectDireccion = dataDirecciones[0].id;
+		} else {
+			if (valActual) {
+				initSelectDireccion = valActual;
+			} else {
+				initSelectDireccion = dataDirecciones[0].id;
+			}
+		}
+		return initSelectDireccion;
+	};
 
 	const [stateEnvio, setStateEnvio] = useState({
 		modoDirecc: envio.modoDirecc,
-		valSelectDireccion: initSelectDireccion,
+		dataDirecciones: creaDireccionesSelect(direcciones),
+		valSelectDireccion: creaInitSelectDireccion(
+			direcciones,
+			creaDireccionesSelect(direcciones),
+			envio.select.id
+		),
 		valInputDireccion: envio.input,
 		valSelectTipo: envio.tipo,
 		valInputCosto: envio.costo,
