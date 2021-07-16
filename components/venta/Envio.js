@@ -11,6 +11,8 @@ import VentasContext from '../../context/ventas/ventasContext';
 import AccordionActions from '@material-ui/core/AccordionActions';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
+import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
+import { Direccion } from '../../functions/envio';
 
 const useStyles = makeStyles((theme) => ({
 	heading: {
@@ -20,29 +22,30 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Envio = () => {
-	const cliente = {
-		nombre: 'julieta',
-		apellido: 'almis',
-		direcciones: [
-			{ id: 1, descripcion: 'Nora Lange 962, VGB, Córdoba, Argentina' },
-			{ id: 2, descripcion: 'Av. Julio a Roca 147, VGB, Córdoba, Argentina' },
-		],
-	};
 	const classes = useStyles();
 
-	const { envio } = useContext(VentasContext);
+	const { filaActiva } = useContext(EditarOrdenesContext);
+
+	const envioObj = {
+		valSelectDirecc: undefined,
+		modoDirecc: 'input',
+		valInputDirecc: filaActiva.direccionEnvio,
+		valSelectTipo: filaActiva.TipoEnvio.id,
+		valInputCosto: filaActiva.tarifaEnvio,
+	};
+
 	const [
-		modoDirecc,
-		valSelectDireccion,
-		valInputDireccion,
-		valSelectTipo,
-		valInputCosto,
-		setModoDirecc,
+		stateEnvio,
 		handleSelectDireccion,
 		handleInputDireccion,
 		handleSelectTipo,
 		handleInputCosto,
-	] = useEnvio(envio);
+		handleSwitchDireccion,
+	] = useEnvio(envioObj, filaActiva.Cliente.direcciones);
+
+	const onSubmit = () => {
+		console.log('submit');
+	};
 
 	return (
 		<Accordion>
@@ -51,17 +54,13 @@ const Envio = () => {
 			</AccordionSummary>
 			<AccordionDetails>
 				<FormularioEnvio
-					modoDirecc={modoDirecc}
-					cliente={cliente}
-					valSelectDireccion={valSelectDireccion}
+					stateEnvio={stateEnvio}
 					handleSelectDireccion={handleSelectDireccion}
-					valInputDireccion={valInputDireccion}
 					handleInputDireccion={handleInputDireccion}
-					valSelectTipo={valSelectTipo}
 					handleSelectTipo={handleSelectTipo}
-					valInputCosto={valInputCosto}
 					handleInputCosto={handleInputCosto}
-					setModoDirecc={setModoDirecc}
+					handleSwitchDireccion={handleSwitchDireccion}
+					onSubmit={onSubmit}
 				/>
 			</AccordionDetails>
 			<Divider />

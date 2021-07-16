@@ -9,6 +9,7 @@ import {
 	FILAS_ORDENES,
 	FILA_ACTIVA_ORDEN,
 	MODIFICAR_ESTADO_ORDEN,
+	MODAL_DETALLE_ORDEN,
 	BORRAR_MENSAJE,
 } from '../../../types';
 
@@ -19,6 +20,7 @@ const EditarOrdenesState = (props) => {
 		filas: [],
 		filaActiva: {},
 		estadosOrden: [],
+		openModalDetalleOrden: false,
 		mensaje: null,
 		cargando: true,
 	};
@@ -91,6 +93,12 @@ const EditarOrdenesState = (props) => {
 		});
 	};
 
+	const handleOpenModalDetalleOrden = () => {
+		dispatch({
+			type: MODAL_DETALLE_ORDEN,
+		});
+	};
+
 	return (
 		<EditarOrdenesContext.Provider
 			value={{
@@ -99,6 +107,7 @@ const EditarOrdenesState = (props) => {
 				filas: state.filas,
 				filaActiva: state.filaActiva,
 				estadosOrden: state.estadosOrden,
+				openModalDetalleOrden: state.openModalDetalleOrden,
 				mensaje: state.mensaje,
 				cargando: state.cargando,
 				traerOrdenes,
@@ -106,6 +115,7 @@ const EditarOrdenesState = (props) => {
 				handleFilasOrdenes,
 				handleEstadoOrden,
 				handleFilaActivaOrden,
+				handleOpenModalDetalleOrden,
 			}}
 		>
 			{props.children}

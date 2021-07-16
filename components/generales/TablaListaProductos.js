@@ -38,8 +38,6 @@ const TablaListaProductos = ({ productos }) => {
 		{}
 	);
 
-	console.log(productos);
-
 	return (
 		<TableContainer component={Paper}>
 			<Table className={classes.table}>

@@ -28,9 +28,9 @@ const useStyles = makeStyles((theme) => ({
 const DetalleOrden = () => {
 	const classes = useStyles();
 
-	const { openModalDetalleOrden, handleCloseModal, traerTiposEnvio } =
-		useContext(VentasContext);
-	const { filaActiva } = useContext(EditarOrdenesContext);
+	const { handleCloseModal, traerTiposEnvio } = useContext(VentasContext);
+	const { filaActiva, openModalDetalleOrden } =
+		useContext(EditarOrdenesContext);
 
 	useEffect(() => {
 		traerTiposEnvio();

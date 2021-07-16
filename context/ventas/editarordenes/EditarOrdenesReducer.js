@@ -4,6 +4,7 @@ import {
 	FILAS_ORDENES,
 	FILA_ACTIVA_ORDEN,
 	MODIFICAR_ESTADO_ORDEN,
+	MODAL_DETALLE_ORDEN,
 	BORRAR_MENSAJE,
 } from '../../../types';
 import { filBus } from '../../../functions/filtros.js';
@@ -52,6 +53,11 @@ const EditarOrdenesReducer = (state, action) => {
 				...state,
 				ordenes: ordenModificadas,
 				mensaje: action.payload.r,
+			};
+		case MODAL_DETALLE_ORDEN:
+			return {
+				...state,
+				openModalDetalleOrden: true,
 			};
 		case BORRAR_MENSAJE:
 			return {

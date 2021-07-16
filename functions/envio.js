@@ -1,6 +1,6 @@
 class Direccion {
-	constructor(direcciones, valActualSelect) {
-		this.direcciones = direcciones;
+	constructor(direccionesCliente, valActualSelect) {
+		this.direcciones = direccionesCliente;
 		this.valActualSelect = valActualSelect;
 	}
 

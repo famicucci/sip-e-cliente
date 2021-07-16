@@ -24,6 +24,15 @@ const AgregarEnvioCarr = () => {
 	const classes = useStyles();
 
 	const { envio, cliente, handleEnvio } = useContext(VentasContext);
+
+	const envioObj = {
+		valSelectDirecc: envio.select.id,
+		modoDirecc: envio.modoDirecc,
+		valInputDirecc: envio.input,
+		valSelectTipo: envio.tipo,
+		valInputCosto: envio.costo,
+	};
+
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 	const { handleClose } = useContext(BotoneraCarrContext);
 	const [
@@ -33,7 +42,7 @@ const AgregarEnvioCarr = () => {
 		handleSelectTipo,
 		handleInputCosto,
 		handleSwitchDireccion,
-	] = useEnvio(envio, cliente.direcciones);
+	] = useEnvio(envioObj, cliente.direcciones);
 
 	const onSubmit = (e) => {
 		e.preventDefault();

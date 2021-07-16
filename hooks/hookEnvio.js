@@ -1,16 +1,27 @@
 import React, { useState } from 'react';
 import { Direccion } from '../functions/envio';
 
-const useEnvio = (envio, direcciones) => {
-	const direccionClienteElegido = new Direccion(direcciones, envio.select.id);
+const useEnvio = (envio, direccionesCliente) => {
+	const {
+		valSelectDirecc,
+		modoDirecc,
+		valInputDirecc,
+		valSelectTipo,
+		valInputCosto,
+	} = envio;
+
+	const direccionClienteElegido = new Direccion(
+		direccionesCliente,
+		valSelectDirecc
+	);
 
 	const [stateEnvio, setStateEnvio] = useState({
-		modoDirecc: envio.modoDirecc,
+		modoDirecc: modoDirecc,
 		dataDirecciones: direccionClienteElegido.creaDireccionesSelect(),
 		valSelectDireccion: direccionClienteElegido.creaInitSelectDireccion(),
-		valInputDireccion: envio.input,
-		valSelectTipo: envio.tipo,
-		valInputCosto: envio.costo,
+		valInputDireccion: valInputDirecc,
+		valSelectTipo: valSelectTipo,
+		valInputCosto: valInputCosto,
 	});
 
 	const handleSwitchDireccion = () => {

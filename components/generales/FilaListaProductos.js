@@ -4,7 +4,6 @@ import RowColorIntercalado from '../generales/RowColorIntercalado';
 import BotonTippyHoverTabla from '../generales/BotonTippyHoverTabla';
 
 const FilaListaProductos = ({ fila, colIndex }) => {
-	console.log(fila.ProductoCodigo);
 	return (
 		<RowColorIntercalado>
 			{colIndex['Código'] ? (
