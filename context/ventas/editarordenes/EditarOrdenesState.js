@@ -10,6 +10,7 @@ import {
 	FILA_ACTIVA_ORDEN,
 	MODIFICAR_ESTADO_ORDEN,
 	MODAL_DETALLE_ORDEN,
+	MODAL_CLOSE,
 	BORRAR_MENSAJE,
 } from '../../../types';
 
@@ -99,6 +100,12 @@ const EditarOrdenesState = (props) => {
 		});
 	};
 
+	const handleCloseModal = () => {
+		dispatch({
+			type: MODAL_CLOSE,
+		});
+	};
+
 	return (
 		<EditarOrdenesContext.Provider
 			value={{
@@ -116,6 +123,7 @@ const EditarOrdenesState = (props) => {
 				handleEstadoOrden,
 				handleFilaActivaOrden,
 				handleOpenModalDetalleOrden,
+				handleCloseModal,
 			}}
 		>
 			{props.children}

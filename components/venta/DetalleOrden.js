@@ -28,8 +28,8 @@ const useStyles = makeStyles((theme) => ({
 const DetalleOrden = () => {
 	const classes = useStyles();
 
-	const { handleCloseModal, traerTiposEnvio } = useContext(VentasContext);
-	const { filaActiva, openModalDetalleOrden } =
+	const { traerTiposEnvio } = useContext(VentasContext);
+	const { filaActiva, openModalDetalleOrden, handleCloseModal } =
 		useContext(EditarOrdenesContext);
 
 	useEffect(() => {
