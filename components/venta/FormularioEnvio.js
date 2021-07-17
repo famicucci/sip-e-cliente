@@ -10,6 +10,7 @@ import InputBordeInferior from '../generales/inputs/InputBordeInferior';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
+		width: '100%',
 		'& .MuiTextField-root': {
 			marginBottom: theme.spacing(1),
 			width: '100%',
@@ -25,6 +26,14 @@ const useStyles = makeStyles((theme) => ({
 const selectDirecc = {
 	name: 'direccion',
 	label: 'Dirección',
+	ancho: 11,
+	valDefault: 10,
+};
+
+const inputDirecc = {
+	name: 'direccion',
+	label: 'Dirección',
+	placeholder: 'Dirección',
 	ancho: 11,
 	valDefault: 10,
 };
@@ -86,10 +95,10 @@ const FormularioEnvio = ({
 					/>
 				) : (
 					<InputBordeInferior
-						label="Dirección"
-						name="direccion"
-						placeholder="Dirección"
-						ancho={11}
+						label={inputDirecc.label}
+						name={inputDirecc.name}
+						placeholder={inputDirecc.placeholder}
+						ancho={inputDirecc.ancho}
 						valInit={valInputDireccion}
 						funcModState={handleInputDireccion}
 					/>

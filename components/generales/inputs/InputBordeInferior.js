@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
+
+const useStyles = makeStyles((theme) => ({
+	root: {
+		marginTop: theme.spacing(3),
+	},
+}));
 
 const InputBordeInferior = ({
 	label,
@@ -11,6 +18,8 @@ const InputBordeInferior = ({
 	valInit,
 	funcModState,
 }) => {
+	const classes = useStyles();
+
 	const [valor, setValor] = useState(valInit);
 
 	const onChange = (e) => {
@@ -25,6 +34,7 @@ const InputBordeInferior = ({
 	return (
 		<Grid item xs={ancho}>
 			<TextField
+				className={classes.root}
 				name={name}
 				value={valor}
 				onChange={onChange}

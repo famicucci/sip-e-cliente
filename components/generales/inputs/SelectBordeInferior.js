@@ -5,13 +5,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Grid from '@material-ui/core/Grid';
-// import ClientesContext from '../../context/clientes/clientesContext';
 
 const useStyles = makeStyles((theme) => ({
 	formControl: {
 		width: '100%',
 		marginTop: theme.spacing(2),
-		minWidth: 120,
+		minWidth: 100,
 	},
 	selectEmpty: {
 		marginTop: theme.spacing(2),

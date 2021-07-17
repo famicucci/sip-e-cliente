@@ -7,12 +7,10 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import FormularioEnvio from './FormularioEnvio';
 import useEnvio from '../../hooks/hookEnvio';
-import VentasContext from '../../context/ventas/ventasContext';
 import AccordionActions from '@material-ui/core/AccordionActions';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
-import { Direccion } from '../../functions/envio';
 
 const useStyles = makeStyles((theme) => ({
 	heading: {
@@ -53,7 +51,7 @@ const Envio = () => {
 			<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 				<Typography className={classes.heading}>Envío</Typography>
 			</AccordionSummary>
-			<AccordionDetails style={{ width: '100%' }}>
+			<AccordionDetails>
 				<FormularioEnvio
 					stateEnvio={stateEnvio}
 					handleSelectDireccion={handleSelectDireccion}
