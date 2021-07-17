@@ -8,6 +8,7 @@ import {
 	TRAER_ESTADOS_ORDEN,
 	FILAS_ORDENES,
 	FILA_ACTIVA_ORDEN,
+	MODIFICAR_ORDEN,
 	MODIFICAR_ESTADO_ORDEN,
 	MODAL_DETALLE_ORDEN,
 	MODAL_CLOSE,
@@ -106,6 +107,33 @@ const EditarOrdenesState = (props) => {
 		});
 	};
 
+	const modificarOrden = async (ordenObj) => {
+		const datos = {
+			direccionEnvio: 'Av. Hipolito Hyrigoyen 341',
+			tipoEnvioId: 2,
+		};
+
+		try {
+			let r = await clienteAxios.put(`/api/ordenes/${orden}`, datos);
+
+			dispatch({
+				type: MODIFICAR_ORDEN,
+				payload: {
+					r: r.data,
+					orden: orden,
+					value: value,
+					descripcion: descripcion,
+				},
+			});
+		} catch (error) {
+			console.log(error);
+		}
+
+		dispatch({
+			type: BORRAR_MENSAJE,
+		});
+	};
+
 	return (
 		<EditarOrdenesContext.Provider
 			value={{
@@ -119,6 +147,7 @@ const EditarOrdenesState = (props) => {
 				cargando: state.cargando,
 				traerOrdenes,
 				traerEstadosOrden,
+				modificarOrden,
 				handleFilasOrdenes,
 				handleEstadoOrden,
 				handleFilaActivaOrden,

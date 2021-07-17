@@ -45,7 +45,6 @@ const inputCosto = {
 };
 
 const FormularioEnvio = ({
-	// direcciones,
 	stateEnvio,
 	handleSelectDireccion,
 	handleInputDireccion,

@@ -43,7 +43,8 @@ const Envio = () => {
 		handleSwitchDireccion,
 	] = useEnvio(envioObj, filaActiva.Cliente.direcciones);
 
-	const onSubmit = () => {
+	const onSubmit = (e) => {
+		e.preventDefault();
 		console.log('submit');
 	};
 
@@ -52,7 +53,7 @@ const Envio = () => {
 			<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 				<Typography className={classes.heading}>Envío</Typography>
 			</AccordionSummary>
-			<AccordionDetails>
+			<AccordionDetails style={{ width: '100%' }}>
 				<FormularioEnvio
 					stateEnvio={stateEnvio}
 					handleSelectDireccion={handleSelectDireccion}
@@ -66,7 +67,7 @@ const Envio = () => {
 			<Divider />
 			<AccordionActions>
 				<Button size="small">Cancelar</Button>
-				<Button size="small" color="primary">
+				<Button type="submit" form="form-envio" size="small" color="primary">
 					Guardar
 				</Button>
 			</AccordionActions>

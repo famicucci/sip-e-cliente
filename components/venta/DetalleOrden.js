@@ -44,33 +44,26 @@ const DetalleOrden = () => {
 			handleClose={handleCloseModal}
 			padding={16}
 		>
-			<form
-				className={classes.root}
-				noValidate
-				autoComplete="off"
-				// onSubmit={onSubmit}
-			>
-				<Box display="flex" justifyContent="flex-center" alignItems="flex-end">
-					<Box>
-						<Typography variant="h5" align="left">
-							{`Orden ${filaActiva.id}`}
-						</Typography>
-					</Box>
-					<Divider
-						className={classes.dividerVertical}
-						orientation="vertical"
-						variant="inset"
-						flexItem
-					/>
-					<Box>
-						<Typography align="left">{`${filaActiva.Cliente.nombre} ${filaActiva.Cliente.apellido}`}</Typography>
-					</Box>
+			<Box display="flex" justifyContent="flex-center" alignItems="flex-end">
+				<Box>
+					<Typography variant="h5" align="left">
+						{`Orden ${filaActiva.id}`}
+					</Typography>
 				</Box>
-				<Divider className={classes.dividerHorizontal} variant="fullWidth" />
-				<Productos productos={filaActiva.detalleOrden} />
-				<Envio />
-				<MasInformacion />
-			</form>
+				<Divider
+					className={classes.dividerVertical}
+					orientation="vertical"
+					variant="inset"
+					flexItem
+				/>
+				<Box>
+					<Typography align="left">{`${filaActiva.Cliente.nombre} ${filaActiva.Cliente.apellido}`}</Typography>
+				</Box>
+			</Box>
+			<Divider className={classes.dividerHorizontal} variant="fullWidth" />
+			<Productos productos={filaActiva.detalleOrden} />
+			<Envio />
+			<MasInformacion />
 		</ModalScroll>
 	);
 };

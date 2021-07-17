@@ -4,6 +4,7 @@ import {
 	FILAS_ORDENES,
 	FILA_ACTIVA_ORDEN,
 	MODIFICAR_ESTADO_ORDEN,
+	MODIFICAR_ORDEN,
 	MODAL_DETALLE_ORDEN,
 	MODAL_CLOSE,
 	BORRAR_MENSAJE,
@@ -42,6 +43,14 @@ const EditarOrdenesReducer = (state, action) => {
 			return {
 				...state,
 				filaActiva: r,
+			};
+
+		case MODIFICAR_ORDEN:
+			return {
+				...state,
+
+				ordenes: ordenModificadas,
+				mensaje: action.payload.r,
 			};
 		case MODIFICAR_ESTADO_ORDEN:
 			const ordenModificadas = modEstadoOrden(
