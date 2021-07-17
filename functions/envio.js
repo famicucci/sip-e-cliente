@@ -38,4 +38,39 @@ class Direccion {
 	}
 }
 
-export { Direccion };
+class Envio {
+	constructor(
+		modoDirecc,
+		valDireccionEnvioSelect,
+		direccionEnvioinput,
+		direccionesCliente
+	) {
+		this.modoDirecc = modoDirecc;
+		this.valDireccionEnvioSelect = valDireccionEnvioSelect;
+		this.direccionEnvioinput = direccionEnvioinput;
+		this.direccionesCliente = direccionesCliente;
+	}
+
+	getDireccionSegunModoDirecc() {
+		let direccionEnvio;
+		if (this.modoDirecc === 'select') {
+			direccionEnvio = this.constructor.getDireccionSegunValue(
+				this.valDireccionEnvioSelect,
+				this.direccionesCliente
+			);
+		} else if (this.modoDirecc === 'input') {
+			direccionEnvio = this.direccionEnvioinput;
+		}
+		return direccionEnvio;
+	}
+
+	static getDireccionSegunValue(value, direccionesCliente) {
+		const r = direccionesCliente.find((x) => x.id === value);
+
+		const direccion = r.descripcion;
+
+		return direccion;
+	}
+}
+
+export { Direccion, Envio };

@@ -11,6 +11,7 @@ import AccordionActions from '@material-ui/core/AccordionActions';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
+import { Envio } from '../../functions/envio';
 
 const useStyles = makeStyles((theme) => ({
 	heading: {
@@ -19,10 +20,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const Envio = () => {
+const EnvioDetalleOrden = () => {
 	const classes = useStyles();
 
-	const { filaActiva } = useContext(EditarOrdenesContext);
+	const { filaActiva, modificarOrden } = useContext(EditarOrdenesContext);
 
 	const envioObj = {
 		valSelectDirecc: undefined,
@@ -43,7 +44,23 @@ const Envio = () => {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		console.log('submit');
+
+		const ordenId = filaActiva.id;
+
+		const direcc = new Envio(
+			stateEnvio.modoDirecc,
+			stateEnvio.valSelectDireccion,
+			stateEnvio.valInputDireccion,
+			stateEnvio.dataDirecciones
+		);
+
+		const datos = {
+			direccionEnvio: direcc.getDireccionSegunModoDirecc(),
+			tipoEnvioId: stateEnvio.valSelectTipo,
+			// tarifaEnvio: stateEnvio.valInputCosto,
+		};
+
+		modificarOrden(ordenId, datos);
 	};
 
 	return (
@@ -60,6 +77,7 @@ const Envio = () => {
 					handleInputCosto={handleInputCosto}
 					handleSwitchDireccion={handleSwitchDireccion}
 					onSubmit={onSubmit}
+					facturasOrden={filaActiva.Facturas ? filaActiva.Facturas : []}
 				/>
 			</AccordionDetails>
 			<Divider />
@@ -73,4 +91,4 @@ const Envio = () => {
 	);
 };
 
-export default Envio;
+export default EnvioDetalleOrden;

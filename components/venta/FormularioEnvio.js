@@ -61,6 +61,7 @@ const FormularioEnvio = ({
 	handleInputCosto,
 	handleSwitchDireccion,
 	onSubmit,
+	facturasOrden,
 }) => {
 	const classes = useStyles();
 
@@ -137,6 +138,7 @@ const FormularioEnvio = ({
 					required={inputCosto.required}
 					valInit={valInputCosto}
 					funcModState={handleInputCosto}
+					disabled={facturasOrden.length > 0 ? true : false}
 				/>
 			</Grid>
 		</form>

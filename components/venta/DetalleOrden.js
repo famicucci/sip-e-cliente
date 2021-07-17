@@ -4,7 +4,7 @@ import ModalScroll from '../generales/ModalScroll';
 import { Typography, Divider, Box } from '@material-ui/core';
 import VentasContext from '../../context/ventas/ventasContext';
 import Productos from './Productos';
-import Envio from './Envio';
+import EnvioDetalleOrden from './EnvioDetalleOrden';
 import MasInformacion from './MasInformacion';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
 
@@ -62,7 +62,7 @@ const DetalleOrden = () => {
 			</Box>
 			<Divider className={classes.dividerHorizontal} variant="fullWidth" />
 			<Productos productos={filaActiva.detalleOrden} />
-			<Envio />
+			<EnvioDetalleOrden />
 			<MasInformacion />
 		</ModalScroll>
 	);

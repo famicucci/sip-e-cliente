@@ -18,6 +18,7 @@ const InputNuevoCliente = ({
 	required,
 	valInit,
 	funcModState,
+	disabled,
 }) => {
 	const classes = useStyles();
 
@@ -32,6 +33,10 @@ const InputNuevoCliente = ({
 		required = { required: 'true' };
 	}
 
+	if (disabled) {
+		disabled = { disabled: true };
+	}
+
 	return (
 		<Grid item xs={ancho} className={classes.root}>
 			<TextField
@@ -44,6 +49,7 @@ const InputNuevoCliente = ({
 					shrink: true,
 				}}
 				onChange={onChange}
+				{...disabled}
 			/>
 		</Grid>
 	);

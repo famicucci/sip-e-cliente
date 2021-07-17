@@ -107,24 +107,21 @@ const EditarOrdenesState = (props) => {
 		});
 	};
 
-	const modificarOrden = async (ordenObj) => {
-		const datos = {
-			direccionEnvio: 'Av. Hipolito Hyrigoyen 341',
-			tipoEnvioId: 2,
-		};
-
+	const modificarOrden = async (ordenId, ordenObj) => {
+		console.log(ordenObj);
 		try {
-			let r = await clienteAxios.put(`/api/ordenes/${orden}`, datos);
+			let r = await clienteAxios.put(`/api/ordenes/${ordenId}`, ordenObj);
+			console.log('exito');
 
-			dispatch({
-				type: MODIFICAR_ORDEN,
-				payload: {
-					r: r.data,
-					orden: orden,
-					value: value,
-					descripcion: descripcion,
-				},
-			});
+			// dispatch({
+			// 	type: MODIFICAR_ORDEN,
+			// 	payload: {
+			// 		r: r.data,
+			// 		orden: orden,
+			// 		value: value,
+			// 		descripcion: descripcion,
+			// 	},
+			// });
 		} catch (error) {
 			console.log(error);
 		}
