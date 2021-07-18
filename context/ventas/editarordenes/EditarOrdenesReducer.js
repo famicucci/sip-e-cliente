@@ -55,10 +55,11 @@ const EditarOrdenesReducer = (state, action) => {
 				state.tiposEnvio
 			);
 			const ordenMod = nuevaOrden.modificarOrden();
+			const ordenesMod = nuevaOrden.modOrdenes();
 
 			return {
 				...state,
-				// ordenes: ordenModificadas,
+				ordenes: ordenesMod,
 				filaActiva: ordenMod,
 				mensaje: action.payload.r,
 			};

@@ -33,6 +33,18 @@ class Orden {
 		this.tiposEnvio = tiposEnvio;
 	}
 
+	// funcion que reemplace la orden modificada en ordenes
+	// devuelve ordenesMod
+	modOrdenes() {
+		const ordenMod = this.modificarOrden();
+
+		const ordenesMod = this.ordenes.map((x) =>
+			x.id === ordenMod.id ? ordenMod : x
+		);
+
+		return ordenesMod;
+	}
+
 	// metodo que recibe los parametros modificados y los reemplaza en filaActiva
 	// devuelve filaActiva modificada
 	modificarOrden() {
