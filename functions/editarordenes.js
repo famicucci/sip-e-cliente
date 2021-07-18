@@ -25,28 +25,28 @@ const modEstadoOrden = (ordenes, ordenId, value, descripcion) => {
 	return r;
 };
 
-class Orden {
-	constructor(ordenes, filaActivaOrden, paramsOrden, tiposEnvio) {
+class Ordenes {
+	constructor(ordenes, orden) {
 		this.ordenes = ordenes;
+		this.orden = orden;
+	}
+
+	modOrdenes() {
+		const ordenesMod = this.ordenes.map((x) =>
+			x.id === this.orden.id ? this.orden : x
+		);
+
+		return ordenesMod;
+	}
+}
+
+class Orden {
+	constructor(filaActivaOrden, paramsOrden, tiposEnvio) {
 		this.filaActivaOrden = filaActivaOrden;
 		this.paramsOrden = paramsOrden;
 		this.tiposEnvio = tiposEnvio;
 	}
 
-	// funcion que reemplace la orden modificada en ordenes
-	// devuelve ordenesMod
-	modOrdenes() {
-		const ordenMod = this.modificarOrden();
-
-		const ordenesMod = this.ordenes.map((x) =>
-			x.id === ordenMod.id ? ordenMod : x
-		);
-
-		return ordenesMod;
-	}
-
-	// metodo que recibe los parametros modificados y los reemplaza en filaActiva
-	// devuelve filaActiva modificada
 	modificarOrden() {
 		const {
 			observaciones,
@@ -115,4 +115,4 @@ class Orden {
 	// metodo que reciba ordenes formato bd y lo convierta en ordenes formato frontend
 }
 
-export { crearFilasTablaEditarOrdenes, modEstadoOrden, Orden };
+export { crearFilasTablaEditarOrdenes, modEstadoOrden, Ordenes, Orden };

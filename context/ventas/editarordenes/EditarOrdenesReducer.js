@@ -14,6 +14,7 @@ import { filBus } from '../../../functions/filtros.js';
 import {
 	crearFilasTablaEditarOrdenes,
 	modEstadoOrden,
+	Ordenes,
 	Orden,
 } from '../../../functions/editarordenes';
 
@@ -48,14 +49,15 @@ const EditarOrdenesReducer = (state, action) => {
 			};
 
 		case MODIFICAR_ORDEN:
-			const nuevaOrden = new Orden(
-				state.ordenes,
+			const orden = new Orden(
 				state.filaActiva,
 				action.payload.ordenObj,
 				state.tiposEnvio
 			);
-			const ordenMod = nuevaOrden.modificarOrden();
-			const ordenesMod = nuevaOrden.modOrdenes();
+			const ordenMod = orden.modificarOrden();
+
+			const ordenes = new Ordenes(state.ordenes, ordenMod);
+			const ordenesMod = ordenes.modOrdenes();
 
 			return {
 				...state,
