@@ -73,4 +73,25 @@ class Envio {
 	}
 }
 
-export { Direccion, Envio };
+class TipoEnvio {
+	constructor(tiposEnvio, tipoEnvioId) {
+		this.tiposEnvio = tiposEnvio;
+		this.tipoEnvioId = tipoEnvioId;
+	}
+
+	getIdYDescripcion() {
+		const tipoEnvio = this.tiposEnvio.find((x) => x.id === this.tipoEnvioId);
+
+		return tipoEnvio;
+	}
+
+	getDescripcion() {
+		const r = this.getIdYDescripcion();
+
+		const descripcion = r.descripcion;
+
+		return descripcion;
+	}
+}
+
+export { Direccion, Envio, TipoEnvio };

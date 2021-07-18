@@ -8,11 +8,13 @@ import {
 	MODAL_DETALLE_ORDEN,
 	MODAL_CLOSE,
 	BORRAR_MENSAJE,
+	TIPOS_ENVIO,
 } from '../../../types';
 import { filBus } from '../../../functions/filtros.js';
 import {
 	crearFilasTablaEditarOrdenes,
 	modEstadoOrden,
+	Orden,
 } from '../../../functions/editarordenes';
 
 const EditarOrdenesReducer = (state, action) => {
@@ -46,10 +48,18 @@ const EditarOrdenesReducer = (state, action) => {
 			};
 
 		case MODIFICAR_ORDEN:
+			const nuevaOrden = new Orden(
+				state.ordenes,
+				state.filaActiva,
+				action.payload.ordenObj,
+				state.tiposEnvio
+			);
+			const ordenMod = nuevaOrden.modificarOrden();
+
 			return {
 				...state,
-
-				ordenes: ordenModificadas,
+				// ordenes: ordenModificadas,
+				filaActiva: ordenMod,
 				mensaje: action.payload.r,
 			};
 		case MODIFICAR_ESTADO_ORDEN:
@@ -79,6 +89,11 @@ const EditarOrdenesReducer = (state, action) => {
 			return {
 				...state,
 				mensaje: null,
+			};
+		case TIPOS_ENVIO:
+			return {
+				...state,
+				tiposEnvio: action.payload,
 			};
 		default:
 			return state;

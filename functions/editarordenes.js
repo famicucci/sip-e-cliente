@@ -1,3 +1,5 @@
+import { TipoEnvio } from './envio';
+
 const crearFilasTablaEditarOrdenes = (arrayFilas) => {
 	let filasTablaOrdenes = arrayFilas.map((x) => ({
 		idOrden: x.id,
@@ -23,4 +25,82 @@ const modEstadoOrden = (ordenes, ordenId, value, descripcion) => {
 	return r;
 };
 
-export { crearFilasTablaEditarOrdenes, modEstadoOrden };
+class Orden {
+	constructor(ordenes, filaActivaOrden, paramsOrden, tiposEnvio) {
+		this.ordenes = ordenes;
+		this.filaActivaOrden = filaActivaOrden;
+		this.paramsOrden = paramsOrden;
+		this.tiposEnvio = tiposEnvio;
+	}
+
+	// metodo que recibe los parametros modificados y los reemplaza en filaActiva
+	// devuelve filaActiva modificada
+	modificarOrden() {
+		const {
+			observaciones,
+			direccionEnvio,
+			tipoEnvioId,
+			ptoVentaId,
+			tarifaEnvio,
+			ordenEstadoId,
+		} = this.paramsOrden;
+
+		let ordenMod = { ...this.filaActivaOrden };
+
+		// if (observaciones) {
+		// 	ordenMod = {
+		// 		...ordenMod,
+		// 		observaciones: observaciones,
+		// 	};
+		// }
+
+		if (direccionEnvio) {
+			ordenMod = {
+				...ordenMod,
+				direccionEnvio: direccionEnvio,
+			};
+		}
+
+		if (tipoEnvioId) {
+			const objTipoEnvio = new TipoEnvio(this.tiposEnvio, tipoEnvioId);
+
+			const tipoEnvioMod = objTipoEnvio.getIdYDescripcion(); // esto deberia estar en la clase TipoEnvio
+
+			ordenMod = {
+				...ordenMod,
+				TipoEnvio: tipoEnvioMod,
+			};
+		}
+
+		// if (ptoVentaId) {
+		// generar el objeto y luego hacer el reemplazo
+		// ordenMod = {
+		// 	...ordenMod,
+		// 	[PtoVenta.id]: ptoVentaId,
+		// };
+		// }
+
+		if (tarifaEnvio) {
+			ordenMod = {
+				...ordenMod,
+				tarifaEnvio: tarifaEnvio,
+			};
+		}
+
+		// if (ordenEstadoId) {
+		// generar el objeto y luego hacer el reemplazo
+		// ordenMod = {
+		// 	...ordenMod,
+		// 	[OrdenEstado.id]: ordenEstadoId,
+		// };
+		// }
+		return ordenMod;
+	}
+
+	// metodo que reemplaza filaActivaOrden en ordenes
+	// devuelve ordenes modificada
+
+	// metodo que reciba ordenes formato bd y lo convierta en ordenes formato frontend
+}
+
+export { crearFilasTablaEditarOrdenes, modEstadoOrden, Orden };

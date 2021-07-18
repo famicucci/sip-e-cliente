@@ -13,6 +13,7 @@ import {
 	MODAL_DETALLE_ORDEN,
 	MODAL_CLOSE,
 	BORRAR_MENSAJE,
+	TIPOS_ENVIO,
 } from '../../../types';
 
 const EditarOrdenesState = (props) => {
@@ -23,6 +24,7 @@ const EditarOrdenesState = (props) => {
 		filaActiva: {},
 		estadosOrden: [],
 		openModalDetalleOrden: false,
+		tiposEnvio: [],
 		mensaje: null,
 		cargando: true,
 	};
@@ -108,20 +110,16 @@ const EditarOrdenesState = (props) => {
 	};
 
 	const modificarOrden = async (ordenId, ordenObj) => {
-		console.log(ordenObj);
 		try {
-			let r = await clienteAxios.put(`/api/ordenes/${ordenId}`, ordenObj);
-			console.log('exito');
+			const r = await clienteAxios.put(`/api/ordenes/${ordenId}`, ordenObj);
 
-			// dispatch({
-			// 	type: MODIFICAR_ORDEN,
-			// 	payload: {
-			// 		r: r.data,
-			// 		orden: orden,
-			// 		value: value,
-			// 		descripcion: descripcion,
-			// 	},
-			// });
+			// tengo que modificar ordenes
+			// tengo que modificar la fila activa
+
+			dispatch({
+				type: MODIFICAR_ORDEN,
+				payload: { r, ordenObj },
+			});
 		} catch (error) {
 			console.log(error);
 		}
@@ -129,6 +127,23 @@ const EditarOrdenesState = (props) => {
 		dispatch({
 			type: BORRAR_MENSAJE,
 		});
+	};
+
+	const traerTiposEnvio = async () => {
+		try {
+			const r = await clienteAxios.get(`/api/tipos-envio`);
+
+			dispatch({
+				type: TIPOS_ENVIO,
+				payload: r.data,
+			});
+		} catch (error) {
+			console.log(error);
+			// dispatch({
+			// 	type: ERROR_BARRA_HERRAMIENTAS,
+			// 	payload: error,
+			// });
+		}
 	};
 
 	return (
@@ -140,6 +155,7 @@ const EditarOrdenesState = (props) => {
 				filaActiva: state.filaActiva,
 				estadosOrden: state.estadosOrden,
 				openModalDetalleOrden: state.openModalDetalleOrden,
+				tiposEnvio: state.tiposEnvio,
 				mensaje: state.mensaje,
 				cargando: state.cargando,
 				traerOrdenes,
@@ -150,6 +166,7 @@ const EditarOrdenesState = (props) => {
 				handleFilaActivaOrden,
 				handleOpenModalDetalleOrden,
 				handleCloseModal,
+				traerTiposEnvio,
 			}}
 		>
 			{props.children}

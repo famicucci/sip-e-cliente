@@ -57,7 +57,7 @@ const EnvioDetalleOrden = () => {
 		const datos = {
 			direccionEnvio: direcc.getDireccionSegunModoDirecc(),
 			tipoEnvioId: stateEnvio.valSelectTipo,
-			// tarifaEnvio: stateEnvio.valInputCosto,
+			tarifaEnvio: stateEnvio.valInputCosto,
 		};
 
 		modificarOrden(ordenId, datos);
