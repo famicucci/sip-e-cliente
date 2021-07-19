@@ -34,6 +34,7 @@ const SelectPtoVenta = ({ ptoVenta, handlePtoVenta }) => {
 			<InputLabel shrink>Punto de Venta</InputLabel>
 			<Select
 				className={classes.selectEmpty}
+				name="ptoventa"
 				value={ptoVenta}
 				onChange={handleChange}
 				autoWidth

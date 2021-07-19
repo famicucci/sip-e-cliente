@@ -113,12 +113,14 @@ const EditarOrdenesState = (props) => {
 		try {
 			const r = await clienteAxios.put(`/api/ordenes/${ordenId}`, ordenObj);
 
+			console.log(r);
+
 			// tengo que modificar ordenes
 			// tengo que modificar la fila activa
 
 			dispatch({
 				type: MODIFICAR_ORDEN,
-				payload: { r, ordenObj },
+				payload: { r: r.data, ordenObj },
 			});
 		} catch (error) {
 			console.log(error);
