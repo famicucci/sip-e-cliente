@@ -60,6 +60,7 @@ const TablaEditarOrdenes = () => {
 		traerEstadosOrden,
 		handleFilasOrdenes,
 		traerTiposEnvio,
+		traerPtosVenta,
 	} = useContext(EditarOrdenesContext);
 
 	const { handleHerramientasEditarVentas, busqueda } = useContext(
@@ -74,6 +75,7 @@ const TablaEditarOrdenes = () => {
 		traerOrdenes();
 		traerEstadosOrden();
 		traerTiposEnvio();
+		traerPtosVenta();
 	}, []);
 
 	useEffect(() => {

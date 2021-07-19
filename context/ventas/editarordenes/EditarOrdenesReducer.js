@@ -9,6 +9,7 @@ import {
 	MODAL_CLOSE,
 	BORRAR_MENSAJE,
 	TIPOS_ENVIO,
+	PTOS_VENTA,
 } from '../../../types';
 import { filBus } from '../../../functions/filtros.js';
 import {
@@ -52,7 +53,8 @@ const EditarOrdenesReducer = (state, action) => {
 			const orden = new Orden(
 				state.filaActiva,
 				action.payload.ordenObj,
-				state.tiposEnvio
+				state.tiposEnvio,
+				state.ptosVenta
 			);
 			const ordenMod = orden.modificarOrden();
 
@@ -97,6 +99,11 @@ const EditarOrdenesReducer = (state, action) => {
 			return {
 				...state,
 				tiposEnvio: action.payload,
+			};
+		case PTOS_VENTA:
+			return {
+				...state,
+				ptosVenta: action.payload,
 			};
 		default:
 			return state;

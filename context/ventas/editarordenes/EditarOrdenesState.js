@@ -14,6 +14,7 @@ import {
 	MODAL_CLOSE,
 	BORRAR_MENSAJE,
 	TIPOS_ENVIO,
+	PTOS_VENTA,
 } from '../../../types';
 
 const EditarOrdenesState = (props) => {
@@ -25,6 +26,7 @@ const EditarOrdenesState = (props) => {
 		estadosOrden: [],
 		openModalDetalleOrden: false,
 		tiposEnvio: [],
+		ptosVenta: [],
 		mensaje: null,
 		cargando: true,
 	};
@@ -113,11 +115,6 @@ const EditarOrdenesState = (props) => {
 		try {
 			const r = await clienteAxios.put(`/api/ordenes/${ordenId}`, ordenObj);
 
-			console.log(r);
-
-			// tengo que modificar ordenes
-			// tengo que modificar la fila activa
-
 			dispatch({
 				type: MODIFICAR_ORDEN,
 				payload: { r: r.data, ordenObj },
@@ -148,6 +145,23 @@ const EditarOrdenesState = (props) => {
 		}
 	};
 
+	const traerPtosVenta = async () => {
+		try {
+			const respuesta = await clienteAxios.get(`/api/ventas/ptos-venta`);
+
+			dispatch({
+				type: PTOS_VENTA,
+				payload: respuesta.data,
+			});
+		} catch (error) {
+			console.log(error);
+			// dispatch({
+			// 	type: ERROR_BARRA_HERRAMIENTAS,
+			// 	payload: error,
+			// });
+		}
+	};
+
 	return (
 		<EditarOrdenesContext.Provider
 			value={{
@@ -158,6 +172,7 @@ const EditarOrdenesState = (props) => {
 				estadosOrden: state.estadosOrden,
 				openModalDetalleOrden: state.openModalDetalleOrden,
 				tiposEnvio: state.tiposEnvio,
+				ptosVenta: state.ptosVenta,
 				mensaje: state.mensaje,
 				cargando: state.cargando,
 				traerOrdenes,
@@ -169,6 +184,7 @@ const EditarOrdenesState = (props) => {
 				handleOpenModalDetalleOrden,
 				handleCloseModal,
 				traerTiposEnvio,
+				traerPtosVenta,
 			}}
 		>
 			{props.children}

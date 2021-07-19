@@ -43,10 +43,11 @@ class Ordenes {
 }
 
 class Orden {
-	constructor(filaActivaOrden, paramsOrden, tiposEnvio) {
+	constructor(filaActivaOrden, paramsOrden, tiposEnvio, ptosVenta) {
 		this.filaActivaOrden = filaActivaOrden;
 		this.paramsOrden = paramsOrden;
 		this.tiposEnvio = tiposEnvio;
+		this.ptosVenta = ptosVenta;
 	}
 
 	modificarOrden() {
@@ -54,19 +55,19 @@ class Orden {
 			observaciones,
 			direccionEnvio,
 			tipoEnvioId,
-			ptoVentaId,
+			PtoVentaId,
 			tarifaEnvio,
 			ordenEstadoId,
 		} = this.paramsOrden;
 
 		let ordenMod = { ...this.filaActivaOrden };
 
-		// if (observaciones) {
-		// 	ordenMod = {
-		// 		...ordenMod,
-		// 		observaciones: observaciones,
-		// 	};
-		// }
+		if (observaciones) {
+			ordenMod = {
+				...ordenMod,
+				observaciones: observaciones,
+			};
+		}
 
 		if (direccionEnvio) {
 			ordenMod = {
@@ -78,7 +79,7 @@ class Orden {
 		if (tipoEnvioId) {
 			const objTipoEnvio = new TipoEnvio(this.tiposEnvio, tipoEnvioId);
 
-			const tipoEnvioMod = objTipoEnvio.getIdYDescripcion(); // esto deberia estar en la clase TipoEnvio
+			const tipoEnvioMod = objTipoEnvio.getIdYDescripcion();
 
 			ordenMod = {
 				...ordenMod,
@@ -86,13 +87,16 @@ class Orden {
 			};
 		}
 
-		// if (ptoVentaId) {
-		// generar el objeto y luego hacer el reemplazo
-		// ordenMod = {
-		// 	...ordenMod,
-		// 	[PtoVenta.id]: ptoVentaId,
-		// };
-		// }
+		if (PtoVentaId) {
+			const objPtoVenta = new PtoVenta(this.ptosVenta, PtoVentaId);
+
+			const ptoVentaMod = objPtoVenta.getIdYDescripcion();
+
+			ordenMod = {
+				...ordenMod,
+				PtoVenta: ptoVentaMod,
+			};
+		}
 
 		if (tarifaEnvio) {
 			ordenMod = {
@@ -112,4 +116,33 @@ class Orden {
 	}
 }
 
-export { crearFilasTablaEditarOrdenes, modEstadoOrden, Ordenes, Orden };
+class PtoVenta {
+	constructor(ptosVenta, ptoVentaId) {
+		this.ptosVenta = ptosVenta;
+		this.ptoVentaId = ptoVentaId;
+	}
+
+	getIdYDescripcion() {
+		let ptoVenta = this.ptosVenta.find((x) => x.id === this.ptoVentaId);
+
+		ptoVenta = { id: ptoVenta.id, descripcion: ptoVenta.descripcion };
+
+		return ptoVenta;
+	}
+
+	// getDescripcion() {
+	// 	const r = this.getIdYDescripcion();
+
+	// 	const descripcion = r.descripcion;
+
+	// 	return descripcion;
+	// }
+}
+
+export {
+	crearFilasTablaEditarOrdenes,
+	modEstadoOrden,
+	Ordenes,
+	Orden,
+	PtoVenta,
+};
