@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
 		fontSize: theme.typography.pxToRem(15),
 		fontWeight: theme.typography.fontWeightRegular,
 	},
+	botonGuardar: { color: theme.palette.success.main },
 }));
 
 const Productos = ({ productos }) => {
@@ -30,8 +31,7 @@ const Productos = ({ productos }) => {
 			</AccordionDetails>
 			<Divider />
 			<AccordionActions>
-				<Button size="small">Cancelar</Button>
-				<Button size="small" color="primary">
+				<Button className={classes.botonGuardar} size="small" color="primary">
 					Guardar
 				</Button>
 			</AccordionActions>

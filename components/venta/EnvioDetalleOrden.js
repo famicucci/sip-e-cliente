@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
 		fontSize: theme.typography.pxToRem(15),
 		fontWeight: theme.typography.fontWeightRegular,
 	},
+	botonGuardar: { color: theme.palette.success.main },
 }));
 
 const EnvioDetalleOrden = () => {
@@ -96,8 +97,13 @@ const EnvioDetalleOrden = () => {
 			</AccordionDetails>
 			<Divider />
 			<AccordionActions>
-				<Button size="small">Cancelar</Button>
-				<Button type="submit" form="form-envio" size="small" color="primary">
+				<Button
+					className={classes.botonGuardar}
+					type="submit"
+					form="form-envio"
+					size="small"
+					color="primary"
+				>
 					Guardar
 				</Button>
 			</AccordionActions>

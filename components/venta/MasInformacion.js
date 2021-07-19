@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
 		fontSize: theme.typography.pxToRem(15),
 		fontWeight: theme.typography.fontWeightRegular,
 	},
+	botonGuardar: { color: theme.palette.success.main },
 }));
 
 const MasInformacion = () => {
@@ -71,16 +72,6 @@ const MasInformacion = () => {
 		}
 	};
 
-	const onClickCancelar = () => {
-		setExpanded({ expanded: false });
-		setMasInformacion({
-			...masInformacion,
-			PtoVentaId: filaActiva.PtoVenta.id,
-			observaciones: filaActiva.observaciones,
-			ordenEcommerce: filaActiva.ordenEcommerce,
-		});
-	};
-
 	return (
 		<Accordion {...expanded}>
 			<AccordionSummary
@@ -125,14 +116,11 @@ const MasInformacion = () => {
 			</AccordionDetails>
 			<Divider />
 			<AccordionActions>
-				<Button size="small" onClick={onClickCancelar}>
-					Cancelar
-				</Button>
 				<Button
+					className={classes.botonGuardar}
 					type="submit"
 					form="form-mas-informacion"
 					size="small"
-					color="primary"
 				>
 					Guardar
 				</Button>
