@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -22,6 +22,8 @@ const useStyles = makeStyles((theme) => ({
 
 const EnvioDetalleOrden = () => {
 	const classes = useStyles();
+
+	const [expanded, setExpanded] = useState({ expanded: false });
 
 	const { filaActiva, modificarOrden } = useContext(EditarOrdenesContext);
 
@@ -61,11 +63,23 @@ const EnvioDetalleOrden = () => {
 		};
 
 		modificarOrden(ordenId, datos);
+		setExpanded({ expanded: false });
+	};
+
+	const onClickSummary = () => {
+		if (expanded.expanded === true) {
+			setExpanded({ expanded: false });
+		} else if (expanded.expanded === false) {
+			setExpanded({ expanded: true });
+		}
 	};
 
 	return (
-		<Accordion>
-			<AccordionSummary expandIcon={<ExpandMoreIcon />}>
+		<Accordion {...expanded}>
+			<AccordionSummary
+				expandIcon={<ExpandMoreIcon />}
+				onClick={onClickSummary}
+			>
 				<Typography className={classes.heading}>Envío</Typography>
 			</AccordionSummary>
 			<AccordionDetails>

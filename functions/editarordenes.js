@@ -38,6 +38,8 @@ class Ordenes {
 
 		return ordenesMod;
 	}
+
+	// metodo que reciba ordenes formato bd y lo convierta en ordenes formato frontend
 }
 
 class Orden {
@@ -108,11 +110,6 @@ class Orden {
 		// }
 		return ordenMod;
 	}
-
-	// metodo que reemplaza filaActivaOrden en ordenes
-	// devuelve ordenes modificada
-
-	// metodo que reciba ordenes formato bd y lo convierta en ordenes formato frontend
 }
 
 export { crearFilasTablaEditarOrdenes, modEstadoOrden, Ordenes, Orden };
