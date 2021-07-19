@@ -31,7 +31,7 @@ const MasInformacion = () => {
 	const [masInformacion, setMasInformacion] = useState({
 		PtoVentaId: filaActiva.PtoVenta.id,
 		observaciones: filaActiva.observaciones,
-		ordenEcommerce: filaActiva.nroEcommerce,
+		ordenEcommerce: filaActiva.ordenEcommerce,
 	});
 
 	const onChangePtoVenta = (value) => {
@@ -71,6 +71,16 @@ const MasInformacion = () => {
 		}
 	};
 
+	const onClickCancelar = () => {
+		setExpanded({ expanded: false });
+		setMasInformacion({
+			...masInformacion,
+			PtoVentaId: filaActiva.PtoVenta.id,
+			observaciones: filaActiva.observaciones,
+			ordenEcommerce: filaActiva.ordenEcommerce,
+		});
+	};
+
 	return (
 		<Accordion {...expanded}>
 			<AccordionSummary
@@ -88,7 +98,7 @@ const MasInformacion = () => {
 					<Grid container spacing={1}>
 						<Grid item xs={3}>
 							<SelectPtoVenta
-								ptoVenta={filaActiva.PtoVenta.id}
+								ptoVenta={masInformacion.PtoVentaId}
 								handlePtoVenta={onChangePtoVenta}
 							/>
 						</Grid>
@@ -98,7 +108,7 @@ const MasInformacion = () => {
 							placeholder="Escribe el identificador aquí.."
 							ancho={9}
 							required={true}
-							valInit={filaActiva.ordenEcommerce}
+							valInit={masInformacion.ordenEcommerce}
 							funcModState={onChangeNroEcommerce}
 						/>
 						<InputBordeInferior
@@ -107,7 +117,7 @@ const MasInformacion = () => {
 							placeholder="Escribe la nota aquí..."
 							ancho={12}
 							required={true}
-							valInit={filaActiva.observaciones}
+							valInit={masInformacion.observaciones}
 							funcModState={onChangeNota}
 						/>
 					</Grid>
@@ -115,7 +125,9 @@ const MasInformacion = () => {
 			</AccordionDetails>
 			<Divider />
 			<AccordionActions>
-				<Button size="small">Cancelar</Button>
+				<Button size="small" onClick={onClickCancelar}>
+					Cancelar
+				</Button>
 				<Button
 					type="submit"
 					form="form-mas-informacion"

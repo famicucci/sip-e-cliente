@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -21,6 +21,10 @@ const InputBordeInferior = ({
 	const classes = useStyles();
 
 	const [valor, setValor] = useState(valInit);
+
+	useEffect(() => {
+		setValor(valInit);
+	}, [valInit]);
 
 	const onChange = (e) => {
 		setValor(e.target.value);
