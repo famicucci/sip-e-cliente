@@ -6,6 +6,7 @@ import {
 	MODIFICAR_ESTADO_ORDEN,
 	MODIFICAR_ORDEN,
 	MODAL_DETALLE_ORDEN,
+	MODAL_INFORMACION_CLIENTE,
 	MODAL_CLOSE,
 	BORRAR_MENSAJE,
 	TIPOS_ENVIO,
@@ -84,11 +85,17 @@ const EditarOrdenesReducer = (state, action) => {
 				...state,
 				openModalDetalleOrden: true,
 			};
+		case MODAL_INFORMACION_CLIENTE:
+			return {
+				...state,
+				openModalInformacionCliente: true,
+			};
 		case MODAL_CLOSE:
 			return {
 				...state,
 				filaActiva: {},
 				openModalDetalleOrden: false,
+				openModalInformacionCliente: false,
 			};
 		case BORRAR_MENSAJE:
 			return {

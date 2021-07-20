@@ -1,12 +1,8 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ModalScroll from '../generales/ModalScroll';
-import { Typography, Divider, Box } from '@material-ui/core';
-import VentasContext from '../../context/ventas/ventasContext';
-import Productos from './Productos';
-import EnvioDetalleOrden from './EnvioDetalleOrden';
-import MasInformacion from './MasInformacion';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
+import { Box, Typography, Divider } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
 	dividerHorizontal: {
@@ -19,29 +15,25 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const DetalleOrden = () => {
+const InformacionCliente = () => {
 	const classes = useStyles();
 
-	const { traerTiposEnvio } = useContext(VentasContext);
-	const { filaActiva, openModalDetalleOrden, handleCloseModal } =
+	const { filaActiva, openModalInformacionCliente, handleCloseModal } =
 		useContext(EditarOrdenesContext);
 
-	useEffect(() => {
-		traerTiposEnvio();
-	}, []);
-
-	if (!openModalDetalleOrden) return null;
+	console.log(filaActiva);
+	if (!openModalInformacionCliente) return null;
 
 	return (
 		<ModalScroll
-			openModal={openModalDetalleOrden}
+			openModal={openModalInformacionCliente}
 			handleClose={handleCloseModal}
 			padding={16}
 		>
 			<Box display="flex" justifyContent="flex-center" alignItems="flex-end">
 				<Box>
 					<Typography variant="h5" align="left">
-						{`Orden ${filaActiva.id}`}
+						Cliente
 					</Typography>
 				</Box>
 				<Divider
@@ -54,12 +46,8 @@ const DetalleOrden = () => {
 					<Typography align="left">{`${filaActiva.Cliente.nombre} ${filaActiva.Cliente.apellido}`}</Typography>
 				</Box>
 			</Box>
-			<Divider className={classes.dividerHorizontal} variant="fullWidth" />
-			<Productos productos={filaActiva.detalleOrden} />
-			<EnvioDetalleOrden />
-			<MasInformacion />
 		</ModalScroll>
 	);
 };
 
-export default DetalleOrden;
+export default InformacionCliente;

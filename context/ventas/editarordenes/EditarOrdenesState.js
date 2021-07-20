@@ -11,6 +11,7 @@ import {
 	MODIFICAR_ORDEN,
 	MODIFICAR_ESTADO_ORDEN,
 	MODAL_DETALLE_ORDEN,
+	MODAL_INFORMACION_CLIENTE,
 	MODAL_CLOSE,
 	BORRAR_MENSAJE,
 	TIPOS_ENVIO,
@@ -25,6 +26,7 @@ const EditarOrdenesState = (props) => {
 		filaActiva: {},
 		estadosOrden: [],
 		openModalDetalleOrden: false,
+		openModalInformacionCliente: false,
 		tiposEnvio: [],
 		ptosVenta: [],
 		mensaje: null,
@@ -105,6 +107,12 @@ const EditarOrdenesState = (props) => {
 		});
 	};
 
+	const handleOpenModalInformacionCliente = () => {
+		dispatch({
+			type: MODAL_INFORMACION_CLIENTE,
+		});
+	};
+
 	const handleCloseModal = () => {
 		dispatch({
 			type: MODAL_CLOSE,
@@ -171,6 +179,7 @@ const EditarOrdenesState = (props) => {
 				filaActiva: state.filaActiva,
 				estadosOrden: state.estadosOrden,
 				openModalDetalleOrden: state.openModalDetalleOrden,
+				openModalInformacionCliente: state.openModalInformacionCliente,
 				tiposEnvio: state.tiposEnvio,
 				ptosVenta: state.ptosVenta,
 				mensaje: state.mensaje,
@@ -182,6 +191,7 @@ const EditarOrdenesState = (props) => {
 				handleEstadoOrden,
 				handleFilaActivaOrden,
 				handleOpenModalDetalleOrden,
+				handleOpenModalInformacionCliente,
 				handleCloseModal,
 				traerTiposEnvio,
 				traerPtosVenta,

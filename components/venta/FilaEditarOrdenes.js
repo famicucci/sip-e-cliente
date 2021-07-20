@@ -27,8 +27,11 @@ const FilaEditarClientes = ({ fila, colIndex }) => {
 	const classes = useStyles(fila);
 
 	// const { handleOpenModalDetalleOrden } = useContext(VentasContext);
-	const { handleFilaActivaOrden, handleOpenModalDetalleOrden } =
-		useContext(EditarOrdenesContext);
+	const {
+		handleFilaActivaOrden,
+		handleOpenModalDetalleOrden,
+		handleOpenModalInformacionCliente,
+	} = useContext(EditarOrdenesContext);
 
 	return (
 		<RowColorIntercalado>
@@ -53,7 +56,12 @@ const FilaEditarClientes = ({ fila, colIndex }) => {
 			) : null}
 			{colIndex['Cliente'] ? (
 				<TableCell align="center">
-					<BotonSinFormato>
+					<BotonSinFormato
+						onClick={() => {
+							handleFilaActivaOrden(fila.idOrden);
+							handleOpenModalInformacionCliente();
+						}}
+					>
 						{`${fila.nombreCliente} ${fila.apellidoCliente}`}
 					</BotonSinFormato>
 				</TableCell>

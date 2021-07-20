@@ -28,7 +28,11 @@ const BootstrapButton = withStyles((theme) => ({
 }))(Button);
 
 const BotonSinFormato = (props) => {
-	return <BootstrapButton variant="outlined">{props.children}</BootstrapButton>;
+	return (
+		<BootstrapButton variant="outlined" {...props}>
+			{props.children}
+		</BootstrapButton>
+	);
 };
 
 export default BotonSinFormato;
