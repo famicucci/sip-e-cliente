@@ -3,6 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import ModalScroll from '../generales/ModalScroll';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
 import { Box, Typography, Divider } from '@material-ui/core';
+import DatosCliente from './DatosCliente';
+import ContactoCliente from './ContactoCliente';
+import MasDatosCliente from './MasDatosCliente';
+import DomicilioCliente from './DomicilioCliente';
 
 const useStyles = makeStyles((theme) => ({
 	dividerHorizontal: {
@@ -21,7 +25,6 @@ const InformacionCliente = () => {
 	const { filaActiva, openModalInformacionCliente, handleCloseModal } =
 		useContext(EditarOrdenesContext);
 
-	console.log(filaActiva);
 	if (!openModalInformacionCliente) return null;
 
 	return (
@@ -46,6 +49,12 @@ const InformacionCliente = () => {
 					<Typography align="left">{`${filaActiva.Cliente.nombre} ${filaActiva.Cliente.apellido}`}</Typography>
 				</Box>
 			</Box>
+			<Divider className={classes.dividerHorizontal} variant="fullWidth" />
+
+			<DatosCliente cliente={filaActiva.Cliente} />
+			<ContactoCliente cliente={filaActiva.Cliente} />
+			<DomicilioCliente cliente={filaActiva.Cliente} />
+			<MasDatosCliente cliente={filaActiva.Cliente} />
 		</ModalScroll>
 	);
 };
