@@ -15,6 +15,7 @@ import NoteOutlinedIcon from '@material-ui/icons/NoteOutlined';
 import DetalleOrden from './DetalleOrden';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
 import InformacionCliente from '../cliente/InformacionCliente';
+import CrearFactura from './CrearFactura';
 
 const useStyles = makeStyles({
 	table: {
@@ -63,6 +64,7 @@ const TablaEditarOrdenes = () => {
 		traerTiposEnvio,
 		traerPtosVenta,
 		openModalInformacionCliente,
+		openModalCrearFactura,
 	} = useContext(EditarOrdenesContext);
 
 	const { handleHerramientasEditarVentas, busqueda } = useContext(
@@ -117,6 +119,7 @@ const TablaEditarOrdenes = () => {
 			<FacsOrdsCliente />
 			<DetalleOrden />
 			{openModalInformacionCliente ? <InformacionCliente /> : null}
+			{openModalCrearFactura ? <CrearFactura /> : null}
 		</TableContainer>
 	);
 };

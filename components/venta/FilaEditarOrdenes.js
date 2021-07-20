@@ -8,10 +8,11 @@ import SelectOrdenEstado from './SelectOrdenEstado';
 import RowColorIntercalado from '../generales/RowColorIntercalado';
 import BotonTippyHoverTabla from '../generales/BotonTippyHoverTabla';
 import BotonFilaTabla from '../tablas/componentes/BotonFilaTabla';
-import BotonCustonFilaTabla from '../generales/BotonCustomFilaTabla';
+import BotonCustomFilaTabla from '../generales/BotonCustomFilaTabla';
 import BotonSinFormato from '../generales/BotonSinFormato';
 import VentasContext from '../../context/ventas/ventasContext';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
+import { pink, deepPurple } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
 	estadoPago: {
@@ -31,6 +32,7 @@ const FilaEditarClientes = ({ fila, colIndex }) => {
 		handleFilaActivaOrden,
 		handleOpenModalDetalleOrden,
 		handleOpenModalInformacionCliente,
+		handleOpenModalCrearFactura,
 	} = useContext(EditarOrdenesContext);
 
 	return (
@@ -73,9 +75,28 @@ const FilaEditarClientes = ({ fila, colIndex }) => {
 			) : null}
 			{colIndex['Nº Fact.'] ? (
 				<TableCell align="center">
-					<BotonCustonFilaTabla>
-						{fila.idFactura ? fila.idFactura : 'Crear Factura'}
-					</BotonCustonFilaTabla>
+					{fila.idFactura ? (
+						<BotonCustomFilaTabla
+							funcModState={() => {
+								console.log('ver factura');
+							}}
+							backGroundColor={deepPurple[500]}
+							backGroundColorHover={deepPurple[700]}
+						>
+							{fila.idFactura}
+						</BotonCustomFilaTabla>
+					) : (
+						<BotonCustomFilaTabla
+							funcModState={() => {
+								handleFilaActivaOrden(fila.idOrden);
+								handleOpenModalCrearFactura();
+							}}
+							backGroundColor={pink[500]}
+							backGroundColorHover={pink[700]}
+						>
+							Crear Factura
+						</BotonCustomFilaTabla>
+					)}
 				</TableCell>
 			) : null}
 			{colIndex['Estado Pago'] ? (

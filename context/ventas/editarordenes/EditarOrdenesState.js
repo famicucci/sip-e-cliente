@@ -12,6 +12,7 @@ import {
 	MODIFICAR_ESTADO_ORDEN,
 	MODAL_DETALLE_ORDEN,
 	MODAL_INFORMACION_CLIENTE,
+	MODAL_CREAR_FACTURA,
 	MODAL_CLOSE,
 	BORRAR_MENSAJE,
 	TIPOS_ENVIO,
@@ -27,6 +28,7 @@ const EditarOrdenesState = (props) => {
 		estadosOrden: [],
 		openModalDetalleOrden: false,
 		openModalInformacionCliente: false,
+		openModalCrearFactura: false,
 		tiposEnvio: [],
 		ptosVenta: [],
 		mensaje: null,
@@ -113,6 +115,12 @@ const EditarOrdenesState = (props) => {
 		});
 	};
 
+	const handleOpenModalCrearFactura = () => {
+		dispatch({
+			type: MODAL_CREAR_FACTURA,
+		});
+	};
+
 	const handleCloseModal = () => {
 		dispatch({
 			type: MODAL_CLOSE,
@@ -180,6 +188,7 @@ const EditarOrdenesState = (props) => {
 				estadosOrden: state.estadosOrden,
 				openModalDetalleOrden: state.openModalDetalleOrden,
 				openModalInformacionCliente: state.openModalInformacionCliente,
+				openModalCrearFactura: state.openModalCrearFactura,
 				tiposEnvio: state.tiposEnvio,
 				ptosVenta: state.ptosVenta,
 				mensaje: state.mensaje,
@@ -192,6 +201,7 @@ const EditarOrdenesState = (props) => {
 				handleFilaActivaOrden,
 				handleOpenModalDetalleOrden,
 				handleOpenModalInformacionCliente,
+				handleOpenModalCrearFactura,
 				handleCloseModal,
 				traerTiposEnvio,
 				traerPtosVenta,

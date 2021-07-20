@@ -1,26 +1,23 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import { pink, deepPurple } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		backgroundColor: (props) =>
-			props.children === 'Crear Factura' ? pink[500] : deepPurple[500],
+		backgroundColor: (props) => props.backGroundColor,
 		'&:hover': {
-			backgroundColor: (props) =>
-				props.children === 'Crear Factura' ? pink[700] : deepPurple[700],
+			backgroundColor: (props) => props.backGroundColorHover,
 		},
 		borderRadius: '5px',
 		fontSize: theme.typography.pxToRem(11),
 	},
 }));
 
-const BotonCustonFilaTabla = (props) => {
+const BotonCustomFilaTabla = (props) => {
 	const classes = useStyles(props);
 
-	const handleClickBoton = (event) => {
-		console.log('hol');
+	const onClick = (e) => {
+		props.funcModState();
 		// setAnchorEl(event.currentTarget);
 	};
 
@@ -30,11 +27,11 @@ const BotonCustonFilaTabla = (props) => {
 			variant="contained"
 			color="primary"
 			disableRipple
-			onClick={handleClickBoton}
+			onClick={onClick}
 		>
 			{props.children}
 		</Button>
 	);
 };
 
-export default BotonCustonFilaTabla;
+export default BotonCustomFilaTabla;
