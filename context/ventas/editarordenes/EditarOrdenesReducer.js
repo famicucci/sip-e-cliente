@@ -8,7 +8,9 @@ import {
 	MODAL_DETALLE_ORDEN,
 	MODAL_INFORMACION_CLIENTE,
 	MODAL_CREAR_FACTURA,
+	MODAL_CONFIRMAR_FACTURA,
 	MODAL_CLOSE,
+	MODAL_CLOSE_CONFIRMAR_FACTURA,
 	BORRAR_MENSAJE,
 	TIPOS_ENVIO,
 	PTOS_VENTA,
@@ -96,6 +98,12 @@ const EditarOrdenesReducer = (state, action) => {
 				...state,
 				openModalCrearFactura: true,
 			};
+		case MODAL_CONFIRMAR_FACTURA:
+			return {
+				...state,
+				openModalConfirmarCrearFactura: true,
+			};
+
 		case MODAL_CLOSE:
 			return {
 				...state,
@@ -103,6 +111,11 @@ const EditarOrdenesReducer = (state, action) => {
 				openModalDetalleOrden: false,
 				openModalInformacionCliente: false,
 				openModalCrearFactura: false,
+			};
+		case MODAL_CLOSE_CONFIRMAR_FACTURA:
+			return {
+				...state,
+				openModalConfirmarCrearFactura: false,
 			};
 		case BORRAR_MENSAJE:
 			return {

@@ -4,11 +4,11 @@ import ModalScroll from '../generales/ModalScroll';
 import { Typography, Divider, Box } from '@material-ui/core';
 import VentasContext from '../../context/ventas/ventasContext';
 import ProductosCrearFactura from './ProductosCrearFactura';
-import MasInformacion from './MasInformacion';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
 import ImporteCrearFactura from './ImporteCrearFactura';
 import BotonSuccess from '../generales/botones/BontonSuccess';
 import NotaCrearFactura from './NotaCrearFactura';
+import ConfirmarCrearFactura from './ConfirmarCrearFactura';
 
 const useStyles = makeStyles((theme) => ({
 	dividerHorizontal: {
@@ -32,14 +32,17 @@ const CrearFactura = () => {
 	const classes = useStyles();
 
 	const { traerTiposEnvio } = useContext(VentasContext);
-	const { filaActiva, openModalCrearFactura, handleCloseModal } =
-		useContext(EditarOrdenesContext);
+	const {
+		filaActiva,
+		openModalCrearFactura,
+		openModalConfirmarCrearFactura,
+		handleOpenModalConfirmarCrearFactura,
+		handleCloseModal,
+	} = useContext(EditarOrdenesContext);
 
 	useEffect(() => {
 		traerTiposEnvio();
 	}, []);
-
-	// if (!openModalCrearFactura) return null;
 
 	return (
 		<ModalScroll
@@ -73,8 +76,12 @@ const CrearFactura = () => {
 					type="button"
 					contenido="Facturar"
 					className={classes.botonAceptar}
+					onClick={() => {
+						handleOpenModalConfirmarCrearFactura();
+					}}
 				/>
 			</Box>
+			{openModalConfirmarCrearFactura ? <ConfirmarCrearFactura /> : null}
 		</ModalScroll>
 	);
 };
