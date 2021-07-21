@@ -6,6 +6,7 @@ import {
 	MODIFICAR_ESTADO_ORDEN,
 	MODIFICAR_ORDEN,
 	MODIFICAR_FACTURA,
+	CREAR_DETALLE_FACTURA,
 	MODAL_DETALLE_ORDEN,
 	MODAL_INFORMACION_CLIENTE,
 	MODAL_CREAR_FACTURA,
@@ -87,9 +88,13 @@ const EditarOrdenesReducer = (state, action) => {
 		case MODIFICAR_FACTURA:
 			return {
 				...state,
-				factura: action.payload,
+				factura: { ...state.factura, ...action.payload },
 			};
-
+		case CREAR_DETALLE_FACTURA:
+			return {
+				...state,
+				factura: { ...state.factura, detalleFactura: action.payload },
+			};
 		case MODAL_DETALLE_ORDEN:
 			return {
 				...state,
@@ -115,6 +120,7 @@ const EditarOrdenesReducer = (state, action) => {
 			return {
 				...state,
 				filaActiva: {},
+				factura: {},
 				openModalDetalleOrden: false,
 				openModalInformacionCliente: false,
 				openModalCrearFactura: false,

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -31,17 +31,17 @@ const NotaCrearFactura = () => {
 	const classes = useStyles();
 
 	const [expanded, setExpanded] = useState({ expanded: false });
+	const [nota, setNota] = useState('');
 
-	const { filaActiva, modificarOrden } = useContext(EditarOrdenesContext);
+	const { handleFactura } = useContext(EditarOrdenesContext);
 
-	const onSubmit = (e) => {
-		e.preventDefault();
+	useEffect(() => {
+		const objFactura = { observaciones: nota };
+		handleFactura(objFactura);
+	}, [nota]);
 
-		console.log('crear factura');
-	};
-
-	const onChangeNota = () => {
-		console.log('nota');
+	const onChangeNota = (name, value) => {
+		setNota(value);
 	};
 
 	const onClickSummary = () => {

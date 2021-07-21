@@ -38,10 +38,21 @@ const CrearFactura = () => {
 		openModalConfirmarCrearFactura,
 		handleOpenModalConfirmarCrearFactura,
 		handleCloseModal,
+		handleFactura,
 	} = useContext(EditarOrdenesContext);
 
 	useEffect(() => {
 		traerTiposEnvio();
+
+		const objFactura = {
+			OrdenId: filaActiva.id,
+			ClienteId: filaActiva.Cliente.id,
+			tipo: 'fac',
+			estado: 'v',
+			estadoPago: 'Pendiente',
+		};
+
+		handleFactura(objFactura);
 	}, []);
 
 	return (

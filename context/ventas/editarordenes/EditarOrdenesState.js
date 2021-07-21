@@ -12,6 +12,7 @@ import {
 	MODIFICAR_ORDEN,
 	MODIFICAR_ESTADO_ORDEN,
 	MODIFICAR_FACTURA,
+	CREAR_DETALLE_FACTURA,
 	MODAL_DETALLE_ORDEN,
 	MODAL_INFORMACION_CLIENTE,
 	MODAL_CREAR_FACTURA,
@@ -110,16 +111,18 @@ const EditarOrdenesState = (props) => {
 	};
 
 	const handleFactura = (facturaObj) => {
-		let { detalleFactura } = facturaObj;
-
-		if (detalleFactura) {
-			detalleFactura = DetalleFactura.crearDetalleFactura(detalleFactura);
-			facturaObj = { ...facturaObj, detalleFactura: detalleFactura };
-		}
-
 		dispatch({
 			type: MODIFICAR_FACTURA,
 			payload: facturaObj,
+		});
+	};
+
+	const handleDetalleFactura = (detalleOrden) => {
+		const detalleFactura = DetalleFactura.crearDetalleFactura(detalleOrden);
+
+		dispatch({
+			type: CREAR_DETALLE_FACTURA,
+			payload: detalleFactura,
 		});
 	};
 
@@ -234,6 +237,7 @@ const EditarOrdenesState = (props) => {
 				handleEstadoOrden,
 				handleFilaActivaOrden,
 				handleFactura,
+				handleDetalleFactura,
 				handleOpenModalDetalleOrden,
 				handleOpenModalInformacionCliente,
 				handleOpenModalCrearFactura,

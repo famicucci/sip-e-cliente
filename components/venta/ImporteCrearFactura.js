@@ -43,9 +43,9 @@ const ImporteCrearFactura = () => {
 
 	const [subtotal, setSubtotal] = useState('');
 	const [montoDescuento, setMontoDescuento] = useState('');
-	const [total, setTotal] = useState(100);
+	const [total, setTotal] = useState(0);
 
-	const { filaActiva, modificarOrden } = useContext(EditarOrdenesContext);
+	const { filaActiva, handleFactura } = useContext(EditarOrdenesContext);
 
 	useEffect(() => {
 		// calcular el importe total
@@ -54,18 +54,21 @@ const ImporteCrearFactura = () => {
 	}, [subtotal, montoDescuento]);
 
 	useEffect(() => {
+		const objFactura = {
+			importe: subtotal,
+			descuento: montoDescuento,
+			tarifaEnvio: filaActiva.tarifaEnvio,
+			importeFinal: total,
+		};
+
+		handleFactura(objFactura);
+	}, [total]);
+
+	useEffect(() => {
 		const detalleOrden = new DetalleOrden(filaActiva.detalleOrden);
 		const r = detalleOrden.subtotal();
 		setSubtotal(r);
 	}, [filaActiva.detalleOrden]);
-
-	// const onSubmit = (e) => {
-	// 	e.preventDefault();
-
-	// si total es negativo impedir el submit y mostrar mensaje "El importe final no puede ser negativo"
-
-	// 	console.log('crear factura');
-	// };
 
 	const onClickSummary = () => {
 		if (expanded.expanded === true) {
