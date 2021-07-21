@@ -6,12 +6,14 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
-import { Box } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import BotonFilaTabla from '../tablas/componentes/BotonFilaTabla';
 import Collapse from '@material-ui/core/Collapse';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import { DetalleOrden } from '../../functions/editarordenes';
+import ImporteFlexGrow from '../generales/ImporteFlexGrow';
+import DescuentoCrearFactura from './DescuentoCrearFactura';
 
 const useStyles = makeStyles((theme) => ({
 	heading: {
@@ -36,24 +38,35 @@ const useStyles = makeStyles((theme) => ({
 const ImporteCrearFactura = () => {
 	const classes = useStyles();
 
-	const [expanded, setExpanded] = useState({ expanded: false });
+	const [expanded, setExpanded] = useState({ expanded: true });
 	const [expandeDescuento, setExpandeDescuento] = useState(false);
+
 	const [subtotal, setSubtotal] = useState('');
+	const [montoDescuento, setMontoDescuento] = useState('');
+	const [costoEnvio, setCostoEnvio] = useState(0);
+	const [total, setTotal] = useState(100);
 
 	const { filaActiva, modificarOrden } = useContext(EditarOrdenesContext);
 
 	useEffect(() => {
-		// console.log(filaActiva);
+		// calcular el importe total
+		const resultado = subtotal - montoDescuento - costoEnvio;
+		setTotal(resultado);
+	}, [subtotal, montoDescuento, costoEnvio]);
+
+	useEffect(() => {
 		const detalleOrden = new DetalleOrden(filaActiva.detalleOrden);
 		const r = detalleOrden.subtotal();
 		setSubtotal(r);
 	}, [filaActiva.detalleOrden]);
 
-	const onSubmit = (e) => {
-		e.preventDefault();
+	// const onSubmit = (e) => {
+	// 	e.preventDefault();
 
-		console.log('crear factura');
-	};
+	// si total es negativo impedir el submit y mostrar mensaje "El importe final no puede ser negativo"
+
+	// 	console.log('crear factura');
+	// };
 
 	const onClickSummary = () => {
 		if (expanded.expanded === true) {
@@ -73,18 +86,10 @@ const ImporteCrearFactura = () => {
 			</AccordionSummary>
 			<AccordionDetails>
 				<div style={{ width: '100%' }}>
-					<Box
-						display="flex"
-						p={1}
-						bgcolor="background.paper"
-						className={classes.box}
-					>
-						<Box flexGrow={1}>
-							<Typography className={classes.texto} variant="overline">
-								Subtotal:
-							</Typography>
-						</Box>
-						<Box>
+					<ImporteFlexGrow
+						titulo="Subtotal"
+						childrenNumDecimal
+						funcContenido={
 							<BotonFilaTabla
 								contenido={
 									!expandeDescuento ? (
@@ -97,82 +102,25 @@ const ImporteCrearFactura = () => {
 									setExpandeDescuento(!expandeDescuento);
 								}}
 							/>
-							<Typography className={classes.textoConBoton} variant="overline">
-								{new Intl.NumberFormat('de-De', {
-									style: 'decimal',
-									minimumFractionDigits: 2,
-									maximumFractionDigits: 2,
-								}).format(subtotal)}
-							</Typography>
-						</Box>
-					</Box>
-
+						}
+					>
+						{subtotal}
+					</ImporteFlexGrow>
 					<Collapse in={expandeDescuento} timeout="auto" unmountOnExit>
-						<Box
-							display="flex"
-							p={1}
-							bgcolor="background.paper"
-							className={classes.box}
-						>
-							<Box flexGrow={1}>
-								<Typography className={classes.texto} variant="overline">
-									Descuento:
-								</Typography>
-							</Box>
-							<Box>
-								<Typography className={classes.texto} variant="overline">
-									{new Intl.NumberFormat('de-De', {
-										style: 'decimal',
-										minimumFractionDigits: 2,
-										maximumFractionDigits: 2,
-									}).format(10)}
-								</Typography>
-							</Box>
-						</Box>
+						<ImporteFlexGrow titulo="Descuento">
+							<DescuentoCrearFactura
+								funcModState={setMontoDescuento}
+								monto={subtotal}
+							/>
+						</ImporteFlexGrow>
 					</Collapse>
 
-					<Box
-						display="flex"
-						p={1}
-						bgcolor="background.paper"
-						className={classes.box}
-					>
-						<Box flexGrow={1}>
-							<Typography className={classes.texto} variant="overline">
-								Envío:
-							</Typography>
-						</Box>
-						<Box>
-							<Typography className={classes.texto} variant="overline">
-								{new Intl.NumberFormat('de-De', {
-									style: 'decimal',
-									minimumFractionDigits: 2,
-									maximumFractionDigits: 2,
-								}).format(10)}
-							</Typography>
-						</Box>
-					</Box>
-					<Box
-						display="flex"
-						p={1}
-						bgcolor="background.paper"
-						className={classes.box}
-					>
-						<Box flexGrow={1}>
-							<Typography className={classes.texto} variant="overline">
-								Importe Total:
-							</Typography>
-						</Box>
-						<Box>
-							<Typography className={classes.texto} variant="overline">
-								{new Intl.NumberFormat('de-De', {
-									style: 'decimal',
-									minimumFractionDigits: 2,
-									maximumFractionDigits: 2,
-								}).format(10)}
-							</Typography>
-						</Box>
-					</Box>
+					<ImporteFlexGrow titulo="Envío" childrenNumDecimal>
+						10
+					</ImporteFlexGrow>
+					<ImporteFlexGrow titulo="Importe Total" childrenNumDecimal>
+						{total}
+					</ImporteFlexGrow>
 				</div>
 			</AccordionDetails>
 		</Accordion>

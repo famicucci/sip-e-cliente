@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const InputNuevoCliente = ({
+const InputNumberBordeInferior = ({
 	label,
 	name,
 	placeholder,
@@ -55,4 +55,4 @@ const InputNuevoCliente = ({
 	);
 };
 
-export default InputNuevoCliente;
+export default InputNumberBordeInferior;

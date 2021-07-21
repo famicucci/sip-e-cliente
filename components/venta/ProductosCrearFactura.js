@@ -32,7 +32,7 @@ const ProductosCrearFactura = ({ productos }) => {
 	const classes = useStyles();
 
 	return (
-		<Accordion defaultExpanded="true">
+		<Accordion>
 			<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 				<Typography className={classes.heading}>Productos</Typography>
 			</AccordionSummary>
