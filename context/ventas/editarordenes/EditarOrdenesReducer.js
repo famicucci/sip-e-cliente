@@ -5,6 +5,7 @@ import {
 	FILA_ACTIVA_ORDEN,
 	MODIFICAR_ESTADO_ORDEN,
 	MODIFICAR_ORDEN,
+	MODIFICAR_FACTURA,
 	MODAL_DETALLE_ORDEN,
 	MODAL_INFORMACION_CLIENTE,
 	MODAL_CREAR_FACTURA,
@@ -83,6 +84,12 @@ const EditarOrdenesReducer = (state, action) => {
 				ordenes: ordenModificadas,
 				mensaje: action.payload.r,
 			};
+		case MODIFICAR_FACTURA:
+			return {
+				...state,
+				factura: action.payload,
+			};
+
 		case MODAL_DETALLE_ORDEN:
 			return {
 				...state,

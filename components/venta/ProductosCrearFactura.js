@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -10,6 +10,7 @@ import AccordionActions from '@material-ui/core/AccordionActions';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import EditIcon from '@material-ui/icons/Edit';
+import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
 
 const useStyles = makeStyles((theme) => ({
 	heading: {
@@ -30,6 +31,13 @@ const columnas = [
 
 const ProductosCrearFactura = ({ productos }) => {
 	const classes = useStyles();
+
+	const { handleFactura } = useContext(EditarOrdenesContext);
+
+	useEffect(() => {
+		const objFactura = { detalleFactura: productos };
+		handleFactura(objFactura);
+	}, []);
 
 	return (
 		<Accordion>

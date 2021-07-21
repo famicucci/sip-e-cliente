@@ -2,6 +2,7 @@ import React, { useReducer } from 'react';
 import EditarOrdenesContext from './EditarOrdenesContext';
 import EditarOrdenesReducer from './EditarOrdenesReducer';
 import clienteAxios from '../../../config/axios';
+import { DetalleFactura } from '../../../functions/Factura';
 
 import {
 	TRAER_ORDENES,
@@ -10,6 +11,7 @@ import {
 	FILA_ACTIVA_ORDEN,
 	MODIFICAR_ORDEN,
 	MODIFICAR_ESTADO_ORDEN,
+	MODIFICAR_FACTURA,
 	MODAL_DETALLE_ORDEN,
 	MODAL_INFORMACION_CLIENTE,
 	MODAL_CREAR_FACTURA,
@@ -27,6 +29,7 @@ const EditarOrdenesState = (props) => {
 		filasOrdenes: [],
 		filas: [],
 		filaActiva: {},
+		factura: {},
 		estadosOrden: [],
 		openModalDetalleOrden: false,
 		openModalInformacionCliente: false,
@@ -103,6 +106,20 @@ const EditarOrdenesState = (props) => {
 		dispatch({
 			type: FILA_ACTIVA_ORDEN,
 			payload: id,
+		});
+	};
+
+	const handleFactura = (facturaObj) => {
+		let { detalleFactura } = facturaObj;
+
+		if (detalleFactura) {
+			detalleFactura = DetalleFactura.crearDetalleFactura(detalleFactura);
+			facturaObj = { ...facturaObj, detalleFactura: detalleFactura };
+		}
+
+		dispatch({
+			type: MODIFICAR_FACTURA,
+			payload: facturaObj,
 		});
 	};
 
@@ -200,6 +217,7 @@ const EditarOrdenesState = (props) => {
 				filasOrdenes: state.filasOrdenes,
 				filas: state.filas,
 				filaActiva: state.filaActiva,
+				factura: state.factura,
 				estadosOrden: state.estadosOrden,
 				openModalDetalleOrden: state.openModalDetalleOrden,
 				openModalInformacionCliente: state.openModalInformacionCliente,
@@ -215,6 +233,7 @@ const EditarOrdenesState = (props) => {
 				handleFilasOrdenes,
 				handleEstadoOrden,
 				handleFilaActivaOrden,
+				handleFactura,
 				handleOpenModalDetalleOrden,
 				handleOpenModalInformacionCliente,
 				handleOpenModalCrearFactura,
