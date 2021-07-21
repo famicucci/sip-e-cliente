@@ -53,7 +53,7 @@ const CrearFactura = () => {
 			<Box display="flex" justifyContent="flex-center" alignItems="flex-end">
 				<Box>
 					<Typography variant="h5" align="left">
-						{`Orden ${filaActiva.id}`}
+						{`Facturar orden ${filaActiva.id}`}
 					</Typography>
 				</Box>
 				<Divider

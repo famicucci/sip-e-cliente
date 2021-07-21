@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import ModalCentrado2 from '../generales/ModalCentrado2';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
 import { Typography } from '@material-ui/core';
-import BotonSuccess from '../generales/botones/BontonSuccess';
+import BotonWarning from '../generales/botones/BotonWarning';
 
 const useStyles = makeStyles((theme) => ({
 	botonAceptar: {
@@ -27,7 +27,7 @@ const ConfirmarCrearFactura = () => {
 			handleClose={handleCloseModalConfirmarCrearFactura}
 			padding={16}
 			footer={
-				<BotonSuccess
+				<BotonWarning
 					type="submit"
 					form="form-envio"
 					contenido="Aceptar"
