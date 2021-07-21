@@ -9,7 +9,7 @@ import TablaListaProductos from '../generales/TablaListaProductos';
 import AccordionActions from '@material-ui/core/AccordionActions';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
-import HomeWorkIcon from '@material-ui/icons/HomeWork';
+import EditIcon from '@material-ui/icons/Edit';
 
 const useStyles = makeStyles((theme) => ({
 	heading: {
@@ -22,19 +22,13 @@ const useStyles = makeStyles((theme) => ({
 // columnas de la tabla
 const columnas = [
 	{ id: 1, nombre: 'Código', align: 'left', minWidth: 100 },
-	{ id: 2, nombre: 'Descripción', align: 'left', minWidth: 400 },
+	{ id: 2, nombre: 'Descripción', align: 'left', minWidth: 300 },
 	{ id: 3, nombre: 'Cantidad', align: 'center', minWidth: 100 },
-	{
-		id: 4,
-		nombre: 'Origen',
-		align: 'center',
-		minWidth: 60,
-		boton: true,
-		contenidoBoton: <HomeWorkIcon />,
-	},
+	{ id: 3, nombre: 'Precio', align: 'center', minWidth: 100 },
+	{ id: 3, nombre: 'Total', align: 'center', minWidth: 100 },
 ];
 
-const Productos = ({ productos }) => {
+const ProductosCrearFactura = ({ productos }) => {
 	const classes = useStyles();
 
 	return (
@@ -45,14 +39,8 @@ const Productos = ({ productos }) => {
 			<AccordionDetails>
 				<TablaListaProductos productos={productos} columnas={columnas} />
 			</AccordionDetails>
-			<Divider />
-			<AccordionActions>
-				<Button className={classes.botonGuardar} size="small" color="primary">
-					Guardar
-				</Button>
-			</AccordionActions>
 		</Accordion>
 	);
 };
 
-export default Productos;
+export default ProductosCrearFactura;

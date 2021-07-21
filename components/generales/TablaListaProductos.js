@@ -6,7 +6,6 @@ import Paper from '@material-ui/core/Paper';
 import HeadTabla from '../generales/HeadTabla';
 import TableBody from '@material-ui/core/TableBody';
 import FilaListaProductos from './FilaListaProductos';
-import HomeWorkIcon from '@material-ui/icons/HomeWork';
 
 const useStyles = makeStyles({
 	table: {
@@ -14,22 +13,7 @@ const useStyles = makeStyles({
 	},
 });
 
-// columnas de la tabla
-const columnas = [
-	{ id: 1, nombre: 'Código', align: 'left', minWidth: 100 },
-	{ id: 2, nombre: 'Descripción', align: 'left', minWidth: 400 },
-	{ id: 3, nombre: 'Cantidad', align: 'center', minWidth: 100 },
-	{
-		id: 4,
-		nombre: 'Origen',
-		align: 'center',
-		minWidth: 60,
-		boton: true,
-		contenidoBoton: <HomeWorkIcon />,
-	},
-];
-
-const TablaListaProductos = ({ productos }) => {
+const TablaListaProductos = ({ productos, columnas }) => {
 	const classes = useStyles();
 
 	// extraer los id de las columnas

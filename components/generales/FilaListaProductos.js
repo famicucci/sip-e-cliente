@@ -15,7 +15,15 @@ const FilaListaProductos = ({ fila, colIndex }) => {
 			{colIndex['Cantidad'] ? (
 				<TableCell align="center">{fila.cantidad}</TableCell>
 			) : null}
-			{colIndex['Cantidad'] ? (
+			{colIndex['Precio'] ? (
+				<TableCell align="center">{fila.pu}</TableCell>
+			) : null}
+			{colIndex['Total'] ? (
+				<TableCell align="center">
+					{(fila.cantidad * fila.pu).toFixed(2)}
+				</TableCell>
+			) : null}
+			{colIndex['Origen'] ? (
 				<TableCell align="center">
 					{fila.origen === 'Producción' ? (
 						<BotonTippyHoverTabla

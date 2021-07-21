@@ -10,7 +10,6 @@ import BotonTippyHoverTabla from '../generales/BotonTippyHoverTabla';
 import BotonFilaTabla from '../tablas/componentes/BotonFilaTabla';
 import BotonCustomFilaTabla from '../generales/BotonCustomFilaTabla';
 import BotonSinFormato from '../generales/BotonSinFormato';
-import VentasContext from '../../context/ventas/ventasContext';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
 import { pink, deepPurple } from '@material-ui/core/colors';
 
@@ -27,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
 const FilaEditarClientes = ({ fila, colIndex }) => {
 	const classes = useStyles(fila);
 
-	// const { handleOpenModalDetalleOrden } = useContext(VentasContext);
 	const {
 		handleFilaActivaOrden,
 		handleOpenModalDetalleOrden,

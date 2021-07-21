@@ -3,10 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import ModalScroll from '../generales/ModalScroll';
 import { Typography, Divider, Box } from '@material-ui/core';
 import VentasContext from '../../context/ventas/ventasContext';
-import Productos from './Productos';
-import EnvioDetalleOrden from './EnvioDetalleOrden';
+import ProductosCrearFactura from './ProductosCrearFactura';
 import MasInformacion from './MasInformacion';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
+import ImporteCrearFactura from './ImporteCrearFactura';
+import BotonSuccess from '../generales/botones/BontonSuccess';
+import NotaCrearFactura from './NotaCrearFactura';
 
 const useStyles = makeStyles((theme) => ({
 	dividerHorizontal: {
@@ -15,6 +17,13 @@ const useStyles = makeStyles((theme) => ({
 	},
 	dividerVertical: {
 		marginRight: theme.spacing(2),
+		marginLeft: theme.spacing(2),
+	},
+	botonAceptar: {
+		float: 'right',
+		width: '100%',
+	},
+	footer: {
 		marginLeft: theme.spacing(2),
 	},
 }));
@@ -55,9 +64,17 @@ const CrearFactura = () => {
 				</Box>
 			</Box>
 			<Divider className={classes.dividerHorizontal} variant="fullWidth" />
-			<Productos productos={filaActiva.detalleOrden} />
-			<EnvioDetalleOrden />
-			<MasInformacion />
+			<ProductosCrearFactura productos={filaActiva.detalleOrden} />
+			<ImporteCrearFactura />
+			<NotaCrearFactura />
+			<Divider className={classes.dividerHorizontal} variant="fullWidth" />
+			<Box className={classes.footer}>
+				<BotonSuccess
+					type="button"
+					contenido="Facturar"
+					className={classes.botonAceptar}
+				/>
+			</Box>
 		</ModalScroll>
 	);
 };
