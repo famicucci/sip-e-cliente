@@ -43,16 +43,15 @@ const ImporteCrearFactura = () => {
 
 	const [subtotal, setSubtotal] = useState('');
 	const [montoDescuento, setMontoDescuento] = useState('');
-	const [costoEnvio, setCostoEnvio] = useState(0);
 	const [total, setTotal] = useState(100);
 
 	const { filaActiva, modificarOrden } = useContext(EditarOrdenesContext);
 
 	useEffect(() => {
 		// calcular el importe total
-		const resultado = subtotal - montoDescuento - costoEnvio;
+		const resultado = subtotal - montoDescuento - filaActiva.tarifaEnvio;
 		setTotal(resultado);
-	}, [subtotal, montoDescuento, costoEnvio]);
+	}, [subtotal, montoDescuento]);
 
 	useEffect(() => {
 		const detalleOrden = new DetalleOrden(filaActiva.detalleOrden);
@@ -116,7 +115,7 @@ const ImporteCrearFactura = () => {
 					</Collapse>
 
 					<ImporteFlexGrow titulo="Envío" childrenNumDecimal>
-						10
+						{filaActiva.tarifaEnvio}
 					</ImporteFlexGrow>
 					<ImporteFlexGrow titulo="Importe Total" childrenNumDecimal>
 						{total}
