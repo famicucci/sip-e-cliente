@@ -39,6 +39,14 @@ class Ordenes {
 		return ordenesMod;
 	}
 
+	getOrden() {
+		const orden = this.ordenes.find((x) =>
+			x.id === this.orden ? this.orden : null
+		);
+
+		return orden;
+	}
+
 	// metodo que reciba ordenes formato bd y lo convierta en ordenes formato frontend
 }
 
@@ -113,6 +121,12 @@ class Orden {
 		// };
 		// }
 		return ordenMod;
+	}
+
+	modFactura() {
+		console.log(this.filaActivaOrden);
+		console.log(this.paramsOrden);
+		console.log(this.tiposEnvio);
 	}
 }
 

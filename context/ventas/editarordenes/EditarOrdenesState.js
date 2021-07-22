@@ -13,6 +13,7 @@ import {
 	MODIFICAR_ESTADO_ORDEN,
 	MODIFICAR_FACTURA,
 	CREAR_DETALLE_FACTURA,
+	CREAR_FACTURA,
 	MODAL_DETALLE_ORDEN,
 	MODAL_INFORMACION_CLIENTE,
 	MODAL_CREAR_FACTURA,
@@ -126,6 +127,28 @@ const EditarOrdenesState = (props) => {
 		});
 	};
 
+	const crearFactura = async () => {
+		try {
+			// const crearFactura = await clienteAxios.post(
+			// 	'/api/facturas/',
+			// 	state.factura
+			// );
+
+			// const idFactura = crearFactura.data.id;
+
+			// const r2 = await clienteAxios.get(`/api/facturas/${idFactura}`);
+
+			// const factura = r2.data;
+
+			dispatch({
+				type: CREAR_FACTURA,
+				// payload: factura,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	const handleOpenModalDetalleOrden = () => {
 		dispatch({
 			type: MODAL_DETALLE_ORDEN,
@@ -237,6 +260,7 @@ const EditarOrdenesState = (props) => {
 				handleEstadoOrden,
 				handleFilaActivaOrden,
 				handleFactura,
+				crearFactura,
 				handleDetalleFactura,
 				handleOpenModalDetalleOrden,
 				handleOpenModalInformacionCliente,

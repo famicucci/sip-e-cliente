@@ -7,6 +7,7 @@ import {
 	MODIFICAR_ORDEN,
 	MODIFICAR_FACTURA,
 	CREAR_DETALLE_FACTURA,
+	CREAR_FACTURA,
 	MODAL_DETALLE_ORDEN,
 	MODAL_INFORMACION_CLIENTE,
 	MODAL_CREAR_FACTURA,
@@ -56,7 +57,7 @@ const EditarOrdenesReducer = (state, action) => {
 			};
 
 		case MODIFICAR_ORDEN:
-			const orden = new Orden(
+			let orden = new Orden(
 				state.filaActiva,
 				action.payload.ordenObj,
 				state.tiposEnvio,
@@ -64,8 +65,8 @@ const EditarOrdenesReducer = (state, action) => {
 			);
 			const ordenMod = orden.modificarOrden();
 
-			const ordenes = new Ordenes(state.ordenes, ordenMod);
-			const ordenesMod = ordenes.modOrdenes();
+			let ordenes = new Ordenes(state.ordenes, ordenMod);
+			let ordenesMod = ordenes.modOrdenes();
 
 			return {
 				...state,
@@ -95,6 +96,23 @@ const EditarOrdenesReducer = (state, action) => {
 				...state,
 				factura: { ...state.factura, detalleFactura: action.payload },
 			};
+		case CREAR_FACTURA:
+			// reemplazar la factura en la orden
+			ordenes = new Ordenes(state.ordenes, state.factura.OrdenId);
+			orden = ordenes.getOrden();
+
+			orden = new Orden(orden, state.factura);
+			orden.modFactura();
+
+			// reemplazar la orden en ordenes
+			// ordenes = new Ordenes(state.ordenes, orden);
+			// ordenesMod = ordenes.modOrdenes();
+
+			return {
+				...state,
+				// ordenes: ordenesMod,
+			};
+
 		case MODAL_DETALLE_ORDEN:
 			return {
 				...state,
