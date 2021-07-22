@@ -30,7 +30,6 @@ const TablaListaProductos = ({ productos, columnas }) => {
 					{productos.map((x) => (
 						<FilaListaProductos fila={x} colIndex={colIndex} />
 					))}
-					{/* {productos.length === 0 ? bodyVacio(columnas) : filasVacias} */}
 				</TableBody>
 			</Table>
 		</TableContainer>

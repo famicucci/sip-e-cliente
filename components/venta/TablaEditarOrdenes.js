@@ -9,13 +9,13 @@ import usePaginacion from '../../hooks/usePaginacion';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import SpinnerTabla from '../../components/SpinnerTabla';
 import FacsOrdsCliente from '../cliente/FacsOrdsCliente';
-import VentasContext from '../../context/ventas/ventasContext';
 import FilaEditarOrdenes from '../venta/FilaEditarOrdenes';
 import NoteOutlinedIcon from '@material-ui/icons/NoteOutlined';
 import DetalleOrden from './DetalleOrden';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
 import InformacionCliente from '../cliente/InformacionCliente';
 import CrearFactura from './CrearFactura';
+import Factura from './Factura';
 
 const useStyles = makeStyles({
 	table: {
@@ -45,15 +45,6 @@ const columnas = [
 const TablaEditarOrdenes = () => {
 	const classes = useStyles();
 
-	// const {
-	// 	ordenes,
-	// 	filas,
-	// 	traerOrdenes,
-	// 	cargando,
-	// 	handleFilasOrdenes,
-	// 	handleFilasOrdenesFiltro,
-	// 	traerEstadosOrden,
-	// } = useContext(VentasContext);
 	const {
 		ordenes,
 		filas,
@@ -65,6 +56,7 @@ const TablaEditarOrdenes = () => {
 		traerPtosVenta,
 		openModalInformacionCliente,
 		openModalCrearFactura,
+		openModalFactura,
 	} = useContext(EditarOrdenesContext);
 
 	const { handleHerramientasEditarVentas, busqueda } = useContext(
@@ -120,6 +112,7 @@ const TablaEditarOrdenes = () => {
 			<DetalleOrden />
 			{openModalInformacionCliente ? <InformacionCliente /> : null}
 			{openModalCrearFactura ? <CrearFactura /> : null}
+			{openModalFactura ? <Factura /> : null}
 		</TableContainer>
 	);
 };

@@ -31,6 +31,7 @@ const FilaEditarClientes = ({ fila, colIndex }) => {
 		handleOpenModalDetalleOrden,
 		handleOpenModalInformacionCliente,
 		handleOpenModalCrearFactura,
+		handleOpenModalFactura,
 	} = useContext(EditarOrdenesContext);
 
 	return (
@@ -76,6 +77,8 @@ const FilaEditarClientes = ({ fila, colIndex }) => {
 					{fila.idFactura ? (
 						<BotonCustomFilaTabla
 							funcModState={() => {
+								handleFilaActivaOrden(fila.idOrden);
+								handleOpenModalFactura();
 								console.log('ver factura');
 							}}
 							backGroundColor={deepPurple[500]}

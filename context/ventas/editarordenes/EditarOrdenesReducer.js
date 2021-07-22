@@ -11,6 +11,7 @@ import {
 	MODAL_DETALLE_ORDEN,
 	MODAL_INFORMACION_CLIENTE,
 	MODAL_CREAR_FACTURA,
+	MODAL_FACTURA,
 	MODAL_CONFIRMAR_FACTURA,
 	MODAL_CLOSE,
 	MODAL_CLOSE_CONFIRMAR_FACTURA,
@@ -129,6 +130,12 @@ const EditarOrdenesReducer = (state, action) => {
 				...state,
 				openModalCrearFactura: true,
 			};
+		case MODAL_FACTURA:
+			return {
+				...state,
+				openModalFactura: true,
+			};
+
 		case MODAL_CONFIRMAR_FACTURA:
 			return {
 				...state,
@@ -143,6 +150,7 @@ const EditarOrdenesReducer = (state, action) => {
 				openModalDetalleOrden: false,
 				openModalInformacionCliente: false,
 				openModalCrearFactura: false,
+				openModalFactura: false,
 			};
 		case MODAL_CLOSE_CONFIRMAR_FACTURA:
 			return {

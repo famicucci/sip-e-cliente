@@ -8,8 +8,8 @@ const crearFilasTablaEditarOrdenes = (arrayFilas) => {
 		nombreCliente: x.Cliente.nombre,
 		apellidoCliente: x.Cliente.apellido,
 		fecha: x.createdAt,
-		idFactura: x.Facturas.length > 0 ? x.Facturas[0].id : null,
-		estadoPago: x.Facturas.length > 0 ? x.Facturas[0].estadoPago : null,
+		idFactura: x.Factura ? x.Factura.id : null,
+		estadoPago: x.Factura ? x.Factura.estadoPago : null,
 		tipoEnvio: x.TipoEnvio.descripcion,
 		observaciones: x.observaciones,
 	}));
