@@ -18,7 +18,7 @@ import {
 	TIPOS_ENVIO,
 	PTOS_VENTA,
 } from '../../../types';
-import { filBus } from '../../../functions/filtros.js';
+import { filBus, Filtro } from '../../../functions/filtros.js';
 import {
 	crearFilasTablaEditarOrdenes,
 	modEstadoOrden,
@@ -57,7 +57,7 @@ const EditarOrdenesReducer = (state, action) => {
 			};
 
 		case MODIFICAR_ORDEN:
-			let orden = new Orden(
+			let orden = new OrdenOld(
 				state.filaActiva,
 				action.payload.ordenObj,
 				state.tiposEnvio,
@@ -97,20 +97,21 @@ const EditarOrdenesReducer = (state, action) => {
 				factura: { ...state.factura, detalleFactura: action.payload },
 			};
 		case CREAR_FACTURA:
-			// reemplazar la factura en la orden
-			ordenes = new Ordenes(state.ordenes, state.factura.OrdenId);
-			orden = ordenes.getOrden();
+			// me llega la nueva factura
+			// reemplazar la factura en ordenActiva
+			const nuevaOrdenActiva = {
+				...state.filaActiva,
+				Facturas: [{ ...action.payload }],
+			};
 
-			orden = new Orden(orden, state.factura);
-			orden.modFactura();
-
-			// reemplazar la orden en ordenes
-			// ordenes = new Ordenes(state.ordenes, orden);
-			// ordenesMod = ordenes.modOrdenes();
+			ordenesMod = state.ordenes.map((x) =>
+				x.id === nuevaOrdenActiva.id ? nuevaOrdenActiva : x
+			);
 
 			return {
 				...state,
-				// ordenes: ordenesMod,
+				filaActiva: nuevaOrdenActiva,
+				ordenes: ordenesMod,
 			};
 
 		case MODAL_DETALLE_ORDEN:

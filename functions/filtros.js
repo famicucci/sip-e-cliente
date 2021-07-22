@@ -91,4 +91,16 @@ const filPtosStockProd = (arrayProd, cod, lis) => {
 	return r;
 };
 
-export { filBus, filPtosStockProd, filtro, detArrayPrecios };
+class Filtro {
+	constructor(arrayInit, attr, value) {
+		this.arrayInit = arrayInit;
+		this.attr = attr;
+		this.value = value;
+	}
+
+	filtroPorAtributo() {
+		// const r = this.arrayInit.map(x=>x)
+	}
+}
+
+export { filBus, filPtosStockProd, filtro, detArrayPrecios, Filtro };
