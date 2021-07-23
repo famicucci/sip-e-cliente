@@ -7,6 +7,7 @@ import { ClienteBD } from '../../functions/Cliente';
 import { FacturaBD } from '../../functions/Factura';
 import TablaListaProductos from '../generales/TablaListaProductos';
 import ImporteFlexGrow from '../generales/ImporteFlexGrow';
+import PagosFactura from './PagosFactura';
 
 const useStyles = makeStyles((theme) => ({
 	botonAceptar: {
@@ -69,6 +70,7 @@ const Factura = () => {
 					</ImporteFlexGrow>
 				</Box>
 			</Box>
+			<PagosFactura />
 		</ModalScroll2>
 	);
 };

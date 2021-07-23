@@ -79,7 +79,6 @@ const FilaEditarClientes = ({ fila, colIndex }) => {
 							funcModState={() => {
 								handleFilaActivaOrden(fila.idOrden);
 								handleOpenModalFactura();
-								console.log('ver factura');
 							}}
 							backGroundColor={deepPurple[500]}
 							backGroundColorHover={deepPurple[700]}
