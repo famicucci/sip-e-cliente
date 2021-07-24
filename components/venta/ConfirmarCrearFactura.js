@@ -27,10 +27,11 @@ const ConfirmarCrearFactura = () => {
 			openModal={openModalConfirmarCrearFactura}
 			handleClose={handleCloseModalConfirmarCrearFactura}
 			padding={16}
+			titulo="Aviso"
 			footer={
 				<BotonWarning
 					type="submit"
-					form="form-envio"
+					// form="form-envio"
 					contenido="Aceptar"
 					className={classes.botonAceptar}
 					onClick={() => {

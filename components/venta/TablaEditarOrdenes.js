@@ -16,6 +16,7 @@ import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrden
 import InformacionCliente from '../cliente/InformacionCliente';
 import CrearFactura from './CrearFactura';
 import Factura from './Factura';
+import CrearPago from './CrearPago';
 
 const useStyles = makeStyles({
 	table: {
@@ -57,6 +58,7 @@ const TablaEditarOrdenes = () => {
 		openModalInformacionCliente,
 		openModalCrearFactura,
 		openModalFactura,
+		openModalCrearPago,
 	} = useContext(EditarOrdenesContext);
 
 	const { handleHerramientasEditarVentas, busqueda } = useContext(
@@ -113,6 +115,7 @@ const TablaEditarOrdenes = () => {
 			{openModalInformacionCliente ? <InformacionCliente /> : null}
 			{openModalCrearFactura ? <CrearFactura /> : null}
 			{openModalFactura ? <Factura /> : null}
+			{openModalCrearPago ? <CrearPago /> : null}
 		</TableContainer>
 	);
 };

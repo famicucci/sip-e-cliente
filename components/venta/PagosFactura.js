@@ -56,7 +56,8 @@ const PagosFactura = () => {
 
 	const [expanded, setExpanded] = useState({ expanded: false });
 
-	const { filaActiva } = useContext(EditarOrdenesContext);
+	const { filaActiva, handleOpenModalCrearPago } =
+		useContext(EditarOrdenesContext);
 
 	const pagos = filaActiva.Factura.Pagos;
 	let pagosMod = [];
@@ -117,7 +118,7 @@ const PagosFactura = () => {
 							className={classes.paperRealizarPago}
 							variant="outlined"
 							onClick={() => {
-								console.log('nuevo pago');
+								handleOpenModalCrearPago();
 							}}
 						>
 							<AddIcon fontSize="small" />

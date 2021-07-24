@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 	paper: {
 		backgroundColor: theme.palette.background.paper,
 		boxShadow: theme.shadows[5],
-		maxWidth: 800,
+		width: (props) => (props.width ? props.width : 600),
 		borderRadius: '10px',
 		padding: (props) => (props.padding ? props.padding : null),
 	},
@@ -52,7 +52,7 @@ const ModalCentrado2 = (props) => {
 			<Fade in={props.openModal}>
 				<Paper className={classes.paper}>
 					<Typography variant="h5" align="left">
-						Aviso
+						{props.titulo}
 					</Typography>
 					<Divider className={classes.dividerSuperior} variant="fullWidth" />
 					<Box className={classes.contenido}>{props.children}</Box>

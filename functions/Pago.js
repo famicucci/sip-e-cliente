@@ -1,22 +1,24 @@
 class Pago {
-	constructor(id, importe, fecha, facturaId, metodoPagoId, usuarioId) {
+	constructor(id, importe, fecha, factura, metodoPago, usuario) {
 		this.id = id;
 		this.importe = importe;
 		this.fecha = fecha;
-		this.facturaId = facturaId;
-		this.metodoPagoId = metodoPagoId;
-		this.usuarioId = usuarioId;
+		this.facturaId = factura;
+		this.metodoPagoId = metodoPago;
+		this.usuarioId = usuario;
 	}
+
+	crear() {}
 }
 
 class PagoBD extends Pago {
-	constructor(pagoBD, id, importe, fecha, facturaId, metodoPagoId, usuarioId) {
+	constructor(pagoBD, id, importe, fecha, factura, metodoPago, usuario) {
 		this.id = pagoBD.id;
 		this.importe = pagoBD.importe;
-		this.fecha = pagoBD.fecha;
-		this.facturaId = pagoBD.facturaId;
-		this.metodoPagoId = pagoBD.metodoPagoId;
-		this.usuarioId = pagoBD.usuarioId;
+		this.fecha = pagoBD.createdAt;
+		this.factura = pagoBD.factura;
+		this.metodoPago = pagoBD.MetodoPago;
+		this.usuario = pagoBD.usuario;
 	}
 }
 

@@ -19,11 +19,15 @@ import {
 	MODAL_CREAR_FACTURA,
 	MODAL_CONFIRMAR_FACTURA,
 	MODAL_FACTURA,
+	MODAL_CREAR_PAGO,
 	MODAL_CLOSE,
 	MODAL_CLOSE_CONFIRMAR_FACTURA,
+	MODAL_CLOSE_CREAR_PAGO,
 	BORRAR_MENSAJE,
 	TIPOS_ENVIO,
 	PTOS_VENTA,
+	METODOS_PAGO,
+	CREAR_PAGO,
 } from '../../../types';
 
 const EditarOrdenesState = (props) => {
@@ -39,7 +43,9 @@ const EditarOrdenesState = (props) => {
 		openModalCrearFactura: false,
 		openModalConfirmarCrearFactura: false,
 		openModalFactura: false,
+		openModalCrearPago: false,
 		tiposEnvio: [],
+		metodosPago: [],
 		ptosVenta: [],
 		mensaje: null,
 		cargando: true,
@@ -181,6 +187,12 @@ const EditarOrdenesState = (props) => {
 		});
 	};
 
+	const handleOpenModalCrearPago = () => {
+		dispatch({
+			type: MODAL_CREAR_PAGO,
+		});
+	};
+
 	const handleCloseModal = () => {
 		dispatch({
 			type: MODAL_CLOSE,
@@ -190,6 +202,12 @@ const EditarOrdenesState = (props) => {
 	const handleCloseModalConfirmarCrearFactura = () => {
 		dispatch({
 			type: MODAL_CLOSE_CONFIRMAR_FACTURA,
+		});
+	};
+
+	const handleCloseModalCrearPago = () => {
+		dispatch({
+			type: MODAL_CLOSE_CREAR_PAGO,
 		});
 	};
 
@@ -244,6 +262,40 @@ const EditarOrdenesState = (props) => {
 		}
 	};
 
+	const traerMetodosPago = async () => {
+		try {
+			const respuesta = await clienteAxios.get(`/api/metodos-pago`);
+
+			dispatch({
+				type: METODOS_PAGO,
+				payload: respuesta.data,
+			});
+		} catch (error) {
+			console.log(error);
+			// dispatch({
+			// 	type: ERROR_BARRA_HERRAMIENTAS,
+			// 	payload: error,
+			// });
+		}
+	};
+
+	const crearPago = async (pago) => {
+		try {
+			const respuesta = await clienteAxios.post(`/api/pagos`, pago);
+
+			dispatch({
+				type: CREAR_PAGO,
+				payload: respuesta.data,
+			});
+		} catch (error) {
+			console.log(error);
+			// dispatch({
+			// 	type: ERROR_BARRA_HERRAMIENTAS,
+			// 	payload: error,
+			// });
+		}
+	};
+
 	return (
 		<EditarOrdenesContext.Provider
 			value={{
@@ -258,7 +310,9 @@ const EditarOrdenesState = (props) => {
 				openModalCrearFactura: state.openModalCrearFactura,
 				openModalConfirmarCrearFactura: state.openModalConfirmarCrearFactura,
 				openModalFactura: state.openModalFactura,
+				openModalCrearPago: state.openModalCrearPago,
 				tiposEnvio: state.tiposEnvio,
+				metodosPago: state.metodosPago,
 				ptosVenta: state.ptosVenta,
 				mensaje: state.mensaje,
 				cargando: state.cargando,
@@ -276,10 +330,14 @@ const EditarOrdenesState = (props) => {
 				handleOpenModalCrearFactura,
 				handleOpenModalConfirmarCrearFactura,
 				handleOpenModalFactura,
+				handleOpenModalCrearPago,
 				handleCloseModal,
 				handleCloseModalConfirmarCrearFactura,
+				handleCloseModalCrearPago,
 				traerTiposEnvio,
 				traerPtosVenta,
+				traerMetodosPago,
+				crearPago,
 			}}
 		>
 			{props.children}

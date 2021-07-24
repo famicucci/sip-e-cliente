@@ -6,7 +6,7 @@ import BotonVerMas from '../tablas/componentes/BotonVerMas';
 import BotonCliente from './BotonCliente';
 import VentasContext from '../../context/ventas/ventasContext';
 import BotonLimpiar from '../BotonLimpiar';
-import BotonSuccess from '../generales/botones/BontonSuccess';
+import BotonSuccess from '../generales/botones/BotonSuccess';
 import AlertaContext from '../../context/alertas/alertaContext';
 import Alerta from '../Alerta';
 

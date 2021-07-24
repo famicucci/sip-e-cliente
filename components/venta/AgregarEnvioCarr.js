@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Divider, Box } from '@material-ui/core';
-import BotonSuccess from '../generales/botones/BontonSuccess';
+import BotonSuccess from '../generales/botones/BotonSuccess';
 import Alerta from '../Alerta';
 import VentasContext from '../../context/ventas/ventasContext';
 import AlertaContext from '../../context/alertas/alertaContext';

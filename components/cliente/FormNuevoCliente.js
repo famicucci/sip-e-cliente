@@ -8,7 +8,7 @@ import Divider from '@material-ui/core/Divider';
 import Box from '@material-ui/core/Box';
 import ClientesContext from '../../context/clientes/clientesContext';
 import BotonLimpiar from '../BotonLimpiar';
-import BotonSuccess from '../generales/botones/BontonSuccess';
+import BotonSuccess from '../generales/botones/BotonSuccess';
 
 const useStyles = makeStyles((theme) => ({
 	divider: { marginTop: theme.spacing(2), marginBottom: theme.spacing(1) },

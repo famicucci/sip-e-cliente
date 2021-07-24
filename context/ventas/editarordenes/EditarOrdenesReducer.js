@@ -13,11 +13,15 @@ import {
 	MODAL_CREAR_FACTURA,
 	MODAL_FACTURA,
 	MODAL_CONFIRMAR_FACTURA,
+	MODAL_CREAR_PAGO,
 	MODAL_CLOSE,
 	MODAL_CLOSE_CONFIRMAR_FACTURA,
+	MODAL_CLOSE_CREAR_PAGO,
 	BORRAR_MENSAJE,
 	TIPOS_ENVIO,
 	PTOS_VENTA,
+	METODOS_PAGO,
+	CREAR_PAGO,
 } from '../../../types';
 import { filBus, Filtro } from '../../../functions/filtros.js';
 import {
@@ -26,6 +30,7 @@ import {
 	Ordenes,
 	Orden,
 } from '../../../functions/editarordenes';
+import { ModificarArray } from '../../../hooks/General';
 
 const EditarOrdenesReducer = (state, action) => {
 	switch (action.type) {
@@ -52,6 +57,7 @@ const EditarOrdenesReducer = (state, action) => {
 			};
 		case FILA_ACTIVA_ORDEN:
 			r = state.ordenes.find((x) => x.id === action.payload);
+			console.log('1');
 			return {
 				...state,
 				filaActiva: r,
@@ -69,6 +75,7 @@ const EditarOrdenesReducer = (state, action) => {
 			let ordenes = new Ordenes(state.ordenes, ordenMod);
 			let ordenesMod = ordenes.modOrdenes();
 
+			console.log('2');
 			return {
 				...state,
 				ordenes: ordenesMod,
@@ -108,7 +115,7 @@ const EditarOrdenesReducer = (state, action) => {
 			ordenesMod = state.ordenes.map((x) =>
 				x.id === nuevaOrdenActiva.id ? nuevaOrdenActiva : x
 			);
-
+			console.log('3');
 			return {
 				...state,
 				filaActiva: nuevaOrdenActiva,
@@ -141,8 +148,14 @@ const EditarOrdenesReducer = (state, action) => {
 				...state,
 				openModalConfirmarCrearFactura: true,
 			};
+		case MODAL_CREAR_PAGO:
+			return {
+				...state,
+				openModalCrearPago: true,
+			};
 
 		case MODAL_CLOSE:
+			console.log('4');
 			return {
 				...state,
 				filaActiva: {},
@@ -157,6 +170,12 @@ const EditarOrdenesReducer = (state, action) => {
 				...state,
 				openModalConfirmarCrearFactura: false,
 			};
+		case MODAL_CLOSE_CREAR_PAGO:
+			return {
+				...state,
+				openModalCrearPago: false,
+			};
+
 		case BORRAR_MENSAJE:
 			return {
 				...state,
@@ -172,6 +191,45 @@ const EditarOrdenesReducer = (state, action) => {
 				...state,
 				ptosVenta: action.payload,
 			};
+		case METODOS_PAGO:
+			return {
+				...state,
+				metodosPago: action.payload,
+			};
+		case CREAR_PAGO:
+			const filtrarMetodoPago = state.metodosPago.find(
+				(x) => x.id === action.payload.MetodoPagoId
+			);
+
+			const pagoMetodoPagoCompleto = {
+				id: action.payload.id,
+				importe: action.payload.importe,
+				createdAt: action.payload.createdAt,
+				MetodoPago: filtrarMetodoPago,
+			};
+			// modificar el action.payload
+			const agregarPagoEnFactura = new ModificarArray(
+				state.filaActiva.Factura.Pagos,
+				pagoMetodoPagoCompleto
+			);
+			const PagosModificado = agregarPagoEnFactura.agregarObjetoEnArray();
+
+			const facturaModificada = {
+				...state.filaActiva.Factura,
+				Pagos: PagosModificado,
+			};
+
+			const filaActivaModificada = {
+				...state.filaActiva,
+				Factura: facturaModificada,
+			};
+
+			return {
+				...state,
+				filaActiva: filaActivaModificada,
+				mensaje: { msg: 'El pago ah sido creado', categoria: 'success' },
+			};
+
 		default:
 			return state;
 	}

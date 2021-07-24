@@ -6,7 +6,7 @@ import VentasContext from '../../context/ventas/ventasContext';
 import ProductosCrearFactura from './ProductosCrearFactura';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
 import ImporteCrearFactura from './ImporteCrearFactura';
-import BotonSuccess from '../generales/botones/BontonSuccess';
+import BotonSuccess from '../generales/botones/BotonSuccess';
 import NotaCrearFactura from './NotaCrearFactura';
 import ConfirmarCrearFactura from './ConfirmarCrearFactura';
 

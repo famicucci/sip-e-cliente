@@ -5,6 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
 	formControl: {
@@ -23,6 +24,7 @@ const SelectBordeInferior = ({
 	ancho,
 	data,
 	valInit,
+	placeholder,
 	funcModState,
 }) => {
 	const classes = useStyles();
@@ -45,6 +47,14 @@ const SelectBordeInferior = ({
 					displayEmpty
 					className={classes.selectEmpty}
 				>
+					{
+						(valInit = 'none' ? (
+							<MenuItem value="none" disabled>
+								<Typography color="textSecondary">{placeholder}</Typography>
+							</MenuItem>
+						) : null)
+					}
+
 					{data.map((x) => (
 						<MenuItem value={x.id}>{x.descripcion}</MenuItem>
 					))}
