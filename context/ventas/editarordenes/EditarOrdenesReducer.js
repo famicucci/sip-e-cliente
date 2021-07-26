@@ -31,6 +31,7 @@ import {
 	Orden,
 } from '../../../functions/editarordenes';
 import { ModificarArray } from '../../../hooks/General';
+import { FacturaBD } from '../../../functions/Factura';
 
 const EditarOrdenesReducer = (state, action) => {
 	switch (action.type) {
@@ -211,10 +212,14 @@ const EditarOrdenesReducer = (state, action) => {
 			);
 			const PagosModificado = agregarPagoEnFactura.agregarObjetoEnArray();
 
-			const facturaModificada = {
+			let facturaModificada = {
 				...state.filaActiva.Factura,
 				Pagos: PagosModificado,
 			};
+
+			const factura = new FacturaBD(facturaModificada);
+			const estadoPago = factura.getEstadoPago();
+			facturaModificada = { ...facturaModificada, estadoPago: estadoPago };
 
 			const filaActivaModificada = {
 				...state.filaActiva,
@@ -223,6 +228,9 @@ const EditarOrdenesReducer = (state, action) => {
 
 			return {
 				...state,
+				ordenes: state.ordenes.map((x) =>
+					x.id === filaActivaModificada.id ? filaActivaModificada : x
+				),
 				filaActiva: filaActivaModificada,
 				mensaje: { msg: 'El pago ha sido creado', categoria: 'success' },
 			};
