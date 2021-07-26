@@ -57,7 +57,6 @@ const EditarOrdenesReducer = (state, action) => {
 			};
 		case FILA_ACTIVA_ORDEN:
 			r = state.ordenes.find((x) => x.id === action.payload);
-			console.log('1');
 			return {
 				...state,
 				filaActiva: r,
@@ -75,7 +74,6 @@ const EditarOrdenesReducer = (state, action) => {
 			let ordenes = new Ordenes(state.ordenes, ordenMod);
 			let ordenesMod = ordenes.modOrdenes();
 
-			console.log('2');
 			return {
 				...state,
 				ordenes: ordenesMod,
@@ -115,7 +113,7 @@ const EditarOrdenesReducer = (state, action) => {
 			ordenesMod = state.ordenes.map((x) =>
 				x.id === nuevaOrdenActiva.id ? nuevaOrdenActiva : x
 			);
-			console.log('3');
+
 			return {
 				...state,
 				filaActiva: nuevaOrdenActiva,
@@ -155,7 +153,6 @@ const EditarOrdenesReducer = (state, action) => {
 			};
 
 		case MODAL_CLOSE:
-			console.log('4');
 			return {
 				...state,
 				filaActiva: {},
@@ -227,7 +224,7 @@ const EditarOrdenesReducer = (state, action) => {
 			return {
 				...state,
 				filaActiva: filaActivaModificada,
-				mensaje: { msg: 'El pago ah sido creado', categoria: 'success' },
+				mensaje: { msg: 'El pago ha sido creado', categoria: 'success' },
 			};
 
 		default:

@@ -32,12 +32,6 @@ const useStyles = makeStyles((theme) => ({
 const CrearPago = () => {
 	const classes = useStyles();
 
-	const [pago, setPago] = useState({
-		createdAt: moment(new Date()).toISOString(),
-		importe: '',
-		MetodoPagoId: '',
-	});
-
 	const {
 		filaActiva,
 		openModalCrearPago,
@@ -48,6 +42,14 @@ const CrearPago = () => {
 		crearPago,
 	} = useContext(EditarOrdenesContext);
 	const { mostrarAlerta } = useContext(AlertaContext);
+
+	const factura = new FacturaBD(filaActiva.Factura);
+
+	const [pago, setPago] = useState({
+		createdAt: moment(new Date()).toISOString(),
+		importe: factura.importeFinal - factura.sumaPagos(),
+		MetodoPagoId: '',
+	});
 
 	useEffect(() => {
 		if (metodosPago.length === 0) {
@@ -73,13 +75,27 @@ const CrearPago = () => {
 		// validacion
 		if (pago.MetodoPagoId === '') {
 			mostrarAlerta('Debes ingresar un metodo de pago', 'error');
+			return;
 		}
 
-		if (pago.importe === '' || pago.MetodoPagoId === '') {
+		if (pago.importe === '') {
 			mostrarAlerta('Debes ingresar un importe', 'error');
+			return;
 		}
 
-		const factura = new FacturaBD(filaActiva.Factura);
+		if (pago.importe > factura.importeFinal - factura.sumaPagos()) {
+			mostrarAlerta(
+				'El importe ingresado es mayor a lo que queda por pagar',
+				'error'
+			);
+			return;
+		}
+
+		if (pago.importe < 0) {
+			mostrarAlerta('El importe no puede ser negativo', 'error');
+			return;
+		}
+
 		const pagoMod = { ...pago, FacturaId: factura.id };
 
 		// submit
@@ -119,8 +135,13 @@ const CrearPago = () => {
 						placeholder="Agrega un importe..."
 						ancho={12}
 						required
-						valInit=""
+						valInit={factura.importeFinal - factura.sumaPagos()} // lo que queda por pagar
 						funcModState={handleImporte}
+						InputProps={{
+							inputProps: {
+								max: factura.importeFinal - factura.sumaPagos(),
+							},
+						}}
 					/>
 					<SelectBordeInferior
 						key={2}

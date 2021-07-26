@@ -113,7 +113,7 @@ const PagosFactura = () => {
 							<Typography align="center">No hay pagos realizados</Typography>
 						</Paper>
 					)}
-					{factura.importeFinal - factura.sumaPagos() < 0 ? (
+					{factura.importeFinal - factura.sumaPagos() > 0 ? (
 						<Paper
 							className={classes.paperRealizarPago}
 							variant="outlined"

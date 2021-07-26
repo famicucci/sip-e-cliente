@@ -19,6 +19,7 @@ const InputNumberBordeInferior = ({
 	valInit,
 	funcModState,
 	disabled,
+	InputProps,
 }) => {
 	const classes = useStyles();
 
@@ -50,6 +51,7 @@ const InputNumberBordeInferior = ({
 				}}
 				onChange={onChange}
 				{...disabled}
+				{...InputProps}
 				fullWidth
 			/>
 		</Grid>
