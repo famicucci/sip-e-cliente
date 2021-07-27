@@ -32,11 +32,11 @@ const columnas = [
 const ProductosCrearFactura = ({ productos }) => {
 	const classes = useStyles();
 
-	const { handleDetalleFactura } = useContext(EditarOrdenesContext);
+	// const { handleDetalleFactura } = useContext(EditarOrdenesContext);
 
-	useEffect(() => {
-		handleDetalleFactura(productos);
-	}, []);
+	// // useEffect(() => {
+	// // 	handleDetalleFactura(productos);
+	// // }, []);
 
 	return (
 		<Accordion>

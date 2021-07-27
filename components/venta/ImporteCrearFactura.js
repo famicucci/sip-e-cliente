@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const ImporteCrearFactura = () => {
+const ImporteCrearFactura = (props) => {
 	const classes = useStyles();
 
 	const [expanded, setExpanded] = useState({ expanded: true });
@@ -54,14 +54,14 @@ const ImporteCrearFactura = () => {
 	}, [subtotal, montoDescuento]);
 
 	useEffect(() => {
-		const objFactura = {
-			importe: subtotal,
-			descuento: montoDescuento,
-			tarifaEnvio: filaActiva.tarifaEnvio,
-			importeFinal: total,
-		};
-
-		handleFactura(objFactura);
+		// const objFactura = {
+		// 	importe: subtotal,
+		// 	descuento: montoDescuento,
+		// 	tarifaEnvio: filaActiva.tarifaEnvio,
+		// 	importeFinal: total,
+		// };
+		// handleFactura(objFactura);
+		props.funcModState(subtotal, montoDescuento, total);
 	}, [total]);
 
 	useEffect(() => {

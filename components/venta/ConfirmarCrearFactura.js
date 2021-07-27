@@ -31,12 +31,12 @@ const ConfirmarCrearFactura = () => {
 			footer={
 				<BotonWarning
 					type="submit"
-					// form="form-envio"
+					form="form-crear-factura"
 					contenido="Aceptar"
 					className={classes.botonAceptar}
-					onClick={() => {
-						crearFactura();
-					}}
+					// onClick={() => {
+					// 	crearFactura();
+					// }}
 				/>
 			}
 		>

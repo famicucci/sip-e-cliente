@@ -108,7 +108,7 @@ const EditarOrdenesReducer = (state, action) => {
 			// reemplazar la factura en ordenActiva
 			const nuevaOrdenActiva = {
 				...state.filaActiva,
-				Facturas: [{ ...action.payload }],
+				Factura: { ...action.payload },
 			};
 
 			ordenesMod = state.ordenes.map((x) =>

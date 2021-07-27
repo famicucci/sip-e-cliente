@@ -27,17 +27,21 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const NotaCrearFactura = () => {
+const NotaCrearFactura = (props) => {
 	const classes = useStyles();
 
 	const [expanded, setExpanded] = useState({ expanded: false });
 	const [nota, setNota] = useState('');
 
-	const { handleFactura } = useContext(EditarOrdenesContext);
+	// const { handleFactura } = useContext(EditarOrdenesContext);
+
+	// useEffect(() => {
+	// 	const objFactura = { observaciones: nota };
+	// 	handleFactura(objFactura);
+	// }, [nota]);
 
 	useEffect(() => {
-		const objFactura = { observaciones: nota };
-		handleFactura(objFactura);
+		props.funcModState(nota);
 	}, [nota]);
 
 	const onChangeNota = (name, value) => {

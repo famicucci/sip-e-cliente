@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ModalScroll from '../generales/ModalScroll';
 import { Typography, Divider, Box } from '@material-ui/core';
@@ -9,6 +9,7 @@ import ImporteCrearFactura from './ImporteCrearFactura';
 import BotonSuccess from '../generales/botones/BotonSuccess';
 import NotaCrearFactura from './NotaCrearFactura';
 import ConfirmarCrearFactura from './ConfirmarCrearFactura';
+import { Factura } from '../../functions/Factura';
 
 const useStyles = makeStyles((theme) => ({
 	dividerHorizontal: {
@@ -39,61 +40,113 @@ const CrearFactura = () => {
 		handleOpenModalConfirmarCrearFactura,
 		handleCloseModal,
 		handleFactura,
+		crearFactura,
+		handleCloseModalConfirmarCrearFactura,
 	} = useContext(EditarOrdenesContext);
+
+	const [factura, setFactura] = useState({
+		OrdenId: filaActiva.id,
+		ClienteId: filaActiva.Cliente.id,
+		tarifaEnvio: filaActiva.tarifaEnvio,
+		tipo: 'fac',
+		estado: 'v',
+		estadoPago: 'Pendiente',
+		observaciones: '',
+		detalleFactura: filaActiva.detalleOrden,
+	});
 
 	useEffect(() => {
 		traerTiposEnvio();
 
-		const objFactura = {
-			OrdenId: filaActiva.id,
-			ClienteId: filaActiva.Cliente.id,
-			tipo: 'fac',
-			estado: 'v',
-			estadoPago: 'Pendiente',
-		};
+		// const objFactura = {
+		// 	OrdenId: filaActiva.id,
+		// 	ClienteId: filaActiva.Cliente.id,
+		// 	tipo: 'fac',
+		// 	estado: 'v',
+		// 	estadoPago: 'Pendiente',
+		// };
 
-		handleFactura(objFactura);
+		// handleFactura(factura);
 	}, []);
 
+	const onChangeObservaciones = (observaciones) => {
+		setFactura({ ...factura, observaciones: observaciones });
+	};
+
+	const onChangeImportes = (importe, descuento, importeFinal) => {
+		setFactura({
+			...factura,
+			importe: importe,
+			descuento: descuento,
+			importeFinal: importeFinal,
+		});
+	};
+
+	const onSubmit = (e) => {
+		e.preventDefault();
+
+		// const factura = new Factura();
+
+		// const factura = {
+		// 	OrdenId: filaActiva.id,
+		// 	ClienteId: filaActiva.Cliente.id,
+		// 	tipo: 'fac',
+		// 	estado: 'v',
+		// 	estadoPago: 'Pendiente',
+		// 	detalleFactura: filaActiva.detalleOrden,
+		// };
+
+		// submit
+		crearFactura(factura);
+		handleCloseModalConfirmarCrearFactura();
+	};
+
 	return (
-		<ModalScroll
-			openModal={openModalCrearFactura}
-			handleClose={handleCloseModal}
-			padding={16}
+		<form
+			noValidate
+			autoComplete="off"
+			onSubmit={onSubmit}
+			id="form-crear-factura"
 		>
-			<Box display="flex" justifyContent="flex-center" alignItems="flex-end">
-				<Box>
-					<Typography variant="h5" align="left">
-						{`Facturar orden ${filaActiva.id}`}
-					</Typography>
+			<ModalScroll
+				openModal={openModalCrearFactura}
+				handleClose={handleCloseModal}
+				padding={16}
+			>
+				<Box display="flex" justifyContent="flex-center" alignItems="flex-end">
+					<Box>
+						<Typography variant="h5" align="left">
+							{`Facturar orden ${filaActiva.id}`}
+						</Typography>
+					</Box>
+					<Divider
+						className={classes.dividerVertical}
+						orientation="vertical"
+						variant="inset"
+						flexItem
+					/>
+					<Box>
+						<Typography align="left">{`${filaActiva.Cliente.nombre} ${filaActiva.Cliente.apellido}`}</Typography>
+					</Box>
 				</Box>
-				<Divider
-					className={classes.dividerVertical}
-					orientation="vertical"
-					variant="inset"
-					flexItem
-				/>
-				<Box>
-					<Typography align="left">{`${filaActiva.Cliente.nombre} ${filaActiva.Cliente.apellido}`}</Typography>
+				<Divider className={classes.dividerHorizontal} variant="fullWidth" />
+				<ProductosCrearFactura productos={filaActiva.detalleOrden} />
+				<ImporteCrearFactura funcModState={onChangeImportes} />
+				<NotaCrearFactura funcModState={onChangeObservaciones} />
+				<Divider className={classes.dividerHorizontal} variant="fullWidth" />
+				<Box className={classes.footer}>
+					<BotonSuccess
+						type="button"
+						contenido="Facturar"
+						className={classes.botonAceptar}
+						onClick={() => {
+							handleOpenModalConfirmarCrearFactura();
+						}}
+					/>
 				</Box>
-			</Box>
-			<Divider className={classes.dividerHorizontal} variant="fullWidth" />
-			<ProductosCrearFactura productos={filaActiva.detalleOrden} />
-			<ImporteCrearFactura />
-			<NotaCrearFactura />
-			<Divider className={classes.dividerHorizontal} variant="fullWidth" />
-			<Box className={classes.footer}>
-				<BotonSuccess
-					type="button"
-					contenido="Facturar"
-					className={classes.botonAceptar}
-					onClick={() => {
-						handleOpenModalConfirmarCrearFactura();
-					}}
-				/>
-			</Box>
-			{openModalConfirmarCrearFactura ? <ConfirmarCrearFactura /> : null}
-		</ModalScroll>
+				{openModalConfirmarCrearFactura ? <ConfirmarCrearFactura /> : null}
+			</ModalScroll>
+		</form>
 	);
 };
 
