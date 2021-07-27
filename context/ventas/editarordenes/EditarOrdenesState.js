@@ -3,6 +3,7 @@ import EditarOrdenesContext from './EditarOrdenesContext';
 import EditarOrdenesReducer from './EditarOrdenesReducer';
 import clienteAxios from '../../../config/axios';
 import { DetalleFactura } from '../../../functions/Factura';
+import { FacturaBD } from '../../../functions/Factura';
 
 import {
 	TRAER_ORDENES,
@@ -287,6 +288,20 @@ const EditarOrdenesState = (props) => {
 	const crearPago = async (pago) => {
 		try {
 			const respuesta = await clienteAxios.post(`/api/pagos`, pago);
+
+			// verificar si debo modificar la factura
+			// si corresponde, debo modificar el estadoPago de de la factura
+			const factura = new FacturaBD(state.filaActiva.Factura);
+
+			if (
+				parseFloat(pago.importe) + factura.sumaPagos() ===
+				parseFloat(factura.importeFinal)
+			) {
+				// handleFactura(factura.id, { estadoPago: 'Pago' });
+				const facturaObj = { estadoPago: 'Pago' };
+
+				await clienteAxios.put(`/api/facturas/${factura.id}`, facturaObj);
+			}
 
 			dispatch({
 				type: CREAR_PAGO,

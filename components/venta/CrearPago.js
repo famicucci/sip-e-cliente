@@ -102,14 +102,6 @@ const CrearPago = () => {
 		// submit
 		crearPago(pagoMod);
 
-		// si corresponde, debo modificar el estadoPago de de la factura
-		if (
-			parseFloat(pago.importe) + factura.sumaPagos() ===
-			parseFloat(factura.importeFinal)
-		) {
-			handleFactura(factura.id, { estadoPago: 'Pago' });
-		}
-
 		handleCloseModalCrearPago();
 	};
 
