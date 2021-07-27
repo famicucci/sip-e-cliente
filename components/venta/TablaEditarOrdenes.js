@@ -59,6 +59,7 @@ const TablaEditarOrdenes = () => {
 		openModalCrearFactura,
 		openModalFactura,
 		openModalCrearPago,
+		handleFilasOrdenesFiltro,
 	} = useContext(EditarOrdenesContext);
 
 	const { handleHerramientasEditarVentas, busqueda } = useContext(
@@ -81,10 +82,10 @@ const TablaEditarOrdenes = () => {
 		handleFilasOrdenes();
 	}, [ordenes]);
 
-	// useEffect(() => {
-	// 	setPage(0);
-	// 	handleFilasOrdenesFiltro(busqueda);
-	// }, [busqueda]);
+	useEffect(() => {
+		setPage(0);
+		handleFilasOrdenesFiltro(busqueda);
+	}, [busqueda]);
 
 	// extraer los id de las columnas
 	const colIndex = columnas.reduce(

@@ -28,6 +28,7 @@ import {
 	PTOS_VENTA,
 	METODOS_PAGO,
 	CREAR_PAGO,
+	FILAS_ORDENES_FILTRO,
 } from '../../../types';
 
 const EditarOrdenesState = (props) => {
@@ -300,6 +301,13 @@ const EditarOrdenesState = (props) => {
 		}
 	};
 
+	const handleFilasOrdenesFiltro = (bus) => {
+		dispatch({
+			type: FILAS_ORDENES_FILTRO,
+			payload: bus,
+		});
+	};
+
 	return (
 		<EditarOrdenesContext.Provider
 			value={{
@@ -342,6 +350,7 @@ const EditarOrdenesState = (props) => {
 				traerPtosVenta,
 				traerMetodosPago,
 				crearPago,
+				handleFilasOrdenesFiltro,
 			}}
 		>
 			{props.children}

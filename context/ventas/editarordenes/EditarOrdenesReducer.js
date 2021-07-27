@@ -22,6 +22,7 @@ import {
 	PTOS_VENTA,
 	METODOS_PAGO,
 	CREAR_PAGO,
+	FILAS_ORDENES_FILTRO,
 } from '../../../types';
 import { filBus, Filtro } from '../../../functions/filtros.js';
 import {
@@ -236,6 +237,12 @@ const EditarOrdenesReducer = (state, action) => {
 				),
 				filaActiva: filaActivaModificada,
 				mensaje: { msg: 'El pago ha sido creado', categoria: 'success' },
+			};
+		case FILAS_ORDENES_FILTRO:
+			r = filBus(state.filasOrdenes, action.payload);
+			return {
+				...state,
+				filas: r,
 			};
 
 		default:
