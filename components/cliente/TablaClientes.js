@@ -21,7 +21,9 @@ const useStyles = makeStyles({
 const TablaClientes = ({ columnas }) => {
 	const classes = useStyles();
 
-	const { busquedaCliente } = useContext(BarraHerramientasContext);
+	const { busqueda, handleHerramientasClientes } = useContext(
+		BarraHerramientasContext
+	);
 	const { filas, cargando, traerClientes, handleFilas } =
 		useContext(ClientesContext);
 
@@ -29,13 +31,14 @@ const TablaClientes = ({ columnas }) => {
 		usePaginacion(filas, 5);
 
 	useEffect(() => {
-		traerClientes(busquedaCliente);
+		handleHerramientasClientes();
+		traerClientes(busqueda);
 	}, []);
 
 	useEffect(() => {
 		setPage(0);
-		handleFilas(busquedaCliente);
-	}, [busquedaCliente]);
+		handleFilas(busqueda);
+	}, [busqueda]);
 
 	// extraer los id de las columnas
 	const colIndex = columnas.reduce(
