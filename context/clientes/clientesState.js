@@ -6,8 +6,10 @@ import clienteAxios from '../../config/axios';
 import {
 	TRAER_CLIENTES,
 	FILAS_CLIENTES,
+	FILA_ACTIVA_CLIENTE,
 	CAMPO_CLIENTE_ACTIVO,
 	LIMPIAR_CLIENTE_ACTIVO,
+	MODAL_INFORMACION_CLIENTE,
 	OPEN_INFORMACION_CLIENTE,
 	CLOSE_MODAL,
 	MOSTRAR_ERROR,
@@ -17,9 +19,11 @@ const ClienteState = (props) => {
 	const initialState = {
 		clientes: [],
 		filas: [],
+		filaActiva: {},
 		clienteActivo: { tipo: 'Minorista', condIva: 'Consumidor Final' },
 		ordenesClienteActivo: null,
 		facturasClienteActivo: null,
+		openModalInformacionCliente: false,
 		openInfoCliente: false,
 		mensaje: null,
 		cargando: true,
@@ -58,6 +62,13 @@ const ClienteState = (props) => {
 		// 		payload: error,
 		// 	});
 		// }
+	};
+
+	const handleFilaActiva = (idCliente) => {
+		dispatch({
+			type: FILA_ACTIVA_CLIENTE,
+			payload: idCliente,
+		});
 	};
 
 	const handleClienteActivo = (attr, val) => {
@@ -108,12 +119,21 @@ const ClienteState = (props) => {
 		});
 	};
 
+	const handleOpenModalInformacionCliente = (bool) => {
+		dispatch({
+			type: MODAL_INFORMACION_CLIENTE,
+			payload: bool,
+		});
+	};
+
 	return (
 		<ClientesContext.Provider
 			value={{
 				clientes: state.clientes,
 				filas: state.filas,
+				openModalInformacionCliente: state.openModalInformacionCliente,
 				openInfoCliente: state.openInfoCliente,
+				filaActiva: state.filaActiva,
 				clienteActivo: state.clienteActivo,
 				ordenesClienteActivo: state.ordenesClienteActivo,
 				facturasClienteActivo: state.facturasClienteActivo,
@@ -122,6 +142,8 @@ const ClienteState = (props) => {
 				handleClienteActivo,
 				limpiarCliente,
 				handleFilas,
+				handleFilaActiva,
+				handleOpenModalInformacionCliente,
 				handleOpenFacsOrdsCliente,
 				handleClose,
 			}}

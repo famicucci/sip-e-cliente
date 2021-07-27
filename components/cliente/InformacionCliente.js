@@ -19,24 +19,24 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const InformacionCliente = () => {
+const InformacionCliente = (props) => {
 	const classes = useStyles();
 
-	const {
-		filaActiva,
-		openModalInformacionCliente,
-		handleCloseModal,
-		handleFilaActivaOrden,
-	} = useContext(EditarOrdenesContext);
+	// const {
+	// 	props.filaActiva,
+	// 	props.openModalInformacionCliente,
+	// 	props.handleCloseModal,
+	// 	props.handleFilaActivaOrden,
+	// } = useContext(EditarOrdenesContext);
 
-	if (!openModalInformacionCliente) return null;
+	if (!props.openModalInformacionCliente) return null;
 
 	return (
 		<ModalScroll
-			openModal={openModalInformacionCliente}
+			openModal={props.openModalInformacionCliente}
 			handleClose={() => {
-				handleCloseModal();
-				handleFilaActivaOrden(null);
+				props.handleCloseModal();
+				props.handleFilaActiva(null);
 			}}
 			padding={16}
 		>
@@ -53,15 +53,15 @@ const InformacionCliente = () => {
 					flexItem
 				/>
 				<Box>
-					<Typography align="left">{`${filaActiva.Cliente.nombre} ${filaActiva.Cliente.apellido}`}</Typography>
+					<Typography align="left">{`${props.cliente.nombre} ${props.cliente.apellido}`}</Typography>
 				</Box>
 			</Box>
 			<Divider className={classes.dividerHorizontal} variant="fullWidth" />
 
-			<DatosCliente cliente={filaActiva.Cliente} />
-			<ContactoCliente cliente={filaActiva.Cliente} />
-			<DomicilioCliente cliente={filaActiva.Cliente} />
-			<MasDatosCliente cliente={filaActiva.Cliente} />
+			<DatosCliente cliente={props.cliente} />
+			<ContactoCliente cliente={props.cliente} />
+			<DomicilioCliente cliente={props.cliente} />
+			<MasDatosCliente cliente={props.cliente} />
 		</ModalScroll>
 	);
 };

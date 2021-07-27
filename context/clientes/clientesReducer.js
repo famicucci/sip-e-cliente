@@ -1,8 +1,10 @@
 import {
 	TRAER_CLIENTES,
 	FILAS_CLIENTES,
+	FILA_ACTIVA_CLIENTE,
 	CAMPO_CLIENTE_ACTIVO,
 	LIMPIAR_CLIENTE_ACTIVO,
+	MODAL_INFORMACION_CLIENTE,
 	OPEN_INFORMACION_CLIENTE,
 	CLOSE_MODAL,
 	MOSTRAR_ERROR,
@@ -25,6 +27,15 @@ const ClientesReducer = (state, action) => {
 				...state,
 				filas: filas,
 			};
+		case FILA_ACTIVA_CLIENTE:
+			let cliente = state.clientes.find((x) => x.id === action.payload);
+			if (!cliente) cliente = {};
+
+			return {
+				...state,
+				filaActiva: cliente,
+			};
+
 		case CAMPO_CLIENTE_ACTIVO:
 			return {
 				...state,
@@ -38,6 +49,12 @@ const ClientesReducer = (state, action) => {
 				...state,
 				clienteActivo: { tipo: 'Minorista', condIva: 'Consumidor Final' },
 			};
+		case MODAL_INFORMACION_CLIENTE:
+			return {
+				...state,
+				openModalInformacionCliente: action.payload,
+			};
+
 		case OPEN_INFORMACION_CLIENTE:
 			return {
 				...state,

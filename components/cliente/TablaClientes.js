@@ -11,6 +11,7 @@ import BarraHerramientasContext from '../../context/barraHerramientas/barraHerra
 import SpinnerTabla from '../../components/SpinnerTabla';
 import ClientesContext from '../../context/clientes/clientesContext';
 import FacsOrdsCliente from '../cliente/FacsOrdsCliente';
+import InformacionCliente from './InformacionCliente';
 
 const useStyles = makeStyles({
 	table: {
@@ -24,8 +25,16 @@ const TablaClientes = ({ columnas }) => {
 	const { busqueda, handleHerramientasClientes } = useContext(
 		BarraHerramientasContext
 	);
-	const { filas, cargando, traerClientes, handleFilas } =
-		useContext(ClientesContext);
+	const {
+		filas,
+		filaActiva,
+		openModalInformacionCliente,
+		cargando,
+		traerClientes,
+		handleFilas,
+		handleFilaActiva,
+		handleOpenModalInformacionCliente,
+	} = useContext(ClientesContext);
 
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
 		usePaginacion(filas, 5);
@@ -64,6 +73,18 @@ const TablaClientes = ({ columnas }) => {
 				</TableBody>
 				{!cargando ? <FooterTabla /> : null}
 			</Table>
+			{openModalInformacionCliente ? (
+				<InformacionCliente
+					cliente={filaActiva}
+					openModalInformacionCliente={openModalInformacionCliente}
+					handleCloseModal={() => {
+						handleOpenModalInformacionCliente(false);
+					}}
+					handleFilaActiva={() => {
+						handleFilaActiva(null);
+					}}
+				/>
+			) : null}
 			<FacsOrdsCliente />
 		</TableContainer>
 	);

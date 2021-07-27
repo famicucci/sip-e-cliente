@@ -55,11 +55,14 @@ const TablaEditarOrdenes = () => {
 		handleFilasOrdenes,
 		traerTiposEnvio,
 		traerPtosVenta,
-		openModalInformacionCliente,
 		openModalCrearFactura,
 		openModalFactura,
 		openModalCrearPago,
 		handleFilasOrdenesFiltro,
+		filaActiva,
+		openModalInformacionCliente,
+		handleCloseModal,
+		handleFilaActivaOrden,
 	} = useContext(EditarOrdenesContext);
 
 	const { handleHerramientasEditarVentas, busqueda } = useContext(
@@ -113,7 +116,14 @@ const TablaEditarOrdenes = () => {
 			</Table>
 			<FacsOrdsCliente />
 			<DetalleOrden />
-			{openModalInformacionCliente ? <InformacionCliente /> : null}
+			{openModalInformacionCliente ? (
+				<InformacionCliente
+					cliente={filaActiva.Cliente}
+					openModalInformacionCliente={openModalInformacionCliente}
+					handleCloseModal={handleCloseModal}
+					handleFilaActiva={handleFilaActivaOrden}
+				/>
+			) : null}
 			{openModalCrearFactura ? <CrearFactura /> : null}
 			{openModalFactura ? <Factura /> : null}
 			{openModalCrearPago ? <CrearPago /> : null}

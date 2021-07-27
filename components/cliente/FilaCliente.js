@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import moment from 'moment';
@@ -8,9 +8,14 @@ import { IconButton } from '@material-ui/core';
 import 'tippy.js/dist/tippy.css';
 import 'tippy.js/themes/light-border.css';
 import DireccionesCliente from './DireccionesCliente';
+import BotonSinFormato from '../generales/BotonSinFormato';
+import ClientesContext from '../../context/clientes/clientesContext';
 
 const FilaCliente = ({ fila, colIndex }) => {
 	const [direccionesCliente, setDireccionesCliente] = useState(null);
+
+	const { handleFilaActiva, handleOpenModalInformacionCliente } =
+		useContext(ClientesContext);
 
 	const handleOnShowDirecciones = (direcciones) => {
 		const a = <DireccionesCliente direcciones={direcciones} />;
@@ -19,8 +24,19 @@ const FilaCliente = ({ fila, colIndex }) => {
 
 	return (
 		<TableRow hover>
-			<TableCell component="th" scope="row">
+			{/* <TableCell component="th" scope="row">
 				{`${fila.nombre} ${fila.apellido}`}
+			</TableCell> */}
+			<TableCell align="center">
+				<BotonSinFormato
+					onClick={() => {
+						console.log(fila.id);
+						handleFilaActiva(fila.id);
+						handleOpenModalInformacionCliente(true);
+					}}
+				>
+					{`${fila.nombre} ${fila.apellido}`}
+				</BotonSinFormato>
 			</TableCell>
 			<TableCell align="left">{fila.email}</TableCell>
 			{colIndex['Celular'] ? (
