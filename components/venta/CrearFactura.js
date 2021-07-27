@@ -9,7 +9,7 @@ import ImporteCrearFactura from './ImporteCrearFactura';
 import BotonSuccess from '../generales/botones/BotonSuccess';
 import NotaCrearFactura from './NotaCrearFactura';
 import ConfirmarCrearFactura from './ConfirmarCrearFactura';
-import { Factura } from '../../functions/Factura';
+import AlertaContext from '../../context/alertas/alertaContext';
 
 const useStyles = makeStyles((theme) => ({
 	dividerHorizontal: {
@@ -39,10 +39,10 @@ const CrearFactura = () => {
 		openModalConfirmarCrearFactura,
 		handleOpenModalConfirmarCrearFactura,
 		handleCloseModal,
-		handleFactura,
 		crearFactura,
 		handleCloseModalConfirmarCrearFactura,
 	} = useContext(EditarOrdenesContext);
+	const { mostrarAlerta } = useContext(AlertaContext);
 
 	const [factura, setFactura] = useState({
 		OrdenId: filaActiva.id,
@@ -53,20 +53,13 @@ const CrearFactura = () => {
 		estadoPago: 'Pendiente',
 		observaciones: '',
 		detalleFactura: filaActiva.detalleOrden,
+		importe: '',
+		descuento: '',
+		importeFinal: '',
 	});
 
 	useEffect(() => {
 		traerTiposEnvio();
-
-		// const objFactura = {
-		// 	OrdenId: filaActiva.id,
-		// 	ClienteId: filaActiva.Cliente.id,
-		// 	tipo: 'fac',
-		// 	estado: 'v',
-		// 	estadoPago: 'Pendiente',
-		// };
-
-		// handleFactura(factura);
 	}, []);
 
 	const onChangeObservaciones = (observaciones) => {
@@ -82,19 +75,26 @@ const CrearFactura = () => {
 		});
 	};
 
+	const onClickFacturar = () => {
+		if (factura.descuento > 0) {
+			mostrarAlerta(
+				'El importe final no puede ser negativo, descuento no válido',
+				'error'
+			);
+			return;
+		}
+
+		handleOpenModalConfirmarCrearFactura();
+	};
+
 	const onSubmit = (e) => {
 		e.preventDefault();
 
-		// const factura = new Factura();
-
-		// const factura = {
-		// 	OrdenId: filaActiva.id,
-		// 	ClienteId: filaActiva.Cliente.id,
-		// 	tipo: 'fac',
-		// 	estado: 'v',
-		// 	estadoPago: 'Pendiente',
-		// 	detalleFactura: filaActiva.detalleOrden,
-		// };
+		// validacion
+		if (factura.importeFinal < 0) {
+			mostrarAlerta('El importe final no puede ser negativo', 'error');
+			return;
+		}
 
 		// submit
 		crearFactura(factura);
@@ -139,9 +139,7 @@ const CrearFactura = () => {
 						type="button"
 						contenido="Facturar"
 						className={classes.botonAceptar}
-						onClick={() => {
-							handleOpenModalConfirmarCrearFactura();
-						}}
+						onClick={onClickFacturar}
 					/>
 				</Box>
 				{openModalConfirmarCrearFactura ? <ConfirmarCrearFactura /> : null}

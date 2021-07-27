@@ -45,7 +45,7 @@ const ImporteCrearFactura = (props) => {
 	const [montoDescuento, setMontoDescuento] = useState('');
 	const [total, setTotal] = useState(0);
 
-	const { filaActiva, handleFactura } = useContext(EditarOrdenesContext);
+	const { filaActiva } = useContext(EditarOrdenesContext);
 
 	useEffect(() => {
 		// calcular el importe total
@@ -54,13 +54,6 @@ const ImporteCrearFactura = (props) => {
 	}, [subtotal, montoDescuento]);
 
 	useEffect(() => {
-		// const objFactura = {
-		// 	importe: subtotal,
-		// 	descuento: montoDescuento,
-		// 	tarifaEnvio: filaActiva.tarifaEnvio,
-		// 	importeFinal: total,
-		// };
-		// handleFactura(objFactura);
 		props.funcModState(subtotal, montoDescuento, total);
 	}, [total]);
 
