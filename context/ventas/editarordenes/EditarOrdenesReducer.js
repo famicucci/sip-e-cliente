@@ -37,12 +37,12 @@ import { FacturaBD } from '../../../functions/Factura';
 const EditarOrdenesReducer = (state, action) => {
 	switch (action.type) {
 		case TRAER_ORDENES:
-			let r = crearFilasTablaEditarOrdenes(action.payload);
+			let r = crearFilasTablaEditarOrdenes(action.payload.respuesta);
 			return {
 				...state,
-				ordenes: action.payload,
+				ordenes: action.payload.respuesta,
 				filasOrdenes: r,
-				filas: r,
+				filas: filBus(r, action.payload.busqueda),
 				cargando: false,
 			};
 		case TRAER_ESTADOS_ORDEN:
@@ -50,13 +50,13 @@ const EditarOrdenesReducer = (state, action) => {
 				...state,
 				estadosOrden: action.payload,
 			};
-		case FILAS_ORDENES:
-			r = crearFilasTablaEditarOrdenes(state.ordenes);
-			return {
-				...state,
-				filasOrdenes: r,
-				filas: r,
-			};
+		// case FILAS_ORDENES:
+		// 	r = crearFilasTablaEditarOrdenes(state.ordenes);
+		// 	return {
+		// 		...state,
+		// 		filasOrdenes: r,
+		// 		filas: r,
+		// 	};
 		case FILA_ACTIVA_ORDEN:
 			r = state.ordenes.find((x) => x.id === action.payload);
 

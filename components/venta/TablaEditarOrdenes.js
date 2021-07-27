@@ -74,7 +74,7 @@ const TablaEditarOrdenes = () => {
 
 	useEffect(() => {
 		handleHerramientasEditarVentas();
-		traerOrdenes();
+		traerOrdenes(busqueda);
 		traerEstadosOrden();
 		traerTiposEnvio();
 		traerPtosVenta();

@@ -56,13 +56,13 @@ const EditarOrdenesState = (props) => {
 	const [state, dispatch] = useReducer(EditarOrdenesReducer, initialState);
 
 	// las funciones
-	const traerOrdenes = async () => {
+	const traerOrdenes = async (busqueda) => {
 		try {
 			let r = await clienteAxios.get('/api/ordenes/');
 
 			dispatch({
 				type: TRAER_ORDENES,
-				payload: r.data,
+				payload: { respuesta: r.data, busqueda: busqueda },
 			});
 		} catch (error) {
 			console.log(error);
