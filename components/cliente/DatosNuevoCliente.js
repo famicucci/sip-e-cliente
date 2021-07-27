@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import InputNuevoCliente from './InputNuevoCliente';
 import Grid from '@material-ui/core/Grid';
+import InputBordeInferior from '../generales/inputs/InputBordeInferior';
 
 const useStyles = makeStyles((theme) => ({
 	heading: {
@@ -15,36 +16,37 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const inputs = [
-	{
-		name: 'nombre',
-		label: 'Nombre',
-		placeholder: 'Nombre',
-		ancho: 6,
-		required: true,
-	},
-	{
-		name: 'apellido',
-		label: 'Apellido',
-		placeholder: 'Apellido',
-		ancho: 6,
-		required: true,
-	},
-	{
-		name: 'razonSocial',
-		label: 'Razon Social',
-		placeholder: 'Razon Social',
-		ancho: 6,
-	},
-	{
-		name: 'dniCuitCuil',
-		label: 'DNI/CUIL/CUIT',
-		placeholder: 'DNI/CUIL/CUIT',
-		ancho: 6,
-	},
-];
+const inputNombre = {
+	name: 'nombre',
+	label: 'Nombre',
+	placeholder: 'Nombre',
+	ancho: 6,
+	required: true,
+};
 
-const DatosNuevoCliente = () => {
+const inputApellido = {
+	name: 'apellido',
+	label: 'Apellido',
+	placeholder: 'Apellido',
+	ancho: 6,
+	required: true,
+};
+
+const inputRazonSocial = {
+	name: 'razonSocial',
+	label: 'Razon Social',
+	placeholder: 'Razon Social',
+	ancho: 6,
+};
+
+const inputDniCuitCuil = {
+	name: 'dniCuitCuil',
+	label: 'DNI/CUIL/CUIT',
+	placeholder: 'DNI/CUIL/CUIT',
+	ancho: 6,
+};
+
+const DatosNuevoCliente = (props) => {
 	const classes = useStyles();
 
 	return (
@@ -58,15 +60,42 @@ const DatosNuevoCliente = () => {
 			</AccordionSummary>
 			<AccordionDetails>
 				<Grid container spacing={2}>
-					{inputs.map((x) => (
-						<InputNuevoCliente
-							name={x.name}
-							label={x.label}
-							placeholder={x.placeholder}
-							ancho={x.ancho}
-							required={x.required}
-						/>
-					))}
+					<InputBordeInferior
+						label={inputNombre.label}
+						name={inputNombre.name}
+						placeholder={inputNombre.placeholder}
+						ancho={inputNombre.ancho}
+						required
+						valInit=""
+						funcModState={props.onChangeAtributo}
+					/>
+					<InputBordeInferior
+						label={inputApellido.label}
+						name={inputApellido.name}
+						placeholder={inputApellido.placeholder}
+						ancho={inputApellido.ancho}
+						required
+						valInit=""
+						funcModState={props.onChangeAtributo}
+					/>
+					<InputBordeInferior
+						label={inputRazonSocial.label}
+						name={inputRazonSocial.name}
+						placeholder={inputRazonSocial.placeholder}
+						ancho={inputRazonSocial.ancho}
+						required
+						valInit=""
+						funcModState={props.onChangeAtributo}
+					/>
+					<InputBordeInferior
+						label={inputDniCuitCuil.label}
+						name={inputDniCuitCuil.name}
+						placeholder={inputDniCuitCuil.placeholder}
+						ancho={inputDniCuitCuil.ancho}
+						required
+						valInit=""
+						funcModState={props.onChangeAtributo}
+					/>
 				</Grid>
 			</AccordionDetails>
 		</Accordion>

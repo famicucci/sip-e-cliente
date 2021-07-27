@@ -9,6 +9,7 @@ import InputNuevoCliente from './InputNuevoCliente';
 import Grid from '@material-ui/core/Grid';
 import SelectBordeInferior from '../generales/inputs/SelectBordeInferior';
 import ClientesContext from '../../context/clientes/clientesContext';
+import InputBordeInferior from '../generales/inputs/InputBordeInferior';
 
 const useStyles = makeStyles((theme) => ({
 	heading: {
@@ -17,20 +18,19 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const inputs = [
-	{
-		name: 'observaciones',
-		label: 'Observaciones',
-		placeholder: 'Observaciones',
-		ancho: 6,
-	},
-	{
-		name: 'mascota',
-		label: 'Mascota',
-		placeholder: 'Mascota',
-		ancho: 6,
-	},
-];
+const inputObservaciones = {
+	name: 'observaciones',
+	label: 'Observaciones',
+	placeholder: 'Observaciones',
+	ancho: 6,
+};
+
+const inputMascota = {
+	name: 'mascota',
+	label: 'Mascota',
+	placeholder: 'Mascota',
+	ancho: 6,
+};
 
 // label, ancho, valores, descripcionValores
 const selectTipo = {
@@ -56,10 +56,18 @@ const selectCondIVA = {
 	valDefault: 10,
 };
 
-const MasDatosNuevoCliente = () => {
+const MasDatosNuevoCliente = (props) => {
 	const classes = useStyles();
 
 	const { handleClienteActivo } = useContext(ClientesContext);
+
+	const onChangeSelect = (name, value) => {
+		const arrayInputs = [{ ...selectTipo }, { ...selectCondIVA }];
+		const data = arrayInputs.find((x) => x.name === name).data;
+		const descripcion = data.find((x) => x.value === value).descripcion;
+
+		props.onChangeAtributo(name, descripcion);
+	};
 
 	return (
 		<Accordion>
@@ -72,30 +80,39 @@ const MasDatosNuevoCliente = () => {
 			</AccordionSummary>
 			<AccordionDetails>
 				<Grid container spacing={2}>
-					{inputs.map((x) => (
-						<InputNuevoCliente
-							name={x.name}
-							label={x.label}
-							placeholder={x.placeholder}
-							ancho={x.ancho}
-							required={x.required}
-						/>
-					))}
+					<InputBordeInferior
+						label={inputObservaciones.label}
+						name={inputObservaciones.name}
+						placeholder={inputObservaciones.placeholder}
+						ancho={inputObservaciones.ancho}
+						required
+						valInit=""
+						funcModState={props.onChangeAtributo}
+					/>
+					<InputBordeInferior
+						label={inputMascota.label}
+						name={inputMascota.name}
+						placeholder={inputMascota.placeholder}
+						ancho={inputMascota.ancho}
+						required
+						valInit=""
+						funcModState={props.onChangeAtributo}
+					/>
 					<SelectBordeInferior
 						name={selectTipo.name}
 						label={selectTipo.label}
 						ancho={selectTipo.ancho}
 						data={selectTipo.data}
-						valDefault={selectTipo.valDefault}
-						funcModState={handleClienteActivo}
+						valInit={selectTipo.valDefault}
+						funcModState={onChangeSelect}
 					/>
 					<SelectBordeInferior
 						name={selectCondIVA.name}
 						label={selectCondIVA.label}
 						ancho={selectCondIVA.ancho}
 						data={selectCondIVA.data}
-						valDefault={selectCondIVA.valDefault}
-						funcModState={handleClienteActivo}
+						valInit={selectCondIVA.valDefault}
+						funcModState={onChangeSelect}
 					/>
 				</Grid>
 			</AccordionDetails>

@@ -7,6 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import InputNuevoCliente from './InputNuevoCliente';
 import Grid from '@material-ui/core/Grid';
+import InputBordeInferior from '../generales/inputs/InputBordeInferior';
+import InputNumberBordeInferior from '../generales/inputs/InputNumberBordeInferior';
 
 const useStyles = makeStyles((theme) => ({
 	heading: {
@@ -15,64 +17,62 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const inputs = [
-	{
-		name: 'calle',
-		label: 'Calle',
-		placeholder: 'Calle',
-		ancho: 6,
-	},
-	{
-		name: 'numero',
-		label: 'Numero',
-		placeholder: 'Numero',
-		ancho: 2,
-	},
-	{
-		name: 'piso',
-		label: 'Piso',
-		placeholder: 'Piso',
-		ancho: 2,
-	},
-	{
-		name: 'depto',
-		label: 'Depto.',
-		placeholder: 'Depto.',
-		ancho: 2,
-	},
-	{
-		name: 'barrio',
-		label: 'Barrio',
-		placeholder: 'Barrio',
-		ancho: 4,
-	},
-	{
-		name: 'codPostal',
-		label: 'C.P.',
-		placeholder: 'C.P.',
-		ancho: 2,
-	},
-	{
-		name: 'ciudad',
-		label: 'Ciudad',
-		placeholder: 'Ciudad',
-		ancho: 6,
-	},
-	{
-		name: 'provincia',
-		label: 'Provincia',
-		placeholder: 'Provincia',
-		ancho: 6,
-	},
-	{
-		name: 'referencia',
-		label: 'Referencia',
-		placeholder: 'Referencia',
-		ancho: 6,
-	},
-];
+const inputCalle = {
+	name: 'calle',
+	label: 'Calle',
+	placeholder: 'Calle',
+	ancho: 6,
+};
+const inputNumero = {
+	name: 'numero',
+	label: 'Numero',
+	placeholder: 'Numero',
+	ancho: 2,
+};
+const inputPiso = {
+	name: 'piso',
+	label: 'Piso',
+	placeholder: 'Piso',
+	ancho: 2,
+};
+const inputDepto = {
+	name: 'depto',
+	label: 'Depto.',
+	placeholder: 'Depto.',
+	ancho: 2,
+};
+const inputBarrio = {
+	name: 'barrio',
+	label: 'Barrio',
+	placeholder: 'Barrio',
+	ancho: 4,
+};
+const inputCodPostal = {
+	name: 'codPostal',
+	label: 'C.P.',
+	placeholder: 'C.P.',
+	ancho: 2,
+};
+const inputCiudad = {
+	name: 'ciudad',
+	label: 'Ciudad',
+	placeholder: 'Ciudad',
+	ancho: 6,
+};
+const inputProvincia = {
+	name: 'provincia',
+	label: 'Provincia',
+	placeholder: 'Provincia',
+	ancho: 6,
+};
+const inputReferencia = {
+	name: 'referencia',
+	label: 'Referencia',
+	placeholder: 'Referencia',
+	ancho: 6,
+};
 
-const DomicilioNuevoCliente = () => {
+const DomicilioNuevoCliente = (props) => {
 	const classes = useStyles();
 
 	return (
@@ -86,7 +86,88 @@ const DomicilioNuevoCliente = () => {
 			</AccordionSummary>
 			<AccordionDetails>
 				<Grid container spacing={2}>
-					{inputs.map((x) => (
+					<InputBordeInferior
+						label={inputCalle.label}
+						name={inputCalle.name}
+						placeholder={inputCalle.placeholder}
+						ancho={inputCalle.ancho}
+						required
+						valInit=""
+						funcModState={props.onChangeAtributo}
+					/>
+					<InputNumberBordeInferior
+						label={inputNumero.label}
+						name={inputNumero.name}
+						placeholder={inputNumero.placeholder}
+						ancho={inputNumero.ancho}
+						required
+						valInit=""
+						funcModState={props.onChangeAtributo}
+					/>
+					<InputBordeInferior
+						label={inputPiso.label}
+						name={inputPiso.name}
+						placeholder={inputPiso.placeholder}
+						ancho={inputPiso.ancho}
+						required
+						valInit=""
+						funcModState={props.onChangeAtributo}
+					/>
+					<InputBordeInferior
+						label={inputDepto.label}
+						name={inputDepto.name}
+						placeholder={inputDepto.placeholder}
+						ancho={inputDepto.ancho}
+						required
+						valInit=""
+						funcModState={props.onChangeAtributo}
+					/>
+					<InputBordeInferior
+						label={inputBarrio.label}
+						name={inputBarrio.name}
+						placeholder={inputBarrio.placeholder}
+						ancho={inputBarrio.ancho}
+						required
+						valInit=""
+						funcModState={props.onChangeAtributo}
+					/>
+					<InputNumberBordeInferior
+						label={inputCodPostal.label}
+						name={inputCodPostal.name}
+						placeholder={inputCodPostal.placeholder}
+						ancho={inputCodPostal.ancho}
+						required
+						valInit=""
+						funcModState={props.onChangeAtributo}
+					/>
+					<InputBordeInferior
+						label={inputCiudad.label}
+						name={inputCiudad.name}
+						placeholder={inputCiudad.placeholder}
+						ancho={inputCiudad.ancho}
+						required
+						valInit=""
+						funcModState={props.onChangeAtributo}
+					/>
+					<InputBordeInferior
+						label={inputProvincia.label}
+						name={inputProvincia.name}
+						placeholder={inputProvincia.placeholder}
+						ancho={inputProvincia.ancho}
+						required
+						valInit=""
+						funcModState={props.onChangeAtributo}
+					/>
+					<InputBordeInferior
+						label={inputReferencia.label}
+						name={inputReferencia.name}
+						placeholder={inputReferencia.placeholder}
+						ancho={inputReferencia.ancho}
+						required
+						valInit=""
+						funcModState={props.onChangeAtributo}
+					/>
+					{/* {inputs.map((x) => (
 						<InputNuevoCliente
 							name={x.name}
 							label={x.label}
@@ -94,7 +175,7 @@ const DomicilioNuevoCliente = () => {
 							ancho={x.ancho}
 							required={x.required}
 						/>
-					))}
+					))} */}
 				</Grid>
 			</AccordionDetails>
 		</Accordion>

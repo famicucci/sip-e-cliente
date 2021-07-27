@@ -5,8 +5,8 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import InputNuevoCliente from './InputNuevoCliente';
 import Grid from '@material-ui/core/Grid';
+import InputBordeInferior from '../generales/inputs/InputBordeInferior';
 
 const useStyles = makeStyles((theme) => ({
 	heading: {
@@ -15,35 +15,33 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const inputs = [
-	{
-		name: 'email',
-		label: 'Email',
-		placeholder: 'Email',
-		ancho: 6,
-		required: true,
-	},
-	{
-		name: 'celular',
-		label: 'Celular',
-		placeholder: 'Celular',
-		ancho: 6,
-	},
-	{
-		name: 'instagram',
-		label: 'Instagram',
-		placeholder: 'Instagram',
-		ancho: 6,
-	},
-	{
-		name: 'facebook',
-		label: 'Facebook',
-		placeholder: 'Facebook',
-		ancho: 6,
-	},
-];
+const inputEmail = {
+	name: 'email',
+	label: 'Email',
+	placeholder: 'Email',
+	ancho: 6,
+	required: true,
+};
+const inputCelular = {
+	name: 'celular',
+	label: 'Celular',
+	placeholder: 'Celular',
+	ancho: 6,
+};
+const inputInstagram = {
+	name: 'instagram',
+	label: 'Instagram',
+	placeholder: 'Instagram',
+	ancho: 6,
+};
+const inputFacebook = {
+	name: 'facebook',
+	label: 'Facebook',
+	placeholder: 'Facebook',
+	ancho: 6,
+};
 
-const ContactoNuevoCliente = () => {
+const ContactoNuevoCliente = (props) => {
 	const classes = useStyles();
 
 	return (
@@ -57,15 +55,42 @@ const ContactoNuevoCliente = () => {
 			</AccordionSummary>
 			<AccordionDetails>
 				<Grid container spacing={2}>
-					{inputs.map((x) => (
-						<InputNuevoCliente
-							name={x.name}
-							label={x.label}
-							placeholder={x.placeholder}
-							ancho={x.ancho}
-							required={x.required}
-						/>
-					))}
+					<InputBordeInferior
+						label={inputEmail.label}
+						name={inputEmail.name}
+						placeholder={inputEmail.placeholder}
+						ancho={inputEmail.ancho}
+						required
+						valInit=""
+						funcModState={props.onChangeAtributo}
+					/>
+					<InputBordeInferior
+						label={inputCelular.label}
+						name={inputCelular.name}
+						placeholder={inputCelular.placeholder}
+						ancho={inputCelular.ancho}
+						required
+						valInit=""
+						funcModState={props.onChangeAtributo}
+					/>
+					<InputBordeInferior
+						label={inputInstagram.label}
+						name={inputInstagram.name}
+						placeholder={inputInstagram.placeholder}
+						ancho={inputInstagram.ancho}
+						required
+						valInit=""
+						funcModState={props.onChangeAtributo}
+					/>
+					<InputBordeInferior
+						label={inputFacebook.label}
+						name={inputFacebook.name}
+						placeholder={inputFacebook.placeholder}
+						ancho={inputFacebook.ancho}
+						required
+						valInit=""
+						funcModState={props.onChangeAtributo}
+					/>
 				</Grid>
 			</AccordionDetails>
 		</Accordion>

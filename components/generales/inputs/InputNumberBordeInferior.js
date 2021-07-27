@@ -5,23 +5,25 @@ import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		marginTop: theme.spacing(2),
+		marginTop: (props) => theme.spacing(props.marginTop),
 		width: '100%',
 	},
 }));
 
-const InputNumberBordeInferior = ({
-	label,
-	name,
-	placeholder,
-	ancho,
-	required,
-	valInit,
-	funcModState,
-	disabled,
-	InputProps,
-}) => {
-	const classes = useStyles();
+const InputNumberBordeInferior = (props) => {
+	const classes = useStyles(props);
+
+	const {
+		label,
+		name,
+		placeholder,
+		ancho,
+		required,
+		valInit,
+		funcModState,
+		disabled,
+		InputProps,
+	} = props;
 
 	const [valor, setValor] = useState(valInit);
 
@@ -30,9 +32,9 @@ const InputNumberBordeInferior = ({
 		funcModState(e.target.name, e.target.value);
 	};
 
-	if (required) {
-		required = { required: 'true' };
-	}
+	// if (required) {
+	// 	required = { required: 'true' };
+	// }
 
 	if (disabled) {
 		disabled = { disabled: true };
@@ -52,6 +54,7 @@ const InputNumberBordeInferior = ({
 				onChange={onChange}
 				{...disabled}
 				{...InputProps}
+				{...props}
 				fullWidth
 			/>
 		</Grid>

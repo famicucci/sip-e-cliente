@@ -1,5 +1,6 @@
 import {
 	TRAER_CLIENTES,
+	CREAR_CLIENTE,
 	FILAS_CLIENTES,
 	FILA_ACTIVA_CLIENTE,
 	CAMPO_CLIENTE_ACTIVO,
@@ -21,6 +22,12 @@ const ClientesReducer = (state, action) => {
 				filas: filas,
 				cargando: false,
 			};
+		case CREAR_CLIENTE:
+			return {
+				...state,
+				clienteActivo: action.payload,
+			};
+
 		case FILAS_CLIENTES:
 			filas = filBus(state.clientes, action.payload);
 			return {

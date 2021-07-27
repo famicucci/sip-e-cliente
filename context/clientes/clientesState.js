@@ -5,6 +5,7 @@ import clienteAxios from '../../config/axios';
 
 import {
 	TRAER_CLIENTES,
+	CREAR_CLIENTE,
 	FILAS_CLIENTES,
 	FILA_ACTIVA_CLIENTE,
 	CAMPO_CLIENTE_ACTIVO,
@@ -48,20 +49,21 @@ const ClienteState = (props) => {
 	};
 
 	// las funciones
-	const crearCliente = async (clien) => {
+	const crearCliente = async (cliente) => {
+		console.log(cliente);
 		// enviar a la base de datos
-		// try {
-		// 	const r = await clienteAxios.get('/api/precios');
-		// 	dispatch({
-		// 		type: TRAER_PRECIOS,
-		// 		payload: { arrayProd: r.data, bus: bus },
-		// 	});
-		// } catch (error) {
-		// 	dispatch({
-		// 		type: ERROR_PRECIOS,
-		// 		payload: error,
-		// 	});
-		// }
+		try {
+			const r = await clienteAxios.post('/api/clientes', cliente);
+			dispatch({
+				type: CREAR_CLIENTE,
+				payload: r.data,
+			});
+		} catch (error) {
+			dispatch({
+				type: ERROR_PRECIOS,
+				payload: error,
+			});
+		}
 	};
 
 	const handleFilaActiva = (idCliente) => {
@@ -138,6 +140,7 @@ const ClienteState = (props) => {
 				ordenesClienteActivo: state.ordenesClienteActivo,
 				facturasClienteActivo: state.facturasClienteActivo,
 				cargando: state.cargando,
+				crearCliente,
 				traerClientes,
 				handleClienteActivo,
 				limpiarCliente,
