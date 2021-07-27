@@ -119,11 +119,18 @@ const EditarOrdenesState = (props) => {
 		});
 	};
 
-	const handleFactura = (facturaObj) => {
-		dispatch({
-			type: MODIFICAR_FACTURA,
-			payload: facturaObj,
-		});
+	const handleFactura = async (facturaId, facturaObj) => {
+		try {
+			let r = await clienteAxios.put(`/api/facturas/${facturaId}`, facturaObj);
+
+			console.log(r);
+			// dispatch({
+			// 	type: MODIFICAR_FACTURA,
+			// 	payload: facturaObj,
+			// });
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	const handleDetalleFactura = (detalleOrden) => {
