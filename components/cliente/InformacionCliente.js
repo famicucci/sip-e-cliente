@@ -22,15 +22,22 @@ const useStyles = makeStyles((theme) => ({
 const InformacionCliente = () => {
 	const classes = useStyles();
 
-	const { filaActiva, openModalInformacionCliente, handleCloseModal } =
-		useContext(EditarOrdenesContext);
+	const {
+		filaActiva,
+		openModalInformacionCliente,
+		handleCloseModal,
+		handleFilaActivaOrden,
+	} = useContext(EditarOrdenesContext);
 
 	if (!openModalInformacionCliente) return null;
 
 	return (
 		<ModalScroll
 			openModal={openModalInformacionCliente}
-			handleClose={handleCloseModal}
+			handleClose={() => {
+				handleCloseModal();
+				handleFilaActivaOrden(null);
+			}}
 			padding={16}
 		>
 			<Box display="flex" justifyContent="flex-center" alignItems="flex-end">

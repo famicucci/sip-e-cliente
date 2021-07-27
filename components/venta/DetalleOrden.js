@@ -23,8 +23,12 @@ const DetalleOrden = () => {
 	const classes = useStyles();
 
 	const { traerTiposEnvio } = useContext(VentasContext);
-	const { filaActiva, openModalDetalleOrden, handleCloseModal } =
-		useContext(EditarOrdenesContext);
+	const {
+		filaActiva,
+		openModalDetalleOrden,
+		handleCloseModal,
+		handleFilaActivaOrden,
+	} = useContext(EditarOrdenesContext);
 
 	useEffect(() => {
 		traerTiposEnvio();
@@ -35,7 +39,10 @@ const DetalleOrden = () => {
 	return (
 		<ModalScroll
 			openModal={openModalDetalleOrden}
-			handleClose={handleCloseModal}
+			handleClose={() => {
+				handleCloseModal();
+				handleFilaActivaOrden(null);
+			}}
 			padding={16}
 		>
 			<Box display="flex" justifyContent="flex-center" alignItems="flex-end">

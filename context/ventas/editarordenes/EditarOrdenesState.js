@@ -143,7 +143,6 @@ const EditarOrdenesState = (props) => {
 	};
 
 	const crearFactura = async (objFactura) => {
-		console.log(objFactura);
 		try {
 			const crearFactura = await clienteAxios.post(
 				'/api/facturas/',
@@ -152,6 +151,7 @@ const EditarOrdenesState = (props) => {
 			const idFactura = crearFactura.data.id;
 			const r2 = await clienteAxios.get(`/api/facturas/${idFactura}`);
 			const factura = r2.data;
+			console.log(factura);
 			dispatch({
 				type: CREAR_FACTURA,
 				payload: factura,

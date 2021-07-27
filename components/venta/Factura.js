@@ -31,8 +31,12 @@ const columnas = [
 const Factura = () => {
 	const classes = useStyles();
 
-	const { filaActiva, openModalFactura, handleCloseModal } =
-		useContext(EditarOrdenesContext);
+	const {
+		filaActiva,
+		openModalFactura,
+		handleCloseModal,
+		handleFilaActivaOrden,
+	} = useContext(EditarOrdenesContext);
 
 	const cliente = new ClienteBD(filaActiva.Cliente);
 	const factura = new FacturaBD(filaActiva.Factura);
@@ -40,7 +44,10 @@ const Factura = () => {
 	return (
 		<ModalScroll2
 			openModal={openModalFactura}
-			handleClose={handleCloseModal}
+			handleClose={() => {
+				handleCloseModal();
+				handleFilaActivaOrden(null);
+			}}
 			padding={16}
 			titulo={`Factura ${factura.id}`}
 			anexoTitulo={cliente.nombreCompleto}

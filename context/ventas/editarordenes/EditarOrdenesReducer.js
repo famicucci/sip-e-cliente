@@ -58,6 +58,9 @@ const EditarOrdenesReducer = (state, action) => {
 			};
 		case FILA_ACTIVA_ORDEN:
 			r = state.ordenes.find((x) => x.id === action.payload);
+
+			if (!r) r = {};
+
 			return {
 				...state,
 				filaActiva: r,
@@ -156,7 +159,7 @@ const EditarOrdenesReducer = (state, action) => {
 		case MODAL_CLOSE:
 			return {
 				...state,
-				filaActiva: {},
+				// filaActiva: {},
 				factura: {},
 				openModalDetalleOrden: false,
 				openModalInformacionCliente: false,

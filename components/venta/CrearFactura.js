@@ -40,7 +40,8 @@ const CrearFactura = () => {
 		handleOpenModalConfirmarCrearFactura,
 		handleCloseModal,
 		crearFactura,
-		handleCloseModalConfirmarCrearFactura,
+		handleOpenModalFactura,
+		handleFilaActivaOrden,
 	} = useContext(EditarOrdenesContext);
 	const { mostrarAlerta } = useContext(AlertaContext);
 
@@ -97,8 +98,11 @@ const CrearFactura = () => {
 		}
 
 		// submit
-		crearFactura(factura);
-		handleCloseModalConfirmarCrearFactura();
+		(async () => {
+			await crearFactura(factura);
+			await handleCloseModal();
+			await handleOpenModalFactura(); /////////////////////////////////////////// no funciona
+		})();
 	};
 
 	return (
@@ -110,7 +114,10 @@ const CrearFactura = () => {
 		>
 			<ModalScroll
 				openModal={openModalCrearFactura}
-				handleClose={handleCloseModal}
+				handleClose={() => {
+					handleCloseModal();
+					handleFilaActivaOrden(null);
+				}}
 				padding={16}
 			>
 				<Box display="flex" justifyContent="flex-center" alignItems="flex-end">
