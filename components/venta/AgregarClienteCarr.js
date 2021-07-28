@@ -71,7 +71,10 @@ const AgregarClienteCarr = () => {
 					</Tabs>
 				</AppBar>
 				<TabPanel value={value} index={0}>
-					<FormNuevoCliente />
+					<FormNuevoCliente
+						handleClose={handleClose}
+						handleCliente={handleCliente}
+					/>
 				</TabPanel>
 				<TabPanel value={value} index={1}>
 					<BuscadorPapper

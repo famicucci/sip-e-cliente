@@ -21,12 +21,12 @@ const ClienteState = (props) => {
 		clientes: [],
 		filas: [],
 		filaActiva: {},
-		clienteActivo: { tipo: 'Minorista', condIva: 'Consumidor Final' },
+		clienteActivo: null,
 		ordenesClienteActivo: null,
 		facturasClienteActivo: null,
 		openModalInformacionCliente: false,
 		openInfoCliente: false,
-		mensaje: null,
+		mensajeStateClientes: null,
 		cargando: true,
 	};
 
@@ -139,6 +139,7 @@ const ClienteState = (props) => {
 				clienteActivo: state.clienteActivo,
 				ordenesClienteActivo: state.ordenesClienteActivo,
 				facturasClienteActivo: state.facturasClienteActivo,
+				mensajeStateClientes: state.mensajeStateClientes,
 				cargando: state.cargando,
 				crearCliente,
 				traerClientes,

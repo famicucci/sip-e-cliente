@@ -26,6 +26,7 @@ const ClientesReducer = (state, action) => {
 			return {
 				...state,
 				clienteActivo: action.payload,
+				mensajeStateClientes: { msg: 'Cliente creado', severity: 'success' },
 			};
 
 		case FILAS_CLIENTES:

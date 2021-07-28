@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import DatosNuevoCliente from './DatosNuevoCliente';
 import ContactoNuevoCliente from './ContactoNuevoCliente';
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 	divider: { marginTop: theme.spacing(2), marginBottom: theme.spacing(1) },
 }));
 
-const NuevoCliente = () => {
+const NuevoCliente = (props) => {
 	const classes = useStyles();
 
 	const [cliente, setCliente] = useState({
@@ -44,7 +44,18 @@ const NuevoCliente = () => {
 	});
 
 	const { mostrarAlerta } = useContext(AlertaContext);
-	const { crearCliente, limpiarCliente } = useContext(ClientesContext);
+	const { mensajeStateClientes, clienteActivo, crearCliente, limpiarCliente } =
+		useContext(ClientesContext);
+
+	useEffect(() => {
+		if (mensajeStateClientes) {
+			mostrarAlerta(mensajeStateClientes.msg, mensajeStateClientes.severity);
+		}
+
+		if (clienteActivo) {
+			props.handleCliente(clienteActivo);
+		}
+	}, [mensajeStateClientes, clienteActivo]);
 
 	const onChangeAtributo = (name, value) => {
 		setCliente({ ...cliente, [name]: value });
@@ -75,6 +86,8 @@ const NuevoCliente = () => {
 		}
 
 		crearCliente(cliente);
+
+		props.handleClose();
 	};
 
 	return (
