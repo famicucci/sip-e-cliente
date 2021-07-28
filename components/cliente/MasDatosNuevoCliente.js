@@ -5,7 +5,6 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import InputNuevoCliente from './InputNuevoCliente';
 import Grid from '@material-ui/core/Grid';
 import SelectBordeInferior from '../generales/inputs/SelectBordeInferior';
 import ClientesContext from '../../context/clientes/clientesContext';

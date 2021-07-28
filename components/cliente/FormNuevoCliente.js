@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 	divider: { marginTop: theme.spacing(2), marginBottom: theme.spacing(1) },
 }));
 
-const NuevoCliente = (props) => {
+const FormNuevoCliente = (props) => {
 	const classes = useStyles();
 
 	const [cliente, setCliente] = useState({
@@ -115,4 +115,4 @@ const NuevoCliente = (props) => {
 	);
 };
 
-export default NuevoCliente;
+export default FormNuevoCliente;

@@ -67,6 +67,7 @@ const PreciosReducer = (state, action) => {
 			return {
 				...state,
 				botonModoCargaVenta: false,
+				botonNuevoCliente: true,
 				buscador: true,
 				selectListaPrecio: false,
 				selectPtoStock: false,

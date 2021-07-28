@@ -11,6 +11,7 @@ import {
 	CAMPO_CLIENTE_ACTIVO,
 	LIMPIAR_CLIENTE_ACTIVO,
 	MODAL_INFORMACION_CLIENTE,
+	MODAL_NUEVO_CLIENTE,
 	OPEN_INFORMACION_CLIENTE,
 	CLOSE_MODAL,
 	MOSTRAR_ERROR,
@@ -25,6 +26,7 @@ const ClienteState = (props) => {
 		ordenesClienteActivo: null,
 		facturasClienteActivo: null,
 		openModalInformacionCliente: false,
+		openModalNuevoCliente: false,
 		openInfoCliente: false,
 		mensajeStateClientes: null,
 		cargando: true,
@@ -128,12 +130,20 @@ const ClienteState = (props) => {
 		});
 	};
 
+	const handleOpenModalNuevoCliente = (bool) => {
+		dispatch({
+			type: MODAL_NUEVO_CLIENTE,
+			payload: bool,
+		});
+	};
+
 	return (
 		<ClientesContext.Provider
 			value={{
 				clientes: state.clientes,
 				filas: state.filas,
 				openModalInformacionCliente: state.openModalInformacionCliente,
+				openModalNuevoCliente: state.openModalNuevoCliente,
 				openInfoCliente: state.openInfoCliente,
 				filaActiva: state.filaActiva,
 				clienteActivo: state.clienteActivo,
@@ -148,6 +158,7 @@ const ClienteState = (props) => {
 				handleFilas,
 				handleFilaActiva,
 				handleOpenModalInformacionCliente,
+				handleOpenModalNuevoCliente,
 				handleOpenFacsOrdsCliente,
 				handleClose,
 			}}

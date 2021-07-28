@@ -13,6 +13,7 @@ import Buscador from '../tablas/herramientas/Buscador';
 import SelectListasPrecio from '../tablas/herramientas/SelectListasPrecio';
 import SelectPuntoStock from '../tablas/herramientas/SelectPuntoStock';
 import BotonModoCargaVenta from '../BotonModoCargaVenta';
+import BotonNuevoCliente from '../cliente/BotonNuevoCliente';
 
 import AuthContext from '../../context/autenticacion/authContext';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
@@ -62,8 +63,13 @@ const Navbar = (props) => {
 	const classes = useStyles();
 
 	// setea barra de herramientas
-	const { buscador, selectListaPrecio, selectPtoStock, botonModoCargaVenta } =
-		useContext(BarraHerramientasContext);
+	const {
+		buscador,
+		selectListaPrecio,
+		selectPtoStock,
+		botonModoCargaVenta,
+		botonNuevoCliente,
+	} = useContext(BarraHerramientasContext);
 	const { usuario, cerrarSesion } = useContext(AuthContext);
 	const { ptoStock, handlePtoStock } = useContext(StockContext);
 
@@ -193,6 +199,8 @@ const Navbar = (props) => {
 						/>
 					) : null}
 					{botonModoCargaVenta ? <BotonModoCargaVenta /> : null}
+					{botonNuevoCliente ? <BotonNuevoCliente /> : null}
+
 					<div className={classes.grow} />
 
 					<div className={classes.sectionDesktop}>

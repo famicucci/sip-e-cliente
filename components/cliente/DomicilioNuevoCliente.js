@@ -5,7 +5,6 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import InputNuevoCliente from './InputNuevoCliente';
 import Grid from '@material-ui/core/Grid';
 import InputBordeInferior from '../generales/inputs/InputBordeInferior';
 import InputNumberBordeInferior from '../generales/inputs/InputNumberBordeInferior';
@@ -167,15 +166,6 @@ const DomicilioNuevoCliente = (props) => {
 						valInit=""
 						funcModState={props.onChangeAtributo}
 					/>
-					{/* {inputs.map((x) => (
-						<InputNuevoCliente
-							name={x.name}
-							label={x.label}
-							placeholder={x.placeholder}
-							ancho={x.ancho}
-							required={x.required}
-						/>
-					))} */}
 				</Grid>
 			</AccordionDetails>
 		</Accordion>

@@ -7,14 +7,17 @@ import TablaClientes from '../components/cliente/TablaClientes';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import ClientesContext from '../context/clientes/clientesContext';
 import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
+import BarraHerramientasContext from '../context/barraHerramientas/barraHerramientasContext';
 
 const Clientes = () => {
 	const authContext = useContext(AuthContext);
 	const { autenticado, cargando, usuarioAutenticado } = authContext;
 	const { handleOpenFacsOrdsCliente } = useContext(ClientesContext);
+	const { handleHerramientasClientes } = useContext(BarraHerramientasContext);
 
 	useEffect(() => {
 		usuarioAutenticado();
+		handleHerramientasClientes();
 	}, []);
 
 	if (!autenticado && cargando) {

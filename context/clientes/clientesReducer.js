@@ -6,6 +6,7 @@ import {
 	CAMPO_CLIENTE_ACTIVO,
 	LIMPIAR_CLIENTE_ACTIVO,
 	MODAL_INFORMACION_CLIENTE,
+	MODAL_NUEVO_CLIENTE,
 	OPEN_INFORMACION_CLIENTE,
 	CLOSE_MODAL,
 	MOSTRAR_ERROR,
@@ -62,7 +63,11 @@ const ClientesReducer = (state, action) => {
 				...state,
 				openModalInformacionCliente: action.payload,
 			};
-
+		case MODAL_NUEVO_CLIENTE:
+			return {
+				...state,
+				openModalNuevoCliente: action.payload,
+			};
 		case OPEN_INFORMACION_CLIENTE:
 			return {
 				...state,

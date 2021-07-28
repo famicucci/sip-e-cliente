@@ -12,6 +12,9 @@ import SpinnerTabla from '../../components/SpinnerTabla';
 import ClientesContext from '../../context/clientes/clientesContext';
 import FacsOrdsCliente from '../cliente/FacsOrdsCliente';
 import InformacionCliente from './InformacionCliente';
+import NuevoCliente from './NuevoCliente';
+import AlertaContext from '../../context/alertas/alertaContext';
+import Alerta from '../Alerta';
 
 const useStyles = makeStyles({
 	table: {
@@ -22,13 +25,13 @@ const useStyles = makeStyles({
 const TablaClientes = ({ columnas }) => {
 	const classes = useStyles();
 
-	const { busqueda, handleHerramientasClientes } = useContext(
-		BarraHerramientasContext
-	);
+	const { busqueda } = useContext(BarraHerramientasContext);
+	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 	const {
 		filas,
 		filaActiva,
 		openModalInformacionCliente,
+		openModalNuevoCliente,
 		cargando,
 		traerClientes,
 		handleFilas,
@@ -40,7 +43,6 @@ const TablaClientes = ({ columnas }) => {
 		usePaginacion(filas, 5);
 
 	useEffect(() => {
-		handleHerramientasClientes();
 		traerClientes(busqueda);
 	}, []);
 
@@ -86,6 +88,8 @@ const TablaClientes = ({ columnas }) => {
 				/>
 			) : null}
 			<FacsOrdsCliente />
+			{openModalNuevoCliente ? <NuevoCliente /> : null}
+			{alerta !== null ? <Alerta /> : null}
 		</TableContainer>
 	);
 };
