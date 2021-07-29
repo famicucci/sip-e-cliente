@@ -52,8 +52,6 @@ const ClienteState = (props) => {
 
 	// las funciones
 	const crearCliente = async (cliente) => {
-		console.log(cliente);
-		// enviar a la base de datos
 		try {
 			const r = await clienteAxios.post('/api/clientes', cliente);
 			dispatch({
