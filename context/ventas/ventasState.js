@@ -34,6 +34,8 @@ import {
 	BORRAR_MENSAJE,
 	MODAL_DETALLE_ORDEN,
 	MODAL_CLOSE,
+	MOSTRAR_ALERTA_VENTAS,
+	OCULTAR_ALERTA_VENTAS,
 } from '../../types';
 
 const VentasState = (props) => {
@@ -392,6 +394,38 @@ const VentasState = (props) => {
 		});
 	};
 
+	const crearYCargarCliente = async (cliente) => {
+		try {
+			const r = await clienteAxios.post('/api/clientes', cliente);
+
+			console.log(r);
+			dispatch({
+				type: AGREGAR_CLIENTE,
+				payload: r.data,
+			});
+
+			mostrarAlertaVentas('Cliente creado', 'success');
+		} catch (error) {
+			dispatch({
+				type: ERROR_PRECIOS,
+				payload: error,
+			});
+		}
+	};
+
+	const mostrarAlertaVentas = (msg, categoria) => {
+		dispatch({
+			type: MOSTRAR_ALERTA_VENTAS,
+			payload: { msg, categoria },
+		});
+
+		setTimeout(() => {
+			dispatch({
+				type: OCULTAR_ALERTA_VENTAS,
+			});
+		}, 4000);
+	};
+
 	return (
 		<VentasContext.Provider
 			value={{
@@ -447,6 +481,7 @@ const VentasState = (props) => {
 				handleFilaActivaOrden,
 				handleOpenModalDetalleOrden,
 				handleCloseModal,
+				crearYCargarCliente,
 			}}
 		>
 			{props.children}

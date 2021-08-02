@@ -1,6 +1,5 @@
 import {
 	TRAER_CLIENTES,
-	CREAR_CLIENTE,
 	FILAS_CLIENTES,
 	FILA_ACTIVA_CLIENTE,
 	CLIENTE_ACTIVO,
@@ -9,8 +8,8 @@ import {
 	MODAL_NUEVO_CLIENTE,
 	OPEN_INFORMACION_CLIENTE,
 	CLOSE_MODAL,
-	MOSTRAR_MENSAJE,
-	MOSTRAR_ERROR,
+	MOSTRAR_ALERTA_CLIENTES,
+	OCULTAR_ALERTA_CLIENTES,
 } from '../../types';
 import { filBus } from '../../functions/filtros';
 
@@ -23,11 +22,6 @@ const ClientesReducer = (state, action) => {
 				clientes: action.payload.clientes,
 				filas: filas,
 				cargando: false,
-			};
-		case CREAR_CLIENTE:
-			return {
-				...state,
-				clienteActivo: action.payload,
 			};
 
 		case FILAS_CLIENTES:
@@ -78,17 +72,16 @@ const ClientesReducer = (state, action) => {
 				...state,
 				openInfoCliente: false,
 			};
-		case MOSTRAR_MENSAJE:
+		case MOSTRAR_ALERTA_CLIENTES:
 			return {
 				...state,
-				mensaje: action.payload,
+				mensajeClientes: action.payload,
 			};
-		case MOSTRAR_ERROR:
+		case OCULTAR_ALERTA_CLIENTES:
 			return {
 				...state,
-				mensaje: action.payload,
+				mensajeClientes: null,
 			};
-
 		default:
 			return state;
 	}

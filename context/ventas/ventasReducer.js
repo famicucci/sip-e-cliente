@@ -29,6 +29,8 @@ import {
 	BORRAR_MENSAJE,
 	MODAL_DETALLE_ORDEN,
 	MODAL_CLOSE,
+	MOSTRAR_ALERTA_VENTAS,
+	OCULTAR_ALERTA_VENTAS,
 } from '../../types';
 import { detArrayPrecios, filtro, filBus } from '../../functions/filtros.js';
 import {
@@ -308,7 +310,16 @@ const VentasReducer = (state, action) => {
 				...state,
 				openModalDetalleOrden: false,
 			};
-
+		case MOSTRAR_ALERTA_VENTAS:
+			return {
+				...state,
+				mensaje: action.payload,
+			};
+		case OCULTAR_ALERTA_VENTAS:
+			return {
+				...state,
+				mensaje: null,
+			};
 		default:
 			return state;
 	}

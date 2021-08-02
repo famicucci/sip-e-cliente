@@ -5,16 +5,16 @@ import clienteAxios from '../../config/axios';
 
 import {
 	TRAER_CLIENTES,
-	CREAR_CLIENTE,
 	FILAS_CLIENTES,
 	FILA_ACTIVA_CLIENTE,
-	CAMPO_CLIENTE_ACTIVO,
+	CLIENTE_ACTIVO,
 	LIMPIAR_CLIENTE_ACTIVO,
 	MODAL_INFORMACION_CLIENTE,
 	MODAL_NUEVO_CLIENTE,
 	OPEN_INFORMACION_CLIENTE,
 	CLOSE_MODAL,
-	MOSTRAR_ERROR,
+	MOSTRAR_ALERTA_CLIENTES,
+	OCULTAR_ALERTA_CLIENTES,
 } from '../../types';
 
 const ClienteState = (props) => {
@@ -28,7 +28,8 @@ const ClienteState = (props) => {
 		openModalInformacionCliente: false,
 		openModalNuevoCliente: false,
 		openInfoCliente: false,
-		mensajeStateClientes: null,
+		mensaje: null,
+		mensajeClientes: null,
 		cargando: true,
 	};
 
@@ -43,26 +44,18 @@ const ClienteState = (props) => {
 				payload: { clientes: r.data, bus: bus },
 			});
 		} catch (error) {
-			dispatch({
-				type: MOSTRAR_ERROR,
-				payload: { msg: 'Hubo un error', categoria: 'error' },
-			});
+			mostrarAlertaClientes('Hubo un error', 'error');
 		}
 	};
 
 	// las funciones
 	const crearCliente = async (cliente) => {
 		try {
-			const r = await clienteAxios.post('/api/clientes', cliente);
-			dispatch({
-				type: CREAR_CLIENTE,
-				payload: r.data,
-			});
+			const r = await clienteAxios.post('/api/clientesssss', cliente);
+
+			mostrarAlertaClientes('Cliente creado', 'success');
 		} catch (error) {
-			dispatch({
-				type: ERROR_PRECIOS,
-				payload: error,
-			});
+			mostrarAlertaClientes('Hubo un error', 'error');
 		}
 	};
 
@@ -73,10 +66,10 @@ const ClienteState = (props) => {
 		});
 	};
 
-	const handleClienteActivo = (attr, val) => {
+	const handleClienteActivo = (cliente) => {
 		dispatch({
-			type: CAMPO_CLIENTE_ACTIVO,
-			payload: { attr, val },
+			type: CLIENTE_ACTIVO,
+			payload: cliente,
 		});
 	};
 
@@ -106,10 +99,7 @@ const ClienteState = (props) => {
 				payload: { obj: obj, ordenes: ordenes.data, facturas: facturas.data },
 			});
 		} catch (error) {
-			dispatch({
-				type: MOSTRAR_ERROR,
-				payload: { msg: 'Hubo un error', categoria: 'error' },
-			});
+			mostrarAlertaClientes('Hubo un error', 'error');
 		}
 
 		// funcion que traiga las facturas de un cliente
@@ -135,6 +125,19 @@ const ClienteState = (props) => {
 		});
 	};
 
+	const mostrarAlertaClientes = (msg, severity) => {
+		dispatch({
+			type: MOSTRAR_ALERTA_CLIENTES,
+			payload: { msg, severity },
+		});
+
+		setTimeout(() => {
+			dispatch({
+				type: OCULTAR_ALERTA_CLIENTES,
+			});
+		}, 4000);
+	};
+
 	return (
 		<ClientesContext.Provider
 			value={{
@@ -147,7 +150,8 @@ const ClienteState = (props) => {
 				clienteActivo: state.clienteActivo,
 				ordenesClienteActivo: state.ordenesClienteActivo,
 				facturasClienteActivo: state.facturasClienteActivo,
-				mensajeStateClientes: state.mensajeStateClientes,
+				mensaje: state.mensaje,
+				mensajeClientes: state.mensajeClientes,
 				cargando: state.cargando,
 				crearCliente,
 				traerClientes,

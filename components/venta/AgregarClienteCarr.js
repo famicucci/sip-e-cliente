@@ -30,7 +30,7 @@ const AgregarClienteCarr = () => {
 	const { busquedaCliente, handleBusquedaCliente } = useContext(
 		BarraHerramientasContext
 	);
-	const { handleCliente } = useContext(VentasContext);
+	const { handleCliente, crearYCargarCliente } = useContext(VentasContext);
 	const { handleClose, openModalCliente } = useContext(BotoneraCarrContext);
 
 	const handleChange = (event, newValue) => {
@@ -73,7 +73,7 @@ const AgregarClienteCarr = () => {
 				<TabPanel value={value} index={0}>
 					<FormNuevoCliente
 						handleClose={handleClose}
-						handleCliente={handleCliente}
+						crearCliente={crearYCargarCliente}
 					/>
 				</TabPanel>
 				<TabPanel value={value} index={1}>

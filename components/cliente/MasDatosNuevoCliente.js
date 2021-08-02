@@ -7,7 +7,6 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Grid from '@material-ui/core/Grid';
 import SelectBordeInferior from '../generales/inputs/SelectBordeInferior';
-import ClientesContext from '../../context/clientes/clientesContext';
 import InputBordeInferior from '../generales/inputs/InputBordeInferior';
 
 const useStyles = makeStyles((theme) => ({
@@ -57,8 +56,6 @@ const selectCondIVA = {
 
 const MasDatosNuevoCliente = (props) => {
 	const classes = useStyles();
-
-	const { handleClienteActivo } = useContext(ClientesContext);
 
 	const onChangeSelect = (name, value) => {
 		const arrayInputs = [{ ...selectTipo }, { ...selectCondIVA }];

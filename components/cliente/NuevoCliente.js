@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
 import FormNuevoCliente from '../cliente/FormNuevoCliente';
-import VentasContext from '../../context/ventas/ventasContext';
 import ModalScroll2 from '../generales/ModalScroll2';
 import ClientesContext from '../../context/clientes/clientesContext';
 
 const NuevoCliente = () => {
-	const { openModalNuevoCliente, handleOpenModalNuevoCliente } =
+	const { openModalNuevoCliente, handleOpenModalNuevoCliente, crearCliente } =
 		useContext(ClientesContext);
 
 	return (
@@ -15,7 +14,10 @@ const NuevoCliente = () => {
 			titulo="Nuevo Cliente"
 			padding={16}
 		>
-			<FormNuevoCliente handleClose={handleOpenModalNuevoCliente} />
+			<FormNuevoCliente
+				handleClose={handleOpenModalNuevoCliente}
+				crearCliente={crearCliente}
+			/>
 		</ModalScroll2>
 	);
 };

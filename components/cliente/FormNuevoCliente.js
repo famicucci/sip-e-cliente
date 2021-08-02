@@ -6,19 +6,24 @@ import DomicilioNuevoCliente from './DomicilioNuevoCliente';
 import MasDatosNuevoCliente from './MasDatosNuevoCliente';
 import Divider from '@material-ui/core/Divider';
 import Box from '@material-ui/core/Box';
-import ClientesContext from '../../context/clientes/clientesContext';
-import BotonLimpiar from '../BotonLimpiar';
 import BotonSuccess from '../generales/botones/BotonSuccess';
 import AlertaContext from '../../context/alertas/alertaContext';
 
 const useStyles = makeStyles((theme) => ({
 	divider: { marginTop: theme.spacing(2), marginBottom: theme.spacing(1) },
+	botonAceptar: {
+		float: 'right',
+		width: '100%',
+	},
+	footer: {
+		marginLeft: theme.spacing(2),
+	},
 }));
 
 const FormNuevoCliente = (props) => {
 	const classes = useStyles();
 
-	const [cliente, setCliente] = useState({
+	const initialState = {
 		nombre: '',
 		apellido: '',
 		instagram: '',
@@ -41,21 +46,11 @@ const FormNuevoCliente = (props) => {
 		mascota: '',
 		tipo: 'Mayorista',
 		condIva: 'Consumidor Final',
-	});
+	};
+
+	const [cliente, setCliente] = useState(initialState);
 
 	const { mostrarAlerta } = useContext(AlertaContext);
-	const { mensajeStateClientes, clienteActivo, crearCliente, limpiarCliente } =
-		useContext(ClientesContext);
-
-	useEffect(() => {
-		if (mensajeStateClientes) {
-			mostrarAlerta(mensajeStateClientes.msg, mensajeStateClientes.severity);
-		}
-
-		if (clienteActivo) {
-			props.handleCliente(clienteActivo);
-		}
-	}, [mensajeStateClientes, clienteActivo]);
 
 	const onChangeAtributo = (name, value) => {
 		setCliente({ ...cliente, [name]: value });
@@ -85,7 +80,7 @@ const FormNuevoCliente = (props) => {
 			return;
 		}
 
-		crearCliente(cliente);
+		props.crearCliente(cliente);
 
 		props.handleClose();
 	};
@@ -99,17 +94,12 @@ const FormNuevoCliente = (props) => {
 				<MasDatosNuevoCliente onChangeAtributo={onChangeAtributo} />
 			</div>
 			<Divider className={classes.divider} variant="middle" />
-			<Box display="flex">
-				<Box flexGrow={1}>
-					<BotonLimpiar
-						onClick={() => {
-							limpiarCliente();
-						}}
-					/>
-				</Box>
-				<Box>
-					<BotonSuccess type="submit" contenido="Aceptar" />
-				</Box>
+			<Box className={classes.footer}>
+				<BotonSuccess
+					type="submit"
+					contenido="Aceptar"
+					className={classes.botonAceptar}
+				/>
 			</Box>
 		</form>
 	);

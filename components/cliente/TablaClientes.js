@@ -15,6 +15,7 @@ import InformacionCliente from './InformacionCliente';
 import NuevoCliente from './NuevoCliente';
 import AlertaContext from '../../context/alertas/alertaContext';
 import Alerta from '../Alerta';
+import Alerta2 from '../generales/Alerta2';
 
 const useStyles = makeStyles({
 	table: {
@@ -32,6 +33,7 @@ const TablaClientes = ({ columnas }) => {
 		filaActiva,
 		openModalInformacionCliente,
 		openModalNuevoCliente,
+		mensajeClientes,
 		cargando,
 		traerClientes,
 		handleFilas,
@@ -90,6 +92,7 @@ const TablaClientes = ({ columnas }) => {
 			<FacsOrdsCliente />
 			{openModalNuevoCliente ? <NuevoCliente /> : null}
 			{alerta !== null ? <Alerta /> : null}
+			{mensajeClientes ? <Alerta2 mensaje={mensajeClientes} /> : null}
 		</TableContainer>
 	);
 };
