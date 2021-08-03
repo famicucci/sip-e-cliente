@@ -14,7 +14,7 @@ import { useRouter } from 'next/router';
 const BotoneraCarrito = () => {
 	const router = useRouter();
 
-	const { cliente, limpiarCarrito, limpiarCliente, crearOrden } =
+	const { carrito, cliente, limpiarCarrito, limpiarCliente, crearOrden } =
 		useContext(VentasContext);
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 
@@ -24,6 +24,12 @@ const BotoneraCarrito = () => {
 			mostrarAlerta('Debes cargar un cliente!', 'error');
 			return;
 		}
+
+		if (carrito.length === 0) {
+			mostrarAlerta('La orden no tiene productos cargados', 'error');
+			return;
+		}
+
 		crearOrden();
 		router.push('/ventas/consultar');
 	};
