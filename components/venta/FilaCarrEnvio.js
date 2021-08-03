@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
@@ -7,6 +7,7 @@ import BotonEliminarDeCarrito from '../tablas/componentes/BotonBorrarDeCarrito';
 import CollapseTablaCarrito from './CollapseTablaCarrito';
 import PrecioEditableCarrito from '../tablas/componentes/PrecioEditableCarrito';
 import { calcSubtotCarr } from '../../functions/ventas';
+import VentasContext from '../../context/ventas/ventasContext';
 
 const useStyles = makeStyles({
 	negrita: {
@@ -19,18 +20,26 @@ const FilaCarrEnvio = (props) => {
 	const classes = useStyles();
 
 	const [open, setOpen] = useState(false);
-	const [total, setTotal] = useState(0);
+
+	const { envio, tiposEnvio } = useContext(VentasContext);
+
+	const tipoEnvio = (id, arrayTiposEnvio) => {
+		console.log(id);
+		console.log(arrayTiposEnvio);
+		const r = arrayTiposEnvio.find((x) => arrayTiposEnvio.id === id);
+		console.log(r);
+		return r;
+	};
 
 	const codigo = 'Envío';
-	const descripcion = 'tipo y dirección';
-	const precio = 345;
+	const precio = envio.costo;
 	const cantidad = 1;
-	const direccion = { value: 'Av. Julio a Roca 342' };
 
-	useEffect(() => {
-		const total = calcSubtotCarr(precio, cantidad);
-		setTotal(total);
-	}, [cantidad, precio]);
+	const descripcion = `tipo envio: ${tipoEnvio(
+		envio.tipo,
+		tiposEnvio
+	)} y dirección`;
+	const direccion = { value: 'Av. Julio a Roca 342' };
 
 	return (
 		<>
@@ -40,10 +49,8 @@ const FilaCarrEnvio = (props) => {
 					<p className={classes.negrita}>{codigo}</p>
 					<p>{descripcion}</p>
 				</TableCell>
-				<TableCell align="center">
-					<PrecioEditableCarrito codigo={codigo} precio={precio} />
-				</TableCell>
-				<TableCell align="center">{parseFloat(total).toFixed(2)}</TableCell>
+				<TableCell align="center">{parseFloat(precio).toFixed(2)}</TableCell>
+				<TableCell align="center">{parseFloat(precio).toFixed(2)}</TableCell>
 				<TableCell align="center">
 					<BotonEliminarDeCarrito codigoProducto={codigo} />
 					<BotonVerMasCarrito setOpen={setOpen} open={open} />

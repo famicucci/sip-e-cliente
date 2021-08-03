@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Box } from '@material-ui/core';
 import SelectBordeInferior from '../generales/inputs/SelectBordeInferior';
@@ -7,6 +7,10 @@ import VentasContext from '../../context/ventas/ventasContext';
 import BotonFilaTabla from '../tablas/componentes/BotonFilaTabla';
 import FlipCameraAndroidIcon from '@material-ui/icons/FlipCameraAndroid';
 import InputBordeInferior from '../generales/inputs/InputBordeInferior';
+import { BotoneraCarrContext } from '../../context/BotoneraCarrContext';
+import AlertaContext from '../../context/alertas/alertaContext';
+import { Direccion } from '../../functions/envio';
+import useEnvio from '../../hooks/useEnvio';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -53,27 +57,22 @@ const inputCosto = {
 	required: true,
 };
 
-const FormularioEnvio = ({
-	stateEnvio,
-	handleSelectDireccion,
-	handleInputDireccion,
-	handleSelectTipo,
-	handleInputCosto,
-	handleSwitchDireccion,
-	onSubmit,
-	facturasOrden,
-}) => {
+const FormularioEnvio = (props) => {
 	const classes = useStyles();
+	const { facturasOrden } = props;
 
-	const {
-		modoDirecc,
-		dataDirecciones,
-		valSelectDireccion,
-		valInputDireccion,
-		valSelectTipo,
-		valInputCosto,
-	} = stateEnvio;
-	const { tiposEnvio } = useContext(VentasContext);
+	const { envio, tiposEnvio, cliente, handleEnvio } = useContext(VentasContext);
+	const { handleClose } = useContext(BotoneraCarrContext);
+	const { alerta, mostrarAlerta } = useContext(AlertaContext);
+
+	const [
+		stateEnvio,
+		handleSelectDireccion,
+		handleInputDireccion,
+		handleSelectTipo,
+		handleInputCosto,
+		handleSwitchDireccion,
+	] = useEnvio(envio);
 
 	const handleDisabledCostoEnvio = (facturasOrden) => {
 		let estadoInput = false;
@@ -85,6 +84,57 @@ const FormularioEnvio = ({
 		return estadoInput;
 	};
 
+	const direccionClienteElegido = new Direccion(cliente.direcciones);
+
+	const onSubmit = (e) => {
+		e.preventDefault();
+
+		// validar
+		if (stateEnvio.tipo !== 1 && stateEnvio.costo === 0) {
+			mostrarAlerta(
+				'Aviso: debes enviar el/los productos pero no colocaste un costo de envío',
+				'warning'
+			);
+		}
+
+		if (
+			stateEnvio.modoDirecc === 'input' &&
+			stateEnvio.tipo !== 1 &&
+			stateEnvio.input.trim() === ''
+		) {
+			mostrarAlerta('Debes colocar una direccion de envío', 'warning');
+			return;
+		}
+
+		let envioMod;
+		if (stateEnvio.modoDirecc === 'select') {
+			const r = cliente.direcciones.find((x) => x.id === stateEnvio.select);
+			envioMod = { ...envio, select: r };
+		} else if (stateEnvio.modoDirecc === 'input') {
+			envioMod = { ...envio, input: stateEnvio.input };
+		}
+
+		envioMod = {
+			...envioMod,
+			tipo: stateEnvio.tipo,
+			costo: stateEnvio.costo,
+			modoDirecc: stateEnvio.modoDirecc,
+		};
+
+		// submit;
+		handleEnvio(envioMod);
+
+		// cierro el modal
+		handleClose();
+	};
+
+	let valInitSelectDirection;
+	if (!stateEnvio.select) {
+		valInitSelectDirection = 'none';
+	} else {
+		valInitSelectDirection = stateEnvio.select.id;
+	}
+
 	return (
 		<form
 			className={classes.root}
@@ -94,15 +144,16 @@ const FormularioEnvio = ({
 			id="form-envio"
 		>
 			<Grid container spacing={2}>
-				{modoDirecc === 'select' ? (
+				{stateEnvio.modoDirecc === 'select' ? (
 					<SelectBordeInferior
 						key={1}
 						name={selectDirecc.name}
 						label={selectDirecc.label}
 						ancho={selectDirecc.ancho}
-						data={dataDirecciones}
-						valInit={valSelectDireccion}
+						data={direccionClienteElegido.creaDireccionesSelect()}
+						valInit={valInitSelectDirection}
 						funcModState={handleSelectDireccion}
+						placeholder="Elegir dirección.."
 					/>
 				) : (
 					<InputBordeInferior
@@ -110,7 +161,7 @@ const FormularioEnvio = ({
 						name={inputDirecc.name}
 						placeholder={inputDirecc.placeholder}
 						ancho={inputDirecc.ancho}
-						valInit={valInputDireccion}
+						valInit={stateEnvio.input}
 						funcModState={handleInputDireccion}
 					/>
 				)}
@@ -137,7 +188,7 @@ const FormularioEnvio = ({
 					label={selectTipo.label}
 					ancho={selectTipo.ancho}
 					data={tiposEnvio}
-					valInit={valSelectTipo}
+					valInit={stateEnvio.tipo}
 					funcModState={handleSelectTipo}
 				/>
 				<InputNumberBordeInferior
@@ -146,10 +197,11 @@ const FormularioEnvio = ({
 					placeholder={inputCosto.placeholder}
 					ancho={inputCosto.ancho}
 					required={inputCosto.required}
-					valInit={valInputCosto}
+					valInit={stateEnvio.costo}
 					funcModState={handleInputCosto}
 					disabled={handleDisabledCostoEnvio(facturasOrden)}
 				/>
+				{alerta !== null ? <Alerta /> : null}
 			</Grid>
 		</form>
 	);

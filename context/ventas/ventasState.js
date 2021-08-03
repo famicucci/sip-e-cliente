@@ -50,13 +50,7 @@ const VentasState = (props) => {
 		ptoVenta: null, //
 		ordenEcommerce: null, //
 		cliente: null, //
-		envio: {
-			modoDirecc: 'select',
-			input: { direccion: '' },
-			select: { id: null, direccion: '' },
-			tipo: 1, // esto lo tengo que setear apenas me traigo los tipos de envio de la bd
-			costo: 0,
-		}, //
+		envio: {}, //
 		nota: null, //
 		listaPrecio: { descripcion: 'Lista Minorista', id: 1 },
 		valorRadio: 'pto-stock',

@@ -1,28 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Direccion } from '../functions/envio';
 
-const useEnvio = (envio, direccionesCliente) => {
-	const {
-		valSelectDirecc,
-		modoDirecc,
-		valInputDirecc,
-		valSelectTipo,
-		valInputCosto,
-	} = envio;
+const useEnvio = (envio) => {
+	let initialState = {
+		modoDirecc: 'select',
+		input: { direccion: '' },
+		select: null,
+		tipo: 1,
+		costo: 0,
+	};
 
-	const direccionClienteElegido = new Direccion(
-		direccionesCliente,
-		valSelectDirecc
-	);
+	if (Object.keys(envio).length !== 0) {
+		initialState = envio;
+	}
 
-	const [stateEnvio, setStateEnvio] = useState({
-		modoDirecc: modoDirecc,
-		dataDirecciones: direccionClienteElegido.creaDireccionesSelect(),
-		valSelectDireccion: direccionClienteElegido.creaInitSelectDireccion(),
-		valInputDireccion: valInputDirecc,
-		valSelectTipo: valSelectTipo,
-		valInputCosto: valInputCosto,
-	});
+	const [stateEnvio, setStateEnvio] = useState(initialState);
 
 	const handleSwitchDireccion = () => {
 		if (stateEnvio.modoDirecc === 'select') {
@@ -33,19 +25,19 @@ const useEnvio = (envio, direccionesCliente) => {
 	};
 
 	const handleSelectDireccion = (name, val) => {
-		setStateEnvio({ ...stateEnvio, valSelectDireccion: val });
+		setStateEnvio({ ...stateEnvio, select: val });
 	};
 
 	const handleInputDireccion = (name, val) => {
-		setStateEnvio({ ...stateEnvio, valInputDireccion: val });
+		setStateEnvio({ ...stateEnvio, input: val });
 	};
 
 	const handleSelectTipo = (name, val) => {
-		setStateEnvio({ ...stateEnvio, valSelectTipo: val });
+		setStateEnvio({ ...stateEnvio, tipo: val });
 	};
 
 	const handleInputCosto = (name, val) => {
-		setStateEnvio({ ...stateEnvio, valInputCosto: val });
+		setStateEnvio({ ...stateEnvio, costo: val });
 	};
 
 	return [
