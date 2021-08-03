@@ -9,8 +9,11 @@ import BotonLimpiar from '../BotonLimpiar';
 import BotonSuccess from '../generales/botones/BotonSuccess';
 import AlertaContext from '../../context/alertas/alertaContext';
 import Alerta from '../Alerta';
+import { useRouter } from 'next/router';
 
 const BotoneraCarrito = () => {
+	const router = useRouter();
+
 	const { cliente, limpiarCarrito, limpiarCliente, crearOrden } =
 		useContext(VentasContext);
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
@@ -22,6 +25,7 @@ const BotoneraCarrito = () => {
 			return;
 		}
 		crearOrden();
+		router.push('/ventas/consultar');
 	};
 
 	return (
