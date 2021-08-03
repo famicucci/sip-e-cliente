@@ -36,8 +36,8 @@ const selectTipo = {
 	label: 'Tipo',
 	ancho: 6,
 	data: [
-		{ value: 10, descripcion: 'Minorista' },
-		{ value: 20, descripcion: 'Mayorista' },
+		{ id: 10, descripcion: 'Minorista' },
+		{ id: 20, descripcion: 'Mayorista' },
 	],
 	valDefault: 10,
 };

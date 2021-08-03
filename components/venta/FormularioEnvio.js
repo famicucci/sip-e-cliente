@@ -75,6 +75,16 @@ const FormularioEnvio = ({
 	} = stateEnvio;
 	const { tiposEnvio } = useContext(VentasContext);
 
+	const handleDisabledCostoEnvio = (facturasOrden) => {
+		let estadoInput = false;
+		if (facturasOrden) {
+			if (facturasOrden.length > 0) {
+				estadoInput = true;
+			}
+		}
+		return estadoInput;
+	};
+
 	return (
 		<form
 			className={classes.root}
@@ -138,7 +148,7 @@ const FormularioEnvio = ({
 					required={inputCosto.required}
 					valInit={valInputCosto}
 					funcModState={handleInputCosto}
-					disabled={facturasOrden.length > 0 ? true : false}
+					disabled={handleDisabledCostoEnvio(facturasOrden)}
 				/>
 			</Grid>
 		</form>

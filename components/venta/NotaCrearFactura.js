@@ -5,7 +5,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
-import useEnvio from '../../hooks/hookEnvio';
+import useEnvio from '../../hooks/useEnvio';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
 import { Envio } from '../../functions/envio';
 import { Grid, Box } from '@material-ui/core';
