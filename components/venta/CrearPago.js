@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import ModalCentrado2 from '../generales/ModalCentrado2';
+import ModalCentrado from '../generales/ModalCentrado';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
 import { Grid } from '@material-ui/core';
 import BotonSuccess from '../generales/botones/BotonSuccess';
@@ -112,7 +112,7 @@ const CrearPago = () => {
 			onSubmit={onSubmit}
 			id="form-crear-pago"
 		>
-			<ModalCentrado2
+			<ModalCentrado
 				openModal={openModalCrearPago}
 				handleClose={handleCloseModalCrearPago}
 				padding={16}
@@ -156,7 +156,7 @@ const CrearPago = () => {
 						funcModState={handleMetodoPago}
 					/>
 				</Grid>
-			</ModalCentrado2>
+			</ModalCentrado>
 		</form>
 	);
 };

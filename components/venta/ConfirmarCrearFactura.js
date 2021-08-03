@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import ModalCentrado2 from '../generales/ModalCentrado2';
+import ModalCentrado from '../generales/ModalCentrado';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
 import { Typography } from '@material-ui/core';
 import BotonWarning from '../generales/botones/BotonWarning';
@@ -23,7 +23,7 @@ const ConfirmarCrearFactura = () => {
 	} = useContext(EditarOrdenesContext);
 
 	return (
-		<ModalCentrado2
+		<ModalCentrado
 			openModal={openModalConfirmarCrearFactura}
 			handleClose={handleCloseModalConfirmarCrearFactura}
 			padding={16}
@@ -48,7 +48,7 @@ const ConfirmarCrearFactura = () => {
 			>
 				¿Desea realmente facturar la orden?
 			</Typography>
-		</ModalCentrado2>
+		</ModalCentrado>
 	);
 };
 

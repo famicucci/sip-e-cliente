@@ -9,7 +9,6 @@ import VerMasCarrito from './VerMasCarrito';
 import { BotoneraCarrContext } from '../../context/BotoneraCarrContext';
 import ClienteCarr from './ClienteCarr';
 import AgregarClienteCarr from '../venta/AgregarClienteCarr';
-import ModalCentrado from '../venta/modales/ModalCentrado';
 import AgregarEnvioCarr from './AgregarEnvioCarr';
 import VentasContext from '../../context/ventas/ventasContext';
 
@@ -24,8 +23,7 @@ const useStyles = makeStyles((theme) => ({
 const SeccionInferiorCarrito = () => {
 	const classes = useStyles();
 
-	const { openNota, openVerMas, openModalEnvio } =
-		useContext(BotoneraCarrContext);
+	const { openNota, openVerMas } = useContext(BotoneraCarrContext);
 
 	const { traerTiposEnvio } = useContext(VentasContext);
 
@@ -44,10 +42,7 @@ const SeccionInferiorCarrito = () => {
 			<NotaVenta />
 			<VerMasCarrito />
 			<AgregarClienteCarr />
-			<ModalCentrado
-				contenido={<AgregarEnvioCarr />}
-				openModal={openModalEnvio}
-			/>
+			<AgregarEnvioCarr />
 		</Paper>
 	);
 };

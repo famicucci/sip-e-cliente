@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const ModalCentrado2 = (props) => {
+const ModalCentrado = (props) => {
 	const classes = useStyles(props);
 
 	return (
@@ -71,4 +71,4 @@ const ModalCentrado2 = (props) => {
 	);
 };
 
-export default ModalCentrado2;
+export default ModalCentrado;
