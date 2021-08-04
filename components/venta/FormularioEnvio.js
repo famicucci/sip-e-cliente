@@ -180,7 +180,7 @@ const FormularioEnvio = (props) => {
 						name={inputDirecc.name}
 						placeholder={inputDirecc.placeholder}
 						ancho={inputDirecc.ancho}
-						valInit={stateEnvio.input.direccion}
+						valInit={stateEnvio.input}
 						funcModState={handleInputDireccion}
 					/>
 				)}

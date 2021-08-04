@@ -21,6 +21,46 @@ class Direccion {
 		return dataDirecciones;
 	}
 
+	static transformDirection = (objDirection) => {
+		const checkProperty = (objDirection, key) => {
+			let string = '';
+			if (objDirection.hasOwnProperty(key)) {
+				string = objDirection[key];
+			}
+			return string;
+		};
+
+		const street = checkProperty(objDirection, 'calle');
+		const streetNumber = checkProperty(objDirection, 'numeroCalle');
+		const floor = checkProperty(objDirection, 'piso');
+		const cp = checkProperty(objDirection, 'codPostal');
+		const aparment = checkProperty(objDirection, 'depto');
+		const neighborhood = checkProperty(objDirection, 'barrio');
+		const city = checkProperty(objDirection, 'ciudad');
+		const reference = checkProperty(objDirection, 'refDireccion');
+
+		const adressInit = '';
+		const adress = adressInit.concat(
+			street,
+			' ',
+			streetNumber,
+			', ',
+			cp,
+			', ',
+			floor,
+			', ',
+			aparment,
+			', ',
+			neighborhood,
+			', ',
+			city,
+			', ',
+			reference
+		);
+
+		return adress;
+	};
+
 	creaInitSelectDireccion() {
 		const dataDirecciones = this.creaDireccionesSelect();
 

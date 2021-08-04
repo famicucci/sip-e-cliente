@@ -2,6 +2,7 @@ import React, { useReducer } from 'react';
 import VentasContext from './ventasContext';
 import VentasReducer from './ventasReducer';
 import clienteAxios from '../../config/axios';
+import { Direccion } from '../../functions/envio';
 
 import {
 	PRODUCTOS_VENTAS,
@@ -205,7 +206,7 @@ const VentasState = (props) => {
 	const crearOrden = async () => {
 		let direccionEnvio;
 		if (state.envio.modoDirecc === 'select') {
-			direccionEnvio = state.envio.select.descripcion;
+			direccionEnvio = Direccion.transformDirection(state.envio.select);
 		} else if (state.envio.modoDirecc === 'input') {
 			direccionEnvio = state.envio.input;
 		}

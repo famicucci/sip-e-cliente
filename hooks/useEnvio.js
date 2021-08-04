@@ -4,7 +4,7 @@ import { Direccion } from '../functions/envio';
 const useEnvio = (envio) => {
 	let initialState = {
 		modoDirecc: 'select',
-		input: { direccion: '' },
+		input: '',
 		select: null,
 		tipo: 1,
 		costo: 0,
