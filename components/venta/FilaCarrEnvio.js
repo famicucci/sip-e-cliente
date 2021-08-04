@@ -23,6 +23,7 @@ const FilaCarrEnvio = () => {
 	const { envio, tiposEnvio, handleEnvio } = useContext(VentasContext);
 
 	if (Object.keys(envio).length === 0) return null;
+	if (envio.costo === 0 && envio.tipo === 1) return null;
 
 	const tipoEnvio = (id, arrayTiposEnvio) => {
 		const r = arrayTiposEnvio.find((x) => x.id === id);

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Box } from '@material-ui/core';
 import SelectBordeInferior from '../generales/inputs/SelectBordeInferior';
@@ -98,10 +98,24 @@ const FormularioEnvio = (props) => {
 			);
 		}
 
+		if (stateEnvio.tipo !== 1 && !stateEnvio.select) {
+			mostrarAlerta(
+				'Aviso: debes enviar el/los productos pero no colocaste una dirección de envío',
+				'warning'
+			);
+		}
+
+		if (stateEnvio.tipo === 1 && stateEnvio.costo !== 0) {
+			mostrarAlerta(
+				'Aviso: El Retiro en local no debería tener un costo de envío',
+				'warning'
+			);
+		}
+
 		if (
 			stateEnvio.modoDirecc === 'input' &&
 			stateEnvio.tipo !== 1 &&
-			stateEnvio.input.trim() === ''
+			stateEnvio.input.direccion.trim() === ''
 		) {
 			mostrarAlerta('Debes colocar una direccion de envío', 'warning');
 			return;
@@ -121,6 +135,10 @@ const FormularioEnvio = (props) => {
 			costo: stateEnvio.costo,
 			modoDirecc: stateEnvio.modoDirecc,
 		};
+
+		if (stateEnvio.costo === '') {
+			envioMod = { ...envioMod, costo: 0 };
+		}
 
 		// submit;
 		handleEnvio(envioMod);
@@ -162,7 +180,7 @@ const FormularioEnvio = (props) => {
 						name={inputDirecc.name}
 						placeholder={inputDirecc.placeholder}
 						ancho={inputDirecc.ancho}
-						valInit={stateEnvio.input}
+						valInit={stateEnvio.input.direccion}
 						funcModState={handleInputDireccion}
 					/>
 				)}
