@@ -47,9 +47,9 @@ const selectCondIVA = {
 	label: 'Condicion frente a IVA',
 	ancho: 6,
 	data: [
-		{ value: 10, descripcion: 'Consumidor Final' },
-		{ value: 20, descripcion: 'Monotributista' },
-		{ value: 30, descripcion: 'Responsable Inscripto' },
+		{ id: 10, descripcion: 'Consumidor Final' },
+		{ id: 20, descripcion: 'Monotributista' },
+		{ id: 30, descripcion: 'Responsable Inscripto' },
 	],
 	valDefault: 10,
 };

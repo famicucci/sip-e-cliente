@@ -2,12 +2,11 @@ import React, { useState, useEffect, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import BotonVerMasCarrito from '../tablas/componentes/BotonVerMasCarrito';
-import BotonEliminarDeCarrito from '../tablas/componentes/BotonBorrarDeCarrito';
-import CollapseTablaCarrito from './CollapseTablaCarrito';
-import PrecioEditableCarrito from '../tablas/componentes/PrecioEditableCarrito';
-import { calcSubtotCarr } from '../../functions/ventas';
+// import BotonVerMasCarrito from '../tablas/componentes/BotonVerMasCarrito';
+// import CollapseTablaCarrito from './CollapseTablaCarrito';
 import VentasContext from '../../context/ventas/ventasContext';
+import BotonFilaTabla from '../tablas/componentes/BotonFilaTabla';
+import ClearIcon from '@material-ui/icons/Clear';
 
 const useStyles = makeStyles({
 	negrita: {
@@ -16,47 +15,47 @@ const useStyles = makeStyles({
 	},
 });
 
-const FilaCarrEnvio = (props) => {
+const FilaCarrEnvio = () => {
 	const classes = useStyles();
 
-	const [open, setOpen] = useState(false);
+	// const [open, setOpen] = useState(false);
 
-	const { envio, tiposEnvio } = useContext(VentasContext);
+	const { envio, tiposEnvio, handleEnvio } = useContext(VentasContext);
+
+	if (Object.keys(envio).length === 0) return null;
 
 	const tipoEnvio = (id, arrayTiposEnvio) => {
-		console.log(id);
-		console.log(arrayTiposEnvio);
-		const r = arrayTiposEnvio.find((x) => arrayTiposEnvio.id === id);
-		console.log(r);
-		return r;
+		const r = arrayTiposEnvio.find((x) => x.id === id);
+		return r.descripcion;
 	};
-
-	const codigo = 'Envío';
-	const precio = envio.costo;
-	const cantidad = 1;
-
-	const descripcion = `tipo envio: ${tipoEnvio(
-		envio.tipo,
-		tiposEnvio
-	)} y dirección`;
-	const direccion = { value: 'Av. Julio a Roca 342' };
 
 	return (
 		<>
 			<TableRow hover role="checkbox" tabIndex={-1}>
-				<TableCell align="center">{cantidad}</TableCell>
+				<TableCell align="center">1</TableCell>
 				<TableCell style={{ wordWrap: 'break-word', maxWidth: '250px' }}>
-					<p className={classes.negrita}>{codigo}</p>
-					<p>{descripcion}</p>
+					<p className={classes.negrita}>Envío</p>
+					<p>{`${tipoEnvio(envio.tipo, tiposEnvio)}`}</p>
 				</TableCell>
-				<TableCell align="center">{parseFloat(precio).toFixed(2)}</TableCell>
-				<TableCell align="center">{parseFloat(precio).toFixed(2)}</TableCell>
 				<TableCell align="center">
-					<BotonEliminarDeCarrito codigoProducto={codigo} />
-					<BotonVerMasCarrito setOpen={setOpen} open={open} />
+					{parseFloat(envio.costo).toFixed(2)}
+				</TableCell>
+				<TableCell align="center">
+					{parseFloat(envio.costo).toFixed(2)}
+				</TableCell>
+				<TableCell align="center">
+					<BotonFilaTabla
+						contenido={
+							<ClearIcon fontSize="default" color="error" fontSize="small" />
+						}
+						onClick={() => {
+							handleEnvio({});
+						}}
+					/>
+					{/* <BotonVerMasCarrito setOpen={setOpen} open={open} /> */}
 				</TableCell>
 			</TableRow>
-			<CollapseTablaCarrito open={open} direccion={direccion} />
+			{/* <CollapseTablaCarrito open={open} direccion={direccion} /> */}
 		</>
 	);
 };

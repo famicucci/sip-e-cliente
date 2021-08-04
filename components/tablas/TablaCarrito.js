@@ -54,7 +54,7 @@ const TablaCarrito = () => {
 							{carrito.map((producto) => (
 								<FilaCarrito producto={producto} />
 							))}
-							{/* <FilaCarrEnvio envio={'envio'} /> */}
+							<FilaCarrEnvio />
 						</>
 					) : (
 						<BodyVacio
