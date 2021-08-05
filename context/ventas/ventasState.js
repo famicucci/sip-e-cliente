@@ -37,6 +37,7 @@ import {
 	MODAL_CLOSE,
 	MOSTRAR_ALERTA_VENTAS,
 	OCULTAR_ALERTA_VENTAS,
+	ACTIVAR_ORDEN,
 } from '../../types';
 
 const VentasState = (props) => {
@@ -260,10 +261,24 @@ const VentasState = (props) => {
 		};
 
 		try {
-			let orden = await clienteAxios.post('/api/ordenes/', paraCrearOrden);
+			let order = await clienteAxios.post('/api/ordenes/', paraCrearOrden);
+
+			try {
+				const createdOrder = await clienteAxios.get(
+					`/api/ordenes/${order.data.id}`
+				);
+
+				dispatch({
+					type: ACTIVAR_ORDEN,
+					payload: createdOrder.data,
+				});
+			} catch (error) {
+				console.log(error);
+			}
 
 			dispatch({
 				type: CREAR_ORDEN,
+				payload: order.data,
 			});
 		} catch (error) {
 			console.log(error);

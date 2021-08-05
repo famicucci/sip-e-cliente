@@ -31,6 +31,7 @@ import {
 	MODAL_CLOSE,
 	MOSTRAR_ALERTA_VENTAS,
 	OCULTAR_ALERTA_VENTAS,
+	ACTIVAR_ORDEN,
 } from '../../types';
 import { detArrayPrecios, filtro, filBus } from '../../functions/filtros.js';
 import {
@@ -294,7 +295,11 @@ const VentasReducer = (state, action) => {
 				...state,
 				filaActiva: r,
 			};
-
+		case ACTIVAR_ORDEN:
+			return {
+				...state,
+				filaActiva: action.payload,
+			};
 		case BORRAR_MENSAJE:
 			return {
 				...state,

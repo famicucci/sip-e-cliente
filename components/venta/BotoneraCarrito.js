@@ -10,19 +10,12 @@ import BotonSuccess from '../generales/botones/BotonSuccess';
 import AlertaContext from '../../context/alertas/alertaContext';
 import Alerta from '../Alerta';
 import { useRouter } from 'next/router';
-import { Direccion } from '../../functions/envio';
 
 const BotoneraCarrito = () => {
 	const router = useRouter();
 
-	const {
-		carrito,
-		cliente,
-		limpiarCarrito,
-		limpiarCliente,
-		crearOrden,
-		envio,
-	} = useContext(VentasContext);
+	const { carrito, cliente, limpiarCarrito, limpiarCliente, crearOrden } =
+		useContext(VentasContext);
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 
 	const onClickConfirmarOrden = () => {
