@@ -66,6 +66,7 @@ const VentasState = (props) => {
 		openModalDetalleOrden: false,
 		cargando: false,
 		mensaje: null,
+		mensajeVentas: null,
 	};
 
 	const [state, dispatch] = useReducer(VentasReducer, initialState);
@@ -272,6 +273,11 @@ const VentasState = (props) => {
 					type: ACTIVAR_ORDEN,
 					payload: createdOrder.data,
 				});
+
+				dispatch({
+					type: MOSTRAR_ALERTA_VENTAS,
+					payload: { msg: 'Orden creada', severity: 'success' },
+				});
 			} catch (error) {
 				console.log(error);
 			}
@@ -436,6 +442,14 @@ const VentasState = (props) => {
 		}, 4000);
 	};
 
+	const ocultarAlertaVentas = () => {
+		setTimeout(() => {
+			dispatch({
+				type: OCULTAR_ALERTA_VENTAS,
+			});
+		}, 4000);
+	};
+
 	return (
 		<VentasContext.Provider
 			value={{
@@ -451,6 +465,7 @@ const VentasState = (props) => {
 				carrito: state.carrito,
 				productoActivoCarrrito: state.productoActivoCarrrito,
 				mensaje: state.mensaje,
+				mensajeVentas: state.mensajeVentas,
 				modo: state.modo,
 				cliente: state.cliente,
 				envio: state.envio,
@@ -492,6 +507,8 @@ const VentasState = (props) => {
 				handleOpenModalDetalleOrden,
 				handleCloseModal,
 				crearYCargarCliente,
+				mostrarAlertaVentas,
+				ocultarAlertaVentas,
 			}}
 		>
 			{props.children}

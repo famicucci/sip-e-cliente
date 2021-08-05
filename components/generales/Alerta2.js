@@ -8,9 +8,17 @@ function Alert(props) {
 
 const Alerta2 = (props) => {
 	// const { alerta, ocultarAlerta } = useContext(AlertaContext);
+	if (!props.mensaje) return null;
+
 	const { msg, severity } = props.mensaje;
 
 	const [open, setOpen] = useState();
+
+	useEffect(() => {
+		if (props.funcOcultar) {
+			props.funcOcultar();
+		}
+	}, []);
 
 	// si alerta viene lleno true, si viene vacio false
 	useEffect(() => {

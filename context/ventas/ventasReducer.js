@@ -318,12 +318,12 @@ const VentasReducer = (state, action) => {
 		case MOSTRAR_ALERTA_VENTAS:
 			return {
 				...state,
-				mensaje: action.payload,
+				mensajeVentas: action.payload,
 			};
 		case OCULTAR_ALERTA_VENTAS:
 			return {
 				...state,
-				mensaje: null,
+				mensajeVentas: null,
 			};
 		default:
 			return state;

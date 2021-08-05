@@ -14,8 +14,14 @@ import { useRouter } from 'next/router';
 const BotoneraCarrito = () => {
 	const router = useRouter();
 
-	const { carrito, cliente, limpiarCarrito, limpiarCliente, crearOrden } =
-		useContext(VentasContext);
+	const {
+		carrito,
+		cliente,
+		limpiarCarrito,
+		limpiarCliente,
+		crearOrden,
+		mostrarAlertaVentas,
+	} = useContext(VentasContext);
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 
 	const onClickConfirmarOrden = () => {
@@ -30,6 +36,7 @@ const BotoneraCarrito = () => {
 		}
 
 		crearOrden();
+
 		router.push('/ventas/consultar');
 	};
 
