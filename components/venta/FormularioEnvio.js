@@ -69,7 +69,7 @@ const FormularioEnvio = (props) => {
 		handleSelectTipo,
 		handleInputCosto,
 		handleSwitchDireccion,
-	] = useEnvio(envioInit);
+	] = useEnvio(envioInit, cliente);
 
 	const handleDisabledCostoEnvio = (facturasOrden) => {
 		let estadoInput = false;
@@ -80,6 +80,13 @@ const FormularioEnvio = (props) => {
 		}
 		return estadoInput;
 	};
+
+	let valInitSelectDirection;
+	if (!stateEnvio.select) {
+		valInitSelectDirection = 'none';
+	} else {
+		valInitSelectDirection = stateEnvio.select.id;
+	}
 
 	const direccionClienteElegido = new Direccion(cliente.direcciones);
 
@@ -117,38 +124,17 @@ const FormularioEnvio = (props) => {
 			return;
 		}
 
-		let envioMod;
-		if (stateEnvio.modoDirecc === 'select') {
-			const r = cliente.direcciones.find((x) => x.id === stateEnvio.select);
-			envioMod = { ...stateEnvio, select: r };
-		} else if (stateEnvio.modoDirecc === 'input') {
-			envioMod = { ...stateEnvio, input: stateEnvio.input };
-		}
-
-		envioMod = {
-			...envioMod,
-			tipo: stateEnvio.tipo,
-			costo: stateEnvio.costo,
-			modoDirecc: stateEnvio.modoDirecc,
-		};
-
 		if (stateEnvio.costo === '') {
-			envioMod = { ...envioMod, costo: 0 };
+			mostrarAlerta('Debes colocar un costo de envío', 'error');
+			return;
 		}
 
 		// submit;
-		handleEnvio(envioMod);
+		handleEnvio(stateEnvio);
 
 		// cierro el modal
 		props.handleClose();
 	};
-
-	let valInitSelectDirection;
-	if (!stateEnvio.select) {
-		valInitSelectDirection = 'none';
-	} else {
-		valInitSelectDirection = stateEnvio.select.id;
-	}
 
 	return (
 		<form

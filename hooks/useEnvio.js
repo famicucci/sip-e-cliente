@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Direccion } from '../functions/envio';
+import React, { useState } from 'react';
 
-const useEnvio = (envio) => {
+const useEnvio = (envio, cliente) => {
 	let initialState = {
 		modoDirecc: 'select',
 		input: '',
@@ -25,7 +24,8 @@ const useEnvio = (envio) => {
 	};
 
 	const handleSelectDireccion = (name, val) => {
-		setStateEnvio({ ...stateEnvio, select: val });
+		const r = cliente.direcciones.find((x) => x.id === val);
+		setStateEnvio({ ...stateEnvio, select: r });
 	};
 
 	const handleInputDireccion = (name, val) => {
