@@ -85,13 +85,6 @@ const EnvioDetalleOrden = () => {
 			</AccordionSummary>
 			<AccordionDetails>
 				<FormularioEnvio
-					stateEnvio={stateEnvio}
-					handleSelectDireccion={handleSelectDireccion}
-					handleInputDireccion={handleInputDireccion}
-					handleSelectTipo={handleSelectTipo}
-					handleInputCosto={handleInputCosto}
-					handleSwitchDireccion={handleSwitchDireccion}
-					onSubmit={onSubmit}
 					facturasOrden={filaActiva.Facturas ? filaActiva.Facturas : []}
 				/>
 			</AccordionDetails>

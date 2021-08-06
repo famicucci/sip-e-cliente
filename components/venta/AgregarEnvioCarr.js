@@ -4,6 +4,7 @@ import BotonSuccess from '../generales/botones/BotonSuccess';
 import { BotoneraCarrContext } from '../../context/BotoneraCarrContext';
 import FormularioEnvio from './FormularioEnvio';
 import ModalCentrado from '../generales/ModalCentrado';
+import VentasContext from '../../context/ventas/ventasContext';
 
 const useStyles = makeStyles(() => ({
 	botonAceptar: {
@@ -17,6 +18,8 @@ const AgregarEnvioCarr = () => {
 
 	const { openModalAgregarEnvioCarrito, handleClose } =
 		useContext(BotoneraCarrContext);
+
+	const { envio, tiposEnvio, cliente, handleEnvio } = useContext(VentasContext);
 
 	return (
 		<ModalCentrado
@@ -33,7 +36,13 @@ const AgregarEnvioCarr = () => {
 				/>
 			}
 		>
-			<FormularioEnvio />
+			<FormularioEnvio
+				handleClose={handleClose}
+				envioInit={envio}
+				tiposEnvio={tiposEnvio}
+				cliente={cliente}
+				handleEnvio={handleEnvio}
+			/>
 		</ModalCentrado>
 	);
 };

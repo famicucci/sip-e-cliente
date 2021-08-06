@@ -3,11 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Box } from '@material-ui/core';
 import SelectBordeInferior from '../generales/inputs/SelectBordeInferior';
 import InputNumberBordeInferior from '../generales/inputs/InputNumberBordeInferior';
-import VentasContext from '../../context/ventas/ventasContext';
 import BotonFilaTabla from '../tablas/componentes/BotonFilaTabla';
 import FlipCameraAndroidIcon from '@material-ui/icons/FlipCameraAndroid';
 import InputBordeInferior from '../generales/inputs/InputBordeInferior';
-import { BotoneraCarrContext } from '../../context/BotoneraCarrContext';
 import AlertaContext from '../../context/alertas/alertaContext';
 import { Direccion } from '../../functions/envio';
 import useEnvio from '../../hooks/useEnvio';
@@ -60,10 +58,8 @@ const inputCosto = {
 
 const FormularioEnvio = (props) => {
 	const classes = useStyles();
-	const { facturasOrden } = props;
+	const { facturasOrden, envioInit, handleEnvio, tiposEnvio, cliente } = props;
 
-	const { envio, tiposEnvio, cliente, handleEnvio } = useContext(VentasContext);
-	const { handleClose } = useContext(BotoneraCarrContext);
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 
 	const [
@@ -73,7 +69,7 @@ const FormularioEnvio = (props) => {
 		handleSelectTipo,
 		handleInputCosto,
 		handleSwitchDireccion,
-	] = useEnvio(envio);
+	] = useEnvio(envioInit);
 
 	const handleDisabledCostoEnvio = (facturasOrden) => {
 		let estadoInput = false;
@@ -115,7 +111,7 @@ const FormularioEnvio = (props) => {
 		if (
 			stateEnvio.modoDirecc === 'input' &&
 			stateEnvio.tipo !== 1 &&
-			stateEnvio.input.direccion.trim() === ''
+			stateEnvio.input.trim() === ''
 		) {
 			mostrarAlerta('Debes colocar una direccion de envío', 'warning');
 			return;
@@ -124,9 +120,9 @@ const FormularioEnvio = (props) => {
 		let envioMod;
 		if (stateEnvio.modoDirecc === 'select') {
 			const r = cliente.direcciones.find((x) => x.id === stateEnvio.select);
-			envioMod = { ...envio, select: r };
+			envioMod = { ...stateEnvio, select: r };
 		} else if (stateEnvio.modoDirecc === 'input') {
-			envioMod = { ...envio, input: stateEnvio.input };
+			envioMod = { ...stateEnvio, input: stateEnvio.input };
 		}
 
 		envioMod = {
@@ -144,7 +140,7 @@ const FormularioEnvio = (props) => {
 		handleEnvio(envioMod);
 
 		// cierro el modal
-		handleClose();
+		props.handleClose();
 	};
 
 	let valInitSelectDirection;
