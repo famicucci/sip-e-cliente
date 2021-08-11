@@ -18,7 +18,6 @@ import CrearFactura from './CrearFactura';
 import Factura from './Factura';
 import CrearPago from './CrearPago';
 import Alerta2 from '../generales/Alerta2';
-import VentasContext from '../../context/ventas/ventasContext';
 
 const useStyles = makeStyles({
 	table: {
@@ -51,6 +50,7 @@ const TablaEditarOrdenes = () => {
 	const {
 		ordenes,
 		filas,
+		mensajeEditarOrdenes,
 		cargando,
 		traerOrdenes,
 		traerEstadosOrden,
@@ -66,8 +66,6 @@ const TablaEditarOrdenes = () => {
 		handleCloseModal,
 		handleFilaActivaOrden,
 	} = useContext(EditarOrdenesContext);
-
-	const { mensajeVentas, ocultarAlertaVentas } = useContext(VentasContext);
 
 	const { handleHerramientasEditarVentas, busqueda } = useContext(
 		BarraHerramientasContext
@@ -131,7 +129,7 @@ const TablaEditarOrdenes = () => {
 			{openModalCrearFactura ? <CrearFactura /> : null}
 			{openModalFactura ? <Factura /> : null}
 			{openModalCrearPago ? <CrearPago /> : null}
-			<Alerta2 mensaje={mensajeVentas} funcOcultar={ocultarAlertaVentas} />
+			<Alerta2 mensaje={mensajeEditarOrdenes} />
 		</TableContainer>
 	);
 };

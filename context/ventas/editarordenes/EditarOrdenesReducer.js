@@ -4,7 +4,7 @@ import {
 	FILAS_ORDENES,
 	FILA_ACTIVA_ORDEN,
 	MODIFICAR_ESTADO_ORDEN,
-	MODIFICAR_ORDEN,
+	MODIFICAR_ORDENES,
 	MODIFICAR_FACTURA,
 	CREAR_DETALLE_FACTURA,
 	CREAR_FACTURA,
@@ -23,6 +23,8 @@ import {
 	METODOS_PAGO,
 	CREAR_PAGO,
 	FILAS_ORDENES_FILTRO,
+	MOSTRAR_ALERTA_EDITAR_ORDENES,
+	OCULTAR_ALERTA_EDITAR_ORDENES,
 } from '../../../types';
 import { filBus, Filtro } from '../../../functions/filtros.js';
 import {
@@ -58,32 +60,17 @@ const EditarOrdenesReducer = (state, action) => {
 		// 		filas: r,
 		// 	};
 		case FILA_ACTIVA_ORDEN:
-			r = state.ordenes.find((x) => x.id === action.payload);
-
-			if (!r) r = {};
-
 			return {
 				...state,
-				filaActiva: r,
+				filaActiva: action.payload,
 			};
 
-		case MODIFICAR_ORDEN:
-			let orden = new OrdenOld(
-				state.filaActiva,
-				action.payload.ordenObj,
-				state.tiposEnvio,
-				state.ptosVenta
-			);
-			const ordenMod = orden.modificarOrden();
-
-			let ordenes = new Ordenes(state.ordenes, ordenMod);
-			let ordenesMod = ordenes.modOrdenes();
-
+		case MODIFICAR_ORDENES:
 			return {
 				...state,
-				ordenes: ordenesMod,
-				filaActiva: ordenMod,
-				mensaje: action.payload.r,
+				ordenes: state.ordenes.map((x) =>
+					x.id === action.payload.id ? action.payload : x
+				),
 			};
 		case MODIFICAR_ESTADO_ORDEN:
 			const ordenModificadas = modEstadoOrden(
@@ -243,6 +230,17 @@ const EditarOrdenesReducer = (state, action) => {
 			return {
 				...state,
 				filas: r,
+			};
+
+		case MOSTRAR_ALERTA_EDITAR_ORDENES:
+			return {
+				...state,
+				mensajeEditarOrdenes: action.payload,
+			};
+		case OCULTAR_ALERTA_EDITAR_ORDENES:
+			return {
+				...state,
+				mensajeEditarOrdenes: null,
 			};
 
 		default:

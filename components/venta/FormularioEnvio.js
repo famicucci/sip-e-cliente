@@ -101,16 +101,13 @@ const FormularioEnvio = (props) => {
 			);
 		}
 
-		if (stateEnvio.tipo !== 1 && !stateEnvio.select) {
+		if (
+			stateEnvio.modoDirecc === 'select' &&
+			stateEnvio.tipo !== 1 &&
+			!stateEnvio.select
+		) {
 			mostrarAlerta(
 				'Aviso: debes enviar el/los productos pero no colocaste una dirección de envío',
-				'warning'
-			);
-		}
-
-		if (stateEnvio.tipo === 1 && stateEnvio.costo !== 0) {
-			mostrarAlerta(
-				'Aviso: El Retiro en local no debería tener un costo de envío',
 				'warning'
 			);
 		}
@@ -121,7 +118,13 @@ const FormularioEnvio = (props) => {
 			stateEnvio.input.trim() === ''
 		) {
 			mostrarAlerta('Debes colocar una direccion de envío', 'warning');
-			return;
+		}
+
+		if (stateEnvio.tipo === 1 && stateEnvio.costo !== 0) {
+			mostrarAlerta(
+				'Aviso: El Retiro en local no debería tener un costo de envío',
+				'warning'
+			);
 		}
 
 		if (stateEnvio.costo === '') {
@@ -129,11 +132,13 @@ const FormularioEnvio = (props) => {
 			return;
 		}
 
-		// submit;
+		// submit
 		handleEnvio(stateEnvio);
 
 		// cierro el modal
-		props.handleClose();
+		if (props.handleClose) {
+			props.handleClose();
+		}
 	};
 
 	return (

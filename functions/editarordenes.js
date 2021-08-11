@@ -10,7 +10,7 @@ const crearFilasTablaEditarOrdenes = (arrayFilas) => {
 		fecha: x.createdAt,
 		idFactura: x.Factura ? x.Factura.id : null,
 		estadoPago: x.Factura ? x.Factura.estadoPago : null,
-		tipoEnvio: x.TipoEnvio.descripcion,
+		tipoEnvio: x.TipoEnvioId,
 		observaciones: x.observaciones,
 	}));
 	return filasTablaOrdenes;

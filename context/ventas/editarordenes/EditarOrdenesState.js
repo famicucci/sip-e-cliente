@@ -10,7 +10,7 @@ import {
 	TRAER_ESTADOS_ORDEN,
 	FILAS_ORDENES,
 	FILA_ACTIVA_ORDEN,
-	MODIFICAR_ORDEN,
+	MODIFICAR_ORDENES,
 	MODIFICAR_ESTADO_ORDEN,
 	MODIFICAR_FACTURA,
 	CREAR_DETALLE_FACTURA,
@@ -30,7 +30,10 @@ import {
 	METODOS_PAGO,
 	CREAR_PAGO,
 	FILAS_ORDENES_FILTRO,
+	MOSTRAR_ALERTA_EDITAR_ORDENES,
+	OCULTAR_ALERTA_EDITAR_ORDENES,
 } from '../../../types';
+import { TipoEnvio } from '../../../functions/envio';
 
 const EditarOrdenesState = (props) => {
 	const initialState = {
@@ -50,6 +53,7 @@ const EditarOrdenesState = (props) => {
 		metodosPago: [],
 		ptosVenta: [],
 		mensaje: null,
+		mensajeEditarOrdenes: null,
 		cargando: true,
 	};
 
@@ -115,9 +119,13 @@ const EditarOrdenesState = (props) => {
 	};
 
 	const handleFilaActivaOrden = (id) => {
+		let r = state.ordenes.find((x) => x.id === id);
+
+		if (!r) r = {};
+
 		dispatch({
 			type: FILA_ACTIVA_ORDEN,
-			payload: id,
+			payload: r,
 		});
 	};
 
@@ -219,19 +227,41 @@ const EditarOrdenesState = (props) => {
 
 	const modificarOrden = async (ordenId, ordenObj) => {
 		try {
-			const r = await clienteAxios.put(`/api/ordenes/${ordenId}`, ordenObj);
+			await clienteAxios.put(`/api/ordenes/${ordenId}`, ordenObj);
 
+			const modifyFilaActiva = (ordenObj, filaActiva) => {
+				const arrayKeys = Object.keys(ordenObj);
+
+				let newFilaActiva = filaActiva;
+				arrayKeys.forEach(
+					(x, i) =>
+						(newFilaActiva = {
+							...newFilaActiva,
+							[arrayKeys[i]]: ordenObj[x],
+						})
+				);
+
+				return newFilaActiva;
+			};
+
+			const filaActivaMod = modifyFilaActiva(ordenObj, state.filaActiva);
+
+			// modify filaActiva
 			dispatch({
-				type: MODIFICAR_ORDEN,
-				payload: { r: r.data, ordenObj },
+				type: FILA_ACTIVA_ORDEN,
+				payload: filaActivaMod,
 			});
-		} catch (error) {
-			console.log(error);
-		}
+			// modify ordenes
+			dispatch({
+				type: MODIFICAR_ORDENES,
+				payload: filaActivaMod,
+			});
 
-		dispatch({
-			type: BORRAR_MENSAJE,
-		});
+			// ..the same for message (it can use the fuction mostrarAlertaEditarOrdenes)
+			mostrarAlertaEditarOrdenes('Orden modificada!', 'success');
+		} catch (error) {
+			mostrarAlertaEditarOrdenes('Hubo un error', 'error');
+		}
 	};
 
 	const traerTiposEnvio = async () => {
@@ -323,6 +353,27 @@ const EditarOrdenesState = (props) => {
 		});
 	};
 
+	const mostrarAlertaEditarOrdenes = (msg, categoria) => {
+		dispatch({
+			type: MOSTRAR_ALERTA_EDITAR_ORDENES,
+			payload: { msg, categoria },
+		});
+
+		setTimeout(() => {
+			dispatch({
+				type: OCULTAR_ALERTA_EDITAR_ORDENES,
+			});
+		}, 4000);
+	};
+
+	const ocultarAlertaEditarOrdenes = () => {
+		setTimeout(() => {
+			dispatch({
+				type: OCULTAR_ALERTA_EDITAR_ORDENES,
+			});
+		}, 4000);
+	};
+
 	return (
 		<EditarOrdenesContext.Provider
 			value={{
@@ -342,6 +393,7 @@ const EditarOrdenesState = (props) => {
 				metodosPago: state.metodosPago,
 				ptosVenta: state.ptosVenta,
 				mensaje: state.mensaje,
+				mensajeEditarOrdenes: state.mensajeEditarOrdenes,
 				cargando: state.cargando,
 				traerOrdenes,
 				traerEstadosOrden,
@@ -366,6 +418,7 @@ const EditarOrdenesState = (props) => {
 				traerMetodosPago,
 				crearPago,
 				handleFilasOrdenesFiltro,
+				ocultarAlertaEditarOrdenes,
 			}}
 		>
 			{props.children}

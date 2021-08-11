@@ -37,11 +37,11 @@ const AgregarEnvioCarr = () => {
 			}
 		>
 			<FormularioEnvio
-				handleClose={handleClose}
 				envioInit={envio}
+				handleEnvio={handleEnvio}
 				tiposEnvio={tiposEnvio}
 				cliente={cliente}
-				handleEnvio={handleEnvio}
+				handleClose={handleClose}
 			/>
 		</ModalCentrado>
 	);

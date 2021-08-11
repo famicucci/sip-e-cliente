@@ -11,7 +11,7 @@ import AccordionActions from '@material-ui/core/AccordionActions';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
-import { Envio } from '../../functions/envio';
+import { Direccion } from '../../functions/envio';
 
 const useStyles = makeStyles((theme) => ({
 	heading: {
@@ -26,44 +26,35 @@ const EnvioDetalleOrden = () => {
 
 	const [expanded, setExpanded] = useState({ expanded: false });
 
-	const { filaActiva, modificarOrden } = useContext(EditarOrdenesContext);
+	const { filaActiva, modificarOrden, tiposEnvio } =
+		useContext(EditarOrdenesContext);
 
-	const envioObj = {
-		valSelectDirecc: undefined,
+	const envioInit = {
 		modoDirecc: 'input',
-		valInputDirecc: filaActiva.direccionEnvio,
-		valSelectTipo: filaActiva.TipoEnvio.id,
-		valInputCosto: filaActiva.tarifaEnvio,
+		input: filaActiva.direccionEnvio,
+		select: null,
+		tipo: filaActiva.TipoEnvioId,
+		costo: filaActiva.tarifaEnvio,
 	};
 
-	const [
-		stateEnvio,
-		handleSelectDireccion,
-		handleInputDireccion,
-		handleSelectTipo,
-		handleInputCosto,
-		handleSwitchDireccion,
-	] = useEnvio(envioObj, filaActiva.Cliente.direcciones);
-
-	const onSubmit = (e) => {
-		e.preventDefault();
-
+	const modShipping = (stateEnvio) => {
 		const ordenId = filaActiva.id;
+		const tarifaEnvio = stateEnvio.costo;
+		const TipoEnvioId = stateEnvio.tipo;
 
-		const direcc = new Envio(
-			stateEnvio.modoDirecc,
-			stateEnvio.valSelectDireccion,
-			stateEnvio.valInputDireccion,
-			stateEnvio.dataDirecciones
-		);
-
-		const datos = {
-			direccionEnvio: direcc.getDireccionSegunModoDirecc(),
-			tipoEnvioId: stateEnvio.valSelectTipo,
-			tarifaEnvio: stateEnvio.valInputCosto,
+		const handleAdress = () => {
+			if (stateEnvio.modoDirecc === 'input') {
+				return stateEnvio.input;
+			} else if (stateEnvio.modoDirecc === 'select') {
+				return Direccion.transformDirection(stateEnvio.select);
+			}
 		};
 
-		modificarOrden(ordenId, datos);
+		const direccionEnvio = handleAdress();
+
+		const data = { tarifaEnvio, TipoEnvioId, direccionEnvio };
+
+		modificarOrden(ordenId, data);
 		setExpanded({ expanded: false });
 	};
 
@@ -86,6 +77,11 @@ const EnvioDetalleOrden = () => {
 			<AccordionDetails>
 				<FormularioEnvio
 					facturasOrden={filaActiva.Facturas ? filaActiva.Facturas : []}
+					// handleClose={handleClose}
+					envioInit={envioInit}
+					tiposEnvio={tiposEnvio}
+					cliente={filaActiva.Cliente}
+					handleEnvio={modShipping}
 				/>
 			</AccordionDetails>
 			<Divider />
