@@ -10,6 +10,9 @@ import AccordionActions from '@material-ui/core/AccordionActions';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
+import BotonFilaTabla from '../tablas/componentes/BotonFilaTabla';
+import EditIcon from '@material-ui/icons/Edit';
+import { Box } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
 	heading: {
@@ -17,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
 		fontWeight: theme.typography.fontWeightRegular,
 	},
 	botonGuardar: { color: theme.palette.success.main },
+	productsActions: { width: '100%' },
 }));
 
 // columnas de la tabla
@@ -47,9 +51,18 @@ const Productos = ({ productos }) => {
 			</AccordionDetails>
 			<Divider />
 			<AccordionActions>
-				<Button className={classes.botonGuardar} size="small" color="primary">
-					Guardar
-				</Button>
+				<Box
+					className={classes.productsActions}
+					display="flex"
+					justifyContent="flex-start"
+				>
+					<BotonFilaTabla
+						contenido={<EditIcon />}
+						onClick={() => {
+							console.log('editar productos');
+						}}
+					/>
+				</Box>
 			</AccordionActions>
 		</Accordion>
 	);
