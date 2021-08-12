@@ -37,7 +37,7 @@ const BotoneraCarrito = () => {
 
 		crearOrden();
 
-		router.push('/ventas/consultar');
+		// router.push('/ventas/consultar');
 	};
 
 	return (

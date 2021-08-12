@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 
-const useEnvio = (envio, cliente) => {
-	let initialState = {
-		modoDirecc: 'select',
-		input: '',
-		select: null,
-		tipo: 1,
-		costo: 0,
-	};
-
-	if (Object.keys(envio).length !== 0) {
-		initialState = envio;
+const useEnvio = (initialState, cliente) => {
+	if (Object.keys(initialState).length === 0) {
+		initialState = {
+			modoDirecc: 'select',
+			input: '',
+			select: null,
+			tipo: 1,
+			costo: 0,
+		};
 	}
 
 	const [stateEnvio, setStateEnvio] = useState(initialState);

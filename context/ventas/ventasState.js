@@ -8,7 +8,6 @@ import {
 	PRODUCTOS_VENTAS,
 	FILAS_VENTAS,
 	FILAS_ORDENES,
-	FILA_ACTIVA_ORDEN,
 	PTO_STOCK_VENTAS,
 	PTOS_STOCK_VENTAS,
 	LISTA_PRECIO_VENTAS,
@@ -47,7 +46,7 @@ const VentasState = (props) => {
 		ordenes: [],
 		filas: [],
 		filasOrdenes: [],
-		filaActiva: null,
+		ordenCreada: null,
 		ptoStock: { descripcion: 'Showroom', id: 1 }, //
 		ptoVenta: null, //
 		ordenEcommerce: null, //
@@ -158,13 +157,6 @@ const VentasState = (props) => {
 		});
 	};
 
-	const handleFilaActivaOrden = (id) => {
-		dispatch({
-			type: FILA_ACTIVA_ORDEN,
-			payload: id,
-		});
-	};
-
 	const handleFilasOrdenesFiltro = (bus) => {
 		dispatch({
 			type: FILAS_ORDENES_FILTRO,
@@ -207,7 +199,7 @@ const VentasState = (props) => {
 
 	const crearOrden = async () => {
 		let direccionEnvio;
-		if (state.envio.modoDirecc === 'select') {
+		if (state.envio.modoDirecc === 'select' && state.envio.select) {
 			direccionEnvio = Direccion.transformDirection(state.envio.select);
 		} else if (state.envio.modoDirecc === 'input') {
 			direccionEnvio = state.envio.input;
@@ -274,12 +266,12 @@ const VentasState = (props) => {
 					payload: createdOrder.data,
 				});
 
-				dispatch({
-					type: MOSTRAR_ALERTA_VENTAS,
-					payload: { msg: 'Orden creada', severity: 'success' },
-				});
+				// dispatch({
+				// 	type: MOSTRAR_ALERTA_VENTAS,
+				// 	payload: { msg: 'Orden creada', severity: 'success' },
+				// });
 			} catch (error) {
-				console.log(error);
+				mostrarAlertaVentas('Hubo un error', 'error');
 			}
 
 			dispatch({
@@ -287,7 +279,7 @@ const VentasState = (props) => {
 				payload: order.data,
 			});
 		} catch (error) {
-			console.log(error);
+			mostrarAlertaVentas('Hubo un error al crear la orden', 'error');
 		}
 	};
 
@@ -458,7 +450,7 @@ const VentasState = (props) => {
 				ordenes: state.ordenes,
 				filas: state.filas,
 				filasOrdenes: state.filasOrdenes,
-				filaActiva: state.filaActiva,
+				ordenCreada: state.ordenCreada,
 				ptoStock: state.ptoStock,
 				listaPrecio: state.listaPrecio,
 				valorRadio: state.valorRadio,
@@ -503,7 +495,6 @@ const VentasState = (props) => {
 				traerOrdenes,
 				traerEstadosOrden,
 				handleEstadoOrden,
-				handleFilaActivaOrden,
 				handleOpenModalDetalleOrden,
 				handleCloseModal,
 				crearYCargarCliente,

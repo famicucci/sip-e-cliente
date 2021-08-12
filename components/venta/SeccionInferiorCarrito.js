@@ -23,7 +23,8 @@ const useStyles = makeStyles((theme) => ({
 const SeccionInferiorCarrito = () => {
 	const classes = useStyles();
 
-	const { openNota, openVerMas } = useContext(BotoneraCarrContext);
+	const { openModalAgregarEnvioCarrito, openNota, openVerMas } =
+		useContext(BotoneraCarrContext);
 
 	const { traerTiposEnvio } = useContext(VentasContext);
 
@@ -42,7 +43,7 @@ const SeccionInferiorCarrito = () => {
 			<NotaVenta />
 			<VerMasCarrito />
 			<AgregarClienteCarr />
-			<AgregarEnvioCarr />
+			{openModalAgregarEnvioCarrito ? <AgregarEnvioCarr /> : null}
 		</Paper>
 	);
 };

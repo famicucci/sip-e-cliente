@@ -108,8 +108,9 @@ const FormularioEnvio = (props) => {
 		) {
 			mostrarAlerta(
 				'Aviso: debes enviar el/los productos pero no colocaste una dirección de envío',
-				'warning'
+				'error'
 			);
+			return;
 		}
 
 		if (

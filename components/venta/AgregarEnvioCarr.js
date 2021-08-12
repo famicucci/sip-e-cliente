@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import BotonSuccess from '../generales/botones/BotonSuccess';
 import { BotoneraCarrContext } from '../../context/BotoneraCarrContext';
@@ -20,6 +20,17 @@ const AgregarEnvioCarr = () => {
 		useContext(BotoneraCarrContext);
 
 	const { envio, tiposEnvio, cliente, handleEnvio } = useContext(VentasContext);
+
+	useEffect(() => {
+		const shippingInit = {
+			modoDirecc: 'select',
+			input: '',
+			select: null,
+			tipo: 1,
+			costo: 0,
+		};
+		handleEnvio(shippingInit);
+	}, []);
 
 	return (
 		<ModalCentrado
