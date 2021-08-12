@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Box from '@material-ui/core/Box';
 import BotonEnvio from './BotonEnvio';
 import BotonNota from '../BotonNota';
@@ -20,6 +20,7 @@ const BotoneraCarrito = () => {
 		limpiarCarrito,
 		limpiarCliente,
 		crearOrden,
+		ordenCreada,
 		mostrarAlertaVentas,
 	} = useContext(VentasContext);
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
@@ -36,9 +37,13 @@ const BotoneraCarrito = () => {
 		}
 
 		crearOrden();
-
-		// router.push('/ventas/consultar');
 	};
+
+	useEffect(() => {
+		if (ordenCreada) {
+			router.push('/ventas/consultar');
+		}
+	}, [ordenCreada]);
 
 	return (
 		<Box display="flex" bgcolor="background.paper">
