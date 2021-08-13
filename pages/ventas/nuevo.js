@@ -9,7 +9,8 @@ import VentasContext from '../../context/ventas/ventasContext';
 const Nuevo = () => {
 	const authContext = useContext(AuthContext);
 	const { autenticado, cargando, usuarioAutenticado } = authContext;
-	const { handleEnvio, handleCliente } = useContext(VentasContext);
+	const { handleEnvio, handleCliente, handleInputNota } =
+		useContext(VentasContext);
 
 	useEffect(() => {
 		usuarioAutenticado();
@@ -26,6 +27,7 @@ const Nuevo = () => {
 				costo: 0,
 			};
 		}
+		handleEnvio(shippingInit);
 
 		let clientInit = {};
 		if (localStorage.getItem('cliente')) {
@@ -33,7 +35,11 @@ const Nuevo = () => {
 			handleCliente(clientInit);
 		}
 
-		handleEnvio(shippingInit);
+		let notaInit = {};
+		if (localStorage.getItem('nota')) {
+			notaInit = JSON.parse(localStorage.getItem('nota'));
+			handleInputNota(notaInit);
+		}
 	}, []);
 
 	if (!autenticado && cargando) {

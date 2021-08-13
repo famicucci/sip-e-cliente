@@ -20,7 +20,6 @@ import {
 	MODO_CARGA_VENTA,
 	AGREGAR_CLIENTE,
 	AGREGAR_ENVIO,
-	LIMPIAR_CLIENTE,
 	AGREGAR_NOTA,
 	AGREGAR_ORDEN_ECOMMERCE,
 	PTOS_VENTA,
@@ -280,6 +279,7 @@ const VentasState = (props) => {
 	};
 
 	const handleInputNota = (val) => {
+		localStorage.setItem('nota', JSON.stringify(val));
 		dispatch({
 			type: AGREGAR_NOTA,
 			payload: val,

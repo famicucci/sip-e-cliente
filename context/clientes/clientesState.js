@@ -73,12 +73,6 @@ const ClienteState = (props) => {
 		});
 	};
 
-	const limpiarCliente = () => {
-		dispatch({
-			type: LIMPIAR_CLIENTE_ACTIVO,
-		});
-	};
-
 	const handleFilas = (bus) => {
 		dispatch({
 			type: FILAS_CLIENTES,
@@ -156,7 +150,6 @@ const ClienteState = (props) => {
 				crearCliente,
 				traerClientes,
 				handleClienteActivo,
-				limpiarCliente,
 				handleFilas,
 				handleFilaActiva,
 				handleOpenModalInformacionCliente,
