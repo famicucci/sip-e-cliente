@@ -13,6 +13,7 @@ import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import BotonFilaTabla from '../tablas/componentes/BotonFilaTabla';
 import EditIcon from '@material-ui/icons/Edit';
 import { Box } from '@material-ui/core';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme) => ({
 	heading: {
@@ -38,8 +39,9 @@ const columnas = [
 	},
 ];
 
-const Productos = ({ productos }) => {
+const Productos = (props) => {
 	const classes = useStyles();
+	const router = useRouter();
 
 	return (
 		<Accordion defaultExpanded="true">
@@ -47,7 +49,10 @@ const Productos = ({ productos }) => {
 				<Typography className={classes.heading}>Productos</Typography>
 			</AccordionSummary>
 			<AccordionDetails>
-				<TablaListaProductos productos={productos} columnas={columnas} />
+				<TablaListaProductos
+					productos={props.filaActiva.detalleOrden}
+					columnas={columnas}
+				/>
 			</AccordionDetails>
 			<Divider />
 			<AccordionActions>
@@ -59,7 +64,8 @@ const Productos = ({ productos }) => {
 					<BotonFilaTabla
 						contenido={<EditIcon />}
 						onClick={() => {
-							console.log('editar productos');
+							props.editOrder(props.filaActiva);
+							router.push('/ventas/nuevo');
 						}}
 					/>
 				</Box>

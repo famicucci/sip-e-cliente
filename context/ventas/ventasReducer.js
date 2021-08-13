@@ -24,6 +24,7 @@ import {
 	FILAS_ORDENES_FILTRO,
 	TRAER_ESTADOS_ORDEN,
 	MODIFICAR_ESTADO_ORDEN,
+	AGREGAR_ORDEN_A_MODIFICAR,
 	BORRAR_MENSAJE,
 	MODAL_DETALLE_ORDEN,
 	MODAL_CLOSE,
@@ -284,6 +285,11 @@ const VentasReducer = (state, action) => {
 			return {
 				...state,
 				ordenCreada: action.payload,
+			};
+		case AGREGAR_ORDEN_A_MODIFICAR:
+			return {
+				...state,
+				orderToModify: action.payload,
 			};
 		case BORRAR_MENSAJE:
 			return {

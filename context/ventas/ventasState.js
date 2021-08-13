@@ -29,6 +29,7 @@ import {
 	FILAS_ORDENES_FILTRO,
 	TRAER_ESTADOS_ORDEN,
 	MODIFICAR_ESTADO_ORDEN,
+	AGREGAR_ORDEN_A_MODIFICAR,
 	BORRAR_MENSAJE,
 	MODAL_DETALLE_ORDEN,
 	MODAL_CLOSE,
@@ -60,6 +61,7 @@ const VentasState = (props) => {
 		tiposEnvio: null,
 		estadosOrden: [],
 		modo: 'manual',
+		orderToModify: null,
 		openModalDetalleOrden: false,
 		cargando: false,
 		mensaje: null,
@@ -422,6 +424,13 @@ const VentasState = (props) => {
 		});
 	};
 
+	const handleOrderToModify = (orden) => {
+		dispatch({
+			type: AGREGAR_ORDEN_A_MODIFICAR,
+			payload: orden,
+		});
+	};
+
 	const mostrarAlertaVentas = (msg, categoria) => {
 		dispatch({
 			type: MOSTRAR_ALERTA_VENTAS,
@@ -460,6 +469,7 @@ const VentasState = (props) => {
 				mensaje: state.mensaje,
 				mensajeVentas: state.mensajeVentas,
 				modo: state.modo,
+				orderToModify: state.orderToModify,
 				cliente: state.cliente,
 				envio: state.envio,
 				nota: state.nota,
@@ -499,6 +509,7 @@ const VentasState = (props) => {
 				handleCloseModal,
 				crearYCargarCliente,
 				handleOrdenActiva,
+				handleOrderToModify,
 				mostrarAlertaVentas,
 				ocultarAlertaVentas,
 			}}

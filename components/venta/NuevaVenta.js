@@ -9,11 +9,16 @@ import BarraHerramientasContext from '../../context/barraHerramientas/barraHerra
 
 const NuevaVenta = () => {
 	const { handleHerrNuevaVenta } = useContext(BarraHerramientasContext);
-	const { mensaje } = useContext(VentasContext);
+	const { orderToModify, mensaje, handleOrderToModify } =
+		useContext(VentasContext);
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 
 	useEffect(() => {
 		handleHerrNuevaVenta();
+
+		if (orderToModify) {
+			console.log('modificando orden');
+		}
 	}, []);
 
 	useEffect(() => {

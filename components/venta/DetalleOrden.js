@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 const DetalleOrden = () => {
 	const classes = useStyles();
 
-	const { traerTiposEnvio } = useContext(VentasContext);
+	const { traerTiposEnvio, handleOrderToModify } = useContext(VentasContext);
 	const {
 		filaActiva,
 		openModalDetalleOrden,
@@ -62,7 +62,7 @@ const DetalleOrden = () => {
 				</Box>
 			</Box>
 			<Divider className={classes.dividerHorizontal} variant="fullWidth" />
-			<Productos productos={filaActiva.detalleOrden} />
+			<Productos filaActiva={filaActiva} editOrder={handleOrderToModify} />
 			<EnvioDetalleOrden />
 			<MasInformacion />
 		</ModalScroll>
