@@ -21,7 +21,6 @@ const BotoneraCarrito = () => {
 		limpiarCliente,
 		crearOrden,
 		ordenCreada,
-		mostrarAlertaVentas,
 	} = useContext(VentasContext);
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 
@@ -41,7 +40,9 @@ const BotoneraCarrito = () => {
 
 	useEffect(() => {
 		if (ordenCreada) {
-			router.push('/ventas/consultar');
+			router.push({
+				pathname: '/ventas/consultar',
+			});
 		}
 	}, [ordenCreada]);
 

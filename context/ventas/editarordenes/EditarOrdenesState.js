@@ -419,6 +419,7 @@ const EditarOrdenesState = (props) => {
 				crearPago,
 				handleFilasOrdenesFiltro,
 				ocultarAlertaEditarOrdenes,
+				mostrarAlertaEditarOrdenes,
 			}}
 		>
 			{props.children}

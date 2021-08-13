@@ -421,6 +421,13 @@ const VentasState = (props) => {
 		}
 	};
 
+	const handleOrdenActiva = (orden) => {
+		dispatch({
+			type: ACTIVAR_ORDEN,
+			payload: orden,
+		});
+	};
+
 	const mostrarAlertaVentas = (msg, categoria) => {
 		dispatch({
 			type: MOSTRAR_ALERTA_VENTAS,
@@ -498,6 +505,7 @@ const VentasState = (props) => {
 				handleOpenModalDetalleOrden,
 				handleCloseModal,
 				crearYCargarCliente,
+				handleOrdenActiva,
 				mostrarAlertaVentas,
 				ocultarAlertaVentas,
 			}}

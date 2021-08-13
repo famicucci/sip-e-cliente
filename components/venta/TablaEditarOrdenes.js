@@ -18,6 +18,7 @@ import CrearFactura from './CrearFactura';
 import Factura from './Factura';
 import CrearPago from './CrearPago';
 import Alerta2 from '../generales/Alerta2';
+import VentasContext from '../../context/ventas/ventasContext';
 
 const useStyles = makeStyles({
 	table: {
@@ -47,6 +48,8 @@ const columnas = [
 const TablaEditarOrdenes = () => {
 	const classes = useStyles();
 
+	const { ordenCreada, handleOrdenActiva } = useContext(VentasContext);
+
 	const {
 		ordenes,
 		filas,
@@ -65,6 +68,7 @@ const TablaEditarOrdenes = () => {
 		openModalInformacionCliente,
 		handleCloseModal,
 		handleFilaActivaOrden,
+		mostrarAlertaEditarOrdenes,
 	} = useContext(EditarOrdenesContext);
 
 	const { handleHerramientasEditarVentas, busqueda } = useContext(
@@ -72,7 +76,7 @@ const TablaEditarOrdenes = () => {
 	);
 
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
-		usePaginacion(filas, 10);
+		usePaginacion(filas, 25);
 
 	useEffect(() => {
 		handleHerramientasEditarVentas();
@@ -80,6 +84,14 @@ const TablaEditarOrdenes = () => {
 		traerEstadosOrden();
 		traerTiposEnvio();
 		traerPtosVenta();
+
+		if (ordenCreada) {
+			mostrarAlertaEditarOrdenes(
+				`Orden creada nº ${ordenCreada.id}`,
+				'success'
+			);
+		}
+		handleOrdenActiva(null);
 	}, []);
 
 	useEffect(() => {
@@ -129,7 +141,7 @@ const TablaEditarOrdenes = () => {
 			{openModalCrearFactura ? <CrearFactura /> : null}
 			{openModalFactura ? <Factura /> : null}
 			{openModalCrearPago ? <CrearPago /> : null}
-			<Alerta2 mensaje={mensajeEditarOrdenes} />
+			{mensajeEditarOrdenes ? <Alerta2 mensaje={mensajeEditarOrdenes} /> : null}
 		</TableContainer>
 	);
 };
