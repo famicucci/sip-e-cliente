@@ -191,6 +191,7 @@ const VentasState = (props) => {
 	};
 
 	const handleEnvio = (obj) => {
+		localStorage.setItem('envio', JSON.stringify(obj));
 		dispatch({
 			type: AGREGAR_ENVIO,
 			payload: obj,

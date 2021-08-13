@@ -14,13 +14,19 @@ const Nuevo = () => {
 	useEffect(() => {
 		usuarioAutenticado();
 
-		const shippingInit = {
-			modoDirecc: 'input',
-			input: '',
-			select: null,
-			tipo: 1,
-			costo: 0,
-		};
+		let shippingInit = {};
+		if (localStorage.getItem('envio')) {
+			shippingInit = JSON.parse(localStorage.getItem('envio'));
+		} else {
+			shippingInit = {
+				modoDirecc: 'input',
+				input: '',
+				select: null,
+				tipo: 1,
+				costo: 0,
+			};
+		}
+
 		handleEnvio(shippingInit);
 	}, []);
 
