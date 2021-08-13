@@ -329,6 +329,7 @@ const VentasState = (props) => {
 	};
 
 	const handlePtoVenta = (opt) => {
+		localStorage.setItem('ptoVenta', JSON.stringify(opt));
 		dispatch({
 			type: PTO_VENTA,
 			payload: opt,

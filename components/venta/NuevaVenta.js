@@ -9,12 +9,11 @@ import BarraHerramientasContext from '../../context/barraHerramientas/barraHerra
 
 const NuevaVenta = () => {
 	const { handleHerrNuevaVenta } = useContext(BarraHerramientasContext);
-	const { mensaje, handlePtoVenta } = useContext(VentasContext);
+	const { mensaje } = useContext(VentasContext);
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 
 	useEffect(() => {
 		handleHerrNuevaVenta();
-		handlePtoVenta(1);
 	}, []);
 
 	useEffect(() => {

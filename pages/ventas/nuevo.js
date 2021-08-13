@@ -9,8 +9,13 @@ import VentasContext from '../../context/ventas/ventasContext';
 const Nuevo = () => {
 	const authContext = useContext(AuthContext);
 	const { autenticado, cargando, usuarioAutenticado } = authContext;
-	const { handleEnvio, handleCliente, handleInputNota } =
-		useContext(VentasContext);
+	const {
+		handleEnvio,
+		handleCliente,
+		handleInputNota,
+		handleInputOrdenEcommerce,
+		handlePtoVenta,
+	} = useContext(VentasContext);
 
 	useEffect(() => {
 		usuarioAutenticado();
@@ -35,16 +40,22 @@ const Nuevo = () => {
 			handleCliente(clientInit);
 		}
 
-		let notaInit = {};
+		let notaInit = '';
 		if (localStorage.getItem('nota')) {
 			notaInit = JSON.parse(localStorage.getItem('nota'));
 			handleInputNota(notaInit);
 		}
 
-		let ordenEcommerceInit = {};
+		let ordenEcommerceInit = '';
 		if (localStorage.getItem('ordenEcommerce')) {
 			ordenEcommerceInit = JSON.parse(localStorage.getItem('ordenEcommerce'));
-			handleInputNota(ordenEcommerceInit);
+			handleInputOrdenEcommerce(ordenEcommerceInit);
+		}
+
+		let ptoVentaInit = 1;
+		if (localStorage.getItem('ptoVenta')) {
+			ptoVentaInit = JSON.parse(localStorage.getItem('ptoVenta'));
+			handlePtoVenta(ptoVentaInit);
 		}
 	}, []);
 
