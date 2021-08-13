@@ -18,8 +18,6 @@ const useStyles = makeStyles({
 const FilaCarrEnvio = () => {
 	const classes = useStyles();
 
-	// const [open, setOpen] = useState(false);
-
 	const { envio, tiposEnvio, handleEnvio } = useContext(VentasContext);
 
 	if (Object.keys(envio).length === 0) return null;
@@ -53,10 +51,8 @@ const FilaCarrEnvio = () => {
 							handleEnvio({});
 						}}
 					/>
-					{/* <BotonVerMasCarrito setOpen={setOpen} open={open} /> */}
 				</TableCell>
 			</TableRow>
-			{/* <CollapseTablaCarrito open={open} direccion={direccion} /> */}
 		</>
 	);
 };

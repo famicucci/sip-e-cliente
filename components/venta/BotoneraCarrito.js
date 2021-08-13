@@ -17,8 +17,8 @@ const BotoneraCarrito = () => {
 	const {
 		carrito,
 		cliente,
-		limpiarCarrito,
-		limpiarCliente,
+		handleEnvio,
+		handleCliente,
 		crearOrden,
 		ordenCreada,
 	} = useContext(VentasContext);
@@ -51,8 +51,8 @@ const BotoneraCarrito = () => {
 			<Box flexGrow={1}>
 				<BotonLimpiar
 					onClick={() => {
-						limpiarCarrito();
-						limpiarCliente();
+						handleEnvio({});
+						handleCliente(null);
 					}}
 				/>
 			</Box>

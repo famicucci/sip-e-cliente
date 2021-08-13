@@ -257,7 +257,6 @@ const EditarOrdenesState = (props) => {
 				payload: filaActivaMod,
 			});
 
-			// ..the same for message (it can use the fuction mostrarAlertaEditarOrdenes)
 			mostrarAlertaEditarOrdenes('Orden modificada!', 'success');
 		} catch (error) {
 			mostrarAlertaEditarOrdenes('Hubo un error', 'error');

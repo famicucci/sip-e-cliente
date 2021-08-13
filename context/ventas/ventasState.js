@@ -170,12 +170,6 @@ const VentasState = (props) => {
 		});
 	};
 
-	const limpiarCliente = () => {
-		dispatch({
-			type: LIMPIAR_CLIENTE,
-		});
-	};
-
 	const handleModo = (val) => {
 		dispatch({
 			type: MODO_CARGA_VENTA,
@@ -184,6 +178,7 @@ const VentasState = (props) => {
 	};
 
 	const handleCliente = (obj) => {
+		localStorage.setItem('cliente', JSON.stringify(obj));
 		dispatch({
 			type: AGREGAR_CLIENTE,
 			payload: obj,
@@ -493,7 +488,6 @@ const VentasState = (props) => {
 				handleModo,
 				handleCliente,
 				handleEnvio,
-				limpiarCliente,
 				crearOrden,
 				handleInputNota,
 				handleInputOrdenEcommerce,

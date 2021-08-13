@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 const ClienteCarr = () => {
 	const classes = useStyles();
 
-	const { cliente, limpiarCliente } = useContext(VentasContext);
+	const { cliente, handleCliente } = useContext(VentasContext);
 
 	let open;
 	if (cliente) {
@@ -42,7 +42,7 @@ const ClienteCarr = () => {
 							<BotonFilaTabla
 								contenido={<ClearIcon fontSize="small" />}
 								onClick={() => {
-									limpiarCliente();
+									handleCliente(null);
 								}}
 							/>
 						</Box>
