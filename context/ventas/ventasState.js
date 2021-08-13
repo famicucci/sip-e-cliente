@@ -25,7 +25,6 @@ import {
 	PTOS_VENTA,
 	TIPOS_ENVIO,
 	PTO_VENTA,
-	CREAR_ORDEN,
 	TRAER_ORDENES,
 	FILAS_ORDENES_FILTRO,
 	TRAER_ESTADOS_ORDEN,
@@ -261,18 +260,15 @@ const VentasState = (props) => {
 					payload: createdOrder.data,
 				});
 
-				// dispatch({
-				// 	type: MOSTRAR_ALERTA_VENTAS,
-				// 	payload: { msg: 'Orden creada', severity: 'success' },
-				// });
+				localStorage.removeItem('carrito');
+				localStorage.removeItem('envio');
+				localStorage.removeItem('cliente');
+				localStorage.removeItem('nota');
+				localStorage.removeItem('ordenEcommerce');
+				localStorage.removeItem('ptoVenta');
 			} catch (error) {
 				mostrarAlertaVentas('Hubo un error', 'error');
 			}
-
-			dispatch({
-				type: CREAR_ORDEN,
-				payload: order.data,
-			});
 		} catch (error) {
 			mostrarAlertaVentas('Hubo un error al crear la orden', 'error');
 		}

@@ -20,7 +20,6 @@ import {
 	PTOS_VENTA,
 	TIPOS_ENVIO,
 	PTO_VENTA,
-	CREAR_ORDEN,
 	TRAER_ORDENES,
 	FILAS_ORDENES_FILTRO,
 	TRAER_ESTADOS_ORDEN,
@@ -241,13 +240,6 @@ const VentasReducer = (state, action) => {
 			return {
 				...state,
 				tiposEnvio: action.payload,
-			};
-		case CREAR_ORDEN:
-			// limpiar localStorage
-			localStorage.removeItem('carrito');
-			// mensaje
-			return {
-				...state,
 			};
 		case TRAER_ORDENES:
 			r = crearFilasTablaEditarOrdenes(action.payload);
