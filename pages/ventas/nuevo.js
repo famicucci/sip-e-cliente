@@ -40,6 +40,12 @@ const Nuevo = () => {
 			notaInit = JSON.parse(localStorage.getItem('nota'));
 			handleInputNota(notaInit);
 		}
+
+		let ordenEcommerceInit = {};
+		if (localStorage.getItem('ordenEcommerce')) {
+			ordenEcommerceInit = JSON.parse(localStorage.getItem('ordenEcommerce'));
+			handleInputNota(ordenEcommerceInit);
+		}
 	}, []);
 
 	if (!autenticado && cargando) {
