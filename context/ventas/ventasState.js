@@ -287,7 +287,7 @@ const VentasState = (props) => {
 	};
 
 	const handleInputOrdenEcommerce = (val) => {
-		localStorage.setItem('nota', JSON.stringify(val));
+		localStorage.setItem('ordenEcommerce', JSON.stringify(val));
 		dispatch({
 			type: AGREGAR_ORDEN_ECOMMERCE,
 			payload: val,

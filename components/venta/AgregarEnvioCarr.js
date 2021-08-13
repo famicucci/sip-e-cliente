@@ -21,16 +21,19 @@ const AgregarEnvioCarr = () => {
 
 	const { envio, tiposEnvio, cliente, handleEnvio } = useContext(VentasContext);
 
-	useEffect(() => {
-		const shippingInit = {
-			modoDirecc: 'select',
-			input: '',
-			select: null,
-			tipo: 1,
-			costo: 0,
-		};
-		handleEnvio(shippingInit);
-	}, []);
+	const getInitialEnvio = (envio) => {
+		const { modoDirecc, input, select, tipo, costo } = envio;
+		if (
+			modoDirecc === 'input' &&
+			input === '' &&
+			select === null &&
+			tipo === 1 &&
+			costo === 0
+		) {
+			envio.modoDirecc = 'select';
+		}
+		return envio;
+	};
 
 	return (
 		<ModalCentrado
@@ -48,7 +51,7 @@ const AgregarEnvioCarr = () => {
 			}
 		>
 			<FormularioEnvio
-				envioInit={envio}
+				envioInit={getInitialEnvio(envio)}
 				handleEnvio={handleEnvio}
 				tiposEnvio={tiposEnvio}
 				cliente={cliente}

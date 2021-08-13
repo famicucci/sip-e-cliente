@@ -20,43 +20,28 @@ const Nuevo = () => {
 	useEffect(() => {
 		usuarioAutenticado();
 
-		let shippingInit = {};
-		if (localStorage.getItem('envio')) {
-			shippingInit = JSON.parse(localStorage.getItem('envio'));
-		} else {
-			shippingInit = {
+		const getInitialValueOfSale = (key, initialValue, callback) => {
+			if (localStorage.getItem(key)) {
+				initialValue = JSON.parse(localStorage.getItem(key));
+			}
+			callback(initialValue);
+		};
+
+		getInitialValueOfSale(
+			'envio',
+			{
 				modoDirecc: 'input',
 				input: '',
 				select: null,
 				tipo: 1,
 				costo: 0,
-			};
-		}
-		handleEnvio(shippingInit);
-
-		let clientInit = {};
-		if (localStorage.getItem('cliente')) {
-			clientInit = JSON.parse(localStorage.getItem('cliente'));
-			handleCliente(clientInit);
-		}
-
-		let notaInit = '';
-		if (localStorage.getItem('nota')) {
-			notaInit = JSON.parse(localStorage.getItem('nota'));
-			handleInputNota(notaInit);
-		}
-
-		let ordenEcommerceInit = '';
-		if (localStorage.getItem('ordenEcommerce')) {
-			ordenEcommerceInit = JSON.parse(localStorage.getItem('ordenEcommerce'));
-			handleInputOrdenEcommerce(ordenEcommerceInit);
-		}
-
-		let ptoVentaInit = 1;
-		if (localStorage.getItem('ptoVenta')) {
-			ptoVentaInit = JSON.parse(localStorage.getItem('ptoVenta'));
-			handlePtoVenta(ptoVentaInit);
-		}
+			},
+			handleEnvio
+		);
+		getInitialValueOfSale('cliente', null, handleCliente);
+		getInitialValueOfSale('nota', '', handleInputNota);
+		getInitialValueOfSale('ordenEcommerce', '', handleInputOrdenEcommerce);
+		getInitialValueOfSale('ptoVenta', 1, handlePtoVenta);
 	}, []);
 
 	if (!autenticado && cargando) {
