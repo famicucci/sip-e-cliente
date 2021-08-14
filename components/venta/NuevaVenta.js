@@ -8,7 +8,9 @@ import AlertaContext from '../../context/alertas/alertaContext';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 
 const NuevaVenta = () => {
-	const { handleHerrNuevaVenta } = useContext(BarraHerramientasContext);
+	const { handleHerrNuevaVenta, handleEtiquetaModificarOrden } = useContext(
+		BarraHerramientasContext
+	);
 	const { orderToModify, mensaje, handleOrderToModify } =
 		useContext(VentasContext);
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
@@ -17,6 +19,7 @@ const NuevaVenta = () => {
 		handleHerrNuevaVenta();
 
 		if (orderToModify) {
+			handleEtiquetaModificarOrden(true);
 			console.log('modificando orden');
 		}
 	}, []);

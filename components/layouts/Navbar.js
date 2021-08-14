@@ -14,6 +14,7 @@ import SelectListasPrecio from '../tablas/herramientas/SelectListasPrecio';
 import SelectPuntoStock from '../tablas/herramientas/SelectPuntoStock';
 import BotonModoCargaVenta from '../BotonModoCargaVenta';
 import BotonNuevoCliente from '../cliente/BotonNuevoCliente';
+import EtiquetaModificarOrden from '../venta/EtiquetaModificarOrden';
 
 import AuthContext from '../../context/autenticacion/authContext';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
@@ -69,6 +70,7 @@ const Navbar = (props) => {
 		selectPtoStock,
 		botonModoCargaVenta,
 		botonNuevoCliente,
+		etiquetaModificarOrden,
 	} = useContext(BarraHerramientasContext);
 	const { usuario, cerrarSesion } = useContext(AuthContext);
 	const { ptoStock, handlePtoStock } = useContext(StockContext);
@@ -200,6 +202,7 @@ const Navbar = (props) => {
 					) : null}
 					{botonModoCargaVenta ? <BotonModoCargaVenta /> : null}
 					{botonNuevoCliente ? <BotonNuevoCliente /> : null}
+					{etiquetaModificarOrden ? <EtiquetaModificarOrden /> : null}
 
 					<div className={classes.grow} />
 

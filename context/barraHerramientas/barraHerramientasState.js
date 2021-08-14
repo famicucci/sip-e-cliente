@@ -11,6 +11,7 @@ import {
 	HERRAMIENTAS_NUEVA_VENTA,
 	HERRAMIENTAS_EDITAR_VENTAS,
 	HERRAMIENTAS_CLIENTES,
+	ETIQUETA_MODIFICAR_ORDEN,
 	BUSQUEDA_ACTUAL,
 	BUSQUEDA_ACTUAL_CLIENTE,
 	PTOS_STOCK,
@@ -27,6 +28,7 @@ const BarraHerramientasState = (props) => {
 		ptosStock: null,
 		botonModoCargaVenta: false,
 		botonNuevoCliente: false,
+		etiquetaModificarOrden: false,
 		busqueda: '',
 		busquedaCliente: '',
 		mensaje: null,
@@ -91,6 +93,13 @@ const BarraHerramientasState = (props) => {
 		});
 	};
 
+	const handleEtiquetaModificarOrden = (boolean) => {
+		dispatch({
+			type: ETIQUETA_MODIFICAR_ORDEN,
+			payload: boolean,
+		});
+	};
+
 	const traerPtosStock = async () => {
 		try {
 			const respuesta = await clienteAxios.get(`/api/stock/ptos-stock`);
@@ -132,6 +141,7 @@ const BarraHerramientasState = (props) => {
 				botonModoCargaVenta: state.botonModoCargaVenta,
 				botonNuevoCliente: state.botonNuevoCliente,
 				busquedaCliente: state.busquedaCliente,
+				etiquetaModificarOrden: state.etiquetaModificarOrden,
 				handleHerramientasPrecios,
 				handleHerrStockTot,
 				handleHerramientasStockPtoStock,
@@ -139,6 +149,7 @@ const BarraHerramientasState = (props) => {
 				handleHerramientasEditarVentas,
 				handleHerrNuevaVenta,
 				handleHerramientasClientes,
+				handleEtiquetaModificarOrden,
 				handleBusqueda,
 				handleBusquedaCliente,
 				traerPtosStock,

@@ -6,6 +6,7 @@ import {
 	HERRAMIENTAS_NUEVA_VENTA,
 	HERRAMIENTAS_EDITAR_VENTAS,
 	HERRAMIENTAS_CLIENTES,
+	ETIQUETA_MODIFICAR_ORDEN,
 	BUSQUEDA_ACTUAL,
 	BUSQUEDA_ACTUAL_CLIENTE,
 	PTOS_STOCK,
@@ -22,6 +23,7 @@ const PreciosReducer = (state, action) => {
 				selectListaPrecio: true,
 				selectPtoStock: false,
 				botonModoCargaVenta: false,
+				etiquetaModificarOrden: false,
 			};
 		case HERRAMIENTAS_STOCK_PRODUCTO:
 			return {
@@ -30,6 +32,7 @@ const PreciosReducer = (state, action) => {
 				selectListaPrecio: false,
 				selectPtoStock: false,
 				botonModoCargaVenta: false,
+				etiquetaModificarOrden: false,
 			};
 		case HERRAMIENTAS_STOCK_PTO_STOCK:
 			return {
@@ -38,6 +41,7 @@ const PreciosReducer = (state, action) => {
 				selectListaPrecio: false,
 				selectPtoStock: true,
 				botonModoCargaVenta: false,
+				etiquetaModificarOrden: false,
 			};
 		case HERRAMIENTAS_STOCK_MOVIMIENTOS:
 			return {
@@ -46,6 +50,7 @@ const PreciosReducer = (state, action) => {
 				selectListaPrecio: false,
 				selectPtoStock: false,
 				botonModoCargaVenta: false,
+				etiquetaModificarOrden: false,
 			};
 		case HERRAMIENTAS_NUEVA_VENTA:
 			return {
@@ -62,6 +67,7 @@ const PreciosReducer = (state, action) => {
 				buscador: true,
 				selectListaPrecio: false,
 				selectPtoStock: false,
+				etiquetaModificarOrden: false,
 			};
 		case HERRAMIENTAS_CLIENTES:
 			return {
@@ -71,7 +77,14 @@ const PreciosReducer = (state, action) => {
 				buscador: true,
 				selectListaPrecio: false,
 				selectPtoStock: false,
+				etiquetaModificarOrden: false,
 			};
+		case ETIQUETA_MODIFICAR_ORDEN:
+			return {
+				...state,
+				etiquetaModificarOrden: action.payload,
+			};
+
 		case BUSQUEDA_ACTUAL:
 			return {
 				...state,
