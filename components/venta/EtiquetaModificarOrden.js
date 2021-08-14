@@ -18,7 +18,6 @@ const EtiquetaModificarOrden = () => {
 	const classes = useStyles();
 
 	const { orderToModify } = useContext(VentasContext);
-	console.log(orderToModify);
 
 	return (
 		<Typography className={classes.root} variant="overline">

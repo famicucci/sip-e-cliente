@@ -11,6 +11,7 @@ import ClienteCarr from './ClienteCarr';
 import AgregarClienteCarr from '../venta/AgregarClienteCarr';
 import AgregarEnvioCarr from './AgregarEnvioCarr';
 import VentasContext from '../../context/ventas/ventasContext';
+import BotoneraModificarOrden from './BotoneraModificarOrden';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -26,7 +27,7 @@ const SeccionInferiorCarrito = () => {
 	const { openModalAgregarEnvioCarrito, openNota, openVerMas } =
 		useContext(BotoneraCarrContext);
 
-	const { traerTiposEnvio } = useContext(VentasContext);
+	const { traerTiposEnvio, orderToModify } = useContext(VentasContext);
 
 	useEffect(() => {
 		// poner los tipos de envio al state ventas
@@ -38,7 +39,7 @@ const SeccionInferiorCarrito = () => {
 			<TotalCarrito />
 			<ClienteCarr />
 			<Divider variant="fullWidth" />
-			<BotoneraCarrito />
+			{!orderToModify ? <BotoneraCarrito /> : <BotoneraModificarOrden />}
 			{openNota || openVerMas ? <Divider variant="fullWidth" /> : null}
 			<NotaVenta />
 			<VerMasCarrito />

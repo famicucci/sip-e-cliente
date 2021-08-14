@@ -23,6 +23,7 @@ const PreciosReducer = (state, action) => {
 				selectListaPrecio: true,
 				selectPtoStock: false,
 				botonModoCargaVenta: false,
+				botonNuevoCliente: false,
 				etiquetaModificarOrden: false,
 			};
 		case HERRAMIENTAS_STOCK_PRODUCTO:
@@ -32,6 +33,7 @@ const PreciosReducer = (state, action) => {
 				selectListaPrecio: false,
 				selectPtoStock: false,
 				botonModoCargaVenta: false,
+				botonNuevoCliente: false,
 				etiquetaModificarOrden: false,
 			};
 		case HERRAMIENTAS_STOCK_PTO_STOCK:
@@ -41,6 +43,7 @@ const PreciosReducer = (state, action) => {
 				selectListaPrecio: false,
 				selectPtoStock: true,
 				botonModoCargaVenta: false,
+				botonNuevoCliente: false,
 				etiquetaModificarOrden: false,
 			};
 		case HERRAMIENTAS_STOCK_MOVIMIENTOS:
@@ -50,6 +53,7 @@ const PreciosReducer = (state, action) => {
 				selectListaPrecio: false,
 				selectPtoStock: false,
 				botonModoCargaVenta: false,
+				botonNuevoCliente: false,
 				etiquetaModificarOrden: false,
 			};
 		case HERRAMIENTAS_NUEVA_VENTA:
@@ -59,6 +63,7 @@ const PreciosReducer = (state, action) => {
 				buscador: false,
 				selectListaPrecio: false,
 				selectPtoStock: false,
+				botonNuevoCliente: false,
 			};
 		case HERRAMIENTAS_EDITAR_VENTAS:
 			return {
@@ -67,6 +72,7 @@ const PreciosReducer = (state, action) => {
 				buscador: true,
 				selectListaPrecio: false,
 				selectPtoStock: false,
+				botonNuevoCliente: false,
 				etiquetaModificarOrden: false,
 			};
 		case HERRAMIENTAS_CLIENTES:
