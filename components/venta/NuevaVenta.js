@@ -11,8 +11,7 @@ const NuevaVenta = () => {
 	const { handleHerrNuevaVenta, handleEtiquetaModificarOrden } = useContext(
 		BarraHerramientasContext
 	);
-	const { orderToModify, mensaje, handleOrderToModify } =
-		useContext(VentasContext);
+	const { orderToModify, mensaje, getCart } = useContext(VentasContext);
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 
 	useEffect(() => {
@@ -21,6 +20,7 @@ const NuevaVenta = () => {
 		if (orderToModify) {
 			handleEtiquetaModificarOrden(true);
 			console.log('modificando orden');
+			getCart();
 		}
 	}, []);
 

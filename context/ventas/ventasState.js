@@ -16,6 +16,7 @@ import {
 	CARRITO_QUITAR_PRODUCTO,
 	CARRITO_MODIFICAR_CANTIDAD,
 	CARRITO_MODIFICAR_PRECIO,
+	CARRITO_AGREGAR_PRODUCTOS,
 	LIMPIAR_CARRITO,
 	MODO_CARGA_VENTA,
 	AGREGAR_CLIENTE,
@@ -431,6 +432,53 @@ const VentasState = (props) => {
 		});
 	};
 
+	const getCart = () => {
+		let initialArray = state.orderToModify.detalleOrden;
+
+		const initialArrayMod = initialArray.map((x) => {
+			const productCart = {
+				codigo: x.ProductoCodigo,
+				descripcion: x.Producto.descripcion,
+				pu: x.pu,
+				cantidad: x.cantidad,
+				origen: [
+					{
+						ptoStockId: x.PtoStock ? x.PtoStock.id : 0,
+						ptoStockDescripcion: x.PtoStock
+							? x.PtoStock.descripcion
+							: 'Producción',
+						cantidad: x.cantidad,
+					},
+				],
+			};
+
+			return productCart;
+		});
+
+		let arrayCart = [];
+
+		initialArrayMod.forEach((x) => {
+			let elementCart = arrayCart.find((k) => k.codigo === x.codigo);
+			if (!elementCart) {
+				arrayCart = [...arrayCart, x];
+			} else {
+				const origenElementCart = elementCart.origen;
+				const origenElementArrayMod = x.origen;
+
+				const newOrigen = [...origenElementCart, ...origenElementArrayMod];
+				elementCart = { ...elementCart, origen: newOrigen };
+				arrayCart = arrayCart.map((j) =>
+					j.codigo === elementCart.codigo ? elementCart : j
+				);
+			}
+		});
+
+		dispatch({
+			type: CARRITO_AGREGAR_PRODUCTOS,
+			payload: arrayCart,
+		});
+	};
+
 	const mostrarAlertaVentas = (msg, categoria) => {
 		dispatch({
 			type: MOSTRAR_ALERTA_VENTAS,
@@ -510,6 +558,7 @@ const VentasState = (props) => {
 				crearYCargarCliente,
 				handleOrdenActiva,
 				handleOrderToModify,
+				getCart,
 				mostrarAlertaVentas,
 				ocultarAlertaVentas,
 			}}

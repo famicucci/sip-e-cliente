@@ -10,6 +10,7 @@ import {
 	CARRITO_QUITAR_PRODUCTO,
 	CARRITO_MODIFICAR_CANTIDAD,
 	CARRITO_MODIFICAR_PRECIO,
+	CARRITO_AGREGAR_PRODUCTOS,
 	LIMPIAR_CARRITO,
 	MODO_CARGA_VENTA,
 	AGREGAR_CLIENTE,
@@ -197,6 +198,14 @@ const VentasReducer = (state, action) => {
 				...state,
 				carrito: puMod,
 			};
+
+		case CARRITO_AGREGAR_PRODUCTOS:
+			console.log(action.payload);
+			return {
+				...state,
+				carrito: action.payload,
+			};
+
 		case MODO_CARGA_VENTA:
 			return {
 				...state,
