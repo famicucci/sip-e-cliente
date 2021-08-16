@@ -20,7 +20,6 @@ const NuevaVenta = () => {
 		if (orderToModify) {
 			handleEtiquetaModificarOrden(true);
 			console.log('modificando orden');
-			getCart();
 		}
 	}, []);
 

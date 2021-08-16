@@ -430,10 +430,8 @@ const VentasState = (props) => {
 			type: AGREGAR_ORDEN_A_MODIFICAR,
 			payload: orden,
 		});
-	};
 
-	const getCart = () => {
-		let initialArray = state.orderToModify.detalleOrden;
+		let initialArray = orden.detalleOrden;
 
 		const initialArrayMod = initialArray.map((x) => {
 			const productCart = {
@@ -472,6 +470,8 @@ const VentasState = (props) => {
 				);
 			}
 		});
+
+		localStorage.setItem('carrito', JSON.stringify(arrayCart));
 
 		dispatch({
 			type: CARRITO_AGREGAR_PRODUCTOS,
@@ -558,7 +558,6 @@ const VentasState = (props) => {
 				crearYCargarCliente,
 				handleOrdenActiva,
 				handleOrderToModify,
-				getCart,
 				mostrarAlertaVentas,
 				ocultarAlertaVentas,
 			}}
