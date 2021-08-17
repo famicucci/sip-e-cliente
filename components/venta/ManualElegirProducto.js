@@ -6,6 +6,7 @@ import RadioElegirProductos from './RadioElegirProductos';
 import SelectListaPrecio from './SelectListaPrecioVenta';
 import TablaElegirProducto from '../tablas/TablaElegirProducto';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
+import VentasContext from '../../context/ventas/ventasContext';
 
 const useStyles = makeStyles(() => ({
 	container: {
@@ -19,6 +20,7 @@ const ManualElegirProducto = () => {
 	const classes = useStyles();
 
 	const { busqueda, handleBusqueda } = useContext(BarraHerramientasContext);
+	const { preciosPtoStock } = useContext(VentasContext);
 
 	return (
 		<div className={classes.container}>
@@ -27,7 +29,7 @@ const ManualElegirProducto = () => {
 				<RadioElegirProductos />
 				<SelectListaPrecio />
 			</Box>
-			<TablaElegirProducto />
+			{preciosPtoStock.lenght !== 0 ? <TablaElegirProducto /> : null}
 		</div>
 	);
 };

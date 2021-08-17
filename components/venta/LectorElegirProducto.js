@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
 const LectorElegirProducto = () => {
 	const classes = useStyles();
 
-	const { ptoStock, listaPrecio } = useContext(VentasContext);
+	const { preciosPtoStock, ptoStock, listaPrecio } = useContext(VentasContext);
 
 	return (
 		<Grid
@@ -37,7 +37,7 @@ const LectorElegirProducto = () => {
 			</Grid>
 			<Grid item>
 				<Box className={classes.item}>
-					<InputLector />
+					{preciosPtoStock.lenght !== 0 ? <InputLector /> : null}
 				</Box>
 			</Grid>
 			<Grid item>

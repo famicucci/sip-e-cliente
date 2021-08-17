@@ -50,11 +50,6 @@ const TablaElegirProducto = () => {
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
 		usePaginacion(data, 5);
 
-	// this function can be called at the father of this component. It can add a ternary to let appear a spinner
-	useEffect(() => {
-		traerProductos(busqueda);
-	}, []);
-
 	useEffect(() => {
 		if (valorRadio === 'total')
 			getStockTotalAndPrices(preciosPtoStock, listaPrecio.id, true);
@@ -94,7 +89,7 @@ const TablaElegirProducto = () => {
 
 		preciosPtoStock.forEach((x) => {
 			if (x['Producto.Precios.ListaPrecioId'] === listaPrecioId) {
-				sumByCode[x.ProductoCodigo] ??= {
+				sumByCode[x.ProductoCodigo] = sumByCode[x.ProductoCodigo] ?? {
 					cantidad: 0,
 					['Producto.descripcion']: x['Producto.descripcion'],
 					['Producto.Precios.pu']: x['Producto.Precios.pu'],

@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import VentasContext from '../../context/ventas/ventasContext';
 import LectorElegirProducto from './LectorElegirProducto';
 import ManualElegirProducto from './ManualElegirProducto';
+import VentasContext from '../../context/ventas/ventasContext';
+import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -16,7 +17,12 @@ const useStyles = makeStyles((theme) => ({
 const ElegirProductos = () => {
 	const classes = useStyles();
 
-	const { modo } = useContext(VentasContext);
+	const { modo, traerProductos } = useContext(VentasContext);
+	const { busqueda } = useContext(BarraHerramientasContext);
+
+	useEffect(() => {
+		traerProductos(busqueda);
+	}, []);
 
 	return (
 		<Paper className={classes.paper} variant="outlined">
