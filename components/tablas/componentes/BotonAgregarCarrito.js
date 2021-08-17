@@ -16,7 +16,20 @@ const useStyles = makeStyles((theme) => ({
 const BotonAgregarCarrito = (props) => {
 	const classes = useStyles();
 
+	const { product } = props;
+
 	const { handleCarrito } = useContext(VentasContext);
+
+	const handleClick = () => {
+		let productMod;
+		if (!product.PtoStockId) {
+			productMod = { ...product, PtoStockId: 0, origen: 'Producción' };
+		} else if (product.PtoStockId) {
+			productMod = { ...product, origen: 'Disponible' };
+		}
+
+		handleCarrito(productMod, 1);
+	};
 
 	return (
 		<div className={classes.root}>
@@ -29,11 +42,7 @@ const BotonAgregarCarrito = (props) => {
 				}}
 				showZero
 			>
-				<IconButton
-					size="small"
-					color="secondary"
-					onClick={() => handleCarrito(props.product)}
-				>
+				<IconButton size="small" color="secondary" onClick={handleClick}>
 					<AddShoppingCartIcon fontSize="default" />
 				</IconButton>
 			</Badge>
