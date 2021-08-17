@@ -16,8 +16,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const BotonElegirPtoStock = ({ cantidad, codigoProducto }) => {
+const BotonElegirPtoStock = (props) => {
 	const classes = useStyles();
+
+	const { cantidad, codigoProducto } = props.product;
 
 	const [producto, setProducto] = useState(null);
 

@@ -13,20 +13,16 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const BotonAgregarCarrito = ({ cantidad, codigo, ptoStock }) => {
+const BotonAgregarCarrito = (props) => {
 	const classes = useStyles();
 
 	const { handleCarrito } = useContext(VentasContext);
-
-	const handleClick = (codigo, ptoStock) => {
-		handleCarrito(codigo, ptoStock);
-	};
 
 	return (
 		<div className={classes.root}>
 			<Badge
 				color="default"
-				badgeContent={cantidad}
+				badgeContent={props.product.cantidad}
 				anchorOrigin={{
 					vertical: 'bottom',
 					horizontal: 'right',
@@ -36,7 +32,7 @@ const BotonAgregarCarrito = ({ cantidad, codigo, ptoStock }) => {
 				<IconButton
 					size="small"
 					color="secondary"
-					onClick={() => handleClick(codigo, ptoStock)}
+					onClick={() => handleCarrito(props.product)}
 				>
 					<AddShoppingCartIcon fontSize="default" />
 				</IconButton>

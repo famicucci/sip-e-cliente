@@ -113,11 +113,38 @@ const VentasState = (props) => {
 		});
 	};
 
-	const handleCarrito = (codigo, ptoStock) => {
-		dispatch({
-			type: CARRITO_AGREGAR_PRODUCTO,
-			payload: { codigo, ptoStock },
-		});
+	const handleCarrito = (product) => {
+		if (!product.PtoStockId) {
+			// if PtoStockId don´t exist then PtoStockId=0 and origen='Producción'
+			product.PtoStockId = 0;
+			product.origen = 'Producción';
+		} else if (product.PtoStockId) {
+			// if pto stock id exist then origen='Disponible'
+			product.origen = 'Disponible';
+		}
+
+		// this product has a code and stockPoint. Check if it´s already in the cart
+		const alreadyInTheCart = state.carrito.find(
+			(x) =>
+				x.ProductoCodigo === product.ProductoCodigo &&
+				x.PtoStockId === product.PtoStockId
+		);
+
+		if (!alreadyInTheCart) {
+			product.cantidad = 1;
+			dispatch({
+				type: CARRITO_AGREGAR_PRODUCTO,
+				payload: product,
+			});
+		} else if (alreadyInTheCart) {
+			alreadyInTheCart.cantidad += 1;
+			dispatch({
+				type: CARRITO_MODIFICAR_CANTIDAD,
+				payload: alreadyInTheCart,
+			});
+		}
+
+		// remove product quantity from preciosPtoStock
 	};
 
 	const handleQuitarProductoCarrito = (codigo) => {

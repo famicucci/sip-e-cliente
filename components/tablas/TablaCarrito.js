@@ -51,10 +51,10 @@ const TablaCarrito = () => {
 				<TableBody>
 					{carrito.length !== 0 ? (
 						<>
-							{carrito.map((producto) => (
+							{/* {carrito.map((producto) => (
 								<FilaCarrito producto={producto} />
 							))}
-							<FilaCarrEnvio />
+							<FilaCarrEnvio /> */}
 						</>
 					) : (
 						<BodyVacio

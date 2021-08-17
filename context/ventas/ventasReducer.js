@@ -99,25 +99,26 @@ const VentasReducer = (state, action) => {
 				valorRadio: action.payload,
 			};
 		case CARRITO_AGREGAR_PRODUCTO:
-			r = prodCarr(
-				action.payload.codigo,
-				action.payload.ptoStock,
-				state.listaPrecio.id,
-				state.modo,
-				state.ptosStock,
-				state.preciosPtoStock,
-				state.preciosStockTotal,
-				state.carrito
-			);
+			// r = prodCarr(
+			// 	action.payload.codigo,
+			// 	action.payload.ptoStock,
+			// 	state.listaPrecio.id,
+			// 	state.modo,
+			// 	state.ptosStock,
+			// 	state.preciosPtoStock,
+			// 	state.preciosStockTotal,
+			// 	state.carrito
+			// );
 
-			localStorage.setItem('carrito', JSON.stringify(r.carr));
+			// localStorage.setItem('carrito', JSON.stringify(r.carr));
 
 			return {
 				...state,
-				preciosPtoStock: r.arrayPtoStock,
-				preciosStockTotal: r.arrayStockTotal,
-				carrito: r.carr,
-				mensaje: r.msg,
+				// preciosPtoStock: r.arrayPtoStock,
+				// preciosStockTotal: r.arrayStockTotal,
+				// carrito: r.carr,
+				// mensaje: r.msg,
+				carrito: [...state.carrito, action.payload],
 			};
 		case CARRITO_QUITAR_PRODUCTO:
 			let resultado = quitarProductoCarrito(state.carrito, action.payload);
@@ -152,21 +153,27 @@ const VentasReducer = (state, action) => {
 				carrito: r.carr,
 			};
 		case CARRITO_MODIFICAR_CANTIDAD:
-			r = modProdCarr(
-				state.carrito,
-				action.payload.codigo,
-				action.payload.ptoStock,
-				action.payload.cantidad,
-				state.preciosPtoStock,
-				state.preciosStockTotal
-			);
-			localStorage.setItem('carrito', JSON.stringify(r.carrMod));
+			// r = modProdCarr(
+			// 	state.carrito,
+			// 	action.payload.codigo,
+			// 	action.payload.ptoStock,
+			// 	action.payload.cantidad,
+			// 	state.preciosPtoStock,
+			// 	state.preciosStockTotal
+			// );
+			// localStorage.setItem('carrito', JSON.stringify(r.carrMod));
 			return {
 				...state,
-				carrito: r.carrMod,
-				preciosPtoStock: r.ptoStockMod,
-				preciosStockTotal: r.stockTotalMod,
-				mensaje: r.msg,
+				carrito: state.carrito.map((x) =>
+					x.ProductoCodigo === action.payload.ProductoCodigo &&
+					x.PtoStockId === action.payload.PtoStockId
+						? action.payload
+						: x
+				),
+				// carrito: r.carrMod,
+				// preciosPtoStock: r.ptoStockMod,
+				// preciosStockTotal: r.stockTotalMod,
+				// mensaje: r.msg,
 			};
 		case CARRITO_MODIFICAR_PRECIO:
 			const puMod = modPrecioCarr(

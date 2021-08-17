@@ -77,7 +77,6 @@ const TablaElegirProducto = () => {
 					cantidad: 0,
 					['Producto.descripcion']: x['Producto.descripcion'],
 					['Producto.Precios.pu']: x['Producto.Precios.pu'],
-					['PtoStockId']: x['PtoStockId'],
 				};
 				sumByCode[x.ProductoCodigo]['cantidad'] += x.cantidad;
 			}
@@ -89,7 +88,6 @@ const TablaElegirProducto = () => {
 				['Producto.descripcion']: sumByCode[x]['Producto.descripcion'],
 				['cantidad']: sumByCode[x]['cantidad'],
 				['Producto.Precios.pu']: sumByCode[x]['Producto.Precios.pu'],
-				['PtoStockId']: sumByCode[x]['PtoStockId'],
 			};
 
 			if (product['cantidad'] !== 0) productsInStock.push(product);

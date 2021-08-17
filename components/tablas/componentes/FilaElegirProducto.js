@@ -21,8 +21,6 @@ const FilaElegirProducto = (props) => {
 	const codigo = props.fila.ProductoCodigo;
 	const descripcion = props.fila['Producto.descripcion'];
 	const precio = props.fila['Producto.Precios.pu'];
-	const cantidad = props.fila.cantidad;
-	const ptoStock = props.fila.PtoStockId;
 
 	return (
 		<TableRow hover tabIndex={-1}>
@@ -33,14 +31,10 @@ const FilaElegirProducto = (props) => {
 			<TableCell align="center">{precio}</TableCell>
 			<TableCell align="center">
 				{valorRadio === 'pto-stock' || valorRadio === 'sin-stock' ? (
-					<BotonAgregarCarrito
-						cantidad={cantidad}
-						codigo={codigo}
-						ptoStock={ptoStock}
-					/>
+					<BotonAgregarCarrito product={props.fila} />
 				) : null}
 				{valorRadio === 'total' ? (
-					<BotonElegirPtoStock cantidad={cantidad} codigoProducto={codigo} />
+					<BotonElegirPtoStock product={props.fila} />
 				) : null}
 			</TableCell>
 		</TableRow>

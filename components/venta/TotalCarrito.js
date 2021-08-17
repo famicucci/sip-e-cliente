@@ -24,8 +24,8 @@ const TotalCarrito = () => {
 	const { carrito } = useContext(VentasContext);
 
 	useEffect(() => {
-		const tot = calcTotCarr(carrito);
-		setValor(tot);
+		// const tot = calcTotCarr(carrito);
+		// setValor(tot);
 	}, [carrito, carrito.length]);
 
 	return (
