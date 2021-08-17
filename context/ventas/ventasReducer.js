@@ -1,7 +1,5 @@
 import {
 	PRODUCTOS_VENTAS,
-	FILAS_VENTAS,
-	FILAS_ORDENES,
 	PTO_STOCK_VENTAS,
 	PTOS_STOCK_VENTAS,
 	LISTA_PRECIO_VENTAS,
@@ -21,8 +19,6 @@ import {
 	PTOS_VENTA,
 	TIPOS_ENVIO,
 	PTO_VENTA,
-	TRAER_ORDENES,
-	FILAS_ORDENES_FILTRO,
 	TRAER_ESTADOS_ORDEN,
 	MODIFICAR_ESTADO_ORDEN,
 	AGREGAR_ORDEN_A_MODIFICAR,
@@ -80,23 +76,7 @@ const VentasReducer = (state, action) => {
 				...state,
 				preciosPtoStock: action.payload,
 				// preciosStockTotal: arrayStockTotal,
-				// filas: r,
 				// carrito: carr,
-			};
-		case FILAS_VENTAS:
-			arrayProd = detArrayPrecios(
-				state.preciosPtoStock,
-				state.preciosStockTotal,
-				state.valorRadio
-			);
-			r = filtro(arrayProd, {
-				lisPre: state.listaPrecio.id,
-				ptoStock: state.ptoStock.id,
-				bus: action.payload,
-			});
-			return {
-				...state,
-				filas: r,
 			};
 		case PTO_STOCK_VENTAS:
 			return {
@@ -251,27 +231,6 @@ const VentasReducer = (state, action) => {
 				...state,
 				tiposEnvio: action.payload,
 			};
-		case TRAER_ORDENES:
-			r = crearFilasTablaEditarOrdenes(action.payload);
-			return {
-				...state,
-				ordenes: action.payload,
-				filasOrdenes: r,
-				filas: r,
-			};
-		case FILAS_ORDENES:
-			r = crearFilasTablaEditarOrdenes(state.ordenes);
-			return {
-				...state,
-				filasOrdenes: r,
-				filas: r,
-			};
-		case FILAS_ORDENES_FILTRO:
-			r = filBus(state.filasOrdenes, action.payload);
-			return {
-				...state,
-				filas: r,
-			};
 		case TRAER_ESTADOS_ORDEN:
 			return {
 				...state,
@@ -287,7 +246,6 @@ const VentasReducer = (state, action) => {
 			console.log(action.payload.r);
 			return {
 				...state,
-				ordenes: ordenModificadas,
 				mensaje: action.payload.r,
 			};
 		case ACTIVAR_ORDEN:

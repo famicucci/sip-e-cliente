@@ -6,8 +6,6 @@ import { Direccion } from '../../functions/envio';
 
 import {
 	PRODUCTOS_VENTAS,
-	FILAS_VENTAS,
-	FILAS_ORDENES,
 	PTO_STOCK_VENTAS,
 	PTOS_STOCK_VENTAS,
 	LISTA_PRECIO_VENTAS,
@@ -26,8 +24,6 @@ import {
 	PTOS_VENTA,
 	TIPOS_ENVIO,
 	PTO_VENTA,
-	TRAER_ORDENES,
-	FILAS_ORDENES_FILTRO,
 	TRAER_ESTADOS_ORDEN,
 	MODIFICAR_ESTADO_ORDEN,
 	AGREGAR_ORDEN_A_MODIFICAR,
@@ -43,16 +39,13 @@ const VentasState = (props) => {
 	const initialState = {
 		preciosPtoStock: [],
 		preciosStockTotal: [],
-		ordenes: [],
-		filas: [],
-		filasOrdenes: [],
 		ordenCreada: null,
-		ptoStock: { descripcion: 'Showroom', id: 1 }, //
-		ptoVenta: null, //
-		ordenEcommerce: null, //
-		cliente: null, //
-		envio: {}, //
-		nota: null, //
+		ptoStock: { descripcion: 'Showroom', id: 1 },
+		ptoVenta: null,
+		ordenEcommerce: null,
+		cliente: null,
+		envio: {},
+		nota: null,
 		listaPrecio: { descripcion: 'Lista Minorista', id: 1 },
 		valorRadio: 'pto-stock',
 		carrito: [],
@@ -145,26 +138,6 @@ const VentasState = (props) => {
 		dispatch({
 			type: CARRITO_MODIFICAR_PRECIO,
 			payload: { cod, pu },
-		});
-	};
-
-	const handleFilas = (bus) => {
-		dispatch({
-			type: FILAS_VENTAS,
-			payload: bus,
-		});
-	};
-
-	const handleFilasOrdenes = () => {
-		dispatch({
-			type: FILAS_ORDENES,
-		});
-	};
-
-	const handleFilasOrdenesFiltro = (bus) => {
-		dispatch({
-			type: FILAS_ORDENES_FILTRO,
-			payload: bus,
 		});
 	};
 
@@ -338,19 +311,6 @@ const VentasState = (props) => {
 		});
 	};
 
-	const traerOrdenes = async () => {
-		try {
-			let r = await clienteAxios.get('/api/ordenes/');
-
-			dispatch({
-				type: TRAER_ORDENES,
-				payload: r.data,
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
 	const traerEstadosOrden = async () => {
 		try {
 			const r = await clienteAxios.get('/api/estados-orden/');
@@ -509,8 +469,6 @@ const VentasState = (props) => {
 				preciosPtoStock: state.preciosPtoStock,
 				preciosStockTotal: state.preciosStockTotal,
 				ordenes: state.ordenes,
-				filas: state.filas,
-				filasOrdenes: state.filasOrdenes,
 				ordenCreada: state.ordenCreada,
 				ptoStock: state.ptoStock,
 				listaPrecio: state.listaPrecio,
@@ -540,9 +498,6 @@ const VentasState = (props) => {
 				handlePtosStock,
 				handlePrecioCarr,
 				traerProductos,
-				handleFilas,
-				handleFilasOrdenes,
-				handleFilasOrdenesFiltro,
 				limpiarCarrito,
 				handleModo,
 				handleCliente,
@@ -553,7 +508,6 @@ const VentasState = (props) => {
 				traerTiposEnvio,
 				traerPtosVenta,
 				handlePtoVenta,
-				traerOrdenes,
 				traerEstadosOrden,
 				handleEstadoOrden,
 				handleOpenModalDetalleOrden,

@@ -33,8 +33,6 @@ const BootstrapButton = withStyles({
 })(Button);
 
 const SelectOrdenEstado = ({ idOrden, ordenEstadoId }) => {
-	// const { estadosOrden, handleEstadoOrden, mensaje } =
-	// 	useContext(VentasContext);
 	const { estadosOrden, handleEstadoOrden, mensaje } =
 		useContext(EditarOrdenesContext);
 
