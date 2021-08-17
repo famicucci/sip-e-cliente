@@ -75,14 +75,17 @@ const VentasState = (props) => {
 	const traerProductos = async (bus) => {
 		try {
 			let ptoStock = await clienteAxios.get('/api/ventas/pto-stock/');
-			let stockTotal = await clienteAxios.get('/api/ventas/total/');
+			// let stockTotal = await clienteAxios.get('/api/ventas/total/');
+			// console.log(stockTotal);
+			// console.log(ptoStock);
 
-			ptoStock = ptoStock.data;
-			stockTotal = stockTotal.data;
-
+			// dispatch({
+			// 	type: PRODUCTOS_VENTAS,
+			// 	payload: { ptoStock, bus },
+			// });
 			dispatch({
 				type: PRODUCTOS_VENTAS,
-				payload: { ptoStock, stockTotal, bus },
+				payload: ptoStock.data,
 			});
 		} catch (error) {
 			console.log(error);

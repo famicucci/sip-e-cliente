@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -28,11 +28,17 @@ const useStyles = makeStyles({
 const TablaElegirProducto = () => {
 	const classes = useStyles();
 
+	// this component has to have a state with the data of the table: that means ptoStock, stockTotal, sinStock
+	// the user chooses the option in the radio and then the data in state change
+	// filas is a local state
+
+	const [data, setData] = useState([]);
+
 	const { busqueda } = useContext(BarraHerramientasContext);
 
 	const {
 		preciosPtoStock,
-		filas,
+		// filas,
 		ptoStock,
 		listaPrecio,
 		valorRadio,
@@ -42,15 +48,78 @@ const TablaElegirProducto = () => {
 
 	// hook paginación
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
-		usePaginacion(filas, 5);
+		usePaginacion(data, 5);
 
+	// this function can be called at the father of this component. It can add a ternary to let appear a spinner
 	useEffect(() => {
 		traerProductos(busqueda);
 	}, []);
 
 	useEffect(() => {
-		handleFilas(busqueda);
-	}, [valorRadio, busqueda, ptoStock, listaPrecio, preciosPtoStock]);
+		if (valorRadio === 'total')
+			getStockTotalAndPrices(preciosPtoStock, listaPrecio.id, true);
+		else if (valorRadio === 'pto-stock')
+			getStockPtoStockAndPrices(preciosPtoStock, listaPrecio.id, ptoStock.id);
+		else if (valorRadio === 'sin-stock')
+			getStockTotalAndPrices(preciosPtoStock, listaPrecio.id, false);
+	}, [preciosPtoStock, valorRadio, listaPrecio, ptoStock]);
+
+	// Should I do a hook useFilter????
+	// useEffect(() => {
+	// 	handleFilas(busqueda);
+	// }, [valorRadio, busqueda, ptoStock, listaPrecio, preciosPtoStock]);
+
+	const getStockPtoStockAndPrices = (
+		preciosPtoStock,
+		listaPrecioId,
+		ptoStockId
+	) => {
+		const stockPtoStockAndPrices = preciosPtoStock.filter(
+			(x) =>
+				x.cantidad !== 0 &&
+				x['Producto.Precios.ListaPrecioId'] === listaPrecioId &&
+				x.PtoStockId === ptoStockId
+		);
+		setData(stockPtoStockAndPrices);
+	};
+
+	const getStockTotalAndPrices = (
+		preciosPtoStock,
+		listaPrecioId,
+		availableStock = true
+	) => {
+		let sumByCode = {};
+		let productsInStock = [];
+		let productsOutOfStock = [];
+
+		preciosPtoStock.forEach((x) => {
+			if (x['Producto.Precios.ListaPrecioId'] === listaPrecioId) {
+				sumByCode[x.ProductoCodigo] ??= {
+					cantidad: 0,
+					['Producto.descripcion']: x['Producto.descripcion'],
+					['Producto.Precios.pu']: x['Producto.Precios.pu'],
+					['PtoStockId']: x['PtoStockId'],
+				};
+				sumByCode[x.ProductoCodigo]['cantidad'] += x.cantidad;
+			}
+		});
+
+		Object.keys(sumByCode).forEach((x) => {
+			const product = {
+				ProductoCodigo: x,
+				['Producto.descripcion']: sumByCode[x]['Producto.descripcion'],
+				['cantidad']: sumByCode[x]['cantidad'],
+				['Producto.Precios.pu']: sumByCode[x]['Producto.Precios.pu'],
+				['PtoStockId']: sumByCode[x]['PtoStockId'],
+			};
+
+			if (product['cantidad'] !== 0) productsInStock.push(product);
+			else if (product['cantidad'] === 0) productsOutOfStock.push(product);
+		});
+
+		if (availableStock) setData(productsInStock);
+		else setData(productsOutOfStock);
+	};
 
 	return (
 		<TableContainer className={classes.tableContainer} component={Paper}>
@@ -69,10 +138,10 @@ const TablaElegirProducto = () => {
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{filas.map((fila) => (
+					{data.map((fila) => (
 						<FilaElegirProducto fila={fila} />
 					))}
-					{filas.length === 0
+					{data.length === 0
 						? bodyVacio(columnas, 'Ningún producto coincide...')
 						: filasVacias}
 				</TableBody>

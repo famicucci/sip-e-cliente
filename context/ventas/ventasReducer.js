@@ -51,37 +51,37 @@ import {
 const VentasReducer = (state, action) => {
 	switch (action.type) {
 		case PRODUCTOS_VENTAS:
-			let arrayProd = detArrayPrecios(
-				action.payload.ptoStock,
-				action.payload.stockTotal,
-				state.valorRadio
-			);
-			let vars = {
-				lisPre: state.listaPrecio.id,
-				ptoStock: state.ptoStock.id,
-				bus: action.payload.bus,
-			};
-			let r = filtro(arrayProd, vars);
-			let carr = state.carrito;
-			let arrayPtoStock = action.payload.ptoStock;
-			let arrayStockTotal = action.payload.stockTotal;
+			// let arrayProd = detArrayPrecios(
+			// 	action.payload.ptoStock,
+			// 	action.payload.stockTotal,
+			// 	state.valorRadio
+			// );
+			// let vars = {
+			// 	lisPre: state.listaPrecio.id,
+			// 	ptoStock: state.ptoStock.id,
+			// 	bus: action.payload.bus,
+			// };
+			// let r = filtro(arrayProd, vars);
+			// let carr = state.carrito;
+			// let arrayPtoStock = action.payload.ptoStock;
+			// let arrayStockTotal = action.payload.stockTotal;
 
-			let r2;
-			if (localStorage.getItem('carrito')) {
-				carr = JSON.parse(localStorage.getItem('carrito'));
-				r2 = llenarCarr(carr, arrayPtoStock, arrayStockTotal);
-				carr = r2.carr;
-				arrayPtoStock = r2.arrayPtoStock;
-				arrayStockTotal = r2.arrayStockTotal;
-			}
+			// let r2;
+			// if (localStorage.getItem('carrito')) {
+			// 	carr = JSON.parse(localStorage.getItem('carrito'));
+			// 	r2 = llenarCarr(carr, arrayPtoStock, arrayStockTotal);
+			// 	carr = r2.carr;
+			// 	arrayPtoStock = r2.arrayPtoStock;
+			// 	arrayStockTotal = r2.arrayStockTotal;
+			// }
 
 			// falta tomar accion en la func llenarCarrito cuando un producto ya no está en stock
 			return {
 				...state,
-				preciosPtoStock: arrayPtoStock,
-				preciosStockTotal: arrayStockTotal,
-				filas: r,
-				carrito: carr,
+				preciosPtoStock: action.payload,
+				// preciosStockTotal: arrayStockTotal,
+				// filas: r,
+				// carrito: carr,
 			};
 		case FILAS_VENTAS:
 			arrayProd = detArrayPrecios(
