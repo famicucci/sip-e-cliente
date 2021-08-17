@@ -11,6 +11,7 @@ import usePaginacion from '../../hooks/usePaginacion';
 import VentasContext from '../../context/ventas/ventasContext';
 import FilaElegirProducto from '../tablas/componentes/FilaElegirProducto';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
+import useFilter from '../../hooks/useFilter';
 
 const columnas = [
 	{ id: 'producto', label: 'Producto', minWidth: 80 },
@@ -28,27 +29,15 @@ const useStyles = makeStyles({
 const TablaElegirProducto = () => {
 	const classes = useStyles();
 
-	// this component has to have a state with the data of the table: that means ptoStock, stockTotal, sinStock
-	// the user chooses the option in the radio and then the data in state change
-	// filas is a local state
-
-	const [data, setData] = useState([]);
-
 	const { busqueda } = useContext(BarraHerramientasContext);
 
-	const {
-		preciosPtoStock,
-		// filas,
-		ptoStock,
-		listaPrecio,
-		valorRadio,
-		traerProductos,
-		handleFilas,
-	} = useContext(VentasContext);
-
-	// hook paginación
+	const [data, setData] = useState([]);
+	const [filteredData] = useFilter(data, busqueda);
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
-		usePaginacion(data, 5);
+		usePaginacion(filteredData, 5);
+
+	const { preciosPtoStock, ptoStock, listaPrecio, valorRadio } =
+		useContext(VentasContext);
 
 	useEffect(() => {
 		if (valorRadio === 'total')
@@ -58,11 +47,6 @@ const TablaElegirProducto = () => {
 		else if (valorRadio === 'sin-stock')
 			getStockTotalAndPrices(preciosPtoStock, listaPrecio.id, false);
 	}, [preciosPtoStock, valorRadio, listaPrecio, ptoStock]);
-
-	// Should I do a hook useFilter????
-	// useEffect(() => {
-	// 	handleFilas(busqueda);
-	// }, [valorRadio, busqueda, ptoStock, listaPrecio, preciosPtoStock]);
 
 	const getStockPtoStockAndPrices = (
 		preciosPtoStock,
@@ -133,10 +117,10 @@ const TablaElegirProducto = () => {
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{data.map((fila) => (
+					{filteredData.map((fila) => (
 						<FilaElegirProducto fila={fila} />
 					))}
-					{data.length === 0
+					{filteredData.length === 0
 						? bodyVacio(columnas, 'Ningún producto coincide...')
 						: filasVacias}
 				</TableBody>
