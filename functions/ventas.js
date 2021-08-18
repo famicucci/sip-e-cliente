@@ -552,13 +552,6 @@ const sumValores = (arrayValores) => {
 	return r;
 };
 
-const detMaxVal = (cod, ptoStock, arrayPtoStock, cantInicial) => {
-	if (ptoStock === 0) return 99;
-	const cant = buscarProdPtoStock(cod, ptoStock, arrayPtoStock).cantidad;
-	// la cantidad máxima del input debe tener en cuenta la cant en stock más la cant ya agregada al carrito
-	return cant + cantInicial;
-};
-
 // funcion que recorra el carritoy saque los productos del stock total y pto stock
 const llenarCarr = (carr, arrayPtoStock, arrayStockTotal) => {
 	// si la cantidad no está en stock me guardo el codigo y  hago un push a un array.
@@ -644,9 +637,6 @@ const quitarPtoStockOrigen = (origen, ptoStock) => {
 	return origen;
 };
 
-// funcion que calcule las unidades en produccion de un producto
-const cantProdProduccion = () => {};
-
 export {
 	agregarCarrito,
 	modCantStock,
@@ -656,7 +646,6 @@ export {
 	modPrecioCarr,
 	calcSubtotCarr,
 	calcTotCarr,
-	detMaxVal,
 	modificarCantMultiplesStocks,
 	limpiarCarr,
 	prodCarr,

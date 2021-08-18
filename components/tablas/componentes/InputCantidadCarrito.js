@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import VentasContext from '../../../context/ventas/ventasContext';
-import { detMaxVal } from '../../../functions/ventas';
 
 const useStyles = makeStyles({
 	input: {
@@ -10,26 +9,22 @@ const useStyles = makeStyles({
 	},
 });
 
-const InputCantidadCarrito = ({ codigoProducto, ptoStock, cantidad }) => {
+const InputCantidadCarrito = (props) => {
+	const { ProductoCodigo, PtoStockId, cantidad } = props;
 	const classes = useStyles();
 
 	const { handleCantidadCarrito, preciosPtoStock } = useContext(VentasContext);
 
 	const [value, setValue] = useState(cantidad);
-	const [maxVal, setMaxVal] = useState(null);
-
-	useEffect(() => {
-		const maxVal = detMaxVal(
-			codigoProducto,
-			ptoStock,
-			preciosPtoStock,
-			cantidad
-		);
-		setMaxVal(maxVal);
-	}, []);
+	const [maxVal, setMaxVal] = useState(0);
 
 	useEffect(() => {
 		setValue(cantidad);
+
+		const product = preciosPtoStock.find(
+			(x) => x.ProductoCodigo === ProductoCodigo && x.PtoStockId === PtoStockId
+		);
+		if (product) setMaxVal(product.cantidad);
 	}, [cantidad]);
 
 	const onChange = (e) => {
@@ -40,7 +35,7 @@ const InputCantidadCarrito = ({ codigoProducto, ptoStock, cantidad }) => {
 
 		setValue(e.target.value);
 
-		handleCantidadCarrito(codigoProducto, ptoStock, a);
+		handleCantidadCarrito(ProductoCodigo, PtoStockId, a);
 	};
 
 	return (

@@ -51,7 +51,7 @@ const TablaCarrito = () => {
 				origen: [],
 			};
 			products[x.ProductoCodigo]['origen'].push({
-				ptoStockId: x.ptoStockId,
+				PtoStockId: x.PtoStockId,
 				ptoStockDescripcion:
 					x.origen === 'Disponible' ? x['PtoStock.descripcion'] : 'Producción',
 				cantidad: x.cantidad,
