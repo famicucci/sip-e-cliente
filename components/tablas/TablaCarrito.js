@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -30,7 +30,36 @@ const useStyles = makeStyles({
 const TablaCarrito = () => {
 	const classes = useStyles();
 
+	const [arrayCart, setArrayCart] = useState([]);
+
 	const { carrito } = useContext(VentasContext);
+
+	useEffect(() => {
+		showCart(carrito);
+	}, [carrito]);
+
+	const showCart = (cart) => {
+		let products = {};
+
+		cart.forEach((x) => {
+			// check if code already exits in products
+			products[x.ProductoCodigo] = products[x.ProductoCodigo] ?? {
+				codigo: x.ProductoCodigo,
+				descripcion: x['Producto.descripcion'],
+				pu: x['Producto.Precios.pu'],
+				cantidad: x.cantidad,
+				origen: [],
+			};
+			products[x.ProductoCodigo]['origen'].push({
+				ptoStockId: x.ptoStockId,
+				ptoStockDescripcion:
+					x.origen === 'Disponible' ? x['PtoStock.descripcion'] : 'Producción',
+				cantidad: x.cantidad,
+			});
+		});
+
+		setArrayCart(Object.values(products));
+	};
 
 	return (
 		<TableContainer className={classes.tableContainer} component={Paper}>
@@ -49,12 +78,12 @@ const TablaCarrito = () => {
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{carrito.length !== 0 ? (
+					{arrayCart.length !== 0 ? (
 						<>
-							{/* {carrito.map((producto) => (
+							{arrayCart.map((producto) => (
 								<FilaCarrito producto={producto} />
 							))}
-							<FilaCarrEnvio /> */}
+							<FilaCarrEnvio />
 						</>
 					) : (
 						<BodyVacio
