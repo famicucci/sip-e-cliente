@@ -13,29 +13,37 @@ const InputCantidadCarrito = (props) => {
 	const { ProductoCodigo, PtoStockId, cantidad } = props;
 	const classes = useStyles();
 
-	const { handleCantidadCarrito, preciosPtoStock } = useContext(VentasContext);
+	const { handleCarrito, preciosPtoStock } = useContext(VentasContext);
 
 	const [value, setValue] = useState(cantidad);
-	const [maxVal, setMaxVal] = useState(0);
 
 	useEffect(() => {
 		setValue(cantidad);
-
-		const product = preciosPtoStock.find(
-			(x) => x.ProductoCodigo === ProductoCodigo && x.PtoStockId === PtoStockId
-		);
-		if (product) setMaxVal(product.cantidad);
 	}, [cantidad]);
 
 	const onChange = (e) => {
 		let a = e.target.value;
-		if (Number.isNaN(parseInt(a))) {
-			a = 0;
-		}
+		if (Number.isNaN(parseInt(a))) a = 0;
+		setValue(a);
+	};
 
-		setValue(e.target.value);
+	const onBlur = () => {
+		const product = getProduct(preciosPtoStock, ProductoCodigo, PtoStockId);
 
-		handleCantidadCarrito(ProductoCodigo, PtoStockId, a);
+		const qty = value - cantidad;
+		handleCarrito(product, qty);
+	};
+
+	const getProduct = (preciosPtoStock, ProductoCodigo, PtoStockId) => {
+		const product = preciosPtoStock.find(
+			(x) => x.ProductoCodigo === ProductoCodigo && x.PtoStockId === PtoStockId
+		);
+		return product;
+	};
+
+	const setMaxValue = () => {
+		const product = getProduct(preciosPtoStock, ProductoCodigo, PtoStockId);
+		if (product) return product.cantidad;
 	};
 
 	return (
@@ -45,10 +53,11 @@ const InputCantidadCarrito = (props) => {
 				type="number"
 				value={value}
 				onChange={onChange}
+				onBlur={onBlur}
 				InputProps={{
 					inputProps: {
 						min: 0,
-						max: maxVal,
+						max: setMaxValue(),
 					},
 				}}
 			/>

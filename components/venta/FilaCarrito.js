@@ -6,7 +6,6 @@ import BotonVerMasCarrito from '../tablas/componentes/BotonVerMasCarrito';
 import BotonEliminarDeCarrito from '../tablas/componentes/BotonBorrarDeCarrito';
 import CollapseTablaCarrito from './CollapseTablaCarrito';
 import PrecioEditableCarrito from '../tablas/componentes/PrecioEditableCarrito';
-import { calcSubtotCarr } from '../../functions/ventas';
 
 const useStyles = makeStyles({
 	negrita: {
@@ -19,23 +18,30 @@ const FilaCarrito = (props) => {
 	const classes = useStyles();
 
 	const [open, setOpen] = useState(false);
-	const [total, setTotal] = useState(0);
 
 	const codigo = props.producto.codigo;
 	const descripcion = props.producto.descripcion;
 	const precio = props.producto.pu;
-	const cantidad = props.producto.cantidad;
 	const origen = props.producto.origen;
 
-	useEffect(() => {
-		const total = calcSubtotCarr(precio, cantidad);
-		setTotal(total);
-	}, [cantidad, precio]);
+	const sumTotalQty = (origen) => {
+		let r = 0;
+		origen.forEach((x) => {
+			r += x.cantidad;
+		});
+		return r;
+	};
+
+	const sumTotalPrice = () => {
+		const qty = sumTotalQty(origen);
+		const r = precio * qty;
+		return r;
+	};
 
 	return (
 		<>
 			<TableRow hover role="checkbox" tabIndex={-1}>
-				<TableCell align="center">{cantidad}</TableCell>
+				<TableCell align="center">{sumTotalQty(origen)}</TableCell>
 				<TableCell style={{ wordWrap: 'break-word', maxWidth: '250px' }}>
 					<p className={classes.negrita}>{codigo}</p>
 					<p>{descripcion}</p>
@@ -43,7 +49,9 @@ const FilaCarrito = (props) => {
 				<TableCell align="center">
 					<PrecioEditableCarrito codigo={codigo} precio={precio} />
 				</TableCell>
-				<TableCell align="center">{parseFloat(total).toFixed(2)}</TableCell>
+				<TableCell align="center">
+					{parseFloat(sumTotalPrice()).toFixed(2)}
+				</TableCell>
 				<TableCell align="center">
 					<BotonEliminarDeCarrito codigoProducto={codigo} />
 					<BotonVerMasCarrito setOpen={setOpen} open={open} />

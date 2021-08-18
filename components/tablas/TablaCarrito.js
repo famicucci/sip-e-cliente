@@ -80,8 +80,8 @@ const TablaCarrito = () => {
 				<TableBody>
 					{arrayCart.length !== 0 ? (
 						<>
-							{arrayCart.map((producto) => (
-								<FilaCarrito producto={producto} />
+							{arrayCart.map((producto, i) => (
+								<FilaCarrito key={i} producto={producto} />
 							))}
 							<FilaCarrEnvio />
 						</>
