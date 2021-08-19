@@ -82,25 +82,4 @@ const traerProdsConStock = (arrayProd) => {
 	return r;
 };
 
-const filPtosStockProd = (arrayProd, cod, lis) => {
-	const r = arrayProd.filter(
-		(x) =>
-			x.ProductoCodigo === cod && x['Producto.Precios.ListaPrecioId'] === lis
-	);
-
-	return r;
-};
-
-class Filtro {
-	constructor(arrayInit, attr, value) {
-		this.arrayInit = arrayInit;
-		this.attr = attr;
-		this.value = value;
-	}
-
-	filtroPorAtributo() {
-		// const r = this.arrayInit.map(x=>x)
-	}
-}
-
-export { filBus, filPtosStockProd, filtro, detArrayPrecios, Filtro };
+export { filBus, filtro, detArrayPrecios };

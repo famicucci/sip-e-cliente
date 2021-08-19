@@ -26,7 +26,7 @@ import {
 	MOSTRAR_ALERTA_EDITAR_ORDENES,
 	OCULTAR_ALERTA_EDITAR_ORDENES,
 } from '../../../types';
-import { filBus, Filtro } from '../../../functions/filtros.js';
+import { filBus } from '../../../functions/filtros.js';
 import {
 	crearFilasTablaEditarOrdenes,
 	modEstadoOrden,
