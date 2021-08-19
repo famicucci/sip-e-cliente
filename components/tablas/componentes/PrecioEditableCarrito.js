@@ -6,7 +6,7 @@ const PrecioEditableCarrito = ({ codigo, precio }) => {
 	const [value, setValue] = useState(0);
 	const [edit, setEdit] = useState(false);
 
-	const { handlePrecioCarr } = useContext(VentasContext);
+	const { handlePriceCart } = useContext(VentasContext);
 
 	useEffect(() => {
 		setValue(precio);
@@ -25,7 +25,7 @@ const PrecioEditableCarrito = ({ codigo, precio }) => {
 			setValue(0);
 		}
 
-		handlePrecioCarr(codigo, value);
+		handlePriceCart(codigo, value);
 		setEdit(false);
 	};
 

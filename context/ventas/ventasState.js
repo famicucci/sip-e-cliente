@@ -160,10 +160,10 @@ const VentasState = (props) => {
 		});
 	};
 
-	const handlePrecioCarr = (cod, pu) => {
+	const handlePriceCart = (code, price) => {
 		dispatch({
 			type: CARRITO_MODIFICAR_PRECIO,
-			payload: { cod, pu },
+			payload: { code, price },
 		});
 	};
 
@@ -521,7 +521,7 @@ const VentasState = (props) => {
 				handleCarrito,
 				handleQuitarProductoCarrito,
 				handlePtosStock,
-				handlePrecioCarr,
+				handlePriceCart,
 				traerProductos,
 				limpiarCarrito,
 				handleModo,

@@ -34,7 +34,6 @@ import { detArrayPrecios, filtro, filBus } from '../../functions/filtros.js';
 import {
 	quitarProductoCarrito,
 	modProdCarr,
-	modPrecioCarr,
 	modificarCantMultiplesStocks,
 	limpiarCarr,
 	prodCarr,
@@ -160,14 +159,13 @@ const VentasReducer = (state, action) => {
 				),
 			};
 		case CARRITO_MODIFICAR_PRECIO:
-			const puMod = modPrecioCarr(
-				action.payload.cod,
-				action.payload.pu,
-				state.carrito
-			);
 			return {
 				...state,
-				carrito: puMod,
+				carrito: state.carrito.map((x) =>
+					x.ProductoCodigo === action.payload.code
+						? { ...x, ['Producto.Precios.pu']: action.payload.price }
+						: x
+				),
 			};
 
 		case CARRITO_AGREGAR_PRODUCTOS:

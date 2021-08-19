@@ -519,15 +519,6 @@ const modProdCarr = (
 	};
 };
 
-const modPrecioCarr = (cod, pu, carr) => {
-	if (Number.isNaN(parseFloat(pu))) {
-		pu = 0;
-	}
-
-	const carrMod = carr.map((x) => (x.codigo === cod ? { ...x, pu: pu } : x));
-	return carrMod;
-};
-
 const calcSubtotCarr = (pu, cant) => {
 	const a = pu * cant;
 	return a;
@@ -643,7 +634,6 @@ export {
 	quitarProductoCarrito,
 	modProdCarr,
 	buscarProdPtoStock,
-	modPrecioCarr,
 	calcSubtotCarr,
 	calcTotCarr,
 	modificarCantMultiplesStocks,
