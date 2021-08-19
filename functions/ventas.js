@@ -519,25 +519,6 @@ const modProdCarr = (
 	};
 };
 
-const calcSubtotCarr = (pu, cant) => {
-	const a = pu * cant;
-	return a;
-};
-
-const calcTotCarr = (arrayProd) => {
-	if (arrayProd.length === 0) return 0;
-	let arraySubtot = [];
-	for (let i = 0; i < arrayProd.length; i++) {
-		const element = arrayProd[i];
-		const pu = element.pu;
-		const cant = element.cantidad;
-		const subtot = calcSubtotCarr(pu, cant);
-		arraySubtot.push(subtot);
-	}
-	const tot = sumValores(arraySubtot);
-	return tot;
-};
-
 const sumValores = (arrayValores) => {
 	const r = arrayValores.reduce((acc, el) => acc + el, 0);
 	return r;
@@ -634,8 +615,6 @@ export {
 	quitarProductoCarrito,
 	modProdCarr,
 	buscarProdPtoStock,
-	calcSubtotCarr,
-	calcTotCarr,
 	modificarCantMultiplesStocks,
 	limpiarCarr,
 	prodCarr,
