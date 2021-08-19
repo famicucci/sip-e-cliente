@@ -114,13 +114,7 @@ const VentasState = (props) => {
 		});
 	};
 
-	const handleCarrito = (product, qty) => {
-		// console.log(product);
-		// const { cantidad, origen, ProductoCodigo, PtoStockId } = product;
-		// pu
-		// descripcion
-
-		// this product has a code and stockPoint. Check if it´s already in the cart
+	const handleCarrito = (product) => {
 		const alreadyInTheCart = state.carrito.find(
 			(x) =>
 				x.ProductoCodigo === product.ProductoCodigo &&
@@ -141,7 +135,6 @@ const VentasState = (props) => {
 			});
 		}
 
-		// remove product quantity from preciosPtoStock
 		if (product.PtoStockId !== 0)
 			dispatch({
 				type: STOCK_MODIFICAR_CANTIDAD,

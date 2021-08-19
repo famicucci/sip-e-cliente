@@ -436,87 +436,9 @@ const modificarCantMultiplesStocks = (
 	return { filasPtoStock, filasStockTotal };
 };
 
-// modifica la cantidad en el punto de stock dado (cant. final)
-const modCantPtoStockProdCarr_final = (productoCarrito, ptoStock, canFinal) => {
-	// buscar producto en carrito
-	let origen = productoCarrito.origen;
-	let filaOrigen = buscarPtoStockProdCarr(origen, ptoStock);
-
-	filaOrigen = {
-		...filaOrigen,
-		cantidad: parseInt(canFinal),
-	};
-
-	const origenModificado = origen.map((x) =>
-		x.ptoStockId === ptoStock ? filaOrigen : x
-	);
-	origen = origenModificado;
-
-	return origen;
-};
-
 const buscarPtoStockProdCarr = (origen, ptoStock) => {
 	const r = origen.find((x) => x.ptoStockId === ptoStock);
 	return r;
-};
-
-const modProdCarr = (
-	carr,
-	cod,
-	ptoStock,
-	cant,
-	arrayPtoStock,
-	arrayStockTotal
-) => {
-	let ptoStockMod = arrayPtoStock;
-	let stockTotalMod = arrayStockTotal;
-	const prod = buscarProdCarr(carr, cod);
-	const nuevoOrigen = modCantPtoStockProdCarr_final(prod, ptoStock, cant);
-	const total = cantTotalProdCarr(nuevoOrigen);
-	let prodMod = modCantTotProdCarr(prod, total);
-	prodMod = modOrigenProCarr(prodMod, nuevoOrigen);
-	const carrMod = modificarCarrito(carr, prodMod);
-
-	// función que devuelva el delta cantidad
-	const cantVar = cantVarPtoStockProdCarr(prod, prodMod, ptoStock);
-
-	// estas funciones me devuelven el stock modificado
-	if (ptoStock !== 0) {
-		ptoStockMod = modCantPtoStock(cod, ptoStock, arrayPtoStock, cantVar);
-		stockTotalMod = modCantStockTotal(cod, arrayStockTotal, cantVar);
-	}
-
-	const detMsg = () => {
-		let r;
-		if (ptoStockMod === 'error') {
-			r = 'No hay más unidades en este punto de stock!';
-		} else if (cant < 0) {
-			r = 'La cantidad no puede ser negativa!';
-		}
-		return r;
-	};
-
-	const msg = detMsg();
-
-	// si la nueva cantidad en ptoStockMod da negativo debo retornar carr, ptoStockMod, stockTotalMod sin modificaciones
-	if (ptoStockMod === 'error' || cant < 0) {
-		return {
-			carrMod: carr,
-			ptoStockMod: arrayPtoStock,
-			stockTotalMod: arrayStockTotal,
-			msg: {
-				msg: msg,
-				categoria: 'error',
-			},
-		};
-	}
-
-	return {
-		carrMod,
-		ptoStockMod,
-		stockTotalMod,
-		msg: null,
-	};
 };
 
 const sumValores = (arrayValores) => {
@@ -610,10 +532,8 @@ const quitarPtoStockOrigen = (origen, ptoStock) => {
 };
 
 export {
-	agregarCarrito,
 	modCantStock,
 	quitarProductoCarrito,
-	modProdCarr,
 	buscarProdPtoStock,
 	modificarCantMultiplesStocks,
 	limpiarCarr,

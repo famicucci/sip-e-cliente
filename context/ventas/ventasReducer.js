@@ -30,52 +30,15 @@ import {
 	OCULTAR_ALERTA_VENTAS,
 	ACTIVAR_ORDEN,
 } from '../../types';
-import { detArrayPrecios, filtro, filBus } from '../../functions/filtros.js';
-import {
-	modProdCarr,
-	modificarCantMultiplesStocks,
-	limpiarCarr,
-	prodCarr,
-	llenarCarr,
-} from '../../functions/ventas.js';
-import {
-	crearFilasTablaEditarOrdenes,
-	modEstadoOrden,
-} from '../../functions/editarordenes';
+import { limpiarCarr } from '../../functions/ventas.js';
+import { modEstadoOrden } from '../../functions/editarordenes';
 
 const VentasReducer = (state, action) => {
 	switch (action.type) {
 		case PRODUCTOS_VENTAS:
-			// let arrayProd = detArrayPrecios(
-			// 	action.payload.ptoStock,
-			// 	action.payload.stockTotal,
-			// 	state.valorRadio
-			// );
-			// let vars = {
-			// 	lisPre: state.listaPrecio.id,
-			// 	ptoStock: state.ptoStock.id,
-			// 	bus: action.payload.bus,
-			// };
-			// let r = filtro(arrayProd, vars);
-			// let carr = state.carrito;
-			// let arrayPtoStock = action.payload.ptoStock;
-			// let arrayStockTotal = action.payload.stockTotal;
-
-			// let r2;
-			// if (localStorage.getItem('carrito')) {
-			// 	carr = JSON.parse(localStorage.getItem('carrito'));
-			// 	r2 = llenarCarr(carr, arrayPtoStock, arrayStockTotal);
-			// 	carr = r2.carr;
-			// 	arrayPtoStock = r2.arrayPtoStock;
-			// 	arrayStockTotal = r2.arrayStockTotal;
-			// }
-
-			// falta tomar accion en la func llenarCarrito cuando un producto ya no está en stock
 			return {
 				...state,
 				preciosPtoStock: action.payload,
-				// preciosStockTotal: arrayStockTotal,
-				// carrito: carr,
 			};
 		case PTO_STOCK_VENTAS:
 			return {
@@ -115,20 +78,9 @@ const VentasReducer = (state, action) => {
 				),
 			};
 		case CARRITO_QUITAR_PRODUCTO:
-			// const arrayOrigen = resultado.prod.origen;
-
-			// const stocksModificados = modificarCantMultiplesStocks(
-			// 	action.payload,
-			// 	arrayOrigen,
-			// 	state.preciosPtoStock,
-			// 	state.preciosStockTotal
-			// );
-
 			// localStorage.setItem('carrito', JSON.stringify(resultado.carr));
 			return {
 				...state,
-				// preciosPtoStock: stocksModificados.filasPtoStock,
-				// preciosStockTotal: stocksModificados.filasStockTotal,
 				carrito: state.carrito.filter(
 					(x) => x.ProductoCodigo !== action.payload
 				),
