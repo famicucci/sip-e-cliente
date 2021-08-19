@@ -50,7 +50,7 @@ const FilaCarrito = (props) => {
 					{parseFloat(sumTotalPrice()).toFixed(2)}
 				</TableCell>
 				<TableCell align="center">
-					<BotonEliminarDeCarrito codigoProducto={codigo} />
+					<BotonEliminarDeCarrito code={codigo} />
 					<BotonVerMasCarrito setOpen={setOpen} open={open} />
 				</TableCell>
 			</TableRow>

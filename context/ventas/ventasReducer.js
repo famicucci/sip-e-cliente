@@ -32,7 +32,6 @@ import {
 } from '../../types';
 import { detArrayPrecios, filtro, filBus } from '../../functions/filtros.js';
 import {
-	quitarProductoCarrito,
 	modProdCarr,
 	modificarCantMultiplesStocks,
 	limpiarCarr,
@@ -116,23 +115,23 @@ const VentasReducer = (state, action) => {
 				),
 			};
 		case CARRITO_QUITAR_PRODUCTO:
-			let resultado = quitarProductoCarrito(state.carrito, action.payload);
+			// const arrayOrigen = resultado.prod.origen;
 
-			const arrayOrigen = resultado.prod.origen;
+			// const stocksModificados = modificarCantMultiplesStocks(
+			// 	action.payload,
+			// 	arrayOrigen,
+			// 	state.preciosPtoStock,
+			// 	state.preciosStockTotal
+			// );
 
-			const stocksModificados = modificarCantMultiplesStocks(
-				action.payload,
-				arrayOrigen,
-				state.preciosPtoStock,
-				state.preciosStockTotal
-			);
-
-			localStorage.setItem('carrito', JSON.stringify(resultado.carr));
+			// localStorage.setItem('carrito', JSON.stringify(resultado.carr));
 			return {
 				...state,
-				preciosPtoStock: stocksModificados.filasPtoStock,
-				preciosStockTotal: stocksModificados.filasStockTotal,
-				carrito: resultado.carr,
+				// preciosPtoStock: stocksModificados.filasPtoStock,
+				// preciosStockTotal: stocksModificados.filasStockTotal,
+				carrito: state.carrito.filter(
+					(x) => x.ProductoCodigo !== action.payload
+				),
 			};
 		case LIMPIAR_CARRITO:
 			r = limpiarCarr(

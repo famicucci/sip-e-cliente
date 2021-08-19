@@ -153,10 +153,24 @@ const VentasState = (props) => {
 			});
 	};
 
-	const handleQuitarProductoCarrito = (codigo) => {
+	const handleRemoveProductCart = (code) => {
 		dispatch({
 			type: CARRITO_QUITAR_PRODUCTO,
-			payload: codigo,
+			payload: code,
+		});
+
+		const product = state.carrito.filter((x) => x.ProductoCodigo === code);
+
+		product.forEach((x) => {
+			if (x.PtoStockId !== 0)
+				dispatch({
+					type: STOCK_MODIFICAR_CANTIDAD,
+					payload: {
+						ProductoCodigo: x.ProductoCodigo,
+						PtoStockId: x.PtoStockId,
+						qty: x.cantidad,
+					},
+				});
 		});
 	};
 
@@ -519,7 +533,7 @@ const VentasState = (props) => {
 				handleListaPrecio,
 				handleValorRadio,
 				handleCarrito,
-				handleQuitarProductoCarrito,
+				handleRemoveProductCart,
 				handlePtosStock,
 				handlePriceCart,
 				traerProductos,

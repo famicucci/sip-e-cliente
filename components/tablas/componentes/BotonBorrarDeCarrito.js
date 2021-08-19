@@ -12,17 +12,19 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const BotonEliminarDeCarrito = ({ codigoProducto }) => {
+const BotonEliminarDeCarrito = (props) => {
 	const classes = useStyles();
 
-	const { handleQuitarProductoCarrito } = useContext(VentasContext);
+	const { code } = props;
+
+	const { handleRemoveProductCart } = useContext(VentasContext);
 
 	return (
 		<div className={classes.root}>
 			<IconButton
 				size="small"
 				onClick={() => {
-					handleQuitarProductoCarrito(codigoProducto);
+					handleRemoveProductCart(code);
 				}}
 			>
 				<ClearIcon fontSize="default" color="error" fontSize="small" />
