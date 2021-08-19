@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 const BotonElegirPtoStock = (props) => {
 	const classes = useStyles();
 
-	const { cantidad, codigoProducto } = props.product;
+	const { cantidad, ProductoCodigo } = props.product;
 
 	const [producto, setProducto] = useState(null);
 
@@ -45,7 +45,7 @@ const BotonElegirPtoStock = (props) => {
 					theme={'light-border'}
 					placement={'left'}
 					onShow={() => {
-						handleOnShow(codigoProducto);
+						handleOnShow(ProductoCodigo);
 					}}
 				>
 					<IconButton size="small">
