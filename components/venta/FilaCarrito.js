@@ -19,35 +19,32 @@ const FilaCarrito = (props) => {
 
 	const [open, setOpen] = useState(false);
 
-	const codigo = props.producto.codigo;
-	const descripcion = props.producto.descripcion;
-	const precio = props.producto.pu;
-	const origen = props.producto.origen;
+	const { codigo, descripcion, pu, ptosStockOrigen } = props.product;
 
-	const sumTotalQty = (origen) => {
+	const sumTotalQty = (ptosStockOrigen) => {
 		let r = 0;
-		origen.forEach((x) => {
+		ptosStockOrigen.forEach((x) => {
 			r += x.cantidad;
 		});
 		return r;
 	};
 
 	const sumTotalPrice = () => {
-		const qty = sumTotalQty(origen);
-		const r = precio * qty;
+		const qty = sumTotalQty(ptosStockOrigen);
+		const r = pu * qty;
 		return r;
 	};
 
 	return (
 		<>
 			<TableRow hover role="checkbox" tabIndex={-1}>
-				<TableCell align="center">{sumTotalQty(origen)}</TableCell>
+				<TableCell align="center">{sumTotalQty(ptosStockOrigen)}</TableCell>
 				<TableCell style={{ wordWrap: 'break-word', maxWidth: '250px' }}>
 					<p className={classes.negrita}>{codigo}</p>
 					<p>{descripcion}</p>
 				</TableCell>
 				<TableCell align="center">
-					<PrecioEditableCarrito codigo={codigo} precio={precio} />
+					<PrecioEditableCarrito codigo={codigo} precio={pu} />
 				</TableCell>
 				<TableCell align="center">
 					{parseFloat(sumTotalPrice()).toFixed(2)}
@@ -57,11 +54,7 @@ const FilaCarrito = (props) => {
 					<BotonVerMasCarrito setOpen={setOpen} open={open} />
 				</TableCell>
 			</TableRow>
-			<CollapseTablaCarrito
-				open={open}
-				origen={origen}
-				codigoProducto={codigo}
-			/>
+			<CollapseTablaCarrito open={open} product={props.product} />
 		</>
 	);
 };

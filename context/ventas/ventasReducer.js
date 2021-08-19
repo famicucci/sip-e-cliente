@@ -107,8 +107,6 @@ const VentasReducer = (state, action) => {
 			};
 
 		case STOCK_MODIFICAR_CANTIDAD:
-			console.log('modificar cantidad');
-			// { ...x, cantidad: x.cantidad + action.payload.qty }
 			return {
 				...state,
 				preciosPtoStock: state.preciosPtoStock.map((x) =>

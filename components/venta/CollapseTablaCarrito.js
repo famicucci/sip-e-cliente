@@ -4,29 +4,20 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
-import InputCantidadCarrito from '../tablas/componentes/InputCantidadCarrito';
+import PtoStockCarrito from '../tablas/componentes/PtoStockCarrito';
 
 const CollapseTablaCarrito = (props) => {
-	const { open, origen, codigoProducto, direccion } = props;
+	const { ptosStockOrigen, codigo, direccion } = props.product;
 
 	return (
 		<TableRow>
 			<TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={5}>
-				<Collapse in={open} timeout="auto" unmountOnExit>
-					{origen && codigoProducto ? (
+				<Collapse in={props.open} timeout="auto" unmountOnExit>
+					{ptosStockOrigen && codigo ? (
 						<Table size="small" aria-label="purchases">
 							<TableBody>
-								{origen.map((x, i) => (
-									<TableRow key={i}>
-										<TableCell align="left" style={{ width: 20 }}>
-											<InputCantidadCarrito
-												ProductoCodigo={codigoProducto}
-												PtoStockId={x.PtoStockId}
-												cantidad={x.cantidad}
-											/>
-										</TableCell>
-										<TableCell>{x.ptoStockDescripcion}</TableCell>
-									</TableRow>
+								{ptosStockOrigen.map((x, i) => (
+									<PtoStockCarrito key={i} ptoStock={x} codigo={codigo} />
 								))}
 							</TableBody>
 						</Table>

@@ -23,9 +23,25 @@ const BotonAgregarCarrito = (props) => {
 	const handleClick = () => {
 		let productMod;
 		if (!product.PtoStockId) {
-			productMod = { ...product, PtoStockId: 0, origen: 'Producción' };
+			productMod = {
+				cantidad: 1,
+				['Producto.Precios.pu']: product['Producto.Precios.pu'],
+				origen: 'Producción',
+				ProductoCodigo: product.ProductoCodigo,
+				PtoStockId: 0,
+				['PtoStock.descripcion']: 'Producción',
+				['Producto.descripcion']: product['Producto.descripcion'],
+			};
 		} else if (product.PtoStockId) {
-			productMod = { ...product, origen: 'Disponible' };
+			productMod = {
+				cantidad: 1,
+				['Producto.Precios.pu']: product['Producto.Precios.pu'],
+				origen: 'Disponible',
+				ProductoCodigo: product.ProductoCodigo,
+				PtoStockId: product.PtoStockId,
+				['PtoStock.descripcion']: product['PtoStock.descripcion'],
+				['Producto.descripcion']: product['Producto.descripcion'],
+			};
 		}
 
 		handleCarrito(productMod, 1);

@@ -115,6 +115,11 @@ const VentasState = (props) => {
 	};
 
 	const handleCarrito = (product, qty) => {
+		// console.log(product);
+		// const { cantidad, origen, ProductoCodigo, PtoStockId } = product;
+		// pu
+		// descripcion
+
 		// this product has a code and stockPoint. Check if it´s already in the cart
 		const alreadyInTheCart = state.carrito.find(
 			(x) =>
@@ -129,7 +134,7 @@ const VentasState = (props) => {
 				payload: product,
 			});
 		} else if (alreadyInTheCart) {
-			alreadyInTheCart.cantidad += qty;
+			alreadyInTheCart.cantidad += product.cantidad;
 			dispatch({
 				type: CARRITO_MODIFICAR_CANTIDAD,
 				payload: alreadyInTheCart,
@@ -137,13 +142,13 @@ const VentasState = (props) => {
 		}
 
 		// remove product quantity from preciosPtoStock
-		if (product.origen === 'Disponible')
+		if (product.PtoStockId !== 0)
 			dispatch({
 				type: STOCK_MODIFICAR_CANTIDAD,
 				payload: {
 					ProductoCodigo: product.ProductoCodigo,
 					PtoStockId: product.PtoStockId,
-					qty: -qty,
+					qty: -product.cantidad,
 				},
 			});
 	};

@@ -48,12 +48,11 @@ const TablaCarrito = () => {
 				descripcion: x['Producto.descripcion'],
 				pu: x['Producto.Precios.pu'],
 				cantidad: x.cantidad,
-				origen: [],
+				ptosStockOrigen: [],
 			};
-			products[x.ProductoCodigo]['origen'].push({
+			products[x.ProductoCodigo]['ptosStockOrigen'].push({
 				PtoStockId: x.PtoStockId,
-				ptoStockDescripcion:
-					x.origen === 'Disponible' ? x['PtoStock.descripcion'] : 'Producción',
+				ptoStockDescripcion: x['PtoStock.descripcion'],
 				cantidad: x.cantidad,
 			});
 		});
@@ -80,8 +79,8 @@ const TablaCarrito = () => {
 				<TableBody>
 					{arrayCart.length !== 0 ? (
 						<>
-							{arrayCart.map((producto, i) => (
-								<FilaCarrito key={i} producto={producto} />
+							{arrayCart.map((product, i) => (
+								<FilaCarrito key={i} product={product} />
 							))}
 							<FilaCarrEnvio />
 						</>
