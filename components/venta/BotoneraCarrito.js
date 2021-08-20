@@ -1,17 +1,21 @@
 import React, { useContext, useEffect } from 'react';
-import Box from '@material-ui/core/Box';
-import BotonEnvio from './BotonEnvio';
-import BotonNota from '../BotonNota';
-import BotonVerMas from '../tablas/componentes/BotonVerMas';
-import BotonCliente from './BotonCliente';
-import VentasContext from '../../context/ventas/ventasContext';
-import BotonLimpiar from '../BotonLimpiar';
-import BotonSuccess from '../generales/botones/BotonSuccess';
-import AlertaContext from '../../context/alertas/alertaContext';
-import Alerta from '../Alerta';
-import BrushIcon from '@material-ui/icons/Brush';
-import IconButton from '@material-ui/core/IconButton';
 import { useRouter } from 'next/router';
+import VentasContext from '../../context/ventas/ventasContext';
+import AlertaContext from '../../context/alertas/alertaContext';
+import { BotoneraCarrContext } from '../../context/BotoneraCarrContext';
+import { IconButton, Box } from '@material-ui/core';
+import BotonSuccess from '../generales/botones/BotonSuccess';
+import BotonAccion from '../BotonAccion';
+import Alerta from '../Alerta';
+import {
+	LocalShipping,
+	PersonAdd,
+	Note,
+	NoteOutlined,
+	ArrowDropUp,
+	ArrowDropDown,
+	Brush,
+} from '@material-ui/icons';
 
 const BotoneraCarrito = () => {
 	const router = useRouter();
@@ -25,6 +29,14 @@ const BotoneraCarrito = () => {
 		handleCliente,
 		handleRemoveProductCart,
 	} = useContext(VentasContext);
+	const {
+		openVerMas,
+		openNota,
+		handleVerMas,
+		handleNota,
+		handleOpenCliente,
+		handleOpenEnvio,
+	} = useContext(BotoneraCarrContext);
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 
 	useEffect(() => {
@@ -34,6 +46,35 @@ const BotoneraCarrito = () => {
 			});
 		}
 	}, [ordenCreada]);
+
+	const onClickClean = () => {
+		handleEnvio({});
+		handleCliente(null);
+		carrito.forEach((x) => {
+			handleRemoveProductCart(x.ProductoCodigo);
+		});
+	};
+
+	const onClickSeeMore = () => {
+		handleVerMas();
+	};
+
+	const onClickSetNote = () => {
+		handleNota();
+	};
+
+	const onClickSetClient = () => {
+		handleOpenCliente();
+	};
+
+	const onClickSetShipping = () => {
+		if (cliente) {
+			handleOpenEnvio();
+		} else {
+			// alerta
+			mostrarAlerta('Por favor, elegir primero un cliente', 'warning');
+		}
+	};
 
 	const onClickConfirmarOrden = () => {
 		if (!cliente) {
@@ -49,26 +90,26 @@ const BotoneraCarrito = () => {
 		crearOrden();
 	};
 
-	const onClickClean = () => {
-		handleEnvio({});
-		handleCliente(null);
-		carrito.forEach((x) => {
-			handleRemoveProductCart(x.ProductoCodigo);
-		});
-	};
-
 	return (
 		<Box display="flex" bgcolor="background.paper">
 			<Box flexGrow={1}>
-				<IconButton aria-label="Agregar Nota" onClick={onClickClean}>
-					<BrushIcon color="error" />
+				<IconButton onClick={onClickClean}>
+					<Brush color="error" />
 				</IconButton>
 			</Box>
 			<Box>
-				<BotonVerMas />
-				<BotonNota />
-				<BotonCliente />
-				<BotonEnvio />
+				<IconButton size="medium" onClick={onClickSeeMore}>
+					{!openVerMas ? <ArrowDropDown /> : <ArrowDropUp />}
+				</IconButton>
+				<IconButton onClick={onClickSetNote}>
+					{!openNota ? <NoteOutlined /> : <Note />}
+				</IconButton>
+				<BotonAccion onClick={onClickSetClient}>
+					<PersonAdd />
+				</BotonAccion>
+				<BotonAccion onClick={onClickSetShipping}>
+					<LocalShipping />
+				</BotonAccion>
 				<BotonSuccess
 					type="button"
 					contenido="Confirmar Orden"

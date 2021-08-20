@@ -192,12 +192,6 @@ const VentasState = (props) => {
 		});
 	};
 
-	const limpiarCarrito = () => {
-		dispatch({
-			type: LIMPIAR_CARRITO,
-		});
-	};
-
 	const handleModo = (val) => {
 		dispatch({
 			type: MODO_CARGA_VENTA,
@@ -549,7 +543,6 @@ const VentasState = (props) => {
 				handlePtosStock,
 				handlePriceCart,
 				traerProductos,
-				limpiarCarrito,
 				handleModo,
 				handleCliente,
 				handleEnvio,
