@@ -9,6 +9,7 @@ import {
 	CARRITO_MODIFICAR_CANTIDAD,
 	CARRITO_MODIFICAR_PRECIO,
 	CARRITO_AGREGAR_PRODUCTOS,
+	CARRITO_RESTAURAR_PRODUCTOS,
 	STOCK_MODIFICAR_CANTIDAD,
 	LIMPIAR_CARRITO,
 	MODO_CARGA_VENTA,
@@ -69,7 +70,11 @@ const VentasReducer = (state, action) => {
 				...state,
 				carrito: [...state.carrito, action.payload],
 			};
-
+		case CARRITO_RESTAURAR_PRODUCTOS:
+			return {
+				...state,
+				carrito: action.payload,
+			};
 		case STOCK_MODIFICAR_CANTIDAD:
 			return {
 				...state,

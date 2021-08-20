@@ -32,7 +32,13 @@ const TablaCarrito = () => {
 
 	const [arrayCart, setArrayCart] = useState([]);
 
-	const { carrito } = useContext(VentasContext);
+	const { carrito, restoreCart } = useContext(VentasContext);
+
+	useEffect(() => {
+		if (localStorage.getItem('carrito')) {
+			restoreCart(JSON.parse(localStorage.getItem('carrito')));
+		}
+	}, []);
 
 	useEffect(() => {
 		showCart(carrito);

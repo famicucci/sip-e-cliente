@@ -15,6 +15,7 @@ import {
 	CARRITO_MODIFICAR_CANTIDAD,
 	CARRITO_MODIFICAR_PRECIO,
 	CARRITO_AGREGAR_PRODUCTOS,
+	CARRITO_RESTAURAR_PRODUCTOS,
 	STOCK_MODIFICAR_CANTIDAD,
 	LIMPIAR_CARRITO,
 	MODO_CARGA_VENTA,
@@ -144,6 +145,25 @@ const VentasState = (props) => {
 					qty: -product.cantidad,
 				},
 			});
+	};
+
+	const restoreCart = (cart) => {
+		dispatch({
+			type: CARRITO_RESTAURAR_PRODUCTOS,
+			payload: cart,
+		});
+
+		cart.forEach((x) => {
+			if (x.PtoStockId !== 0)
+				dispatch({
+					type: STOCK_MODIFICAR_CANTIDAD,
+					payload: {
+						ProductoCodigo: x.ProductoCodigo,
+						PtoStockId: x.PtoStockId,
+						qty: -x.cantidad,
+					},
+				});
+		});
 	};
 
 	const handleRemoveProductCart = (code) => {
@@ -526,6 +546,7 @@ const VentasState = (props) => {
 				handleListaPrecio,
 				handleValorRadio,
 				handleCarrito,
+				restoreCart,
 				handleRemoveProductCart,
 				handlePtosStock,
 				handlePriceCart,
