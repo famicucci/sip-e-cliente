@@ -61,7 +61,10 @@ const VentasReducer = (state, action) => {
 				valorRadio: action.payload,
 			};
 		case CARRITO_AGREGAR_PRODUCTO:
-			// localStorage.setItem('carrito', JSON.stringify(r.carr));
+			localStorage.setItem(
+				'carrito',
+				JSON.stringify([...state.carrito, action.payload])
+			);
 			return {
 				...state,
 				carrito: [...state.carrito, action.payload],
@@ -78,7 +81,12 @@ const VentasReducer = (state, action) => {
 				),
 			};
 		case CARRITO_QUITAR_PRODUCTO:
-			// localStorage.setItem('carrito', JSON.stringify(resultado.carr));
+			localStorage.setItem(
+				'carrito',
+				JSON.stringify(
+					state.carrito.filter((x) => x.ProductoCodigo !== action.payload)
+				)
+			);
 			return {
 				...state,
 				carrito: state.carrito.filter(
@@ -99,7 +107,17 @@ const VentasReducer = (state, action) => {
 				carrito: r.carr,
 			};
 		case CARRITO_MODIFICAR_CANTIDAD:
-			// localStorage.setItem('carrito', JSON.stringify(r.carrMod));
+			localStorage.setItem(
+				'carrito',
+				JSON.stringify(
+					state.carrito.map((x) =>
+						x.ProductoCodigo === action.payload.ProductoCodigo &&
+						x.PtoStockId === action.payload.PtoStockId
+							? action.payload
+							: x
+					)
+				)
+			);
 			return {
 				...state,
 				carrito: state.carrito.map((x) =>
@@ -110,6 +128,16 @@ const VentasReducer = (state, action) => {
 				),
 			};
 		case CARRITO_MODIFICAR_PRECIO:
+			localStorage.setItem(
+				'carrito',
+				JSON.stringify(
+					state.carrito.map((x) =>
+						x.ProductoCodigo === action.payload.code
+							? { ...x, ['Producto.Precios.pu']: action.payload.price }
+							: x
+					)
+				)
+			);
 			return {
 				...state,
 				carrito: state.carrito.map((x) =>
