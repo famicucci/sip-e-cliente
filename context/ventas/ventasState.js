@@ -172,10 +172,8 @@ const VentasState = (props) => {
 			payload: code,
 		});
 
-		const product = state.carrito.filter((x) => x.ProductoCodigo === code);
-
-		product.forEach((x) => {
-			if (x.PtoStockId !== 0)
+		state.carrito.forEach((x) => {
+			if (x.ProductoCodigo === code && x.PtoStockId !== 0)
 				dispatch({
 					type: STOCK_MODIFICAR_CANTIDAD,
 					payload: {

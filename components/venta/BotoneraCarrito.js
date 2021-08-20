@@ -9,6 +9,8 @@ import BotonLimpiar from '../BotonLimpiar';
 import BotonSuccess from '../generales/botones/BotonSuccess';
 import AlertaContext from '../../context/alertas/alertaContext';
 import Alerta from '../Alerta';
+import BrushIcon from '@material-ui/icons/Brush';
+import IconButton from '@material-ui/core/IconButton';
 import { useRouter } from 'next/router';
 
 const BotoneraCarrito = () => {
@@ -17,12 +19,21 @@ const BotoneraCarrito = () => {
 	const {
 		carrito,
 		cliente,
-		handleEnvio,
-		handleCliente,
 		crearOrden,
 		ordenCreada,
+		handleEnvio,
+		handleCliente,
+		handleRemoveProductCart,
 	} = useContext(VentasContext);
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
+
+	useEffect(() => {
+		if (ordenCreada) {
+			router.push({
+				pathname: '/ventas/consultar',
+			});
+		}
+	}, [ordenCreada]);
 
 	const onClickConfirmarOrden = () => {
 		if (!cliente) {
@@ -38,23 +49,20 @@ const BotoneraCarrito = () => {
 		crearOrden();
 	};
 
-	useEffect(() => {
-		if (ordenCreada) {
-			router.push({
-				pathname: '/ventas/consultar',
-			});
-		}
-	}, [ordenCreada]);
+	const onClickClean = () => {
+		handleEnvio({});
+		handleCliente(null);
+		carrito.forEach((x) => {
+			handleRemoveProductCart(x.ProductoCodigo);
+		});
+	};
 
 	return (
 		<Box display="flex" bgcolor="background.paper">
 			<Box flexGrow={1}>
-				<BotonLimpiar
-					onClick={() => {
-						handleEnvio({});
-						handleCliente(null);
-					}}
-				/>
+				<IconButton aria-label="Agregar Nota" onClick={onClickClean}>
+					<BrushIcon color="error" />
+				</IconButton>
 			</Box>
 			<Box>
 				<BotonVerMas />
