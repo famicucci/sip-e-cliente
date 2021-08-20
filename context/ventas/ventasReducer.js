@@ -11,7 +11,6 @@ import {
 	CARRITO_AGREGAR_PRODUCTOS,
 	CARRITO_RESTAURAR_PRODUCTOS,
 	STOCK_MODIFICAR_CANTIDAD,
-	LIMPIAR_CARRITO,
 	MODO_CARGA_VENTA,
 	AGREGAR_CLIENTE,
 	AGREGAR_ENVIO,
@@ -31,7 +30,6 @@ import {
 	OCULTAR_ALERTA_VENTAS,
 	ACTIVAR_ORDEN,
 } from '../../types';
-import { limpiarCarr } from '../../functions/ventas.js';
 import { modEstadoOrden } from '../../functions/editarordenes';
 
 const VentasReducer = (state, action) => {
@@ -97,19 +95,6 @@ const VentasReducer = (state, action) => {
 				carrito: state.carrito.filter(
 					(x) => x.ProductoCodigo !== action.payload
 				),
-			};
-		case LIMPIAR_CARRITO:
-			r = limpiarCarr(
-				state.carrito,
-				state.preciosPtoStock,
-				state.preciosStockTotal
-			);
-			localStorage.setItem('carrito', JSON.stringify(r.carr));
-			return {
-				...state,
-				preciosPtoStock: r.arrayPtoStock,
-				preciosStockTotal: r.arrayStockTot,
-				carrito: r.carr,
 			};
 		case CARRITO_MODIFICAR_CANTIDAD:
 			localStorage.setItem(

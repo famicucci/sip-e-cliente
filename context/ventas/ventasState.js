@@ -17,7 +17,6 @@ import {
 	CARRITO_AGREGAR_PRODUCTOS,
 	CARRITO_RESTAURAR_PRODUCTOS,
 	STOCK_MODIFICAR_CANTIDAD,
-	LIMPIAR_CARRITO,
 	MODO_CARGA_VENTA,
 	AGREGAR_CLIENTE,
 	AGREGAR_ENVIO,
@@ -40,7 +39,6 @@ import {
 const VentasState = (props) => {
 	const initialState = {
 		preciosPtoStock: [],
-		preciosStockTotal: [],
 		ordenCreada: null,
 		ptoStock: { descripcion: 'Showroom', id: 1 },
 		ptoVenta: null,
@@ -51,7 +49,6 @@ const VentasState = (props) => {
 		listaPrecio: { descripcion: 'Lista Minorista', id: 1 },
 		valorRadio: 'pto-stock',
 		carrito: [],
-		productoActivoCarrito: {},
 		ptosStock: null,
 		ptosVenta: [],
 		tiposEnvio: null,
@@ -70,14 +67,7 @@ const VentasState = (props) => {
 	const traerProductos = async (bus) => {
 		try {
 			let ptoStock = await clienteAxios.get('/api/ventas/pto-stock/');
-			// let stockTotal = await clienteAxios.get('/api/ventas/total/');
-			// console.log(stockTotal);
-			// console.log(ptoStock);
 
-			// dispatch({
-			// 	type: PRODUCTOS_VENTAS,
-			// 	payload: { ptoStock, bus },
-			// });
 			dispatch({
 				type: PRODUCTOS_VENTAS,
 				payload: ptoStock.data,
@@ -512,7 +502,6 @@ const VentasState = (props) => {
 		<VentasContext.Provider
 			value={{
 				preciosPtoStock: state.preciosPtoStock,
-				preciosStockTotal: state.preciosStockTotal,
 				ordenes: state.ordenes,
 				ordenCreada: state.ordenCreada,
 				ptoStock: state.ptoStock,
