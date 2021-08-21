@@ -10,7 +10,7 @@ const BotoneraCarrProvider = (props) => {
 	const [openModalAgregarEnvioCarrito, setOpenModalAgregarEnvioCarrito] =
 		useState(false);
 
-	const handleNota = () => {
+	const handleOpenNota = () => {
 		if (openVerMas) {
 			setOpenVerMas(false);
 		}
@@ -44,7 +44,7 @@ const BotoneraCarrProvider = (props) => {
 				openVerMas,
 				openModalCliente,
 				openModalAgregarEnvioCarrito,
-				handleNota,
+				handleOpenNota,
 				handleVerMas,
 				handleOpenCliente,
 				handleOpenEnvio,

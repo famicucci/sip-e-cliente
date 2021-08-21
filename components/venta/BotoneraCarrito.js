@@ -33,7 +33,7 @@ const BotoneraCarrito = () => {
 		openVerMas,
 		openNota,
 		handleVerMas,
-		handleNota,
+		handleOpenNota,
 		handleOpenCliente,
 		handleOpenEnvio,
 	} = useContext(BotoneraCarrContext);
@@ -60,7 +60,7 @@ const BotoneraCarrito = () => {
 	};
 
 	const onClickSetNote = () => {
-		handleNota();
+		handleOpenNota();
 	};
 
 	const onClickSetClient = () => {

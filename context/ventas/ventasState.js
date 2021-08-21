@@ -195,18 +195,28 @@ const VentasState = (props) => {
 		});
 	};
 
-	const handleCliente = (obj) => {
-		dispatch({
-			type: AGREGAR_CLIENTE,
-			payload: obj,
-		});
+	const handleCliente = (client) => {
+		if (client)
+			dispatch({
+				type: AGREGAR_CLIENTE,
+				payload: client,
+			});
+		else
+			dispatch({
+				type: ELIMINAR_CLIENTE,
+			});
 	};
 
-	const handleEnvio = (obj) => {
-		dispatch({
-			type: AGREGAR_ENVIO,
-			payload: obj,
-		});
+	const handleEnvio = (shipping) => {
+		if (Object.keys(shipping).length !== 0)
+			dispatch({
+				type: AGREGAR_ENVIO,
+				payload: shipping,
+			});
+		else
+			dispatch({
+				type: ELIMINAR_ENVIO,
+			});
 	};
 
 	const crearOrden = async () => {
@@ -288,11 +298,16 @@ const VentasState = (props) => {
 		}
 	};
 
-	const handleInputNota = (val) => {
-		dispatch({
-			type: AGREGAR_NOTA,
-			payload: val,
-		});
+	const handleNota = (note) => {
+		if (note)
+			dispatch({
+				type: AGREGAR_NOTA,
+				payload: note,
+			});
+		else
+			dispatch({
+				type: ELIMINAR_NOTA,
+			});
 	};
 
 	const handleInputOrdenEcommerce = (val) => {
@@ -533,7 +548,7 @@ const VentasState = (props) => {
 				handleCliente,
 				handleEnvio,
 				crearOrden,
-				handleInputNota,
+				handleNota,
 				handleInputOrdenEcommerce,
 				traerTiposEnvio,
 				traerPtosVenta,

@@ -12,7 +12,7 @@ const Nuevo = () => {
 	const {
 		handleEnvio,
 		handleCliente,
-		handleInputNota,
+		handleNota,
 		handleInputOrdenEcommerce,
 		handlePtoVenta,
 	} = useContext(VentasContext);
@@ -39,7 +39,7 @@ const Nuevo = () => {
 			handleEnvio
 		);
 		getInitialValueOfSale('cliente', null, handleCliente);
-		getInitialValueOfSale('nota', '', handleInputNota);
+		getInitialValueOfSale('nota', '', handleNota);
 		getInitialValueOfSale('ordenEcommerce', '', handleInputOrdenEcommerce);
 		getInitialValueOfSale('ptoVenta', 1, handlePtoVenta);
 	}, []);

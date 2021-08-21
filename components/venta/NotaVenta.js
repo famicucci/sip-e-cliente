@@ -6,10 +6,10 @@ import VentasContext from '../../context/ventas/ventasContext';
 
 const NotaVenta = () => {
 	const { openNota } = useContext(BotoneraCarrContext);
-	const { nota, handleInputNota } = useContext(VentasContext);
+	const { nota, handleNota } = useContext(VentasContext);
 
 	const onChange = (e) => {
-		handleInputNota(e.target.value);
+		handleNota(e.target.value);
 	};
 
 	return (
