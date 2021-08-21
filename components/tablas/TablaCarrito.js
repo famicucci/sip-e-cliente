@@ -88,7 +88,6 @@ const TablaCarrito = () => {
 							{arrayCart.map((product, i) => (
 								<FilaCarrito key={i} product={product} />
 							))}
-							<FilaCarrEnvio />
 						</>
 					) : (
 						<BodyVacio
@@ -96,6 +95,7 @@ const TablaCarrito = () => {
 							columnas={columnas}
 						/>
 					)}
+					<FilaCarrEnvio />
 				</TableBody>
 			</Table>
 		</TableContainer>

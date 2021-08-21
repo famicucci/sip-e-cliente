@@ -2,8 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-// import BotonVerMasCarrito from '../tablas/componentes/BotonVerMasCarrito';
-// import CollapseTablaCarrito from './CollapseTablaCarrito';
 import VentasContext from '../../context/ventas/ventasContext';
 import BotonFilaTabla from '../tablas/componentes/BotonFilaTabla';
 import ClearIcon from '@material-ui/icons/Clear';
@@ -13,28 +11,38 @@ const useStyles = makeStyles({
 		fontSize: 12,
 		fontWeight: 'bold',
 	},
+	description: { wordWrap: 'break-word', maxWidth: '250px' },
 });
 
 const FilaCarrEnvio = () => {
 	const classes = useStyles();
 
-	const { envio, tiposEnvio, handleEnvio } = useContext(VentasContext);
+	const { envio, tiposEnvio, handleEnvio, traerTiposEnvio } =
+		useContext(VentasContext);
+
+	const [description, setDescription] = useState(null);
+
+	useEffect(async () => {
+		if (!tiposEnvio) await traerTiposEnvio();
+	}, []);
+
+	useEffect(() => {
+		if (tiposEnvio) {
+			const r = tiposEnvio.find((x) => x.id === envio.tipo);
+			if (r) setDescription(r.descripcion);
+		}
+	}, [tiposEnvio]);
 
 	if (Object.keys(envio).length === 0) return null;
 	if (envio.costo === 0 && envio.tipo === 1) return null;
-
-	const tipoEnvio = (id, arrayTiposEnvio) => {
-		const r = arrayTiposEnvio.find((x) => x.id === id);
-		return r.descripcion;
-	};
 
 	return (
 		<>
 			<TableRow hover role="checkbox" tabIndex={-1}>
 				<TableCell align="center">1</TableCell>
-				<TableCell style={{ wordWrap: 'break-word', maxWidth: '250px' }}>
+				<TableCell className={classes.description}>
 					<p className={classes.negrita}>Envío</p>
-					<p>{`${tipoEnvio(envio.tipo, tiposEnvio)}`}</p>
+					<p>{description}</p>
 				</TableCell>
 				<TableCell align="center">
 					{parseFloat(envio.costo).toFixed(2)}
@@ -44,9 +52,7 @@ const FilaCarrEnvio = () => {
 				</TableCell>
 				<TableCell align="center">
 					<BotonFilaTabla
-						contenido={
-							<ClearIcon fontSize="default" color="error" fontSize="small" />
-						}
+						contenido={<ClearIcon color="error" fontSize="small" />}
 						onClick={() => {
 							handleEnvio({});
 						}}

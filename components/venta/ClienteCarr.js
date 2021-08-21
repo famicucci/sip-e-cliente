@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 const ClienteCarr = () => {
 	const classes = useStyles();
 
-	const { cliente, handleCliente } = useContext(VentasContext);
+	const { cliente, handleCliente, handleEnvio } = useContext(VentasContext);
 
 	let open;
 	if (cliente) {
@@ -43,6 +43,7 @@ const ClienteCarr = () => {
 								contenido={<ClearIcon fontSize="small" />}
 								onClick={() => {
 									handleCliente(null);
+									handleEnvio({});
 								}}
 							/>
 						</Box>

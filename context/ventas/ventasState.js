@@ -213,39 +213,49 @@ const VentasState = (props) => {
 			direccionEnvio = state.envio.input;
 		}
 
+		console.log(state.carrito);
+		const detalleOrden = state.carrito.map((x) => ({
+			cantidad: x.cantidad,
+			pu: x['Producto.Precios.pu'],
+			origen: x.origen,
+			ProductoCodigo: x.ProductoCodigo,
+			PtoStockId: x.PtoStockId,
+		}));
+		console.log(detalleOrden);
+		return;
 		// procesar los productos del carrito
-		let detalleOrden = [];
-		let OrdenEstadoId = 2;
-		for (let i = 0; i < state.carrito.length; i++) {
-			const a = state.carrito[i];
-			const codigo = a.codigo;
-			const pu = a.pu;
-			for (let k = 0; k < a.origen.length; k++) {
-				const b = a.origen[k];
-				let ptoStockId = b.ptoStockId;
-				const cantidad = b.cantidad;
+		// let detalleOrden = [];
+		// let OrdenEstadoId = 2;
+		// for (let i = 0; i < state.carrito.length; i++) {
+		// 	const a = state.carrito[i];
+		// 	const codigo = a.codigo;
+		// 	const pu = a.pu;
+		// 	for (let k = 0; k < a.origen.length; k++) {
+		// 		const b = a.origen[k];
+		// 		let ptoStockId = b.ptoStockId;
+		// 		const cantidad = b.cantidad;
 
-				let origen;
-				if (ptoStockId === 0) {
-					ptoStockId = null;
-					origen = 'Producción';
-					if (cantidad !== 0) {
-						OrdenEstadoId = 1;
-					}
-				} else {
-					origen = 'Disponible';
-				}
+		// 		let origen;
+		// 		if (ptoStockId === 0) {
+		// 			ptoStockId = null;
+		// 			origen = 'Producción';
+		// 			if (cantidad !== 0) {
+		// 				OrdenEstadoId = 1;
+		// 			}
+		// 		} else {
+		// 			origen = 'Disponible';
+		// 		}
 
-				const obj = {
-					cantidad: cantidad,
-					pu: pu,
-					origen: origen,
-					ProductoCodigo: codigo,
-					PtoStockId: ptoStockId,
-				};
-				detalleOrden.push(obj);
-			}
-		}
+		// 		const obj = {
+		// 			cantidad: cantidad,
+		// 			pu: pu,
+		// 			origen: origen,
+		// 			ProductoCodigo: codigo,
+		// 			PtoStockId: ptoStockId,
+		// 		};
+		// 		detalleOrden.push(obj);
+		// 	}
+		// }
 
 		// validar los campos null
 		// conectar con la bd y crear la orden
