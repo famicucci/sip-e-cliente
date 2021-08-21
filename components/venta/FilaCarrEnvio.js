@@ -54,7 +54,13 @@ const FilaCarrEnvio = () => {
 					<BotonFilaTabla
 						contenido={<ClearIcon color="error" fontSize="small" />}
 						onClick={() => {
-							handleEnvio({});
+							handleEnvio({
+								modoDirecc: 'input',
+								input: '',
+								select: null,
+								tipo: 1,
+								costo: 0,
+							});
 						}}
 					/>
 				</TableCell>

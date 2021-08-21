@@ -208,15 +208,10 @@ const VentasState = (props) => {
 	};
 
 	const handleEnvio = (shipping) => {
-		if (Object.keys(shipping).length !== 0)
-			dispatch({
-				type: AGREGAR_ENVIO,
-				payload: shipping,
-			});
-		else
-			dispatch({
-				type: ELIMINAR_ENVIO,
-			});
+		dispatch({
+			type: AGREGAR_ENVIO,
+			payload: shipping,
+		});
 	};
 
 	const crearOrden = async () => {

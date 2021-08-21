@@ -43,7 +43,13 @@ const ClienteCarr = () => {
 								contenido={<ClearIcon fontSize="small" />}
 								onClick={() => {
 									handleCliente(null);
-									handleEnvio({});
+									handleEnvio({
+										modoDirecc: 'input',
+										input: '',
+										select: null,
+										tipo: 1,
+										costo: 0,
+									});
 								}}
 							/>
 						</Box>
