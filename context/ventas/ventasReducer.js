@@ -10,16 +10,21 @@ import {
 	CARRITO_MODIFICAR_PRECIO,
 	CARRITO_AGREGAR_PRODUCTOS,
 	CARRITO_RESTAURAR_PRODUCTOS,
+	CARRITO_ELIMINAR,
 	STOCK_MODIFICAR_CANTIDAD,
 	MODO_CARGA_VENTA,
 	AGREGAR_CLIENTE,
+	ELIMINAR_CLIENTE,
 	AGREGAR_ENVIO,
-	LIMPIAR_CLIENTE,
+	ELIMINAR_ENVIO,
 	AGREGAR_NOTA,
+	ELIMINAR_NOTA,
 	AGREGAR_ORDEN_ECOMMERCE,
+	ELIMINAR_ORDEN_ECOMMERCE,
 	PTOS_VENTA,
 	TIPOS_ENVIO,
 	PTO_VENTA,
+	ELIMINAR_PTO_VENTA,
 	TRAER_ESTADOS_ORDEN,
 	MODIFICAR_ESTADO_ORDEN,
 	AGREGAR_ORDEN_A_MODIFICAR,
@@ -72,6 +77,12 @@ const VentasReducer = (state, action) => {
 			return {
 				...state,
 				carrito: action.payload,
+			};
+		case CARRITO_ELIMINAR:
+			localStorage.removeItem('carrito');
+			return {
+				...state,
+				carrito: [],
 			};
 		case STOCK_MODIFICAR_CANTIDAD:
 			return {
@@ -150,29 +161,52 @@ const VentasReducer = (state, action) => {
 				modo: action.payload,
 			};
 		case AGREGAR_CLIENTE:
+			localStorage.setItem('cliente', JSON.stringify(action.payload));
 			return {
 				...state,
 				cliente: action.payload,
 			};
-		case AGREGAR_ENVIO:
-			return {
-				...state,
-				envio: action.payload,
-			};
-		case LIMPIAR_CLIENTE:
+		case ELIMINAR_CLIENTE:
+			localStorage.removeItem('cliente');
 			return {
 				...state,
 				cliente: null,
 			};
+		case AGREGAR_ENVIO:
+			localStorage.setItem('envio', JSON.stringify(action.payload));
+			return {
+				...state,
+				envio: action.payload,
+			};
+		case ELIMINAR_ENVIO:
+			localStorage.removeItem('envio');
+			return {
+				...state,
+				envio: {},
+			};
 		case AGREGAR_NOTA:
+			localStorage.setItem('nota', JSON.stringify(action.payload));
 			return {
 				...state,
 				nota: action.payload,
 			};
+		case ELIMINAR_NOTA:
+			localStorage.removeItem('nota');
+			return {
+				...state,
+				nota: null,
+			};
 		case AGREGAR_ORDEN_ECOMMERCE:
+			localStorage.setItem('ordenEcommerce', JSON.stringify(action.payload));
 			return {
 				...state,
 				ordenEcommerce: action.payload,
+			};
+		case ELIMINAR_ORDEN_ECOMMERCE:
+			localStorage.removeItem('ordenEcommerce');
+			return {
+				...state,
+				ordenEcommerce: null,
 			};
 		case PTOS_VENTA:
 			return {
@@ -180,9 +214,16 @@ const VentasReducer = (state, action) => {
 				ptosVenta: action.payload,
 			};
 		case PTO_VENTA:
+			localStorage.setItem('ptoVenta', JSON.stringify(action.payload));
 			return {
 				...state,
 				ptoVenta: action.payload,
+			};
+		case ELIMINAR_PTO_VENTA:
+			localStorage.removeItem('ptoVenta');
+			return {
+				...state,
+				ptoVenta: null,
 			};
 		case TIPOS_ENVIO:
 			return {

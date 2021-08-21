@@ -14,17 +14,23 @@ import {
 	CARRITO_QUITAR_PRODUCTO,
 	CARRITO_MODIFICAR_CANTIDAD,
 	CARRITO_MODIFICAR_PRECIO,
-	CARRITO_AGREGAR_PRODUCTOS,
-	CARRITO_RESTAURAR_PRODUCTOS,
+	CARRITO_AGREGAR_PRODUCTOS, // this
+	CARRITO_RESTAURAR_PRODUCTOS, // probably with this one
+	CARRITO_ELIMINAR,
 	STOCK_MODIFICAR_CANTIDAD,
 	MODO_CARGA_VENTA,
 	AGREGAR_CLIENTE,
+	ELIMINAR_CLIENTE,
 	AGREGAR_ENVIO,
+	ELIMINAR_ENVIO,
 	AGREGAR_NOTA,
+	ELIMINAR_NOTA,
 	AGREGAR_ORDEN_ECOMMERCE,
+	ELIMINAR_ORDEN_ECOMMERCE,
 	PTOS_VENTA,
 	TIPOS_ENVIO,
 	PTO_VENTA,
+	ELIMINAR_PTO_VENTA,
 	TRAER_ESTADOS_ORDEN,
 	MODIFICAR_ESTADO_ORDEN,
 	AGREGAR_ORDEN_A_MODIFICAR,
@@ -190,7 +196,6 @@ const VentasState = (props) => {
 	};
 
 	const handleCliente = (obj) => {
-		localStorage.setItem('cliente', JSON.stringify(obj));
 		dispatch({
 			type: AGREGAR_CLIENTE,
 			payload: obj,
@@ -198,7 +203,6 @@ const VentasState = (props) => {
 	};
 
 	const handleEnvio = (obj) => {
-		localStorage.setItem('envio', JSON.stringify(obj));
 		dispatch({
 			type: AGREGAR_ENVIO,
 			payload: obj,
@@ -213,52 +217,21 @@ const VentasState = (props) => {
 			direccionEnvio = state.envio.input;
 		}
 
-		console.log(state.carrito);
-		const detalleOrden = state.carrito.map((x) => ({
-			cantidad: x.cantidad,
-			pu: x['Producto.Precios.pu'],
-			origen: x.origen,
-			ProductoCodigo: x.ProductoCodigo,
-			PtoStockId: x.PtoStockId,
-		}));
-		console.log(detalleOrden);
-		return;
-		// procesar los productos del carrito
-		// let detalleOrden = [];
-		// let OrdenEstadoId = 2;
-		// for (let i = 0; i < state.carrito.length; i++) {
-		// 	const a = state.carrito[i];
-		// 	const codigo = a.codigo;
-		// 	const pu = a.pu;
-		// 	for (let k = 0; k < a.origen.length; k++) {
-		// 		const b = a.origen[k];
-		// 		let ptoStockId = b.ptoStockId;
-		// 		const cantidad = b.cantidad;
+		let OrdenEstadoId = 2;
+		const detalleOrden = state.carrito.map((x) => {
+			const productToProduction = x.PtoStockId === 0;
 
-		// 		let origen;
-		// 		if (ptoStockId === 0) {
-		// 			ptoStockId = null;
-		// 			origen = 'Producción';
-		// 			if (cantidad !== 0) {
-		// 				OrdenEstadoId = 1;
-		// 			}
-		// 		} else {
-		// 			origen = 'Disponible';
-		// 		}
+			if (productToProduction) OrdenEstadoId = 1;
 
-		// 		const obj = {
-		// 			cantidad: cantidad,
-		// 			pu: pu,
-		// 			origen: origen,
-		// 			ProductoCodigo: codigo,
-		// 			PtoStockId: ptoStockId,
-		// 		};
-		// 		detalleOrden.push(obj);
-		// 	}
-		// }
+			return {
+				cantidad: x.cantidad,
+				pu: x['Producto.Precios.pu'],
+				origen: x.origen,
+				ProductoCodigo: x.ProductoCodigo,
+				PtoStockId: productToProduction ? null : x.PtoStockId,
+			};
+		});
 
-		// validar los campos null
-		// conectar con la bd y crear la orden
 		const paraCrearOrden = {
 			observaciones: state.nota,
 			direccionEnvio: direccionEnvio,
@@ -284,12 +257,29 @@ const VentasState = (props) => {
 					payload: createdOrder.data,
 				});
 
-				localStorage.removeItem('carrito');
-				localStorage.removeItem('envio');
-				localStorage.removeItem('cliente');
-				localStorage.removeItem('nota');
-				localStorage.removeItem('ordenEcommerce');
-				localStorage.removeItem('ptoVenta');
+				dispatch({
+					type: CARRITO_ELIMINAR,
+				});
+
+				dispatch({
+					type: ELIMINAR_ENVIO,
+				});
+
+				dispatch({
+					type: ELIMINAR_CLIENTE,
+				});
+
+				dispatch({
+					type: ELIMINAR_NOTA,
+				});
+
+				dispatch({
+					type: ELIMINAR_ORDEN_ECOMMERCE,
+				});
+
+				dispatch({
+					type: ELIMINAR_PTO_VENTA,
+				});
 			} catch (error) {
 				mostrarAlertaVentas('Hubo un error', 'error');
 			}
@@ -299,7 +289,6 @@ const VentasState = (props) => {
 	};
 
 	const handleInputNota = (val) => {
-		localStorage.setItem('nota', JSON.stringify(val));
 		dispatch({
 			type: AGREGAR_NOTA,
 			payload: val,
@@ -307,7 +296,6 @@ const VentasState = (props) => {
 	};
 
 	const handleInputOrdenEcommerce = (val) => {
-		localStorage.setItem('ordenEcommerce', JSON.stringify(val));
 		dispatch({
 			type: AGREGAR_ORDEN_ECOMMERCE,
 			payload: val,
@@ -349,7 +337,6 @@ const VentasState = (props) => {
 	};
 
 	const handlePtoVenta = (opt) => {
-		localStorage.setItem('ptoVenta', JSON.stringify(opt));
 		dispatch({
 			type: PTO_VENTA,
 			payload: opt,
