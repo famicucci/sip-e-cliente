@@ -47,10 +47,10 @@ const VentasState = (props) => {
 		preciosPtoStock: [],
 		ordenCreada: null,
 		ptoStock: { descripcion: 'Showroom', id: 1 },
-		ptoVenta: null,
+		ptoVenta: 1,
 		ordenEcommerce: null,
 		cliente: null,
-		envio: {},
+		envio: null,
 		nota: null,
 		listaPrecio: { descripcion: 'Lista Minorista', id: 1 },
 		valorRadio: 'pto-stock',
@@ -251,6 +251,7 @@ const VentasState = (props) => {
 
 		try {
 			let order = await clienteAxios.post('/api/ordenes/', paraCrearOrden);
+			console.log(order);
 
 			try {
 				const createdOrder = await clienteAxios.get(

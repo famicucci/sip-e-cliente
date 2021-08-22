@@ -20,28 +20,18 @@ const Nuevo = () => {
 	useEffect(() => {
 		usuarioAutenticado();
 
-		const getInitialValueOfSale = (key, initialValue, callback) => {
+		const getInitialValueOfSale = (key, callback) => {
 			if (localStorage.getItem(key)) {
-				initialValue = JSON.parse(localStorage.getItem(key));
+				const initialValue = JSON.parse(localStorage.getItem(key));
+				callback(initialValue);
 			}
-			callback(initialValue);
 		};
 
-		getInitialValueOfSale(
-			'envio',
-			{
-				modoDirecc: 'input',
-				input: '',
-				select: null,
-				tipo: 1,
-				costo: 0,
-			},
-			handleEnvio
-		);
-		getInitialValueOfSale('cliente', null, handleCliente);
-		getInitialValueOfSale('nota', '', handleNota);
-		getInitialValueOfSale('ordenEcommerce', '', handleInputOrdenEcommerce);
-		getInitialValueOfSale('ptoVenta', 1, handlePtoVenta);
+		getInitialValueOfSale('envio', handleEnvio);
+		getInitialValueOfSale('cliente', handleCliente);
+		getInitialValueOfSale('nota', handleNota);
+		getInitialValueOfSale('ordenEcommerce', handleInputOrdenEcommerce);
+		getInitialValueOfSale('ptoVenta', handlePtoVenta);
 	}, []);
 
 	if (!autenticado && cargando) {

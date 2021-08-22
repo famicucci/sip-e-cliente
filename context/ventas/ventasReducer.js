@@ -182,7 +182,7 @@ const VentasReducer = (state, action) => {
 			localStorage.removeItem('envio');
 			return {
 				...state,
-				envio: {},
+				envio: null,
 			};
 		case AGREGAR_NOTA:
 			localStorage.setItem('nota', JSON.stringify(action.payload));
@@ -223,7 +223,7 @@ const VentasReducer = (state, action) => {
 			localStorage.removeItem('ptoVenta');
 			return {
 				...state,
-				ptoVenta: null,
+				ptoVenta: 1,
 			};
 		case TIPOS_ENVIO:
 			return {

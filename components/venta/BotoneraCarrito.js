@@ -22,6 +22,7 @@ const BotoneraCarrito = () => {
 
 	const {
 		carrito,
+		envio,
 		cliente,
 		crearOrden,
 		ordenCreada,
@@ -48,7 +49,7 @@ const BotoneraCarrito = () => {
 	}, [ordenCreada]);
 
 	const onClickClean = () => {
-		handleEnvio({});
+		handleEnvio(null);
 		handleCliente(null);
 		carrito.forEach((x) => {
 			handleRemoveProductCart(x.ProductoCodigo);
@@ -84,6 +85,11 @@ const BotoneraCarrito = () => {
 
 		if (carrito.length === 0) {
 			mostrarAlerta('La orden no tiene productos cargados', 'error');
+			return;
+		}
+
+		if (!envio) {
+			mostrarAlerta('Configure el modo de entrega', 'error');
 			return;
 		}
 

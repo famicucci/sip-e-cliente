@@ -22,17 +22,15 @@ const AgregarEnvioCarr = () => {
 	const { envio, tiposEnvio, cliente, handleEnvio } = useContext(VentasContext);
 
 	const getInitialEnvio = (envio) => {
-		const { modoDirecc, input, select, tipo, costo } = envio;
-		if (
-			modoDirecc === 'input' &&
-			input === '' &&
-			select === null &&
-			tipo === 1 &&
-			costo === 0
-		) {
-			envio.modoDirecc = 'select';
-		}
-		return envio;
+		if (!envio)
+			return {
+				modoDirecc: 'select',
+				input: '',
+				select: null,
+				tipo: 1,
+				costo: 0,
+			};
+		else return envio;
 	};
 
 	return (

@@ -27,13 +27,13 @@ const FilaCarrEnvio = () => {
 	}, []);
 
 	useEffect(() => {
-		if (tiposEnvio) {
+		if (tiposEnvio && envio) {
 			const r = tiposEnvio.find((x) => x.id === envio.tipo);
 			if (r) setDescription(r.descripcion);
 		}
 	}, [tiposEnvio]);
 
-	if (Object.keys(envio).length === 0) return null;
+	if (!envio) return null;
 	if (envio.costo === 0 && envio.tipo === 1) return null;
 
 	return (
@@ -54,13 +54,7 @@ const FilaCarrEnvio = () => {
 					<BotonFilaTabla
 						contenido={<ClearIcon color="error" fontSize="small" />}
 						onClick={() => {
-							handleEnvio({
-								modoDirecc: 'input',
-								input: '',
-								select: null,
-								tipo: 1,
-								costo: 0,
-							});
+							handleEnvio(null);
 						}}
 					/>
 				</TableCell>
