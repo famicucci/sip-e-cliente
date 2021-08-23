@@ -55,13 +55,12 @@ const VentasState = (props) => {
 		listaPrecio: { descripcion: 'Lista Minorista', id: 1 },
 		valorRadio: 'pto-stock',
 		carrito: [],
-		ptosStock: null,
-		ptosVenta: [],
-		tiposEnvio: null,
-		estadosOrden: [],
+		ptosStock: null, // global state?
+		ptosVenta: [], // global state?
+		tiposEnvio: null, // global state?
+		estadosOrden: [], // global state?
 		modo: 'manual',
 		orderToModify: null,
-		openModalDetalleOrden: false,
 		cargando: false,
 		mensaje: null,
 		mensajeVentas: null,
@@ -90,10 +89,12 @@ const VentasState = (props) => {
 		});
 	};
 
-	const handlePtosStock = (ptosStock) => {
+	const traerPtosStock = async () => {
+		const r = await clienteAxios.get(`/api/stock/ptos-stock`);
+
 		dispatch({
 			type: PTOS_STOCK_VENTAS,
-			payload: ptosStock,
+			payload: r.data,
 		});
 	};
 
@@ -498,14 +499,13 @@ const VentasState = (props) => {
 				tiposEnvio: state.tiposEnvio,
 				estadosOrden: state.estadosOrden,
 				cargando: state.cargando,
-				openModalDetalleOrden: state.openModalDetalleOrden,
+				ptosStock: state.ptosStock,
 				handlePtoStock,
 				handleListaPrecio,
 				handleValorRadio,
 				handleCarrito,
 				restoreCart,
 				handleRemoveProductCart,
-				handlePtosStock,
 				handlePriceCart,
 				traerProductos,
 				handleModo,
@@ -514,6 +514,7 @@ const VentasState = (props) => {
 				crearOrden,
 				handleNota,
 				handleInputOrdenEcommerce,
+				traerPtosStock,
 				traerTiposEnvio,
 				traerPtosVenta,
 				handlePtoVenta,

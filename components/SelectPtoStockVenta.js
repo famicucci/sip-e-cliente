@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import BarraHerramientasContext from '../context/barraHerramientas/barraHerramientasContext';
 import VentasContext from '../context/ventas/ventasContext';
 
 const useStyles = makeStyles((theme) => ({
@@ -20,18 +19,12 @@ const useStyles = makeStyles((theme) => ({
 const SelectPtoStockVenta = () => {
 	const classes = useStyles();
 
-	const { ptosStock, traerPtosStock } = useContext(BarraHerramientasContext);
-
-	const { ptoStock, valorRadio, handlePtoStock, handlePtosStock } =
+	const { ptosStock, ptoStock, valorRadio, handlePtoStock, traerPtosStock } =
 		useContext(VentasContext);
 
 	useEffect(() => {
 		traerPtosStock();
 	}, []);
-
-	useEffect(() => {
-		handlePtosStock(ptosStock);
-	}, [ptosStock]);
 
 	let props = {};
 	if (valorRadio !== 'pto-stock') {
@@ -41,7 +34,6 @@ const SelectPtoStockVenta = () => {
 	}
 
 	const handleChange = (e) => {
-		// buscar el pto de stock en el array ptos stock
 		const filaPtoStock = ptosStock.find((x) => x.id === e.target.value);
 		handlePtoStock(filaPtoStock);
 	};
@@ -57,9 +49,9 @@ const SelectPtoStockVenta = () => {
 				{...props}
 			>
 				{ptosStock
-					? ptosStock.map((ptoStock) => (
-							<MenuItem key={ptoStock.id} value={ptoStock.id}>
-								{ptoStock.descripcion}
+					? ptosStock.map((x) => (
+							<MenuItem key={x.id} value={x.id}>
+								{x.descripcion}
 							</MenuItem>
 					  ))
 					: null}
