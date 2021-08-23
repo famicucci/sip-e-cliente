@@ -437,51 +437,21 @@ const VentasState = (props) => {
 			payload: orden,
 		});
 
-		let initialArray = orden.detalleOrden;
+		const cart = orden.detalleOrden.map((x) => ({
+			cantidad: x.cantidad,
+			['Producto.Precios.pu']: x.pu,
+			origen: x.origen,
+			ProductoCodigo: x.ProductoCodigo,
+			PtoStockId: x.PtoStock.id,
+			['PtoStock.descripcion']: x.PtoStock.descripcion,
+			['Producto.descripcion']: x.Producto.descripcion,
+		}));
 
-		const initialArrayMod = initialArray.map((x) => {
-			const productCart = {
-				codigo: x.ProductoCodigo,
-				descripcion: x.Producto.descripcion,
-				pu: x.pu,
-				cantidad: x.cantidad,
-				origen: [
-					{
-						ptoStockId: x.PtoStock ? x.PtoStock.id : 0,
-						ptoStockDescripcion: x.PtoStock
-							? x.PtoStock.descripcion
-							: 'Producción',
-						cantidad: x.cantidad,
-					},
-				],
-			};
-
-			return productCart;
-		});
-
-		let arrayCart = [];
-
-		initialArrayMod.forEach((x) => {
-			let elementCart = arrayCart.find((k) => k.codigo === x.codigo);
-			if (!elementCart) {
-				arrayCart = [...arrayCart, x];
-			} else {
-				const origenElementCart = elementCart.origen;
-				const origenElementArrayMod = x.origen;
-
-				const newOrigen = [...origenElementCart, ...origenElementArrayMod];
-				elementCart = { ...elementCart, origen: newOrigen };
-				arrayCart = arrayCart.map((j) =>
-					j.codigo === elementCart.codigo ? elementCart : j
-				);
-			}
-		});
-
-		localStorage.setItem('carrito', JSON.stringify(arrayCart));
+		localStorage.setItem('carrito', JSON.stringify(cart));
 
 		dispatch({
-			type: CARRITO_AGREGAR_PRODUCTOS,
-			payload: arrayCart,
+			type: CARRITO_RESTAURAR_PRODUCTOS,
+			payload: cart,
 		});
 	};
 
