@@ -7,11 +7,20 @@ import VentasContext from '../../context/ventas/ventasContext';
 import AlertaContext from '../../context/alertas/alertaContext';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 
-const NuevaVenta = () => {
+const CreateOrEditOrder = () => {
 	const { handleHerrNuevaVenta, handleEtiquetaModificarOrden } = useContext(
 		BarraHerramientasContext
 	);
-	const { orderToModify, mensaje, getCart } = useContext(VentasContext);
+	const {
+		orderToModify,
+		mensaje,
+		restoreCart,
+		handleEnvio,
+		handleCliente,
+		handleNota,
+		handleInputOrdenEcommerce,
+		handlePtoVenta,
+	} = useContext(VentasContext);
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 
 	useEffect(() => {
@@ -19,6 +28,20 @@ const NuevaVenta = () => {
 
 		if (orderToModify) {
 			handleEtiquetaModificarOrden(true);
+		} else {
+			const getInitialValueOfSale = (key, callback) => {
+				if (localStorage.getItem(key)) {
+					const initialState = JSON.parse(localStorage.getItem(key));
+					callback(initialState);
+				}
+			};
+
+			getInitialValueOfSale('carrito', restoreCart);
+			getInitialValueOfSale('envio', handleEnvio);
+			getInitialValueOfSale('cliente', handleCliente);
+			getInitialValueOfSale('nota', handleNota);
+			getInitialValueOfSale('ordenEcommerce', handleInputOrdenEcommerce);
+			getInitialValueOfSale('ptoVenta', handlePtoVenta);
 		}
 	}, []);
 
@@ -44,4 +67,4 @@ const NuevaVenta = () => {
 	);
 };
 
-export default NuevaVenta;
+export default CreateOrEditOrder;

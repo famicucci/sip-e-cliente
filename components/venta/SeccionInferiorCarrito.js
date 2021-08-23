@@ -32,6 +32,10 @@ const SeccionInferiorCarrito = () => {
 	useEffect(() => {
 		// poner los tipos de envio al state ventas
 		traerTiposEnvio();
+
+		if (localStorage.getItem('orderToModify')) {
+			restoreCart(JSON.parse(localStorage.getItem('carrito')));
+		}
 	}, []);
 
 	return (

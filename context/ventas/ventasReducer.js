@@ -28,6 +28,7 @@ import {
 	TRAER_ESTADOS_ORDEN,
 	MODIFICAR_ESTADO_ORDEN,
 	AGREGAR_ORDEN_A_MODIFICAR,
+	ELIMINAR_ORDEN_A_MODIFICAR,
 	BORRAR_MENSAJE,
 	MODAL_DETALLE_ORDEN,
 	MODAL_CLOSE,
@@ -65,10 +66,11 @@ const VentasReducer = (state, action) => {
 				valorRadio: action.payload,
 			};
 		case CARRITO_AGREGAR_PRODUCTO:
-			localStorage.setItem(
-				'carrito',
-				JSON.stringify([...state.carrito, action.payload])
-			);
+			if (!state.orderToModify)
+				localStorage.setItem(
+					'carrito',
+					JSON.stringify([...state.carrito, action.payload])
+				);
 			return {
 				...state,
 				carrito: [...state.carrito, action.payload],
@@ -79,7 +81,7 @@ const VentasReducer = (state, action) => {
 				carrito: action.payload,
 			};
 		case CARRITO_ELIMINAR:
-			localStorage.removeItem('carrito');
+			if (!state.orderToModify) localStorage.removeItem('carrito');
 			return {
 				...state,
 				carrito: [],
@@ -95,12 +97,13 @@ const VentasReducer = (state, action) => {
 				),
 			};
 		case CARRITO_QUITAR_PRODUCTO:
-			localStorage.setItem(
-				'carrito',
-				JSON.stringify(
-					state.carrito.filter((x) => x.ProductoCodigo !== action.payload)
-				)
-			);
+			if (!state.orderToModify)
+				localStorage.setItem(
+					'carrito',
+					JSON.stringify(
+						state.carrito.filter((x) => x.ProductoCodigo !== action.payload)
+					)
+				);
 			return {
 				...state,
 				carrito: state.carrito.filter(
@@ -108,17 +111,18 @@ const VentasReducer = (state, action) => {
 				),
 			};
 		case CARRITO_MODIFICAR_CANTIDAD:
-			localStorage.setItem(
-				'carrito',
-				JSON.stringify(
-					state.carrito.map((x) =>
-						x.ProductoCodigo === action.payload.ProductoCodigo &&
-						x.PtoStockId === action.payload.PtoStockId
-							? action.payload
-							: x
+			if (!state.orderToModify)
+				localStorage.setItem(
+					'carrito',
+					JSON.stringify(
+						state.carrito.map((x) =>
+							x.ProductoCodigo === action.payload.ProductoCodigo &&
+							x.PtoStockId === action.payload.PtoStockId
+								? action.payload
+								: x
+						)
 					)
-				)
-			);
+				);
 			return {
 				...state,
 				carrito: state.carrito.map((x) =>
@@ -129,16 +133,17 @@ const VentasReducer = (state, action) => {
 				),
 			};
 		case CARRITO_MODIFICAR_PRECIO:
-			localStorage.setItem(
-				'carrito',
-				JSON.stringify(
-					state.carrito.map((x) =>
-						x.ProductoCodigo === action.payload.code
-							? { ...x, ['Producto.Precios.pu']: action.payload.price }
-							: x
+			if (!state.orderToModify)
+				localStorage.setItem(
+					'carrito',
+					JSON.stringify(
+						state.carrito.map((x) =>
+							x.ProductoCodigo === action.payload.code
+								? { ...x, ['Producto.Precios.pu']: action.payload.price }
+								: x
+						)
 					)
-				)
-			);
+				);
 			return {
 				...state,
 				carrito: state.carrito.map((x) =>
@@ -147,14 +152,6 @@ const VentasReducer = (state, action) => {
 						: x
 				),
 			};
-
-		case CARRITO_AGREGAR_PRODUCTOS:
-			console.log(action.payload);
-			return {
-				...state,
-				carrito: action.payload,
-			};
-
 		case MODO_CARGA_VENTA:
 			return {
 				...state,
@@ -256,6 +253,11 @@ const VentasReducer = (state, action) => {
 			return {
 				...state,
 				orderToModify: action.payload,
+			};
+		case ELIMINAR_ORDEN_A_MODIFICAR:
+			return {
+				...state,
+				orderToModify: null,
 			};
 		case BORRAR_MENSAJE:
 			return {

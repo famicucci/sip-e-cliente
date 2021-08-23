@@ -22,7 +22,9 @@ const EtiquetaModificarOrden = () => {
 	return (
 		<Typography className={classes.root} variant="overline">
 			Modificando Orden nº:
-			<span className={classes.negrita}>{orderToModify.id}</span>
+			<span className={classes.negrita}>
+				{orderToModify ? orderToModify : null}
+			</span>
 		</Typography>
 	);
 };

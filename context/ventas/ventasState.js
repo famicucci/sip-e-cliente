@@ -14,8 +14,7 @@ import {
 	CARRITO_QUITAR_PRODUCTO,
 	CARRITO_MODIFICAR_CANTIDAD,
 	CARRITO_MODIFICAR_PRECIO,
-	CARRITO_AGREGAR_PRODUCTOS, // this
-	CARRITO_RESTAURAR_PRODUCTOS, // probably with this one
+	CARRITO_RESTAURAR_PRODUCTOS,
 	CARRITO_ELIMINAR,
 	STOCK_MODIFICAR_CANTIDAD,
 	MODO_CARGA_VENTA,
@@ -34,6 +33,7 @@ import {
 	TRAER_ESTADOS_ORDEN,
 	MODIFICAR_ESTADO_ORDEN,
 	AGREGAR_ORDEN_A_MODIFICAR,
+	ELIMINAR_ORDEN_A_MODIFICAR,
 	BORRAR_MENSAJE,
 	MODAL_DETALLE_ORDEN,
 	MODAL_CLOSE,
@@ -431,33 +431,25 @@ const VentasState = (props) => {
 		});
 	};
 
-	const handleOrderToModify = (orden) => {
+	const handleOrderToModify = (idOrder, cartToEdit) => {
 		dispatch({
 			type: AGREGAR_ORDEN_A_MODIFICAR,
-			payload: orden,
+			payload: idOrder,
 		});
-
-		const cart = orden.detalleOrden.map((x) => ({
-			cantidad: x.cantidad,
-			['Producto.Precios.pu']: x.pu,
-			origen: x.origen,
-			ProductoCodigo: x.ProductoCodigo,
-			PtoStockId: x.PtoStock.id,
-			['PtoStock.descripcion']: x.PtoStock.descripcion,
-			['Producto.descripcion']: x.Producto.descripcion,
-		}));
-
-		localStorage.setItem('carrito', JSON.stringify(cart));
 
 		dispatch({
 			type: CARRITO_RESTAURAR_PRODUCTOS,
-			payload: cart,
+			payload: cartToEdit,
 		});
 	};
 
 	const cancelOrderToModify = () => {
 		dispatch({
 			type: CARRITO_ELIMINAR,
+		});
+
+		dispatch({
+			type: ELIMINAR_ORDEN_A_MODIFICAR,
 		});
 	};
 

@@ -7,7 +7,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import TablaListaProductos from '../generales/TablaListaProductos';
 import AccordionActions from '@material-ui/core/AccordionActions';
-import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import BotonFilaTabla from '../tablas/componentes/BotonFilaTabla';
@@ -43,6 +42,21 @@ const Productos = (props) => {
 	const classes = useStyles();
 	const router = useRouter();
 
+	const onClickEditOrder = () => {
+		const cartToEdit = props.filaActiva.detalleOrden.map((x) => ({
+			cantidad: x.cantidad,
+			['Producto.Precios.pu']: x.pu,
+			origen: x.origen,
+			ProductoCodigo: x.ProductoCodigo,
+			PtoStockId: x.PtoStock.id,
+			['PtoStock.descripcion']: x.PtoStock.descripcion,
+			['Producto.descripcion']: x.Producto.descripcion,
+		}));
+
+		props.editOrder(props.filaActiva.id, cartToEdit);
+		router.push('/ventas/editar-orden');
+	};
+
 	return (
 		<Accordion defaultExpanded="true">
 			<AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -61,13 +75,7 @@ const Productos = (props) => {
 					display="flex"
 					justifyContent="flex-start"
 				>
-					<BotonFilaTabla
-						contenido={<EditIcon />}
-						onClick={() => {
-							props.editOrder(props.filaActiva);
-							router.push('/ventas/nuevo');
-						}}
-					/>
+					<BotonFilaTabla contenido={<EditIcon />} onClick={onClickEditOrder} />
 				</Box>
 			</AccordionActions>
 		</Accordion>
