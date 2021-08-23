@@ -455,6 +455,12 @@ const VentasState = (props) => {
 		});
 	};
 
+	const cancelOrderToModify = () => {
+		dispatch({
+			type: CARRITO_ELIMINAR,
+		});
+	};
+
 	const mostrarAlertaVentas = (msg, categoria) => {
 		dispatch({
 			type: MOSTRAR_ALERTA_VENTAS,
@@ -526,6 +532,7 @@ const VentasState = (props) => {
 				crearYCargarCliente,
 				handleOrdenActiva,
 				handleOrderToModify,
+				cancelOrderToModify,
 				mostrarAlertaVentas,
 				ocultarAlertaVentas,
 			}}
