@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -8,7 +8,6 @@ import TableBody from '@material-ui/core/TableBody';
 import usePaginacion from '../../hooks/usePaginacion';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import SpinnerTabla from '../../components/SpinnerTabla';
-import FacsOrdsCliente from '../cliente/FacsOrdsCliente';
 import FilaEditarOrdenes from '../venta/FilaEditarOrdenes';
 import NoteOutlinedIcon from '@material-ui/icons/NoteOutlined';
 import DetalleOrden from './DetalleOrden';
@@ -19,7 +18,7 @@ import Factura from './Factura';
 import CrearPago from './CrearPago';
 import Alerta2 from '../generales/Alerta2';
 import VentasContext from '../../context/ventas/ventasContext';
-import { useRouter } from 'next/router';
+import useFilter from '../../hooks/useFilter';
 
 const useStyles = makeStyles({
 	table: {
@@ -48,7 +47,13 @@ const columnas = [
 
 const TablaEditarOrdenes = () => {
 	const classes = useStyles();
-	const router = useRouter();
+
+	const { handleHerramientasEditarVentas, busqueda } = useContext(
+		BarraHerramientasContext
+	);
+
+	const [data, setData] = useState([]);
+	const [filteredData] = useFilter(data, busqueda);
 
 	const {
 		orderEdited,
@@ -79,16 +84,12 @@ const TablaEditarOrdenes = () => {
 		mostrarAlertaEditarOrdenes,
 	} = useContext(EditarOrdenesContext);
 
-	const { handleHerramientasEditarVentas, busqueda } = useContext(
-		BarraHerramientasContext
-	);
-
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
-		usePaginacion(filas, 25);
+		usePaginacion(filteredData, 25);
 
 	useEffect(() => {
-		handleHerramientasEditarVentas();
 		traerOrdenes(busqueda);
+		handleHerramientasEditarVentas();
 		traerEstadosOrden();
 		traerTiposEnvio();
 		traerPtosVenta();
@@ -112,14 +113,24 @@ const TablaEditarOrdenes = () => {
 	}, []);
 
 	useEffect(() => {
-		setPage(0);
-		handleFilasOrdenes();
-	}, [ordenes]);
+		const crearFilasTablaEditarOrdenes = (arrayFilas) => {
+			let filasTablaOrdenes = arrayFilas.map((x) => ({
+				idOrden: x.id,
+				ordenEstado: x.OrdenEstado.descripcion,
+				ordenEstadoId: x.OrdenEstado.id,
+				nombreCliente: x.Cliente.nombre,
+				apellidoCliente: x.Cliente.apellido,
+				fecha: x.createdAt,
+				idFactura: x.Factura ? x.Factura.id : null,
+				estadoPago: x.Factura ? x.Factura.estadoPago : null,
+				tipoEnvio: x.TipoEnvioId,
+				observaciones: x.observaciones,
+			}));
+			setData(filasTablaOrdenes);
+		};
 
-	useEffect(() => {
-		setPage(0);
-		handleFilasOrdenesFiltro(busqueda);
-	}, [busqueda]);
+		crearFilasTablaEditarOrdenes(ordenes);
+	}, [ordenes]);
 
 	// extraer los id de las columnas
 	const colIndex = columnas.reduce(
@@ -145,7 +156,6 @@ const TablaEditarOrdenes = () => {
 				</TableBody>
 				{!cargando ? <FooterTabla /> : null}
 			</Table>
-			<FacsOrdsCliente />
 			<DetalleOrden />
 			{openModalInformacionCliente ? (
 				<InformacionCliente

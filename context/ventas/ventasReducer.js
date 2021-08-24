@@ -25,18 +25,15 @@ import {
 	PTO_VENTA,
 	ELIMINAR_PTO_VENTA,
 	TRAER_ESTADOS_ORDEN,
-	MODIFICAR_ESTADO_ORDEN,
 	AGREGAR_ORDEN_A_MODIFICAR,
 	ELIMINAR_ORDEN_A_MODIFICAR,
 	ORDEN_EDITADA,
-	BORRAR_MENSAJE,
 	MODAL_DETALLE_ORDEN,
 	MODAL_CLOSE,
 	MOSTRAR_ALERTA_VENTAS,
 	OCULTAR_ALERTA_VENTAS,
 	ACTIVAR_ORDEN,
 } from '../../types';
-import { modEstadoOrden } from '../../functions/editarordenes';
 
 const VentasReducer = (state, action) => {
 	switch (action.type) {
@@ -232,18 +229,6 @@ const VentasReducer = (state, action) => {
 				...state,
 				estadosOrden: action.payload,
 			};
-		case MODIFICAR_ESTADO_ORDEN:
-			const ordenModificadas = modEstadoOrden(
-				state.ordenes,
-				action.payload.orden,
-				action.payload.value,
-				action.payload.descripcion
-			);
-			console.log(action.payload.r);
-			return {
-				...state,
-				mensaje: action.payload.r,
-			};
 		case ACTIVAR_ORDEN:
 			return {
 				...state,
@@ -263,11 +248,6 @@ const VentasReducer = (state, action) => {
 			return {
 				...state,
 				orderEdited: action.payload,
-			};
-		case BORRAR_MENSAJE:
-			return {
-				...state,
-				mensaje: null,
 			};
 		case MODAL_DETALLE_ORDEN:
 			return {

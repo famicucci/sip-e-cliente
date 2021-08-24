@@ -31,11 +31,9 @@ import {
 	PTO_VENTA,
 	ELIMINAR_PTO_VENTA,
 	TRAER_ESTADOS_ORDEN,
-	MODIFICAR_ESTADO_ORDEN,
 	AGREGAR_ORDEN_A_MODIFICAR,
 	ELIMINAR_ORDEN_A_MODIFICAR,
 	ORDEN_EDITADA,
-	BORRAR_MENSAJE,
 	MODAL_DETALLE_ORDEN,
 	MODAL_CLOSE,
 	MOSTRAR_ALERTA_VENTAS,
@@ -71,7 +69,7 @@ const VentasState = (props) => {
 	const [state, dispatch] = useReducer(VentasReducer, initialState);
 
 	// las funciones
-	const traerProductos = async (bus) => {
+	const traerProductos = async () => {
 		try {
 			let ptoStock = await clienteAxios.get('/api/ventas/pto-stock/');
 
@@ -370,32 +368,6 @@ const VentasState = (props) => {
 		}
 	};
 
-	const handleEstadoOrden = async (orden, value, descripcion) => {
-		const datos = {
-			OrdenEstadoId: value,
-		};
-
-		try {
-			let r = await clienteAxios.put(`/api/ordenes/${orden}`, datos);
-
-			dispatch({
-				type: MODIFICAR_ESTADO_ORDEN,
-				payload: {
-					r: r.data,
-					orden: orden,
-					value: value,
-					descripcion: descripcion,
-				},
-			});
-		} catch (error) {
-			console.log(error);
-		}
-
-		dispatch({
-			type: BORRAR_MENSAJE,
-		});
-	};
-
 	const handleOpenModalDetalleOrden = () => {
 		dispatch({
 			type: MODAL_DETALLE_ORDEN,
@@ -559,7 +531,6 @@ const VentasState = (props) => {
 				traerPtosVenta,
 				handlePtoVenta,
 				traerEstadosOrden,
-				handleEstadoOrden,
 				handleOpenModalDetalleOrden,
 				handleCloseModal,
 				crearYCargarCliente,

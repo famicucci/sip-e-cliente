@@ -24,7 +24,6 @@ import {
 	MODAL_CLOSE,
 	MODAL_CLOSE_CONFIRMAR_FACTURA,
 	MODAL_CLOSE_CREAR_PAGO,
-	BORRAR_MENSAJE,
 	TIPOS_ENVIO,
 	PTOS_VENTA,
 	METODOS_PAGO,
@@ -33,13 +32,10 @@ import {
 	MOSTRAR_ALERTA_EDITAR_ORDENES,
 	OCULTAR_ALERTA_EDITAR_ORDENES,
 } from '../../../types';
-import { TipoEnvio } from '../../../functions/envio';
 
 const EditarOrdenesState = (props) => {
 	const initialState = {
 		ordenes: [],
-		filasOrdenes: [],
-		filas: [],
 		filaActiva: {},
 		factura: {},
 		estadosOrden: [],
@@ -372,8 +368,6 @@ const EditarOrdenesState = (props) => {
 		<EditarOrdenesContext.Provider
 			value={{
 				ordenes: state.ordenes,
-				filasOrdenes: state.filasOrdenes,
-				filas: state.filas,
 				filaActiva: state.filaActiva,
 				factura: state.factura,
 				estadosOrden: state.estadosOrden,

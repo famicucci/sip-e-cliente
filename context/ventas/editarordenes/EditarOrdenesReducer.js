@@ -1,7 +1,6 @@
 import {
 	TRAER_ORDENES,
 	TRAER_ESTADOS_ORDEN,
-	FILAS_ORDENES,
 	FILA_ACTIVA_ORDEN,
 	MODIFICAR_ESTADO_ORDEN,
 	MODIFICAR_ORDENES,
@@ -17,34 +16,22 @@ import {
 	MODAL_CLOSE,
 	MODAL_CLOSE_CONFIRMAR_FACTURA,
 	MODAL_CLOSE_CREAR_PAGO,
-	BORRAR_MENSAJE,
 	TIPOS_ENVIO,
 	PTOS_VENTA,
 	METODOS_PAGO,
 	CREAR_PAGO,
-	FILAS_ORDENES_FILTRO,
 	MOSTRAR_ALERTA_EDITAR_ORDENES,
 	OCULTAR_ALERTA_EDITAR_ORDENES,
 } from '../../../types';
-import { filBus } from '../../../functions/filtros.js';
-import {
-	crearFilasTablaEditarOrdenes,
-	modEstadoOrden,
-	Ordenes,
-	Orden,
-} from '../../../functions/editarordenes';
 import { ModificarArray } from '../../../hooks/General';
 import { FacturaBD } from '../../../functions/Factura';
 
 const EditarOrdenesReducer = (state, action) => {
 	switch (action.type) {
 		case TRAER_ORDENES:
-			let r = crearFilasTablaEditarOrdenes(action.payload.respuesta);
 			return {
 				...state,
 				ordenes: action.payload.respuesta,
-				filasOrdenes: r,
-				filas: filBus(r, action.payload.busqueda),
 				cargando: false,
 			};
 		case TRAER_ESTADOS_ORDEN:
@@ -52,13 +39,6 @@ const EditarOrdenesReducer = (state, action) => {
 				...state,
 				estadosOrden: action.payload,
 			};
-		// case FILAS_ORDENES:
-		// 	r = crearFilasTablaEditarOrdenes(state.ordenes);
-		// 	return {
-		// 		...state,
-		// 		filasOrdenes: r,
-		// 		filas: r,
-		// 	};
 		case FILA_ACTIVA_ORDEN:
 			return {
 				...state,
@@ -105,7 +85,7 @@ const EditarOrdenesReducer = (state, action) => {
 				Factura: { ...action.payload },
 			};
 
-			ordenesMod = state.ordenes.map((x) =>
+			const ordenesMod = state.ordenes.map((x) =>
 				x.id === nuevaOrdenActiva.id ? nuevaOrdenActiva : x
 			);
 
@@ -167,12 +147,6 @@ const EditarOrdenesReducer = (state, action) => {
 				...state,
 				openModalCrearPago: false,
 			};
-
-		case BORRAR_MENSAJE:
-			return {
-				...state,
-				mensaje: null,
-			};
 		case TIPOS_ENVIO:
 			return {
 				...state,
@@ -228,13 +202,6 @@ const EditarOrdenesReducer = (state, action) => {
 				filaActiva: filaActivaModificada,
 				mensaje: { msg: 'El pago ha sido creado', categoria: 'success' },
 			};
-		case FILAS_ORDENES_FILTRO:
-			r = filBus(state.filasOrdenes, action.payload);
-			return {
-				...state,
-				filas: r,
-			};
-
 		case MOSTRAR_ALERTA_EDITAR_ORDENES:
 			return {
 				...state,
