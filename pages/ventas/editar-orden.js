@@ -12,7 +12,7 @@ const Nuevo = () => {
 
 	const authContext = useContext(AuthContext);
 	const { autenticado, cargando, usuarioAutenticado } = authContext;
-	const { cancelOrderToModify } = useContext(VentasContext);
+	const { cancelOrderToModify, orderEdited } = useContext(VentasContext);
 
 	useEffect(() => {
 		usuarioAutenticado();
@@ -20,11 +20,9 @@ const Nuevo = () => {
 
 	useEffect(() => {
 		const handleRouteChange = (url, { shallow }) => {
-			cancelOrderToModify();
+			if (!orderEdited && url !== '/ventas/consultar') cancelOrderToModify();
 		};
-
 		router.events.on('routeChangeStart', handleRouteChange);
-
 		return () => {
 			router.events.off('routeChangeStart', handleRouteChange);
 		};

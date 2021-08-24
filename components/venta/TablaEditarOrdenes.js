@@ -19,6 +19,7 @@ import Factura from './Factura';
 import CrearPago from './CrearPago';
 import Alerta2 from '../generales/Alerta2';
 import VentasContext from '../../context/ventas/ventasContext';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles({
 	table: {
@@ -47,9 +48,16 @@ const columnas = [
 
 const TablaEditarOrdenes = () => {
 	const classes = useStyles();
+	const router = useRouter();
 
-	const { ordenCreada, handleOrdenActiva } = useContext(VentasContext);
-
+	const {
+		orderEdited,
+		orderToModify,
+		ordenCreada,
+		handleOrdenActiva,
+		handleOrderEdited,
+		handleOrderToModify,
+	} = useContext(VentasContext);
 	const {
 		ordenes,
 		filas,
@@ -90,8 +98,17 @@ const TablaEditarOrdenes = () => {
 				`Orden creada nº ${ordenCreada.id}`,
 				'success'
 			);
+			handleOrdenActiva(null);
 		}
-		handleOrdenActiva(null);
+
+		if (orderEdited) {
+			handleOrderEdited(false);
+			handleOrderToModify();
+			mostrarAlertaEditarOrdenes(
+				`Realizaste cambios en la Orden nº ${orderToModify}`,
+				'success'
+			);
+		}
 	}, []);
 
 	useEffect(() => {

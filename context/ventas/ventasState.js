@@ -34,6 +34,7 @@ import {
 	MODIFICAR_ESTADO_ORDEN,
 	AGREGAR_ORDEN_A_MODIFICAR,
 	ELIMINAR_ORDEN_A_MODIFICAR,
+	ORDEN_EDITADA,
 	BORRAR_MENSAJE,
 	MODAL_DETALLE_ORDEN,
 	MODAL_CLOSE,
@@ -61,6 +62,7 @@ const VentasState = (props) => {
 		estadosOrden: [], // global state?
 		modo: 'manual',
 		orderToModify: null,
+		orderEdited: false,
 		cargando: false,
 		mensaje: null,
 		mensajeVentas: null,
@@ -433,15 +435,25 @@ const VentasState = (props) => {
 	};
 
 	const handleOrderToModify = (idOrder, cartToEdit) => {
-		dispatch({
-			type: AGREGAR_ORDEN_A_MODIFICAR,
-			payload: idOrder,
-		});
+		if (idOrder && cartToEdit) {
+			dispatch({
+				type: AGREGAR_ORDEN_A_MODIFICAR,
+				payload: idOrder,
+			});
 
-		dispatch({
-			type: CARRITO_RESTAURAR_PRODUCTOS,
-			payload: cartToEdit,
-		});
+			dispatch({
+				type: CARRITO_RESTAURAR_PRODUCTOS,
+				payload: cartToEdit,
+			});
+		} else {
+			dispatch({
+				type: ELIMINAR_ORDEN_A_MODIFICAR,
+			});
+
+			dispatch({
+				type: CARRITO_ELIMINAR,
+			});
+		}
 	};
 
 	const cancelOrderToModify = () => {
@@ -451,6 +463,33 @@ const VentasState = (props) => {
 
 		dispatch({
 			type: ELIMINAR_ORDEN_A_MODIFICAR,
+		});
+	};
+
+	const editProductsOrder = async () => {
+		try {
+			const r = await clienteAxios.put(
+				`/api/detalles-orden/${state.orderToModify}`,
+				state.carrito
+			);
+
+			dispatch({
+				type: CARRITO_ELIMINAR,
+			});
+
+			dispatch({
+				type: ORDEN_EDITADA,
+				payload: true,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const handleOrderEdited = (boolean) => {
+		dispatch({
+			type: ORDEN_EDITADA,
+			payload: boolean,
 		});
 	};
 
@@ -490,6 +529,7 @@ const VentasState = (props) => {
 				mensajeVentas: state.mensajeVentas,
 				modo: state.modo,
 				orderToModify: state.orderToModify,
+				orderEdited: state.orderEdited,
 				cliente: state.cliente,
 				envio: state.envio,
 				nota: state.nota,
@@ -526,6 +566,8 @@ const VentasState = (props) => {
 				handleOrdenActiva,
 				handleOrderToModify,
 				cancelOrderToModify,
+				editProductsOrder,
+				handleOrderEdited,
 				mostrarAlertaVentas,
 				ocultarAlertaVentas,
 			}}

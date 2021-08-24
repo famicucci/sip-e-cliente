@@ -28,6 +28,7 @@ import {
 	MODIFICAR_ESTADO_ORDEN,
 	AGREGAR_ORDEN_A_MODIFICAR,
 	ELIMINAR_ORDEN_A_MODIFICAR,
+	ORDEN_EDITADA,
 	BORRAR_MENSAJE,
 	MODAL_DETALLE_ORDEN,
 	MODAL_CLOSE,
@@ -257,6 +258,11 @@ const VentasReducer = (state, action) => {
 			return {
 				...state,
 				orderToModify: null,
+			};
+		case ORDEN_EDITADA:
+			return {
+				...state,
+				orderEdited: action.payload,
 			};
 		case BORRAR_MENSAJE:
 			return {

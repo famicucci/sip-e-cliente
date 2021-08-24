@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -13,6 +13,7 @@ import BotonFilaTabla from '../tablas/componentes/BotonFilaTabla';
 import EditIcon from '@material-ui/icons/Edit';
 import { Box } from '@material-ui/core';
 import { useRouter } from 'next/router';
+import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
 
 const useStyles = makeStyles((theme) => ({
 	heading: {
@@ -42,6 +43,9 @@ const Productos = (props) => {
 	const classes = useStyles();
 	const router = useRouter();
 
+	const { handleCloseModal, handleFilaActivaOrden } =
+		useContext(EditarOrdenesContext);
+
 	const onClickEditOrder = () => {
 		const cartToEdit = props.filaActiva.detalleOrden.map((x) => ({
 			cantidad: x.cantidad,
@@ -53,6 +57,8 @@ const Productos = (props) => {
 			['Producto.descripcion']: x.Producto.descripcion,
 		}));
 
+		handleCloseModal();
+		handleFilaActivaOrden(null);
 		props.editOrder(props.filaActiva.id, cartToEdit);
 		router.push('/ventas/editar-orden');
 	};

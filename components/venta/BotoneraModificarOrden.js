@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import BotonSuccess from '../generales/botones/BotonSuccess';
 import BotonDanger from '../BotonDanger';
 import { Box } from '@material-ui/core';
@@ -8,11 +8,20 @@ import { useRouter } from 'next/router';
 const BotoneraModificarOrden = () => {
 	const router = useRouter();
 
-	const { cancelOrderToModify } = useContext(VentasContext);
+	const { orderEdited, cancelOrderToModify, editProductsOrder } =
+		useContext(VentasContext);
+
+	useEffect(() => {
+		if (orderEdited) router.push('/ventas/consultar');
+	}, [orderEdited]);
 
 	const onClickCancel = () => {
 		cancelOrderToModify();
 		router.push('/ventas/consultar');
+	};
+
+	const onClickConfirmChanges = () => {
+		editProductsOrder();
 	};
 
 	return (
@@ -21,9 +30,7 @@ const BotoneraModificarOrden = () => {
 			<BotonSuccess
 				type="button"
 				contenido="Confirmar Cambios"
-				onClick={() => {
-					console.log('modificar orden');
-				}}
+				onClick={onClickConfirmChanges}
 			/>
 		</Box>
 	);
