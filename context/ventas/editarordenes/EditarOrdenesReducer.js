@@ -73,16 +73,19 @@ const EditarOrdenesReducer = (state, action) => {
 				),
 			};
 		case MODIFICAR_ESTADO_ORDEN:
-			const ordenModificadas = modEstadoOrden(
-				state.ordenes,
-				action.payload.orden,
-				action.payload.value,
-				action.payload.descripcion
-			);
 			return {
 				...state,
-				ordenes: ordenModificadas,
-				mensaje: action.payload.r,
+				ordenes: state.ordenes.map((x) =>
+					x.id === action.payload.idOrder
+						? {
+								...x,
+								OrdenEstado: {
+									id: action.payload.idStatus,
+									descripcion: action.payload.descriptionStatus,
+								},
+						  }
+						: x
+				),
 			};
 		case MODIFICAR_FACTURA:
 			return {

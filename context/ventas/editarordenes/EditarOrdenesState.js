@@ -92,30 +92,25 @@ const EditarOrdenesState = (props) => {
 		});
 	};
 
-	const handleEstadoOrden = async (orden, value, descripcion) => {
-		const datos = {
-			OrdenEstadoId: value,
-		};
-
+	const handleEstadoOrden = async (idOrder, idStatus, descriptionStatus) => {
 		try {
-			let r = await clienteAxios.put(`/api/ordenes/${orden}`, datos);
+			let r = await clienteAxios.put(`/api/ordenes/${idOrder}`, {
+				OrdenEstadoId: idStatus,
+			});
 
 			dispatch({
 				type: MODIFICAR_ESTADO_ORDEN,
 				payload: {
-					r: r.data,
-					orden: orden,
-					value: value,
-					descripcion: descripcion,
+					idOrder,
+					idStatus,
+					descriptionStatus,
 				},
 			});
+
+			mostrarAlertaEditarOrdenes(r.data.msg, 'success');
 		} catch (error) {
 			console.log(error);
 		}
-
-		dispatch({
-			type: BORRAR_MENSAJE,
-		});
 	};
 
 	const handleFilaActivaOrden = (id) => {
