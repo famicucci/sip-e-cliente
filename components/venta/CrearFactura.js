@@ -77,7 +77,7 @@ const CrearFactura = () => {
 	};
 
 	const onClickFacturar = () => {
-		if (factura.descuento > 0) {
+		if (factura.importeFinal < 0) {
 			mostrarAlerta(
 				'El importe final no puede ser negativo, descuento no válido',
 				'error'
@@ -90,12 +90,6 @@ const CrearFactura = () => {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-
-		// validacion
-		if (factura.importeFinal < 0) {
-			mostrarAlerta('El importe final no puede ser negativo', 'error');
-			return;
-		}
 
 		// submit
 		(async () => {
