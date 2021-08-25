@@ -23,13 +23,13 @@ const SelectBordeInferior = ({
 	label,
 	ancho,
 	data,
-	valInit,
+	initialvalue,
 	placeholder,
 	funcModState,
 }) => {
 	const classes = useStyles();
 
-	const [valor, setValor] = useState(valInit);
+	const [valor, setValor] = useState(initialvalue);
 
 	const handleChange = (e) => {
 		setValor(e.target.value);
@@ -48,7 +48,7 @@ const SelectBordeInferior = ({
 					className={classes.selectEmpty}
 				>
 					{
-						(valInit = 'none' ? (
+						(initialvalue = 'none' ? (
 							<MenuItem value="none" disabled>
 								<Typography color="textSecondary">{placeholder}</Typography>
 							</MenuItem>

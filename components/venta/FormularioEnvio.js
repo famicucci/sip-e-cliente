@@ -157,7 +157,7 @@ const FormularioEnvio = (props) => {
 						label={selectDirecc.label}
 						ancho={selectDirecc.ancho}
 						data={direccionClienteElegido.creaDireccionesSelect()}
-						valInit={valInitSelectDirection}
+						initialvalue={valInitSelectDirection}
 						funcModState={handleSelectDireccion}
 						placeholder="Elegir dirección.."
 					/>
@@ -167,7 +167,7 @@ const FormularioEnvio = (props) => {
 						name={inputDirecc.name}
 						placeholder={inputDirecc.placeholder}
 						ancho={inputDirecc.ancho}
-						valInit={stateEnvio.input}
+						initialvalue={stateEnvio.input}
 						funcModState={handleInputDireccion}
 					/>
 				)}
@@ -194,7 +194,7 @@ const FormularioEnvio = (props) => {
 					label={selectTipo.label}
 					ancho={selectTipo.ancho}
 					data={tiposEnvio}
-					valInit={stateEnvio.tipo}
+					initialvalue={stateEnvio.tipo}
 					funcModState={handleSelectTipo}
 				/>
 				<InputNumberBordeInferior
@@ -202,7 +202,7 @@ const FormularioEnvio = (props) => {
 					label={inputCosto.label}
 					placeholder={inputCosto.placeholder}
 					ancho={inputCosto.ancho}
-					valInit={stateEnvio.costo}
+					initialvalue={stateEnvio.costo}
 					funcModState={handleInputCosto}
 					disabled={handleDisabledCostoEnvio(facturasOrden)}
 					styles={{ marginTop: 2 }}

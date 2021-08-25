@@ -135,7 +135,7 @@ const CrearPago = () => {
 						placeholder="Agrega un importe..."
 						ancho={12}
 						required
-						valInit={factura.importeFinal - factura.sumaPagos()} // lo que queda por pagar
+						initialvalue={factura.importeFinal - factura.sumaPagos()} // lo que queda por pagar
 						funcModState={handleImporte}
 						InputProps={{
 							inputProps: {
@@ -149,7 +149,7 @@ const CrearPago = () => {
 						label={selectMetodoPago.label}
 						ancho={selectMetodoPago.ancho}
 						data={metodosPago}
-						valInit="none"
+						initialvalue="none"
 						placeholder="Metodo de Pago..."
 						funcModState={handleMetodoPago}
 					/>

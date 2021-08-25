@@ -91,7 +91,7 @@ const DomicilioNuevoCliente = (props) => {
 						placeholder={inputCalle.placeholder}
 						ancho={inputCalle.ancho}
 						required
-						valInit=""
+						initialvalue=""
 						funcModState={props.onChangeAtributo}
 					/>
 					<InputNumberBordeInferior
@@ -100,7 +100,7 @@ const DomicilioNuevoCliente = (props) => {
 						placeholder={inputNumero.placeholder}
 						ancho={inputNumero.ancho}
 						required
-						valInit=""
+						initialvalue=""
 						funcModState={props.onChangeAtributo}
 					/>
 					<InputBordeInferior
@@ -109,7 +109,7 @@ const DomicilioNuevoCliente = (props) => {
 						placeholder={inputPiso.placeholder}
 						ancho={inputPiso.ancho}
 						required
-						valInit=""
+						initialvalue=""
 						funcModState={props.onChangeAtributo}
 					/>
 					<InputBordeInferior
@@ -118,7 +118,7 @@ const DomicilioNuevoCliente = (props) => {
 						placeholder={inputDepto.placeholder}
 						ancho={inputDepto.ancho}
 						required
-						valInit=""
+						initialvalue=""
 						funcModState={props.onChangeAtributo}
 					/>
 					<InputBordeInferior
@@ -127,7 +127,7 @@ const DomicilioNuevoCliente = (props) => {
 						placeholder={inputBarrio.placeholder}
 						ancho={inputBarrio.ancho}
 						required
-						valInit=""
+						initialvalue=""
 						funcModState={props.onChangeAtributo}
 					/>
 					<InputNumberBordeInferior
@@ -136,7 +136,7 @@ const DomicilioNuevoCliente = (props) => {
 						placeholder={inputCodPostal.placeholder}
 						ancho={inputCodPostal.ancho}
 						required
-						valInit=""
+						initialvalue=""
 						funcModState={props.onChangeAtributo}
 					/>
 					<InputBordeInferior
@@ -145,7 +145,7 @@ const DomicilioNuevoCliente = (props) => {
 						placeholder={inputCiudad.placeholder}
 						ancho={inputCiudad.ancho}
 						required
-						valInit=""
+						initialvalue=""
 						funcModState={props.onChangeAtributo}
 					/>
 					<InputBordeInferior
@@ -154,7 +154,7 @@ const DomicilioNuevoCliente = (props) => {
 						placeholder={inputProvincia.placeholder}
 						ancho={inputProvincia.ancho}
 						required
-						valInit=""
+						initialvalue=""
 						funcModState={props.onChangeAtributo}
 					/>
 					<InputBordeInferior
@@ -163,7 +163,7 @@ const DomicilioNuevoCliente = (props) => {
 						placeholder={inputReferencia.placeholder}
 						ancho={inputReferencia.ancho}
 						required
-						valInit=""
+						initialvalue=""
 						funcModState={props.onChangeAtributo}
 					/>
 				</Grid>

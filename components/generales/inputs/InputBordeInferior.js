@@ -15,16 +15,16 @@ const InputBordeInferior = ({
 	placeholder,
 	ancho,
 	required,
-	valInit,
+	initialvalue,
 	funcModState,
 }) => {
 	const classes = useStyles();
 
-	const [valor, setValor] = useState(valInit);
+	const [valor, setValor] = useState(initialvalue);
 
 	useEffect(() => {
-		setValor(valInit);
-	}, [valInit]);
+		setValor(initialvalue);
+	}, [initialvalue]);
 
 	const onChange = (e) => {
 		setValor(e.target.value);

@@ -64,7 +64,7 @@ const NotaCrearFactura = (props) => {
 					placeholder="Escribe la nota aquí..."
 					ancho={12}
 					required={true}
-					valInit={''}
+					initialvalue={''}
 					funcModState={onChangeNota}
 				/>
 			</AccordionDetails>

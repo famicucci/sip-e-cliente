@@ -99,7 +99,7 @@ const MasInformacion = () => {
 							placeholder="Escribe el identificador aquí.."
 							ancho={9}
 							required={true}
-							valInit={masInformacion.ordenEcommerce}
+							initialvalue={masInformacion.ordenEcommerce}
 							funcModState={onChangeNroEcommerce}
 						/>
 						<InputBordeInferior
@@ -108,7 +108,7 @@ const MasInformacion = () => {
 							placeholder="Escribe la nota aquí..."
 							ancho={12}
 							required={true}
-							valInit={masInformacion.observaciones}
+							initialvalue={masInformacion.observaciones}
 							funcModState={onChangeNota}
 						/>
 					</Grid>
