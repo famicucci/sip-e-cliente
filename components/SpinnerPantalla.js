@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Box from '@material-ui/core/Box';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
 	root: {
 		width: '100%',
 		position: 'absolute',
@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme) => ({
 		bottom: 0,
 	},
 	spinner: {
-		color: theme.palette.primary.main,
 		position: 'absolute',
 		top: 0,
 		bottom: 0,
@@ -26,8 +25,13 @@ const SpinnerPantalla = () => {
 
 	return (
 		<div className={classes.root}>
-			<Box className={classes.box}>
-				<CircularProgress className={classes.spinner} thickness={5} size={55} />
+			<Box>
+				<CircularProgress
+					className={classes.spinner}
+					color="primary"
+					thickness={5}
+					size={55}
+				/>
 			</Box>
 		</div>
 	);

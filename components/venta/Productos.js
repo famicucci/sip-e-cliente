@@ -64,7 +64,7 @@ const Productos = (props) => {
 	};
 
 	return (
-		<Accordion defaultExpanded="true">
+		<Accordion defaultExpanded>
 			<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 				<Typography className={classes.heading}>Productos</Typography>
 			</AccordionSummary>

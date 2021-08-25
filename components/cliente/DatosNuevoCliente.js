@@ -49,12 +49,8 @@ const DatosNuevoCliente = (props) => {
 	const classes = useStyles();
 
 	return (
-		<Accordion defaultExpanded="true">
-			<AccordionSummary
-				expandIcon={<ExpandMoreIcon />}
-				aria-controls="panel1a-content"
-				id="panel1a-header"
-			>
+		<Accordion defaultExpanded>
+			<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 				<Typography className={classes.heading}>Datos</Typography>
 			</AccordionSummary>
 			<AccordionDetails>

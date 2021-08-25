@@ -27,8 +27,8 @@ const TablaListaProductos = ({ productos, columnas }) => {
 			<Table className={classes.table}>
 				<HeadTabla columnas={columnas} />
 				<TableBody>
-					{productos.map((x) => (
-						<FilaListaProductos fila={x} colIndex={colIndex} />
+					{productos.map((x, i) => (
+						<FilaListaProductos key={i} fila={x} colIndex={colIndex} />
 					))}
 				</TableBody>
 			</Table>
