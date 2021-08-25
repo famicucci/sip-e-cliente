@@ -49,7 +49,6 @@ const InputNumberBordeInferior = (props) => {
 				onChange={onChange}
 				{...disabled}
 				{...InputProps}
-				{...props}
 				fullWidth
 			/>
 		</Grid>
