@@ -65,18 +65,15 @@ const TablaEditarOrdenes = () => {
 	} = useContext(VentasContext);
 	const {
 		ordenes,
-		filas,
 		mensajeEditarOrdenes,
 		cargando,
 		traerOrdenes,
 		traerEstadosOrden,
-		handleFilasOrdenes,
 		traerTiposEnvio,
 		traerPtosVenta,
 		openModalCrearFactura,
 		openModalFactura,
 		openModalCrearPago,
-		handleFilasOrdenesFiltro,
 		filaActiva,
 		openModalInformacionCliente,
 		handleCloseModal,

@@ -19,7 +19,6 @@ const ConfirmarCrearFactura = () => {
 	const {
 		openModalConfirmarCrearFactura,
 		handleCloseModalConfirmarCrearFactura,
-		crearFactura,
 	} = useContext(EditarOrdenesContext);
 
 	return (
@@ -34,9 +33,6 @@ const ConfirmarCrearFactura = () => {
 					form="form-crear-factura"
 					contenido="Aceptar"
 					className={classes.botonAceptar}
-					// onClick={() => {
-					// 	crearFactura();
-					// }}
 				/>
 			}
 		>

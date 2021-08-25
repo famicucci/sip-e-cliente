@@ -33,13 +33,6 @@ const NotaCrearFactura = (props) => {
 	const [expanded, setExpanded] = useState({ expanded: false });
 	const [nota, setNota] = useState('');
 
-	// const { handleFactura } = useContext(EditarOrdenesContext);
-
-	// useEffect(() => {
-	// 	const objFactura = { observaciones: nota };
-	// 	handleFactura(objFactura);
-	// }, [nota]);
-
 	useEffect(() => {
 		props.funcModState(nota);
 	}, [nota]);

@@ -95,7 +95,7 @@ const CrearFactura = () => {
 		(async () => {
 			await crearFactura(factura);
 			await handleCloseModal();
-			await handleOpenModalFactura(); /////////////////////////////////////////// no funciona
+			await handleOpenModalFactura();
 		})();
 	};
 

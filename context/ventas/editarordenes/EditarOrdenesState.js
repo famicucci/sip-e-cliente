@@ -8,11 +8,9 @@ import { FacturaBD } from '../../../functions/Factura';
 import {
 	TRAER_ORDENES,
 	TRAER_ESTADOS_ORDEN,
-	FILAS_ORDENES,
 	FILA_ACTIVA_ORDEN,
 	MODIFICAR_ORDENES,
 	MODIFICAR_ESTADO_ORDEN,
-	MODIFICAR_FACTURA,
 	CREAR_DETALLE_FACTURA,
 	CREAR_FACTURA,
 	MODAL_DETALLE_ORDEN,
@@ -28,7 +26,6 @@ import {
 	PTOS_VENTA,
 	METODOS_PAGO,
 	CREAR_PAGO,
-	FILAS_ORDENES_FILTRO,
 	MOSTRAR_ALERTA_EDITAR_ORDENES,
 	OCULTAR_ALERTA_EDITAR_ORDENES,
 } from '../../../types';
@@ -82,12 +79,6 @@ const EditarOrdenesState = (props) => {
 		}
 	};
 
-	const handleFilasOrdenes = () => {
-		dispatch({
-			type: FILAS_ORDENES,
-		});
-	};
-
 	const handleEstadoOrden = async (idOrder, idStatus, descriptionStatus) => {
 		try {
 			let r = await clienteAxios.put(`/api/ordenes/${idOrder}`, {
@@ -118,20 +109,6 @@ const EditarOrdenesState = (props) => {
 			type: FILA_ACTIVA_ORDEN,
 			payload: r,
 		});
-	};
-
-	const handleFactura = async (facturaId, facturaObj) => {
-		try {
-			let r = await clienteAxios.put(`/api/facturas/${facturaId}`, facturaObj);
-
-			console.log(r);
-			// dispatch({
-			// 	type: MODIFICAR_FACTURA,
-			// 	payload: facturaObj,
-			// });
-		} catch (error) {
-			console.log(error);
-		}
 	};
 
 	const handleDetalleFactura = (detalleOrden) => {
@@ -317,7 +294,6 @@ const EditarOrdenesState = (props) => {
 				parseFloat(pago.importe) + factura.sumaPagos() ===
 				parseFloat(factura.importeFinal)
 			) {
-				// handleFactura(factura.id, { estadoPago: 'Pago' });
 				const facturaObj = { estadoPago: 'Pago' };
 
 				await clienteAxios.put(`/api/facturas/${factura.id}`, facturaObj);
@@ -334,13 +310,6 @@ const EditarOrdenesState = (props) => {
 			// 	payload: error,
 			// });
 		}
-	};
-
-	const handleFilasOrdenesFiltro = (bus) => {
-		dispatch({
-			type: FILAS_ORDENES_FILTRO,
-			payload: bus,
-		});
 	};
 
 	const mostrarAlertaEditarOrdenes = (msg, categoria) => {
@@ -386,10 +355,8 @@ const EditarOrdenesState = (props) => {
 				traerOrdenes,
 				traerEstadosOrden,
 				modificarOrden,
-				handleFilasOrdenes,
 				handleEstadoOrden,
 				handleFilaActivaOrden,
-				handleFactura,
 				crearFactura,
 				handleDetalleFactura,
 				handleOpenModalDetalleOrden,
@@ -405,7 +372,6 @@ const EditarOrdenesState = (props) => {
 				traerPtosVenta,
 				traerMetodosPago,
 				crearPago,
-				handleFilasOrdenesFiltro,
 				ocultarAlertaEditarOrdenes,
 				mostrarAlertaEditarOrdenes,
 			}}

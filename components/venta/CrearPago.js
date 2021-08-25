@@ -37,10 +37,8 @@ const CrearPago = () => {
 		openModalCrearPago,
 		metodosPago,
 		handleCloseModalCrearPago,
-		crearFactura,
 		traerMetodosPago,
 		crearPago,
-		handleFactura,
 	} = useContext(EditarOrdenesContext);
 	const { mostrarAlerta } = useContext(AlertaContext);
 

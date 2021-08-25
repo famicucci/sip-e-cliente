@@ -7,6 +7,8 @@ import Productos from './Productos';
 import EnvioDetalleOrden from './EnvioDetalleOrden';
 import MasInformacion from './MasInformacion';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { IconButton } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
 	dividerHorizontal: {
@@ -57,8 +59,13 @@ const DetalleOrden = () => {
 					variant="inset"
 					flexItem
 				/>
-				<Box>
+				<Box flexGrow={1}>
 					<Typography align="left">{`${filaActiva.Cliente.nombre} ${filaActiva.Cliente.apellido}`}</Typography>
+				</Box>
+				<Box>
+					<IconButton size="small">
+						<MoreVertIcon />
+					</IconButton>
 				</Box>
 			</Box>
 			<Divider className={classes.dividerHorizontal} variant="fullWidth" />
