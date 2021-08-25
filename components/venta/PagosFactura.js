@@ -54,46 +54,25 @@ const useStyles = makeStyles((theme) => ({
 const PagosFactura = () => {
 	const classes = useStyles();
 
-	const [expanded, setExpanded] = useState({ expanded: false });
-
 	const { filaActiva, handleOpenModalCrearPago } =
 		useContext(EditarOrdenesContext);
 
-	const pagos = filaActiva.Factura.Pagos;
-	let pagosMod = [];
-	for (let i = 0; i < pagos.length; i++) {
-		const element = pagos[i];
-		const pago = { ...element, key: i + 1 };
-		pagosMod.push(pago);
-	}
-
 	const factura = new FacturaBD(filaActiva.Factura);
 
-	const onClickSummary = () => {
-		if (expanded.expanded === true) {
-			setExpanded({ expanded: false });
-		} else if (expanded.expanded === false) {
-			setExpanded({ expanded: true });
-		}
-	};
-
 	return (
-		<Accordion {...expanded}>
-			<AccordionSummary
-				expandIcon={<ExpandMoreIcon />}
-				onClick={onClickSummary}
-			>
+		<Accordion>
+			<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 				<Typography className={classes.heading}>Pagos</Typography>
 			</AccordionSummary>
 			<AccordionDetails style={{ width: '100%' }}>
 				<div className={classes.divPadre}>
-					{pagosMod.length > 0 ? (
+					{filaActiva.Factura.Pagos.length > 0 ? (
 						<>
-							{pagosMod.map((x) => (
-								<Paper className={classes.paperPago} variant="outlined">
+							{filaActiva.Factura.Pagos.map((x, i) => (
+								<Paper key={i} className={classes.paperPago} variant="outlined">
 									<Grid container>
 										<Grid item xs={1} style={{ fontWeight: 'bold' }}>
-											{x.key}
+											{i + 1}
 										</Grid>
 										<Grid item xs={4}>
 											{x.MetodoPago.descripcion}

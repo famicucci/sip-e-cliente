@@ -24,8 +24,8 @@ const columnas = [
 	{ id: 1, nombre: 'Código', align: 'left', minWidth: 100 },
 	{ id: 2, nombre: 'Descripción', align: 'left', minWidth: 300 },
 	{ id: 3, nombre: 'Cantidad', align: 'center', minWidth: 100 },
-	{ id: 3, nombre: 'Precio', align: 'center', minWidth: 100 },
-	{ id: 3, nombre: 'Total', align: 'center', minWidth: 100 },
+	{ id: 4, nombre: 'Precio', align: 'center', minWidth: 100 },
+	{ id: 5, nombre: 'Total', align: 'center', minWidth: 100 },
 ];
 
 const Factura = () => {
