@@ -25,7 +25,7 @@ const SelectBordeInferior = ({
 	data,
 	initialvalue,
 	placeholder,
-	funcModState,
+	tochangestate,
 }) => {
 	const classes = useStyles();
 
@@ -33,7 +33,7 @@ const SelectBordeInferior = ({
 
 	const handleChange = (e) => {
 		setValor(e.target.value);
-		funcModState(e.target.name, e.target.value);
+		tochangestate(e.target.name, e.target.value);
 	};
 
 	return (

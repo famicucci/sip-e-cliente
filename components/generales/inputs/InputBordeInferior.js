@@ -16,7 +16,7 @@ const InputBordeInferior = ({
 	ancho,
 	required,
 	initialvalue,
-	funcModState,
+	tochangestate,
 }) => {
 	const classes = useStyles();
 
@@ -28,7 +28,7 @@ const InputBordeInferior = ({
 
 	const onChange = (e) => {
 		setValor(e.target.value);
-		funcModState(e.target.name, e.target.value);
+		tochangestate(e.target.name, e.target.value);
 	};
 
 	if (required) {

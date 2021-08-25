@@ -17,7 +17,7 @@ const BotonCustomFilaTabla = (props) => {
 	const classes = useStyles(props);
 
 	const onClick = (e) => {
-		props.funcModState();
+		props.tochangestate();
 		// setAnchorEl(event.currentTarget);
 	};
 

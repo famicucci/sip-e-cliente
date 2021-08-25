@@ -83,7 +83,7 @@ const MasDatosNuevoCliente = (props) => {
 						ancho={inputObservaciones.ancho}
 						required
 						initialvalue=""
-						funcModState={props.onChangeAtributo}
+						tochangestate={props.onChangeAtributo}
 					/>
 					<InputBordeInferior
 						label={inputMascota.label}
@@ -92,7 +92,7 @@ const MasDatosNuevoCliente = (props) => {
 						ancho={inputMascota.ancho}
 						required
 						initialvalue=""
-						funcModState={props.onChangeAtributo}
+						tochangestate={props.onChangeAtributo}
 					/>
 					<SelectBordeInferior
 						name={selectTipo.name}
@@ -100,7 +100,7 @@ const MasDatosNuevoCliente = (props) => {
 						ancho={selectTipo.ancho}
 						data={selectTipo.data}
 						initialvalue={selectTipo.valDefault}
-						funcModState={onChangeSelect}
+						tochangestate={onChangeSelect}
 					/>
 					<SelectBordeInferior
 						name={selectCondIVA.name}
@@ -108,7 +108,7 @@ const MasDatosNuevoCliente = (props) => {
 						ancho={selectCondIVA.ancho}
 						data={selectCondIVA.data}
 						initialvalue={selectCondIVA.valDefault}
-						funcModState={onChangeSelect}
+						tochangestate={onChangeSelect}
 					/>
 				</Grid>
 			</AccordionDetails>

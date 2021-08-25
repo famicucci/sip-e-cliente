@@ -127,7 +127,7 @@ const CrearPago = () => {
 			>
 				<Grid container spacing={2}>
 					<Grid item xs={12}>
-						<InputFecha funcModState={handleFecha} />
+						<InputFecha tochangestate={handleFecha} />
 					</Grid>
 					<InputNumberBordeInferior
 						label="Importe"
@@ -136,7 +136,7 @@ const CrearPago = () => {
 						ancho={12}
 						required
 						initialvalue={factura.importeFinal - factura.sumaPagos()} // lo que queda por pagar
-						funcModState={handleImporte}
+						tochangestate={handleImporte}
 						InputProps={{
 							inputProps: {
 								max: factura.importeFinal - factura.sumaPagos(),
@@ -151,7 +151,7 @@ const CrearPago = () => {
 						data={metodosPago}
 						initialvalue="none"
 						placeholder="Metodo de Pago..."
-						funcModState={handleMetodoPago}
+						tochangestate={handleMetodoPago}
 					/>
 				</Grid>
 			</ModalCentrado>

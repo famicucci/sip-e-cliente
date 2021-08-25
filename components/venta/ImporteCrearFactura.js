@@ -54,7 +54,7 @@ const ImporteCrearFactura = (props) => {
 	}, [subtotal, montoDescuento]);
 
 	useEffect(() => {
-		props.funcModState(subtotal, montoDescuento, total);
+		props.tochangestate(subtotal, montoDescuento, total);
 	}, [total]);
 
 	useEffect(() => {
@@ -104,7 +104,7 @@ const ImporteCrearFactura = (props) => {
 					<Collapse in={expandeDescuento} timeout="auto" unmountOnExit>
 						<ImporteFlexGrow titulo="Descuento">
 							<DescuentoCrearFactura
-								funcModState={setMontoDescuento}
+								tochangestate={setMontoDescuento}
 								monto={subtotal}
 							/>
 						</ImporteFlexGrow>

@@ -92,7 +92,7 @@ const DomicilioNuevoCliente = (props) => {
 						ancho={inputCalle.ancho}
 						required
 						initialvalue=""
-						funcModState={props.onChangeAtributo}
+						tochangestate={props.onChangeAtributo}
 					/>
 					<InputNumberBordeInferior
 						label={inputNumero.label}
@@ -101,7 +101,7 @@ const DomicilioNuevoCliente = (props) => {
 						ancho={inputNumero.ancho}
 						required
 						initialvalue=""
-						funcModState={props.onChangeAtributo}
+						tochangestate={props.onChangeAtributo}
 					/>
 					<InputBordeInferior
 						label={inputPiso.label}
@@ -110,7 +110,7 @@ const DomicilioNuevoCliente = (props) => {
 						ancho={inputPiso.ancho}
 						required
 						initialvalue=""
-						funcModState={props.onChangeAtributo}
+						tochangestate={props.onChangeAtributo}
 					/>
 					<InputBordeInferior
 						label={inputDepto.label}
@@ -119,7 +119,7 @@ const DomicilioNuevoCliente = (props) => {
 						ancho={inputDepto.ancho}
 						required
 						initialvalue=""
-						funcModState={props.onChangeAtributo}
+						tochangestate={props.onChangeAtributo}
 					/>
 					<InputBordeInferior
 						label={inputBarrio.label}
@@ -128,7 +128,7 @@ const DomicilioNuevoCliente = (props) => {
 						ancho={inputBarrio.ancho}
 						required
 						initialvalue=""
-						funcModState={props.onChangeAtributo}
+						tochangestate={props.onChangeAtributo}
 					/>
 					<InputNumberBordeInferior
 						label={inputCodPostal.label}
@@ -137,7 +137,7 @@ const DomicilioNuevoCliente = (props) => {
 						ancho={inputCodPostal.ancho}
 						required
 						initialvalue=""
-						funcModState={props.onChangeAtributo}
+						tochangestate={props.onChangeAtributo}
 					/>
 					<InputBordeInferior
 						label={inputCiudad.label}
@@ -146,7 +146,7 @@ const DomicilioNuevoCliente = (props) => {
 						ancho={inputCiudad.ancho}
 						required
 						initialvalue=""
-						funcModState={props.onChangeAtributo}
+						tochangestate={props.onChangeAtributo}
 					/>
 					<InputBordeInferior
 						label={inputProvincia.label}
@@ -155,7 +155,7 @@ const DomicilioNuevoCliente = (props) => {
 						ancho={inputProvincia.ancho}
 						required
 						initialvalue=""
-						funcModState={props.onChangeAtributo}
+						tochangestate={props.onChangeAtributo}
 					/>
 					<InputBordeInferior
 						label={inputReferencia.label}
@@ -164,7 +164,7 @@ const DomicilioNuevoCliente = (props) => {
 						ancho={inputReferencia.ancho}
 						required
 						initialvalue=""
-						funcModState={props.onChangeAtributo}
+						tochangestate={props.onChangeAtributo}
 					/>
 				</Grid>
 			</AccordionDetails>

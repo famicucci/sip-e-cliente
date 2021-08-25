@@ -80,7 +80,7 @@ const FilaEditarClientes = ({ fila, colIndex }) => {
 				<TableCell align="center">
 					{fila.idFactura ? (
 						<BotonCustomFilaTabla
-							funcModState={() => {
+							tochangestate={() => {
 								handleFilaActivaOrden(fila.idOrden);
 								handleOpenModalFactura();
 							}}
@@ -91,7 +91,7 @@ const FilaEditarClientes = ({ fila, colIndex }) => {
 						</BotonCustomFilaTabla>
 					) : (
 						<BotonCustomFilaTabla
-							funcModState={() => {
+							tochangestate={() => {
 								handleFilaActivaOrden(fila.idOrden);
 								handleOpenModalCrearFactura();
 							}}

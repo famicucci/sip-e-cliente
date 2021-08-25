@@ -12,7 +12,7 @@ const InputFecha = (props) => {
 
 	const handleDateChange = (date) => {
 		setSelectedDate(date);
-		props.funcModState(date);
+		props.tochangestate(date);
 	};
 
 	return (

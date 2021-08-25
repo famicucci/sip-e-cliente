@@ -132,8 +132,8 @@ const CrearFactura = () => {
 				</Box>
 				<Divider className={classes.dividerHorizontal} variant="fullWidth" />
 				<ProductosCrearFactura productos={filaActiva.detalleOrden} />
-				<ImporteCrearFactura funcModState={onChangeImportes} />
-				<NotaCrearFactura funcModState={onChangeObservaciones} />
+				<ImporteCrearFactura tochangestate={onChangeImportes} />
+				<NotaCrearFactura tochangestate={onChangeObservaciones} />
 				<Divider className={classes.dividerHorizontal} variant="fullWidth" />
 				<Box className={classes.footer}>
 					<BotonSuccess

@@ -19,7 +19,7 @@ const InputNumberBordeInferior = (props) => {
 		placeholder,
 		ancho,
 		initialvalue,
-		funcModState,
+		tochangestate,
 		disabled,
 		InputProps,
 	} = props;
@@ -28,7 +28,7 @@ const InputNumberBordeInferior = (props) => {
 
 	const onChange = (e) => {
 		setValor(e.target.value);
-		funcModState(e.target.name, e.target.value);
+		tochangestate(e.target.name, e.target.value);
 	};
 
 	if (disabled) {

@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core';
 
 const DescuentoCrearFactura = (props) => {
-	const { funcModState, monto } = props;
+	const { tochangestate, monto } = props;
 
 	const [value, setValue] = useState('');
 	const [selectedValue, setSelectedValue] = React.useState('porcentaje');
@@ -26,7 +26,7 @@ const DescuentoCrearFactura = (props) => {
 	}, [value, selectedValue, monto]);
 
 	useEffect(() => {
-		funcModState(descuento);
+		tochangestate(descuento);
 	}, [descuento]);
 
 	const handleChange = (event) => {

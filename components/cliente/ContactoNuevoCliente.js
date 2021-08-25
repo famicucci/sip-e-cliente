@@ -62,7 +62,7 @@ const ContactoNuevoCliente = (props) => {
 						ancho={inputEmail.ancho}
 						required
 						initialvalue=""
-						funcModState={props.onChangeAtributo}
+						tochangestate={props.onChangeAtributo}
 					/>
 					<InputBordeInferior
 						label={inputCelular.label}
@@ -71,7 +71,7 @@ const ContactoNuevoCliente = (props) => {
 						ancho={inputCelular.ancho}
 						required
 						initialvalue=""
-						funcModState={props.onChangeAtributo}
+						tochangestate={props.onChangeAtributo}
 					/>
 					<InputBordeInferior
 						label={inputInstagram.label}
@@ -80,7 +80,7 @@ const ContactoNuevoCliente = (props) => {
 						ancho={inputInstagram.ancho}
 						required
 						initialvalue=""
-						funcModState={props.onChangeAtributo}
+						tochangestate={props.onChangeAtributo}
 					/>
 					<InputBordeInferior
 						label={inputFacebook.label}
@@ -89,7 +89,7 @@ const ContactoNuevoCliente = (props) => {
 						ancho={inputFacebook.ancho}
 						required
 						initialvalue=""
-						funcModState={props.onChangeAtributo}
+						tochangestate={props.onChangeAtributo}
 					/>
 				</Grid>
 			</AccordionDetails>

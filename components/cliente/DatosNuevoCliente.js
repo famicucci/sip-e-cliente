@@ -62,7 +62,7 @@ const DatosNuevoCliente = (props) => {
 						ancho={inputNombre.ancho}
 						required
 						initialvalue=""
-						funcModState={props.onChangeAtributo}
+						tochangestate={props.onChangeAtributo}
 					/>
 					<InputBordeInferior
 						label={inputApellido.label}
@@ -71,7 +71,7 @@ const DatosNuevoCliente = (props) => {
 						ancho={inputApellido.ancho}
 						required
 						initialvalue=""
-						funcModState={props.onChangeAtributo}
+						tochangestate={props.onChangeAtributo}
 					/>
 					<InputBordeInferior
 						label={inputRazonSocial.label}
@@ -80,7 +80,7 @@ const DatosNuevoCliente = (props) => {
 						ancho={inputRazonSocial.ancho}
 						required
 						initialvalue=""
-						funcModState={props.onChangeAtributo}
+						tochangestate={props.onChangeAtributo}
 					/>
 					<InputBordeInferior
 						label={inputDniCuitCuil.label}
@@ -89,7 +89,7 @@ const DatosNuevoCliente = (props) => {
 						ancho={inputDniCuitCuil.ancho}
 						required
 						initialvalue=""
-						funcModState={props.onChangeAtributo}
+						tochangestate={props.onChangeAtributo}
 					/>
 				</Grid>
 			</AccordionDetails>

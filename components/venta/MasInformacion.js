@@ -100,7 +100,7 @@ const MasInformacion = () => {
 							ancho={9}
 							required={true}
 							initialvalue={masInformacion.ordenEcommerce}
-							funcModState={onChangeNroEcommerce}
+							tochangestate={onChangeNroEcommerce}
 						/>
 						<InputBordeInferior
 							label="Nota"
@@ -109,7 +109,7 @@ const MasInformacion = () => {
 							ancho={12}
 							required={true}
 							initialvalue={masInformacion.observaciones}
-							funcModState={onChangeNota}
+							tochangestate={onChangeNota}
 						/>
 					</Grid>
 				</form>
