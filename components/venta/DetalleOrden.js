@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ModalScroll from '../generales/ModalScroll';
 import { Typography, Divider, Box } from '@material-ui/core';
@@ -9,6 +9,8 @@ import MasInformacion from './MasInformacion';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { IconButton } from '@material-ui/core';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const useStyles = makeStyles((theme) => ({
 	dividerHorizontal: {
@@ -24,19 +26,41 @@ const useStyles = makeStyles((theme) => ({
 const DetalleOrden = () => {
 	const classes = useStyles();
 
+	const [anchorEl, setAnchorEl] = React.useState(null);
+	const [statusButton, setStatusButton] = useState({ disabled: true });
+
 	const { traerTiposEnvio, handleOrderToModify } = useContext(VentasContext);
 	const {
 		filaActiva,
 		openModalDetalleOrden,
 		handleCloseModal,
 		handleFilaActivaOrden,
+		removeOrder,
 	} = useContext(EditarOrdenesContext);
 
 	useEffect(() => {
 		traerTiposEnvio();
 	}, []);
 
+	useEffect(() => {
+		if (!filaActiva.Factura) setStatusButton({ disabled: false });
+	}, [filaActiva]);
+
 	if (!openModalDetalleOrden) return null;
+
+	const handleClickMenu = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
+
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
+
+	const onClickRemoveOrder = () => {
+		removeOrder(filaActiva.id);
+		handleClose();
+		handleCloseModal();
+	};
 
 	return (
 		<ModalScroll
@@ -63,9 +87,20 @@ const DetalleOrden = () => {
 					<Typography align="left">{`${filaActiva.Cliente.nombre} ${filaActiva.Cliente.apellido}`}</Typography>
 				</Box>
 				<Box>
-					<IconButton size="small">
+					<IconButton size="small" onClick={handleClickMenu}>
 						<MoreVertIcon />
 					</IconButton>
+					<Menu
+						id="simple-menu"
+						anchorEl={anchorEl}
+						keepMounted
+						open={Boolean(anchorEl)}
+						onClose={handleClose}
+					>
+						<MenuItem onClick={onClickRemoveOrder} {...statusButton}>
+							Eliminar
+						</MenuItem>
+					</Menu>
 				</Box>
 			</Box>
 			<Divider className={classes.dividerHorizontal} variant="fullWidth" />

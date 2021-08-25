@@ -7,6 +7,7 @@ import { FacturaBD } from '../../../functions/Factura';
 
 import {
 	TRAER_ORDENES,
+	ELIMINAR_ORDEN,
 	TRAER_ESTADOS_ORDEN,
 	FILA_ACTIVA_ORDEN,
 	MODIFICAR_ORDENES,
@@ -333,6 +334,24 @@ const EditarOrdenesState = (props) => {
 		}, 4000);
 	};
 
+	const removeOrder = async (idOrder) => {
+		try {
+			let r = await clienteAxios.delete(`/api/ordenes/${idOrder}`);
+
+			dispatch({
+				type: ELIMINAR_ORDEN,
+				payload: idOrder,
+			});
+
+			mostrarAlertaEditarOrdenes(
+				`La orden ${idOrder} ha sido eliminada!`,
+				'success'
+			);
+		} catch (error) {
+			mostrarAlertaEditarOrdenes(error.msg, error.severity);
+		}
+	};
+
 	return (
 		<EditarOrdenesContext.Provider
 			value={{
@@ -374,6 +393,7 @@ const EditarOrdenesState = (props) => {
 				crearPago,
 				ocultarAlertaEditarOrdenes,
 				mostrarAlertaEditarOrdenes,
+				removeOrder,
 			}}
 		>
 			{props.children}

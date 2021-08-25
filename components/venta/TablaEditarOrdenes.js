@@ -71,6 +71,7 @@ const TablaEditarOrdenes = () => {
 		traerEstadosOrden,
 		traerTiposEnvio,
 		traerPtosVenta,
+		openModalDetalleOrden,
 		openModalCrearFactura,
 		openModalFactura,
 		openModalCrearPago,
@@ -153,7 +154,7 @@ const TablaEditarOrdenes = () => {
 				</TableBody>
 				{!cargando ? <FooterTabla /> : null}
 			</Table>
-			<DetalleOrden />
+			{openModalDetalleOrden ? <DetalleOrden /> : null}
 			{openModalInformacionCliente ? (
 				<InformacionCliente
 					cliente={filaActiva.Cliente}

@@ -1,5 +1,6 @@
 import {
 	TRAER_ORDENES,
+	ELIMINAR_ORDEN,
 	TRAER_ESTADOS_ORDEN,
 	FILA_ACTIVA_ORDEN,
 	MODIFICAR_ESTADO_ORDEN,
@@ -32,6 +33,11 @@ const EditarOrdenesReducer = (state, action) => {
 				...state,
 				ordenes: action.payload.respuesta,
 				cargando: false,
+			};
+		case ELIMINAR_ORDEN:
+			return {
+				...state,
+				ordenes: state.ordenes.filter((x) => x.id !== action.payload),
 			};
 		case TRAER_ESTADOS_ORDEN:
 			return {
