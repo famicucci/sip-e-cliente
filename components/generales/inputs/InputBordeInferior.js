@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-
-const useStyles = makeStyles((theme) => ({
-	root: {
-		// marginTop: theme.spacing(3),
-	},
-}));
 
 const InputBordeInferior = ({
 	label,
@@ -18,8 +11,7 @@ const InputBordeInferior = ({
 	initialvalue,
 	tochangestate,
 }) => {
-	const classes = useStyles();
-
+	if (initialvalue === null) initialvalue = '';
 	const [valor, setValor] = useState(initialvalue);
 
 	useEffect(() => {
@@ -32,20 +24,19 @@ const InputBordeInferior = ({
 	};
 
 	if (required) {
-		required = { required: 'true' };
+		required = { required: true };
 	}
 
 	return (
 		<Grid item xs={ancho}>
 			<TextField
-				className={classes.root}
 				name={name}
 				value={valor}
 				onChange={onChange}
 				label={label}
 				placeholder={placeholder}
 				fullWidth
-				// margin="normal"
+				margin="normal"
 				InputLabelProps={{
 					shrink: true,
 				}}
