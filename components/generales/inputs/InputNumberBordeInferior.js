@@ -11,14 +11,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const InputNumberBordeInferior = (props) => {
-	const classes = useStyles(props);
+	const classes = useStyles(props.styles);
 
 	const {
 		label,
 		name,
 		placeholder,
 		ancho,
-		required,
 		valInit,
 		funcModState,
 		disabled,
@@ -31,10 +30,6 @@ const InputNumberBordeInferior = (props) => {
 		setValor(e.target.value);
 		funcModState(e.target.name, e.target.value);
 	};
-
-	// if (required) {
-	// 	required = { required: 'true' };
-	// }
 
 	if (disabled) {
 		disabled = { disabled: true };

@@ -93,6 +93,7 @@ const SelectOrdenEstado = ({ idOrden, ordenEstadoId }) => {
 			>
 				{estadosOrden.map((x) => (
 					<MenuItem
+						key={x.id}
 						value={x.id}
 						onClick={() => {
 							handleClickItem(idOrden, x.id, x.descripcion);

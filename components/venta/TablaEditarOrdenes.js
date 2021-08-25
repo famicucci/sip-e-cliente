@@ -143,7 +143,7 @@ const TablaEditarOrdenes = () => {
 				<TableBody>
 					{!cargando ? (
 						cortePagina.map((x) => (
-							<FilaEditarOrdenes key={x.id} fila={x} colIndex={colIndex} />
+							<FilaEditarOrdenes key={x.idOrden} fila={x} colIndex={colIndex} />
 						))
 					) : (
 						<SpinnerTabla cantColumnas={3} />

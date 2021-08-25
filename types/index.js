@@ -4,6 +4,9 @@ export const OBTENER_USUARIO = 'OBTENER_USUARIO';
 export const CERRAR_SESION = 'CERRAR_SESION';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 
+// global data
+export const TRAER_PTOS_VENTA = 'TRAER_PTOS_VENTA';
+
 // barra de herramientas
 export const HERRAMIENTAS_PRECIOS = 'HERRAMIENTAS_PRECIOS';
 export const HERRAMIENTAS_STOCK_PRODUCTO = 'HERRAMIENTAS_STOCK_PRODUCTO';

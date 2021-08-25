@@ -53,7 +53,6 @@ const inputCosto = {
 	label: 'Costo ($)',
 	placeholder: 'Costo',
 	ancho: 6,
-	required: true,
 };
 
 const FormularioEnvio = (props) => {
@@ -203,10 +202,10 @@ const FormularioEnvio = (props) => {
 					label={inputCosto.label}
 					placeholder={inputCosto.placeholder}
 					ancho={inputCosto.ancho}
-					required={inputCosto.required}
 					valInit={stateEnvio.costo}
 					funcModState={handleInputCosto}
 					disabled={handleDisabledCostoEnvio(facturasOrden)}
+					styles={{ marginTop: 2 }}
 				/>
 				{alerta !== null ? <Alerta /> : null}
 			</Grid>
