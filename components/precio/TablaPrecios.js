@@ -9,7 +9,7 @@ import usePaginacion from '../../hooks/usePaginacion';
 import FilaPrecio from './FilaPrecio';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import PreciosContext from '../../context/precios/preciosContext';
-import SpinnerTabla from '../SpinnerTabla';
+import SpinnerTabla from '../generales/SpinnerTabla';
 
 const useStyles = makeStyles({
 	table: {

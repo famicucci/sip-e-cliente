@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import Layout from '../../components/layouts/Layout';
 import AuthContext from '../../context/autenticacion/authContext';
 import IrLogin from '../../components/generales/IrLogin';
-import SpinnerPantalla from '../../components/SpinnerPantalla';
+import SpinnerPantalla from '../../components/generales/SpinnerPantalla';
 import CreateOrEditOrder from '../../components/venta/CreateOrEditOrder';
 import { useRouter } from 'next/router';
 import VentasContext from '../../context/ventas/ventasContext';

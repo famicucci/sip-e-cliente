@@ -11,7 +11,7 @@ import Alerta from '../generales/Alerta';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import StockContext from '../../context/stock/stockContext';
 import AlertaContext from '../../context/alertas/alertaContext';
-import SpinnerTabla from '../SpinnerTabla';
+import SpinnerTabla from '../generales/SpinnerTabla';
 
 const useStyles = makeStyles({
 	table: {

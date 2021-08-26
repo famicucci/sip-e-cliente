@@ -7,7 +7,7 @@ import HeadTabla from '../generales/HeadTabla';
 import TableBody from '@material-ui/core/TableBody';
 import usePaginacion from '../../hooks/usePaginacion';
 import FilaMostrarFacturas from './FilaMostrarFacturas';
-import SpinnerTabla from '../SpinnerTabla';
+import SpinnerTabla from '../generales/SpinnerTabla';
 
 const useStyles = makeStyles({
 	table: {

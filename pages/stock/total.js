@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import Layout from '../../components/layouts/Layout';
 import TablaStockTotal from '../../components/stock/TablaStockTotal';
 import IrLogin from '../../components/generales/IrLogin';
-import SpinnerPantalla from '../../components/SpinnerPantalla';
+import SpinnerPantalla from '../../components/generales/SpinnerPantalla';
 import AuthContext from '../../context/autenticacion/authContext';
 
 const ConsultarStockTotal = () => {

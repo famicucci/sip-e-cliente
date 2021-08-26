@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Layout from '../components/layouts/Layout';
 import AuthContext from '../context/autenticacion/authContext';
 import IrLogin from '../components/generales/IrLogin';
-import SpinnerPantalla from '../components/SpinnerPantalla';
+import SpinnerPantalla from '../components/generales/SpinnerPantalla';
 import Paper from '@material-ui/core/Paper';
 
 import Table from '@material-ui/core/Table';

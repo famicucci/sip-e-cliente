@@ -7,7 +7,7 @@ import HeadTabla from '../generales/HeadTabla';
 import TableBody from '@material-ui/core/TableBody';
 import usePaginacion from '../../hooks/usePaginacion';
 import FilaCliente from './FilaCliente';
-import SpinnerTabla from '../../components/SpinnerTabla';
+import SpinnerTabla from '../generales/SpinnerTabla';
 import ClientesContext from '../../context/clientes/clientesContext';
 import FacsOrdsCliente from '../cliente/FacsOrdsCliente';
 import InformacionCliente from './InformacionCliente';

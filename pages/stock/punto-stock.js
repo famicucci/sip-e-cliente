@@ -3,7 +3,7 @@ import Layout from '../../components/layouts/Layout';
 import TablaPuntoStock from '../../components/stock/TablaPuntoStock';
 import AuthContext from '../../context/autenticacion/authContext';
 import IrLogin from '../../components/generales/IrLogin';
-import SpinnerPantalla from '../../components/SpinnerPantalla';
+import SpinnerPantalla from '../../components/generales/SpinnerPantalla';
 
 const ConsultarStockPto = () => {
 	const authContext = useContext(AuthContext);

@@ -9,7 +9,7 @@ import TableBody from '@material-ui/core/TableBody';
 import FilaMovimientoStock from './FilaMovimientoStock';
 import StockContext from '../../context/stock/stockContext';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
-import SpinnerTabla from '../SpinnerTabla';
+import SpinnerTabla from '../generales/SpinnerTabla';
 
 const useStyles = makeStyles({
 	table: {

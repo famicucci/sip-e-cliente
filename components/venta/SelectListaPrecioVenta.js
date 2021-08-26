@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const SelectPtoStockVenta = () => {
+const SelectListaPrecioVenta = () => {
 	const classes = useStyles();
 
 	const { listasPrecio, mensaje, traerListasPrecio } = useContext(
@@ -64,4 +64,4 @@ const SelectPtoStockVenta = () => {
 	);
 };
 
-export default SelectPtoStockVenta;
+export default SelectListaPrecioVenta;

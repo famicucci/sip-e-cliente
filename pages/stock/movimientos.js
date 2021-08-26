@@ -3,7 +3,7 @@ import TablaMovimientos from '../../components/stock/TablaMovimientos';
 import AuthContext from '../../context/autenticacion/authContext';
 import IrLogin from '../../components/generales/IrLogin';
 import Layout from '../../components/layouts/Layout';
-import SpinnerPantalla from '../../components/SpinnerPantalla';
+import SpinnerPantalla from '../../components/generales/SpinnerPantalla';
 
 const MovimientoStock = () => {
 	const authContext = useContext(AuthContext);

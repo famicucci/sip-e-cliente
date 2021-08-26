@@ -7,7 +7,7 @@ import HeadTabla from '../generales/HeadTabla';
 import TableBody from '@material-ui/core/TableBody';
 import usePaginacion from '../../hooks/usePaginacion';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
-import SpinnerTabla from '../../components/SpinnerTabla';
+import SpinnerTabla from '../generales/SpinnerTabla';
 import FilaEditarOrdenes from '../venta/FilaEditarOrdenes';
 import NoteOutlinedIcon from '@material-ui/icons/NoteOutlined';
 import DetalleOrden from './DetalleOrden';
