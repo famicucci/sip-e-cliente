@@ -7,7 +7,7 @@ import HeadTabla from '../generales/HeadTabla';
 import usePaginacion from '../../hooks/usePaginacion';
 import TableBody from '@material-ui/core/TableBody';
 import FilaStockProducto from './componentes/FilaStockProducto';
-import ModalStockProducto from '../modales/stockProducto/ModalStockProducto';
+import ModalStockProducto from '../stock/ModalStockProducto';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import Alerta from '../Alerta';
 import StockContext from '../../context/stock/stockContext';

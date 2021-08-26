@@ -2,10 +2,10 @@ import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import CantidadStock from '../../tablas/componentes/CantidadStock';
-import InputCantidadStock from '../../tablas/componentes/InputCantidadStock';
-import StockContext from '../../../context/stock/stockContext';
-import BotonConfirmarCancelar from '../../tablas/componentes/BotonConfirmarCancelar';
+import CantidadStock from '../tablas/componentes/CantidadStock';
+import InputCantidadStock from '../tablas/componentes/InputCantidadStock';
+import StockContext from '../../context/stock/stockContext';
+import BotonConfirmarCancelar from '../tablas/componentes/BotonConfirmarCancelar';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 
