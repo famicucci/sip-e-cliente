@@ -5,7 +5,7 @@ import TableRow from '@material-ui/core/TableRow';
 import CantidadStock from '../tablas/componentes/CantidadStock';
 import InputCantidadStock from '../tablas/componentes/InputCantidadStock';
 import StockContext from '../../context/stock/stockContext';
-import BotonConfirmarCancelar from '../tablas/componentes/BotonConfirmarCancelar';
+import BotonConfirmarCancelar from '../generales/BotonConfirmarCancelar';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 

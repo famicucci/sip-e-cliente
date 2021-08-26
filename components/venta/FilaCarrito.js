@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import BotonVerMasCarrito from '../tablas/componentes/BotonVerMasCarrito';
-import BotonEliminarDeCarrito from '../tablas/componentes/BotonBorrarDeCarrito';
+import BotonEliminarDeCarrito from './BotonEliminarDeCarrito';
 import CollapseTablaCarrito from './CollapseTablaCarrito';
 import PrecioEditableCarrito from '../tablas/componentes/PrecioEditableCarrito';
 

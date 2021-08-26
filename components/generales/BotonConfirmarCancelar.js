@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
-import StockContext from '../../../context/stock/stockContext';
+import StockContext from '../../context/stock/stockContext';
 import { Box } from '@material-ui/core';
 
 const useStyles = makeStyles({
