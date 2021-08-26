@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import ElegirProductos from './ElegirProductos';
 import Carrito from './Carrito';
-import Alerta from '../Alerta';
+import Alerta from '../generales/Alerta';
 import VentasContext from '../../context/ventas/ventasContext';
 import AlertaContext from '../../context/alertas/alertaContext';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';

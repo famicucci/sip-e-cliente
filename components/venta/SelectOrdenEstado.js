@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import AlertaContext from '../../context/alertas/alertaContext';
-import Alerta from '../Alerta';
+import Alerta from '../generales/Alerta';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
 
 const BootstrapButton = withStyles({

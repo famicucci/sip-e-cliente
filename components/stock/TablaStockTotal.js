@@ -9,7 +9,7 @@ import TableBody from '@material-ui/core/TableBody';
 import FilaStockTotal from './FilaStockTotal';
 import ModalStockProducto from './ModalStockProducto';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
-import Alerta from '../Alerta';
+import Alerta from '../generales/Alerta';
 import StockContext from '../../context/stock/stockContext';
 import AlertaContext from '../../context/alertas/alertaContext';
 import SpinnerTabla from '../SpinnerTabla';

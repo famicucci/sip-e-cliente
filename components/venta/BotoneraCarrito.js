@@ -5,8 +5,8 @@ import AlertaContext from '../../context/alertas/alertaContext';
 import { BotoneraCarrContext } from '../../context/BotoneraCarrContext';
 import { IconButton, Box } from '@material-ui/core';
 import BotonSuccess from '../generales/botones/BotonSuccess';
-import BotonAccion from '../BotonAccion';
-import Alerta from '../Alerta';
+import BotonAccion from '../generales/BotonAccion';
+import Alerta from '../generales/Alerta';
 import {
 	LocalShipping,
 	PersonAdd,

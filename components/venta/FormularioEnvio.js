@@ -9,7 +9,7 @@ import InputBordeInferior from '../generales/inputs/InputBordeInferior';
 import AlertaContext from '../../context/alertas/alertaContext';
 import { Direccion } from '../../functions/envio';
 import useEnvio from '../../hooks/useEnvio';
-import Alerta from '../Alerta';
+import Alerta from '../generales/Alerta';
 
 const useStyles = makeStyles((theme) => ({
 	root: {

@@ -10,7 +10,7 @@ import TableRow from '@material-ui/core/TableRow';
 import FilaCarrito from './FilaCarrito';
 import FilaCarrEnvio from './FilaCarrEnvio';
 import VentasContext from '../../context/ventas/ventasContext';
-import BodyVacio from '../BodyVacio';
+import BodyVacio from '../generales/BodyVacio';
 
 const columnas = [
 	{ id: 'cantidad', label: 'Cant.', minWidth: 20, align: 'center' },

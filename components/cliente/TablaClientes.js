@@ -13,7 +13,7 @@ import FacsOrdsCliente from '../cliente/FacsOrdsCliente';
 import InformacionCliente from './InformacionCliente';
 import NuevoCliente from './NuevoCliente';
 import AlertaContext from '../../context/alertas/alertaContext';
-import Alerta from '../Alerta';
+import Alerta from '../generales/Alerta';
 import Alerta2 from '../generales/Alerta2';
 
 const useStyles = makeStyles({

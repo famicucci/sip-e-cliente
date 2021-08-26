@@ -7,7 +7,7 @@ import HeadTabla from '../generales/HeadTabla';
 import usePaginacion from '../../hooks/usePaginacion';
 import TableBody from '@material-ui/core/TableBody';
 import FilaPuntoStock from './FilaPuntoStock';
-import Alerta from '../Alerta';
+import Alerta from '../generales/Alerta';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import StockContext from '../../context/stock/stockContext';
 import AlertaContext from '../../context/alertas/alertaContext';
