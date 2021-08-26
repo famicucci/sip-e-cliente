@@ -11,7 +11,7 @@ const Fila = (props) => {
 				{ProductoCodigo}
 			</TableCell>
 			<TableCell align="left">{props.fila['Producto.descripcion']}</TableCell>
-			<TableCell align="right">{pu}</TableCell>
+			<TableCell align="center">{pu}</TableCell>
 		</RowColorIntercalado>
 	);
 };

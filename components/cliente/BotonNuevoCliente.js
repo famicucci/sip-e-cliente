@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import BotonFilaTabla from '../tablas/componentes/BotonFilaTabla';
+import BotonFilaTabla from '../generales/BotonFilaTabla';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import ClientesContext from '../../context/clientes/clientesContext';
 

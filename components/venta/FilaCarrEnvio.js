@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import VentasContext from '../../context/ventas/ventasContext';
-import BotonFilaTabla from '../tablas/componentes/BotonFilaTabla';
+import BotonFilaTabla from '../generales/BotonFilaTabla';
 import ClearIcon from '@material-ui/icons/Clear';
 
 const useStyles = makeStyles({

@@ -9,7 +9,7 @@ import TablaListaProductos from '../generales/TablaListaProductos';
 import AccordionActions from '@material-ui/core/AccordionActions';
 import Divider from '@material-ui/core/Divider';
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
-import BotonFilaTabla from '../tablas/componentes/BotonFilaTabla';
+import BotonFilaTabla from '../generales/BotonFilaTabla';
 import EditIcon from '@material-ui/icons/Edit';
 import { Box } from '@material-ui/core';
 import { useRouter } from 'next/router';

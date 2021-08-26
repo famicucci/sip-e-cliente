@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
 import VentasContext from '../../context/ventas/ventasContext';
-import BotonFilaTabla from '../tablas/componentes/BotonFilaTabla';
+import BotonFilaTabla from '../generales/BotonFilaTabla';
 import ClearIcon from '@material-ui/icons/Clear';
 import Collapse from '@material-ui/core/Collapse';
 

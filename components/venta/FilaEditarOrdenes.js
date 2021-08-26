@@ -7,7 +7,7 @@ import 'tippy.js/themes/light-border.css';
 import SelectOrdenEstado from './SelectOrdenEstado';
 import RowColorIntercalado from '../generales/RowColorIntercalado';
 import BotonTippyHoverTabla from '../generales/BotonTippyHoverTabla';
-import BotonFilaTabla from '../tablas/componentes/BotonFilaTabla';
+import BotonFilaTabla from '../generales/BotonFilaTabla';
 import BotonCustomFilaTabla from '../generales/BotonCustomFilaTabla';
 import BotonSinFormato from '../generales/BotonSinFormato';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
