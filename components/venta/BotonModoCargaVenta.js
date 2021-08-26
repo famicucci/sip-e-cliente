@@ -4,7 +4,7 @@ import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import SpellcheckIcon from '@material-ui/icons/Spellcheck';
 import CropFreeIcon from '@material-ui/icons/CropFree';
-import VentasContext from '../context/ventas/ventasContext';
+import VentasContext from '../../context/ventas/ventasContext';
 
 const useStyles = makeStyles((theme) => ({
 	root: {

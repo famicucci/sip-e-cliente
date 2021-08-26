@@ -12,7 +12,7 @@ import Logo from './Logo';
 import Buscador from '../generales/Buscador';
 import SelectListasPrecio from '../precio/SelectListasPrecio';
 import SelectPuntoStock from '../stock/SelectPuntoStock';
-import BotonModoCargaVenta from '../BotonModoCargaVenta';
+import BotonModoCargaVenta from '../venta/BotonModoCargaVenta';
 import BotonNuevoCliente from '../cliente/BotonNuevoCliente';
 import EtiquetaModificarOrden from '../venta/EtiquetaModificarOrden';
 

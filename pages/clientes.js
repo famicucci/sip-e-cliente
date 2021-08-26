@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import Layout from '../components/layouts/Layout';
 import AuthContext from '../context/autenticacion/authContext';
-import IrLogin from '../components/IrLogin';
+import IrLogin from '../components/generales/IrLogin';
 import SpinnerPantalla from '../components/SpinnerPantalla';
 import TablaClientes from '../components/cliente/TablaClientes';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';

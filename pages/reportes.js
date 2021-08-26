@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Layout from '../components/layouts/Layout';
 import AuthContext from '../context/autenticacion/authContext';
-import IrLogin from '../components/IrLogin';
+import IrLogin from '../components/generales/IrLogin';
 import SpinnerPantalla from '../components/SpinnerPantalla';
 import Paper from '@material-ui/core/Paper';
 

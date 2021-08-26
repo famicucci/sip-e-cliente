@@ -10,8 +10,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Copyright from './Copyright';
-import AlertaLogin from './generales/AlertaLogin';
-import AuthContext from '../context/autenticacion/authContext';
+import AlertaLogin from './AlertaLogin';
+import AuthContext from '../../context/autenticacion/authContext';
 import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme) => ({

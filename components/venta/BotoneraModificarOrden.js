@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import BotonSuccess from '../generales/botones/BotonSuccess';
-import BotonDanger from '../BotonDanger';
+import BotonDanger from '../generales/BotonDanger';
 import { Box } from '@material-ui/core';
 import VentasContext from '../../context/ventas/ventasContext';
 import { useRouter } from 'next/router';
