@@ -39,13 +39,13 @@ const FacsOrdsCliente = () => {
 	// columnas de la tabla
 	const columnasOrds = [
 		{ id: 1, nombre: 'Nº', align: 'center', minWidth: 60 },
-		{ id: 1, nombre: 'Ord. Ecommerce', align: 'left', minWidth: 110 },
-		{ id: 1, nombre: 'Creación', align: 'center', minWidth: 110 },
-		{ id: 1, nombre: 'Pto. Venta', align: 'left', minWidth: 110 },
-		{ id: 1, nombre: 'Estado', align: 'left', minWidth: 110 },
-		{ id: 1, nombre: 'Tipo Envio', align: 'center', minWidth: 110 },
+		{ id: 2, nombre: 'Ord. Ecommerce', align: 'left', minWidth: 110 },
+		{ id: 3, nombre: 'Creación', align: 'center', minWidth: 110 },
+		{ id: 4, nombre: 'Pto. Venta', align: 'left', minWidth: 110 },
+		{ id: 5, nombre: 'Estado', align: 'left', minWidth: 110 },
+		{ id: 6, nombre: 'Tipo Envio', align: 'center', minWidth: 110 },
 		{
-			id: 2,
+			id: 7,
 			nombre: 'Observaciones',
 			align: 'center',
 			minWidth: 60,
@@ -53,7 +53,7 @@ const FacsOrdsCliente = () => {
 			contenidoBoton: <NoteOutlinedIcon />,
 		},
 		{
-			id: 2,
+			id: 8,
 			nombre: 'Ver Detalle',
 			align: 'center',
 			minWidth: 60,
@@ -65,14 +65,14 @@ const FacsOrdsCliente = () => {
 
 	const columnasFacts = [
 		{ id: 1, nombre: 'Nº', align: 'center', minWidth: 60 },
-		{ id: 1, nombre: 'Tipo', align: 'center', minWidth: 50 },
-		{ id: 1, nombre: 'Estado', align: 'center', minWidth: 100 },
-		{ id: 1, nombre: 'Importe Final', align: 'center', minWidth: 110 },
-		{ id: 1, nombre: 'Creación', align: 'center', minWidth: 110 },
-		{ id: 1, nombre: 'Nº Orden', align: 'center', minWidth: 60 },
-		{ id: 1, nombre: 'Estado Pago', align: 'left', minWidth: 110 },
+		{ id: 2, nombre: 'Tipo', align: 'center', minWidth: 50 },
+		{ id: 3, nombre: 'Estado', align: 'center', minWidth: 100 },
+		{ id: 4, nombre: 'Importe Final', align: 'center', minWidth: 110 },
+		{ id: 5, nombre: 'Creación', align: 'center', minWidth: 110 },
+		{ id: 6, nombre: 'Nº Orden', align: 'center', minWidth: 60 },
+		{ id: 7, nombre: 'Estado Pago', align: 'left', minWidth: 110 },
 		{
-			id: 2,
+			id: 8,
 			nombre: 'Observaciones',
 			align: 'center',
 			minWidth: 60,
@@ -80,7 +80,7 @@ const FacsOrdsCliente = () => {
 			contenidoBoton: <NoteOutlinedIcon />,
 		},
 		{
-			id: 2,
+			id: 9,
 			nombre: 'Ver Detalle',
 			align: 'center',
 			minWidth: 60,

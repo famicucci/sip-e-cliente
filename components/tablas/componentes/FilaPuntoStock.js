@@ -2,12 +2,11 @@ import React, { useContext } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import CantidadStock from '../componentes/CantidadStock';
-import BotonFilaTabla from './BotonFilaTabla';
 import StockContext from '../../../context/stock/stockContext';
 import BotonConfirmarCancelar from '../componentes/BotonConfirmarCancelar';
 import InputCantidadStock from '../componentes/InputCantidadStock';
 import EditIcon from '@material-ui/icons/Edit';
+import IconButton from '@material-ui/core/IconButton';
 
 const StyledTableRow = withStyles((theme) => ({
 	root: {
@@ -23,27 +22,26 @@ const FilaPuntoStock = (props) => {
 	const { filaActivaProducto, handleFilaActiva, modificarStockPtoStock } =
 		useContext(StockContext);
 
+	const onClickEdit = () => {
+		handleFilaActiva(props.fila);
+	};
+
 	return (
-		<StyledTableRow key={id}>
-			<TableCell component="th" scope="row">
-				{ProductoCodigo}
-			</TableCell>
+		<StyledTableRow>
+			<TableCell>{ProductoCodigo}</TableCell>
 			<TableCell align="left">{props.fila['Producto.descripcion']}</TableCell>
 			<TableCell align="center">
 				{filaActivaProducto.id !== id ? (
-					<CantidadStock cantidad={cantidad} />
+					<>{cantidad}</>
 				) : (
 					<InputCantidadStock cantidad={cantidad} />
 				)}
 			</TableCell>
 			<TableCell align="center">
 				{filaActivaProducto.id !== id ? (
-					<BotonFilaTabla
-						contenido={<EditIcon />}
-						onClick={() => {
-							handleFilaActiva(props.fila);
-						}}
-					/>
+					<IconButton size="small" edge="start" onClick={onClickEdit}>
+						<EditIcon />
+					</IconButton>
 				) : (
 					<BotonConfirmarCancelar confirmar={modificarStockPtoStock} />
 				)}

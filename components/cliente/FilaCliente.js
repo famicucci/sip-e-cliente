@@ -27,7 +27,6 @@ const FilaCliente = ({ fila, colIndex }) => {
 			<TableCell align="left">
 				<BotonSinFormato
 					onClick={() => {
-						console.log(fila.id);
 						handleFilaActiva(fila.id);
 						handleOpenModalInformacionCliente(true);
 					}}

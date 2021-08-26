@@ -33,9 +33,8 @@ const InputCantidadStock = ({ cantidad }) => {
 	};
 
 	return (
-		<form className={classes.root} noValidate autoComplete="off">
+		<form className={classes.root}>
 			<TextField
-				id="outlined-number"
 				label="Cantidad"
 				type="number"
 				value={cantInput}

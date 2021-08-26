@@ -3,11 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
 import StockContext from '../../../context/stock/stockContext';
+import { Box } from '@material-ui/core';
 
 const useStyles = makeStyles({
-	IconoConfirmar: {
+	buttonconfirm: {
 		color: '#8bc34a',
 	},
 });
@@ -17,23 +17,23 @@ const BotonConfirmarCancelar = ({ confirmar }) => {
 
 	const { filaActivaProducto, handleFilaActiva } = useContext(StockContext);
 
+	const onClickConfirm = () => {
+		confirmar(filaActivaProducto);
+	};
+
+	const onClickClose = () => {
+		handleFilaActiva({});
+	};
+
 	return (
-		<ButtonGroup variant="text" aria-label="text primary button group">
-			<IconButton
-				onClick={() => {
-					confirmar(filaActivaProducto);
-				}}
-			>
-				<CheckIcon className={classes.IconoConfirmar} />
+		<Box>
+			<IconButton onClick={onClickConfirm}>
+				<CheckIcon className={classes.buttonconfirm} />
 			</IconButton>
-			<IconButton
-				onClick={() => {
-					handleFilaActiva({});
-				}}
-			>
+			<IconButton onClick={onClickClose}>
 				<CloseIcon color="error" />
 			</IconButton>
-		</ButtonGroup>
+		</Box>
 	);
 };
 
