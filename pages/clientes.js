@@ -13,7 +13,9 @@ const Clientes = () => {
 	const authContext = useContext(AuthContext);
 	const { autenticado, cargando, usuarioAutenticado } = authContext;
 	const { handleOpenFacsOrdsCliente } = useContext(ClientesContext);
-	const { handleHerramientasClientes } = useContext(BarraHerramientasContext);
+	const { handleHerramientasClientes, busqueda } = useContext(
+		BarraHerramientasContext
+	);
 
 	useEffect(() => {
 		usuarioAutenticado();
@@ -60,7 +62,7 @@ const Clientes = () => {
 
 	return (
 		<Layout>
-			<TablaClientes columnas={columnas} />
+			<TablaClientes columnas={columnas} busqueda={busqueda} />
 		</Layout>
 	);
 };

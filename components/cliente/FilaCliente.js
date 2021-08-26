@@ -24,10 +24,7 @@ const FilaCliente = ({ fila, colIndex }) => {
 
 	return (
 		<TableRow hover>
-			{/* <TableCell component="th" scope="row">
-				{`${fila.nombre} ${fila.apellido}`}
-			</TableCell> */}
-			<TableCell align="center">
+			<TableCell align="left">
 				<BotonSinFormato
 					onClick={() => {
 						console.log(fila.id);

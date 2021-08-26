@@ -7,7 +7,6 @@ import HeadTabla from '../generales/HeadTabla';
 import TableBody from '@material-ui/core/TableBody';
 import usePaginacion from '../../hooks/usePaginacion';
 import FilaCliente from './FilaCliente';
-import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import SpinnerTabla from '../../components/SpinnerTabla';
 import ClientesContext from '../../context/clientes/clientesContext';
 import FacsOrdsCliente from '../cliente/FacsOrdsCliente';
@@ -23,16 +22,17 @@ const useStyles = makeStyles({
 	},
 });
 
-const TablaClientes = ({ columnas }) => {
+const TablaClientes = (props) => {
 	const classes = useStyles();
+	const { columnas, busqueda } = props;
 
-	const { busqueda } = useContext(BarraHerramientasContext);
-	const { alerta, mostrarAlerta } = useContext(AlertaContext);
+	const { alerta } = useContext(AlertaContext);
 	const {
 		filas,
 		filaActiva,
 		openModalInformacionCliente,
 		openModalNuevoCliente,
+		openInfoCliente,
 		mensajeClientes,
 		cargando,
 		traerClientes,
@@ -89,7 +89,7 @@ const TablaClientes = ({ columnas }) => {
 					}}
 				/>
 			) : null}
-			<FacsOrdsCliente />
+			{openInfoCliente ? <FacsOrdsCliente /> : null}
 			{openModalNuevoCliente ? <NuevoCliente /> : null}
 			{alerta !== null ? <Alerta /> : null}
 			{mensajeClientes ? <Alerta2 mensaje={mensajeClientes} /> : null}
