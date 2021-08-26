@@ -9,7 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import usePaginacion from '../../hooks/usePaginacion';
 import VentasContext from '../../context/ventas/ventasContext';
-import FilaElegirProducto from '../tablas/componentes/FilaElegirProducto';
+import FilaElegirProducto from './FilaElegirProducto';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import useFilter from '../../hooks/useFilter';
 

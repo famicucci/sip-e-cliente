@@ -4,7 +4,7 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import BotonAgregarCarrito from './componentes/BotonAgregarCarrito';
+import BotonAgregarCarrito from './BotonAgregarCarrito';
 import VentasContext from '../../context/ventas/ventasContext';
 
 const useStyles = makeStyles({

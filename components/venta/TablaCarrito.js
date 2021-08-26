@@ -7,8 +7,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import FilaCarrito from '../venta/FilaCarrito';
-import FilaCarrEnvio from '../venta/FilaCarrEnvio';
+import FilaCarrito from './FilaCarrito';
+import FilaCarrEnvio from './FilaCarrEnvio';
 import VentasContext from '../../context/ventas/ventasContext';
 import BodyVacio from '../BodyVacio';
 

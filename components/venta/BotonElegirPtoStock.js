@@ -6,7 +6,7 @@ import CallMadeIcon from '@material-ui/icons/CallMade';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import 'tippy.js/themes/light-border.css';
-import TablaElegirPtoStock from '../TablaElegirPtoStock';
+import TablaElegirPtoStock from './TablaElegirPtoStock';
 
 const useStyles = makeStyles((theme) => ({
 	root: {

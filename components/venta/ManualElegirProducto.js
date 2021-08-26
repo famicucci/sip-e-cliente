@@ -4,7 +4,7 @@ import Box from '@material-ui/core/Box';
 import BuscadorPapper from '../generales/BuscadorPapper';
 import RadioElegirProductos from './RadioElegirProductos';
 import SelectListaPrecio from './SelectListaPrecioVenta';
-import TablaElegirProducto from '../tablas/TablaElegirProducto';
+import TablaElegirProducto from './TablaElegirProducto';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import VentasContext from '../../context/ventas/ventasContext';
 

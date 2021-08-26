@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import TablaCarrito from '../tablas/TablaCarrito';
+import TablaCarrito from './TablaCarrito';
 import SeccionInferiorCarrito from './SeccionInferiorCarrito';
 import BotoneraCarrProvider from '../../context/BotoneraCarrContext';
 
