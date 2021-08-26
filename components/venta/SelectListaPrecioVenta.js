@@ -43,21 +43,23 @@ const SelectPtoStockVenta = () => {
 
 	return (
 		<FormControl className={classes.formControl}>
-			<Select
-				value={listaPrecio.id}
-				onChange={handleChange}
-				displayEmpty
-				className={classes.selectEmpty}
-				inputProps={{ 'aria-label': 'Without label' }}
-			>
-				{listasPrecio
-					? listasPrecio.map((ptoStock) => (
-							<MenuItem key={ptoStock.id} value={ptoStock.id}>
-								{ptoStock.descripcion}
-							</MenuItem>
-					  ))
-					: null}
-			</Select>
+			{listasPrecio ? (
+				<Select
+					value={listaPrecio.id}
+					onChange={handleChange}
+					displayEmpty
+					className={classes.selectEmpty}
+					inputProps={{ 'aria-label': 'Without label' }}
+				>
+					{listasPrecio
+						? listasPrecio.map((ptoStock) => (
+								<MenuItem key={ptoStock.id} value={ptoStock.id}>
+									{ptoStock.descripcion}
+								</MenuItem>
+						  ))
+						: null}
+				</Select>
+			) : null}
 		</FormControl>
 	);
 };

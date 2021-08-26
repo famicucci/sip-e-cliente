@@ -55,26 +55,27 @@ const SelectListasPrecio = () => {
 
 	return (
 		<FormControl className={classes.formControl}>
-			<Select
-				className={classes.selector}
-				id="demo-simple-select-autowidth"
-				value={lista}
-				onChange={handleChange}
-				autoWidth
-				inputProps={{
-					classes: {
-						icon: classes.icon,
-					},
-				}}
-			>
-				{listasPrecio
-					? listasPrecio.map((lista) => (
-							<MenuItem key={lista.id} value={lista.id}>
-								{lista.descripcion}
-							</MenuItem>
-					  ))
-					: null}
-			</Select>
+			{listasPrecio ? (
+				<Select
+					className={classes.selector}
+					id="demo-simple-select-autowidth"
+					value={lista}
+					defaultValue=""
+					onChange={handleChange}
+					autoWidth
+					inputProps={{
+						classes: {
+							icon: classes.icon,
+						},
+					}}
+				>
+					{listasPrecio.map((lista) => (
+						<MenuItem key={lista.id} value={lista.id}>
+							{lista.descripcion}
+						</MenuItem>
+					))}
+				</Select>
+			) : null}
 		</FormControl>
 	);
 };

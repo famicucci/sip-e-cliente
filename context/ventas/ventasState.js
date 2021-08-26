@@ -55,7 +55,7 @@ const VentasState = (props) => {
 		valorRadio: 'pto-stock',
 		carrito: [],
 		ptosStock: null, // global state?
-		ptosVenta: [], // global state?
+		ptosVenta: null, // global state?
 		tiposEnvio: null, // global state?
 		estadosOrden: [], // global state?
 		modo: 'manual',

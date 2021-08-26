@@ -36,6 +36,7 @@ const SelectPtoVenta = ({ ptoVenta, handlePtoVenta }) => {
 					className={classes.selectEmpty}
 					name="ptoventa"
 					value={ptoVenta}
+					defaultValue=""
 					onChange={handleChange}
 					autoWidth
 					displayEmpty

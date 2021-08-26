@@ -116,7 +116,7 @@ const TablaElegirProducto = () => {
 				</TableHead>
 				<TableBody>
 					{filteredData.map((fila) => (
-						<FilaElegirProducto fila={fila} />
+						<FilaElegirProducto key={fila.ProductoCodigo} fila={fila} />
 					))}
 					{filteredData.length === 0
 						? bodyVacio(columnas, 'Ningún producto coincide...')

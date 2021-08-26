@@ -23,12 +23,12 @@ const SelectPtoStockVenta = () => {
 		useContext(VentasContext);
 
 	useEffect(() => {
-		traerPtosStock();
+		if (!ptosStock) traerPtosStock();
 	}, []);
 
-	let props = {};
+	let status = {};
 	if (valorRadio !== 'pto-stock') {
-		props = {
+		status = {
 			disabled: 'true',
 		};
 	}
@@ -40,22 +40,23 @@ const SelectPtoStockVenta = () => {
 
 	return (
 		<FormControl className={classes.formControl}>
-			<Select
-				value={ptoStock.id}
-				onChange={handleChange}
-				displayEmpty
-				className={classes.selectEmpty}
-				inputProps={{ 'aria-label': 'Without label' }}
-				{...props}
-			>
-				{ptosStock
-					? ptosStock.map((x) => (
-							<MenuItem key={x.id} value={x.id}>
-								{x.descripcion}
-							</MenuItem>
-					  ))
-					: null}
-			</Select>
+			{ptosStock ? (
+				<Select
+					value={ptoStock.id}
+					defaultValue=""
+					onChange={handleChange}
+					displayEmpty
+					className={classes.selectEmpty}
+					inputProps={{ 'aria-label': 'Without label' }}
+					{...status}
+				>
+					{ptosStock.map((x) => (
+						<MenuItem key={x.id} value={x.id}>
+							{x.descripcion}
+						</MenuItem>
+					))}
+				</Select>
+			) : null}
 		</FormControl>
 	);
 };

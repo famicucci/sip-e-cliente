@@ -50,25 +50,26 @@ const SelectPuntosStock = ({ ptoStock, handlePtoStock }) => {
 
 	return (
 		<FormControl className={classes.formControl}>
-			<Select
-				className={classes.selector}
-				value={ptoStock}
-				onChange={handleChange}
-				autoWidth
-				inputProps={{
-					classes: {
-						icon: classes.icon,
-					},
-				}}
-			>
-				{ptosStock
-					? ptosStock.map((ptoStock) => (
-							<MenuItem key={ptoStock.id} value={ptoStock.id}>
-								{ptoStock.descripcion}
-							</MenuItem>
-					  ))
-					: null}
-			</Select>
+			{ptosStock ? (
+				<Select
+					className={classes.selector}
+					value={ptoStock}
+					defaultValue=""
+					onChange={handleChange}
+					autoWidth
+					inputProps={{
+						classes: {
+							icon: classes.icon,
+						},
+					}}
+				>
+					{ptosStock.map((ptoStock) => (
+						<MenuItem key={ptoStock.id} value={ptoStock.id}>
+							{ptoStock.descripcion}
+						</MenuItem>
+					))}
+				</Select>
+			) : null}
 		</FormControl>
 	);
 };
