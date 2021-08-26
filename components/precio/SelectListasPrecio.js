@@ -3,7 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import BarraHerramientasContext from '../../../context/barraHerramientas/barraHerramientasContext';
+import PreciosContext from '../../context/precios/preciosContext';
+import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 
 const useStyles = makeStyles((theme) => ({
 	formControl: {
@@ -35,25 +36,30 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const SelectPuntosStock = ({ ptoStock, handlePtoStock }) => {
+const SelectListasPrecio = () => {
 	const classes = useStyles();
 
-	const { ptosStock, traerPtosStock } = useContext(BarraHerramientasContext);
+	const { listasPrecio, traerListasPrecio } = useContext(
+		BarraHerramientasContext
+	);
+
+	const { lista, handleLista } = useContext(PreciosContext);
 
 	useEffect(() => {
-		traerPtosStock();
+		traerListasPrecio();
 	}, []);
 
 	const handleChange = (event) => {
-		handlePtoStock(event.target.value);
+		handleLista(event.target.value);
 	};
 
 	return (
 		<FormControl className={classes.formControl}>
-			{ptosStock ? (
+			{listasPrecio ? (
 				<Select
 					className={classes.selector}
-					value={ptoStock}
+					id="demo-simple-select-autowidth"
+					value={lista}
 					defaultValue=""
 					onChange={handleChange}
 					autoWidth
@@ -63,9 +69,9 @@ const SelectPuntosStock = ({ ptoStock, handlePtoStock }) => {
 						},
 					}}
 				>
-					{ptosStock.map((ptoStock) => (
-						<MenuItem key={ptoStock.id} value={ptoStock.id}>
-							{ptoStock.descripcion}
+					{listasPrecio.map((lista) => (
+						<MenuItem key={lista.id} value={lista.id}>
+							{lista.descripcion}
 						</MenuItem>
 					))}
 				</Select>
@@ -74,4 +80,4 @@ const SelectPuntosStock = ({ ptoStock, handlePtoStock }) => {
 	);
 };
 
-export default SelectPuntosStock;
+export default SelectListasPrecio;
