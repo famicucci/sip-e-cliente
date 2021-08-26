@@ -29,7 +29,7 @@ const SelectPtoStockVenta = () => {
 	let status = {};
 	if (valorRadio !== 'pto-stock') {
 		status = {
-			disabled: 'true',
+			disabled: true,
 		};
 	}
 

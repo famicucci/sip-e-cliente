@@ -102,6 +102,7 @@ const DomicilioNuevoCliente = (props) => {
 						required
 						initialvalue=""
 						tochangestate={props.onChangeAtributo}
+						styles={{ marginTop: 2 }}
 					/>
 					<InputBordeInferior
 						label={inputPiso.label}
@@ -138,6 +139,7 @@ const DomicilioNuevoCliente = (props) => {
 						required
 						initialvalue=""
 						tochangestate={props.onChangeAtributo}
+						styles={{ marginTop: 2 }}
 					/>
 					<InputBordeInferior
 						label={inputCiudad.label}
