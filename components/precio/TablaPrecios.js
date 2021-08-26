@@ -6,7 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import HeadTabla from '../generales/HeadTabla';
 import TableBody from '@material-ui/core/TableBody';
 import usePaginacion from '../../hooks/usePaginacion';
-import FilaPrecio from '../tablas/componentes/FilaPrecio';
+import FilaPrecio from './FilaPrecio';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import PreciosContext from '../../context/precios/preciosContext';
 import SpinnerTabla from '../SpinnerTabla';

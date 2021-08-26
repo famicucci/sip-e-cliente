@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import TextField from '@material-ui/core/TextField';
-import VentasContext from '../../../context/ventas/ventasContext';
+import VentasContext from '../../context/ventas/ventasContext';
 
 const PrecioEditableCarrito = ({ codigo, precio }) => {
 	const [value, setValue] = useState(0);

@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TextField from '@material-ui/core/TextField';
-import VentasContext from '../../../context/ventas/ventasContext';
+import VentasContext from '../../context/ventas/ventasContext';
 
 const useStyles = makeStyles({
 	input: {

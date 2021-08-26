@@ -6,7 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import HeadTabla from '../generales/HeadTabla';
 import usePaginacion from '../../hooks/usePaginacion';
 import TableBody from '@material-ui/core/TableBody';
-import FilaMovimientoStock from '../tablas/componentes/FilaMovimientoStock';
+import FilaMovimientoStock from './FilaMovimientoStock';
 import StockContext from '../../context/stock/stockContext';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import SpinnerTabla from '../SpinnerTabla';

@@ -1,8 +1,8 @@
 import React from 'react';
 import TableCell from '@material-ui/core/TableCell';
-import RowColorIntercalado from '../../generales/RowColorIntercalado';
+import RowColorIntercalado from '../generales/RowColorIntercalado';
 
-const Fila = (props) => {
+const FilaPrecio = (props) => {
 	const { ProductoCodigo, pu } = props.fila;
 
 	return (
@@ -16,4 +16,4 @@ const Fila = (props) => {
 	);
 };
 
-export default Fila;
+export default FilaPrecio;

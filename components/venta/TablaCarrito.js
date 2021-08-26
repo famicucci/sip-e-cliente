@@ -15,7 +15,7 @@ import BodyVacio from '../BodyVacio';
 const columnas = [
 	{ id: 'cantidad', label: 'Cant.', minWidth: 20, align: 'center' },
 	{ id: 'producto', label: 'Producto', minWidth: 100 },
-	{ id: 'precio', label: 'Precio\u00a0($)', minWidth: 50 },
+	{ id: 'precio', label: 'Precio\u00a0($)', minWidth: 50, align: 'center' },
 	{ id: 'total', label: 'Total\u00a0($)', minWidth: 50, align: 'center' },
 	{ id: 'acciones', label: '', minWidth: 20 },
 ];
