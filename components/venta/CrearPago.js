@@ -142,6 +142,7 @@ const CrearPago = () => {
 								max: factura.importeFinal - factura.sumaPagos(),
 							},
 						}}
+						styles={{ marginTop: 2 }}
 					/>
 					<SelectBordeInferior
 						key={2}
