@@ -69,7 +69,7 @@ const DetalleOrden = () => {
 				handleCloseModal();
 				handleFilaActivaOrden(null);
 			}}
-			padding={16}
+			padding={2}
 		>
 			<Box display="flex" justifyContent="flex-center" alignItems="flex-end">
 				<Box>

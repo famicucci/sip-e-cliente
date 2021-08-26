@@ -20,7 +20,9 @@ const useStyles = makeStyles((theme) => ({
 		boxShadow: theme.shadows[5],
 		maxWidth: 800,
 		borderRadius: '10px',
-		padding: (props) => (props.padding ? props.padding : null),
+		padding: (props) => (props.padding ? theme.spacing(props.padding) : null),
+		paddingBottom: (props) =>
+			props.paddingBottom ? theme.spacing(props.paddingBottom) : null,
 	},
 }));
 

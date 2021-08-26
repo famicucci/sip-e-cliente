@@ -57,7 +57,11 @@ const AgregarClienteCarr = () => {
 	];
 
 	return (
-		<ModalScroll openModal={openModalCliente} handleClose={handleClose}>
+		<ModalScroll
+			openModal={openModalCliente}
+			handleClose={handleClose}
+			paddingBottom={2}
+		>
 			<div className={classes.root}>
 				<AppBar position="static" className={classes.appbar}>
 					<Tabs
@@ -65,7 +69,7 @@ const AgregarClienteCarr = () => {
 						onChange={handleChange}
 						aria-label="simple tabs example"
 					>
-						<Tab label="Nuevo" {...a11yProps(0)} />
+						<Tab label="Nuevo Cliente" {...a11yProps(0)} />
 						<Tab label="Existente" {...a11yProps(1)} />
 					</Tabs>
 				</AppBar>

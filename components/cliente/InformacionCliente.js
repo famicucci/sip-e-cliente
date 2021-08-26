@@ -1,7 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ModalScroll from '../generales/ModalScroll';
-import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
 import { Box, Typography, Divider } from '@material-ui/core';
 import DatosCliente from './DatosCliente';
 import ContactoCliente from './ContactoCliente';
@@ -22,13 +21,6 @@ const useStyles = makeStyles((theme) => ({
 const InformacionCliente = (props) => {
 	const classes = useStyles();
 
-	// const {
-	// 	props.filaActiva,
-	// 	props.openModalInformacionCliente,
-	// 	props.handleCloseModal,
-	// 	props.handleFilaActivaOrden,
-	// } = useContext(EditarOrdenesContext);
-
 	if (!props.openModalInformacionCliente) return null;
 
 	return (
@@ -38,7 +30,7 @@ const InformacionCliente = (props) => {
 				props.handleCloseModal();
 				props.handleFilaActiva(null);
 			}}
-			padding={16}
+			padding={2}
 		>
 			<Box display="flex" justifyContent="flex-center" alignItems="flex-end">
 				<Box>
