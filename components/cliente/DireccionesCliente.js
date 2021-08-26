@@ -26,37 +26,35 @@ const SpanBold = withStyles((theme) => ({
 const DireccionesCliente = ({ direcciones }) => {
 	const classes = useStyles();
 
-	let tabla = [];
-
-	if (direcciones.length > 0) {
-		for (let i = 0; i < direcciones.length; i++) {
-			const x = direcciones[i];
-			const fila = (
-				<p className={classes.p}>
-					<SpanBold>{`(${i + 1})`}</SpanBold>
-					<SpanBold>calle:</SpanBold>
-					{`${x.calle} ${x.numeroCalle}, `}
-					<SpanBold>piso:</SpanBold>
-					{`${x.piso}, `}
-					<SpanBold>depto:</SpanBold>
-					{`${x.depto}, `}
-					<SpanBold>cp:</SpanBold>
-					{`${x.codPostal}, `}
-					<SpanBold>barrio:</SpanBold>
-					{x.barrio ? `${x.barrio}, ` : '- , '}
-					<SpanBold>ciudad:</SpanBold>
-					{x.ciudad ? `${x.ciudad}, ` : '- , '}
-					<SpanBold>referencia:</SpanBold>
-					{x.refDireccion ? `${x.refDireccion}` : '- . '}
-				</p>
-			);
-			tabla.push(fila);
-		}
-	} else if (direcciones.length === 0) {
-		tabla = <p>Este cliente no tiene direcciones cargadas</p>;
-	}
-
-	return <>{tabla}</>;
+	return (
+		<>
+			{direcciones.length > 0 ? (
+				<>
+					{direcciones.map((x, i) => (
+						<p key={i} className={classes.p}>
+							<SpanBold>{`${i + 1})`}</SpanBold>
+							<SpanBold>calle:</SpanBold>
+							{`${x.calle} ${x.numeroCalle}, `}
+							<SpanBold>piso:</SpanBold>
+							{`${x.piso}, `}
+							<SpanBold>depto:</SpanBold>
+							{`${x.depto}, `}
+							<SpanBold>cp:</SpanBold>
+							{`${x.codPostal}, `}
+							<SpanBold>barrio:</SpanBold>
+							{x.barrio ? `${x.barrio}, ` : '- , '}
+							<SpanBold>ciudad:</SpanBold>
+							{x.ciudad ? `${x.ciudad}, ` : '- , '}
+							<SpanBold>referencia:</SpanBold>
+							{x.refDireccion ? `${x.refDireccion}` : '- . '}
+						</p>
+					))}
+				</>
+			) : (
+				<p>Este cliente no tiene direcciones cargadas</p>
+			)}
+		</>
+	);
 };
 
 export default DireccionesCliente;
