@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import TablaMovimientos from '../../components/tablas/TablaMovimientos';
+import TablaMovimientos from '../../components/stock/TablaMovimientos';
 import AuthContext from '../../context/autenticacion/authContext';
 import IrLogin from '../../components/IrLogin';
 import Layout from '../../components/layouts/Layout';

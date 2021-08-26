@@ -4,11 +4,11 @@ import Table from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
 import HeadTabla from '../generales/HeadTabla';
-import usePaginacion from '../../hooks/usePaginacion';
 import TableBody from '@material-ui/core/TableBody';
-import FilaMovimientoStock from './componentes/FilaMovimientoStock';
-import StockContext from '../../context/stock/stockContext';
+import usePaginacion from '../../hooks/usePaginacion';
+import FilaPrecio from '../tablas/componentes/FilaPrecio';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
+import PreciosContext from '../../context/precios/preciosContext';
 import SpinnerTabla from '../SpinnerTabla';
 
 const useStyles = makeStyles({
@@ -21,37 +21,34 @@ const useStyles = makeStyles({
 const columnas = [
 	{ id: 1, nombre: 'Código', align: 'left', minWidth: 100 },
 	{ id: 2, nombre: 'Descripción', align: 'left', minWidth: 480 },
-	{ id: 3, nombre: 'Cantidad', align: 'center', minWidth: 100 },
-	{ id: 4, nombre: 'Pto. Stock', align: 'center', minWidth: 110 },
-	{ id: 5, nombre: 'Fecha', align: 'center', minWidth: 110 },
-	{ id: 6, nombre: 'Usuario', align: 'center', minWidth: 100 },
-	{ id: 7, nombre: 'Motivo', align: 'center', minWidth: 100 },
+	{ id: 3, nombre: 'Precio\xa0($)', align: 'center', minWidth: 100 },
 ];
 
-const TablaMovimientos = () => {
+const TablaPrecios = () => {
 	const classes = useStyles();
 
-	// context barra de herramientas
-	const { busqueda, handleHerramientasMovimientosStock } = useContext(
+	// context herramientas
+	const { busqueda, handleHerramientasPrecios } = useContext(
 		BarraHerramientasContext
 	);
 
-	// context stock
-	const { filas, cargando, traerMovimientosStock, handleFilasMovStock } =
-		useContext(StockContext);
+	// context precios
+	const { filas, lista, traerPrecios, handleFilas, cargando } =
+		useContext(PreciosContext);
 
+	// hook paginación
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
 		usePaginacion(filas);
 
 	useEffect(() => {
-		handleHerramientasMovimientosStock();
-		traerMovimientosStock(busqueda);
+		handleHerramientasPrecios();
+		traerPrecios(busqueda);
 	}, []);
 
 	useEffect(() => {
 		setPage(0);
-		handleFilasMovStock(busqueda);
-	}, [busqueda]);
+		handleFilas(busqueda);
+	}, [busqueda, lista]);
 
 	return (
 		<TableContainer component={Paper}>
@@ -59,14 +56,13 @@ const TablaMovimientos = () => {
 				<HeadTabla columnas={columnas} />
 				<TableBody>
 					{!cargando ? (
-						cortePagina.map((fila) => (
-							<FilaMovimientoStock key={fila.id} fila={fila} />
-						))
+						cortePagina.map((fila) => <FilaPrecio key={fila.id} fila={fila} />)
 					) : (
-						<SpinnerTabla cantColumnas={7} />
+						<SpinnerTabla cantColumnas={3} />
 					)}
-
-					{cortePagina.length === 0 ? bodyVacio(columnas) : filasVacias}
+					{cortePagina.length === 0 && !cargando
+						? bodyVacio(columnas)
+						: filasVacias}
 				</TableBody>
 				{!cargando ? <FooterTabla /> : null}
 			</Table>
@@ -74,4 +70,4 @@ const TablaMovimientos = () => {
 	);
 };
 
-export default TablaMovimientos;
+export default TablaPrecios;

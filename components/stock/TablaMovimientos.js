@@ -6,12 +6,9 @@ import Paper from '@material-ui/core/Paper';
 import HeadTabla from '../generales/HeadTabla';
 import usePaginacion from '../../hooks/usePaginacion';
 import TableBody from '@material-ui/core/TableBody';
-import FilaStockProducto from './componentes/FilaStockProducto';
-import ModalStockProducto from '../stock/ModalStockProducto';
-import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
-import Alerta from '../Alerta';
+import FilaMovimientoStock from '../tablas/componentes/FilaMovimientoStock';
 import StockContext from '../../context/stock/stockContext';
-import AlertaContext from '../../context/alertas/alertaContext';
+import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import SpinnerTabla from '../SpinnerTabla';
 
 const useStyles = makeStyles({
@@ -25,47 +22,36 @@ const columnas = [
 	{ id: 1, nombre: 'Código', align: 'left', minWidth: 100 },
 	{ id: 2, nombre: 'Descripción', align: 'left', minWidth: 480 },
 	{ id: 3, nombre: 'Cantidad', align: 'center', minWidth: 100 },
-	{ id: 4, nombre: '', align: 'center', minWidth: 60 },
+	{ id: 4, nombre: 'Pto. Stock', align: 'center', minWidth: 110 },
+	{ id: 5, nombre: 'Fecha', align: 'center', minWidth: 110 },
+	{ id: 6, nombre: 'Usuario', align: 'center', minWidth: 100 },
+	{ id: 7, nombre: 'Motivo', align: 'center', minWidth: 100 },
 ];
 
-const TablaStockTotal = () => {
+const TablaMovimientos = () => {
 	const classes = useStyles();
 
 	// context barra de herramientas
-	const { busqueda, handleHerrStockTot } = useContext(BarraHerramientasContext);
+	const { busqueda, handleHerramientasMovimientosStock } = useContext(
+		BarraHerramientasContext
+	);
 
 	// context stock
-	const {
-		stocks,
-		filas,
-		mensaje,
-		cargando,
-		traerStocksTotal,
-		handleFilasStockTotal,
-	} = useContext(StockContext);
+	const { filas, cargando, traerMovimientosStock, handleFilasMovStock } =
+		useContext(StockContext);
 
-	const { alerta, mostrarAlerta } = useContext(AlertaContext);
-
-	// hook paginación
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
 		usePaginacion(filas);
 
 	useEffect(() => {
-		handleHerrStockTot();
-		traerStocksTotal(busqueda);
+		handleHerramientasMovimientosStock();
+		traerMovimientosStock(busqueda);
 	}, []);
 
 	useEffect(() => {
-		handleFilasStockTotal(busqueda);
 		setPage(0);
-	}, [stocks, busqueda]);
-
-	useEffect(() => {
-		if (mensaje) {
-			const { msg, categoria } = mensaje;
-			mostrarAlerta(msg, categoria);
-		}
-	}, [mensaje]);
+		handleFilasMovStock(busqueda);
+	}, [busqueda]);
 
 	return (
 		<TableContainer component={Paper}>
@@ -74,20 +60,18 @@ const TablaStockTotal = () => {
 				<TableBody>
 					{!cargando ? (
 						cortePagina.map((fila) => (
-							<FilaStockProducto key={fila.ProductoCodigo} fila={fila} />
+							<FilaMovimientoStock key={fila.id} fila={fila} />
 						))
 					) : (
-						<SpinnerTabla cantColumnas={4} />
+						<SpinnerTabla cantColumnas={7} />
 					)}
+
 					{cortePagina.length === 0 ? bodyVacio(columnas) : filasVacias}
 				</TableBody>
 				{!cargando ? <FooterTabla /> : null}
 			</Table>
-
-			<ModalStockProducto />
-			{alerta !== null ? <Alerta /> : null}
 		</TableContainer>
 	);
 };
 
-export default TablaStockTotal;
+export default TablaMovimientos;

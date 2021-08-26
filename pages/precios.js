@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import TablaPrecios from '../components/tablas/TablaPrecios';
+import TablaPrecios from '../components/precio/TablaPrecios';
 import Layout from '../components/layouts/Layout';
 import AuthContext from '../context/autenticacion/authContext';
 import IrLogin from '../components/IrLogin';

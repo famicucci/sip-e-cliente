@@ -4,7 +4,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import CallMadeIcon from '@material-ui/icons/CallMade';
 import IconButton from '@material-ui/core/IconButton';
-import StockContext from '../../../context/stock/stockContext';
+import StockContext from '../../context/stock/stockContext';
 
 const StyledTableRow = withStyles((theme) => ({
 	root: {
@@ -14,7 +14,7 @@ const StyledTableRow = withStyles((theme) => ({
 	},
 }))(TableRow);
 
-const FilaStockProducto = (props) => {
+const FilaStockTotal = (props) => {
 	const { ProductoCodigo, cantidad } = props.fila;
 
 	// context stock
@@ -42,4 +42,4 @@ const FilaStockProducto = (props) => {
 	);
 };
 
-export default FilaStockProducto;
+export default FilaStockTotal;

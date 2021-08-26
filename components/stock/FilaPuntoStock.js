@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import StockContext from '../../../context/stock/stockContext';
-import BotonConfirmarCancelar from '../componentes/BotonConfirmarCancelar';
-import InputCantidadStock from '../componentes/InputCantidadStock';
+import StockContext from '../../context/stock/stockContext';
+import BotonConfirmarCancelar from '../tablas/componentes/BotonConfirmarCancelar';
+import InputCantidadStock from '../tablas/componentes/InputCantidadStock';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 
