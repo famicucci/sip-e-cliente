@@ -4,9 +4,9 @@ import TableBody from '@material-ui/core/TableBody';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
 import StockContext from '../../../context/stock/stockContext';
-import Fila from './Fila';
+import FilaStockProducto from './FilaStockProducto';
 
-const Tabla = () => {
+const TablaStockProducto = () => {
 	const { productoActivo } = useContext(StockContext);
 
 	return (
@@ -14,7 +14,7 @@ const Tabla = () => {
 			<Table>
 				<TableBody>
 					{productoActivo.map((fila) => (
-						<Fila key={fila.id} fila={fila} />
+						<FilaStockProducto key={fila.id} fila={fila} />
 					))}
 				</TableBody>
 			</Table>
@@ -22,4 +22,4 @@ const Tabla = () => {
 	);
 };
 
-export default Tabla;
+export default TablaStockProducto;

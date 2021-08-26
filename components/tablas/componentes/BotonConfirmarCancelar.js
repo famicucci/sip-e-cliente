@@ -12,8 +12,9 @@ const useStyles = makeStyles({
 	},
 });
 
-const BotonConfirmarCancelar = ({ confirmar }) => {
+const BotonConfirmarCancelar = (props) => {
 	const classes = useStyles();
+	const { confirmar } = props;
 
 	const { filaActivaProducto, handleFilaActiva } = useContext(StockContext);
 

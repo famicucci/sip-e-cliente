@@ -4,7 +4,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import StockContext from '../../../context/stock/stockContext';
-import Tabla from './Tabla';
+import TablaStockProducto from './TablaStockProducto';
 
 const useStyles = makeStyles((theme) => ({
 	modal: {
@@ -53,7 +53,7 @@ const ModalStockProducto = () => {
 							? productoActivo[0]['Producto.descripcion']
 							: null}
 					</p>
-					<Tabla />
+					<TablaStockProducto />
 				</div>
 			</Fade>
 		</Modal>

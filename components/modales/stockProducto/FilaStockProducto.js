@@ -1,24 +1,35 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import CantidadStock from '../../tablas/componentes/CantidadStock';
 import InputCantidadStock from '../../tablas/componentes/InputCantidadStock';
 import StockContext from '../../../context/stock/stockContext';
-import BotonFilaTabla from '../../tablas/componentes/BotonFilaTabla';
 import BotonConfirmarCancelar from '../../tablas/componentes/BotonConfirmarCancelar';
 import EditIcon from '@material-ui/icons/Edit';
+import IconButton from '@material-ui/core/IconButton';
 
-const Fila = ({ fila }) => {
+const useStyles = makeStyles({
+	ancho: {
+		width: 140,
+	},
+});
+
+const FilaStockProducto = ({ fila }) => {
+	const classes = useStyles();
+
 	const { filaActivaProducto, handleFilaActiva, modificarStock } =
 		useContext(StockContext);
 
-	return (
-		<TableRow key={fila.id}>
-			<TableCell component="th" scope="row">
-				{fila['PtoStock.descripcion']}
-			</TableCell>
+	const onClickEdit = () => {
+		handleFilaActiva(fila);
+	};
 
-			<TableCell style={{ width: 160 }} align="right">
+	return (
+		<TableRow>
+			<TableCell>{fila['PtoStock.descripcion']}</TableCell>
+
+			<TableCell className={classes.ancho} align="right">
 				{filaActivaProducto.id !== fila.id ? (
 					<CantidadStock cantidad={fila.cantidad} />
 				) : (
@@ -26,14 +37,11 @@ const Fila = ({ fila }) => {
 				)}
 			</TableCell>
 
-			<TableCell style={{ width: 160 }} align="right">
+			<TableCell className={classes.ancho} align="right">
 				{filaActivaProducto.id !== fila.id ? (
-					<BotonFilaTabla
-						contenido={<EditIcon />}
-						onClick={() => {
-							handleFilaActiva(fila);
-						}}
-					/>
+					<IconButton size="small" edge="start" onClick={onClickEdit}>
+						<EditIcon />
+					</IconButton>
 				) : (
 					<BotonConfirmarCancelar confirmar={modificarStock} />
 				)}
@@ -42,4 +50,4 @@ const Fila = ({ fila }) => {
 	);
 };
 
-export default Fila;
+export default FilaStockProducto;

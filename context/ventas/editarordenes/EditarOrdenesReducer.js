@@ -136,6 +136,7 @@ const EditarOrdenesReducer = (state, action) => {
 				openModalInformacionCliente: false,
 				openModalCrearFactura: false,
 				openModalFactura: false,
+				openModalConfirmarCrearFactura: false,
 			};
 		case MODAL_CLOSE_CONFIRMAR_FACTURA:
 			return {
