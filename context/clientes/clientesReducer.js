@@ -1,9 +1,6 @@
 import {
 	TRAER_CLIENTES,
-	FILAS_CLIENTES,
 	FILA_ACTIVA_CLIENTE,
-	CLIENTE_ACTIVO,
-	LIMPIAR_CLIENTE_ACTIVO,
 	MODAL_INFORMACION_CLIENTE,
 	MODAL_NUEVO_CLIENTE,
 	OPEN_INFORMACION_CLIENTE,
@@ -12,24 +9,14 @@ import {
 	OCULTAR_ALERTA_CLIENTES,
 	AGREGAR_CLIENTE,
 } from '../../types';
-import { filBus } from '../../functions/filtros';
 
 const ClientesReducer = (state, action) => {
 	switch (action.type) {
 		case TRAER_CLIENTES:
-			let filas = filBus(action.payload.clientes, action.payload.bus);
 			return {
 				...state,
-				clientes: action.payload.clientes,
-				filas: filas,
+				clientes: action.payload,
 				cargando: false,
-			};
-
-		case FILAS_CLIENTES:
-			filas = filBus(state.clientes, action.payload);
-			return {
-				...state,
-				filas: filas,
 			};
 		case FILA_ACTIVA_CLIENTE:
 			let cliente = state.clientes.find((x) => x.id === action.payload);
@@ -38,17 +25,6 @@ const ClientesReducer = (state, action) => {
 			return {
 				...state,
 				filaActiva: cliente,
-			};
-
-		case CLIENTE_ACTIVO:
-			return {
-				...state,
-				clienteActivo: action.payload,
-			};
-		case LIMPIAR_CLIENTE_ACTIVO:
-			return {
-				...state,
-				clienteActivo: { tipo: 'Minorista', condIva: 'Consumidor Final' },
 			};
 		case MODAL_INFORMACION_CLIENTE:
 			return {

@@ -5,10 +5,7 @@ import clienteAxios from '../../config/axios';
 
 import {
 	TRAER_CLIENTES,
-	FILAS_CLIENTES,
 	FILA_ACTIVA_CLIENTE,
-	CLIENTE_ACTIVO,
-	LIMPIAR_CLIENTE_ACTIVO,
 	MODAL_INFORMACION_CLIENTE,
 	MODAL_NUEVO_CLIENTE,
 	OPEN_INFORMACION_CLIENTE,
@@ -21,7 +18,6 @@ import {
 const ClienteState = (props) => {
 	const initialState = {
 		clientes: [],
-		filas: [],
 		filaActiva: {},
 		clienteActivo: null,
 		ordenesClienteActivo: null,
@@ -36,13 +32,13 @@ const ClienteState = (props) => {
 
 	const [state, dispatch] = useReducer(ClientesReducer, initialState);
 
-	const traerClientes = async (bus) => {
+	const traerClientes = async () => {
 		try {
 			const r = await clienteAxios.get('/api/clientes/');
 
 			dispatch({
 				type: TRAER_CLIENTES,
-				payload: { clientes: r.data, bus: bus },
+				payload: r.data,
 			});
 		} catch (error) {
 			mostrarAlertaClientes('Hubo un error', 'error');
@@ -54,8 +50,6 @@ const ClienteState = (props) => {
 		try {
 			const r = await clienteAxios.post('/api/clientes', cliente);
 
-			// stateeeeee
-			console.log(r);
 			dispatch({
 				type: AGREGAR_CLIENTE,
 				payload: r.data,
@@ -71,20 +65,6 @@ const ClienteState = (props) => {
 		dispatch({
 			type: FILA_ACTIVA_CLIENTE,
 			payload: idCliente,
-		});
-	};
-
-	const handleClienteActivo = (cliente) => {
-		dispatch({
-			type: CLIENTE_ACTIVO,
-			payload: cliente,
-		});
-	};
-
-	const handleFilas = (bus) => {
-		dispatch({
-			type: FILAS_CLIENTES,
-			payload: bus,
 		});
 	};
 
@@ -144,7 +124,6 @@ const ClienteState = (props) => {
 		<ClientesContext.Provider
 			value={{
 				clientes: state.clientes,
-				filas: state.filas,
 				openModalInformacionCliente: state.openModalInformacionCliente,
 				openModalNuevoCliente: state.openModalNuevoCliente,
 				openInfoCliente: state.openInfoCliente,
@@ -157,8 +136,6 @@ const ClienteState = (props) => {
 				cargando: state.cargando,
 				crearCliente,
 				traerClientes,
-				handleClienteActivo,
-				handleFilas,
 				handleFilaActiva,
 				handleOpenModalInformacionCliente,
 				handleOpenModalNuevoCliente,

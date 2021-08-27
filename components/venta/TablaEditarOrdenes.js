@@ -112,7 +112,7 @@ const TablaEditarOrdenes = () => {
 	}, []);
 
 	useEffect(() => {
-		if (ordenes !== 0 && tiposEnvio.length !== 0) {
+		if (ordenes.length !== 0 && tiposEnvio.length !== 0) {
 			const rows = ordenes.map((x) => ({
 				idOrden: x.id,
 				ordenEstado: x.OrdenEstado.descripcion,

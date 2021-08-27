@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -15,6 +15,7 @@ import NuevoCliente from './NuevoCliente';
 import AlertaContext from '../../context/alertas/alertaContext';
 import Alerta from '../generales/Alerta';
 import Alerta2 from '../generales/Alerta2';
+import useFilter from '../../hooks/useFilter';
 
 const useStyles = makeStyles({
 	table: {
@@ -26,9 +27,13 @@ const TablaClientes = (props) => {
 	const classes = useStyles();
 	const { columnas, busqueda } = props;
 
+	// create a state for this table
+	const [data, setData] = useState([]);
+	const [filteredData] = useFilter(data, busqueda);
+
 	const { alerta } = useContext(AlertaContext);
 	const {
-		filas,
+		clientes,
 		filaActiva,
 		openModalInformacionCliente,
 		openModalNuevoCliente,
@@ -36,22 +41,17 @@ const TablaClientes = (props) => {
 		mensajeClientes,
 		cargando,
 		traerClientes,
-		handleFilas,
 		handleFilaActiva,
 		handleOpenModalInformacionCliente,
 	} = useContext(ClientesContext);
 
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
-		usePaginacion(filas, 5);
+		usePaginacion(filteredData, 10);
 
 	useEffect(() => {
-		traerClientes(busqueda);
-	}, []);
-
-	useEffect(() => {
-		setPage(0);
-		handleFilas(busqueda);
-	}, [busqueda]);
+		traerClientes();
+		setData(clientes);
+	}, [clientes]);
 
 	// extraer los id de las columnas
 	const colIndex = columnas.reduce(
