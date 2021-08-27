@@ -80,6 +80,7 @@ const TablaEditarOrdenes = () => {
 		handleCloseModal,
 		handleFilaActivaOrden,
 		mostrarAlertaEditarOrdenes,
+		tiposEnvio,
 	} = useContext(EditarOrdenesContext);
 
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
@@ -111,8 +112,8 @@ const TablaEditarOrdenes = () => {
 	}, []);
 
 	useEffect(() => {
-		const crearFilasTablaEditarOrdenes = (arrayFilas) => {
-			let filasTablaOrdenes = arrayFilas.map((x) => ({
+		if (ordenes !== 0 && tiposEnvio.length !== 0) {
+			const rows = ordenes.map((x) => ({
 				idOrden: x.id,
 				ordenEstado: x.OrdenEstado.descripcion,
 				ordenEstadoId: x.OrdenEstado.id,
@@ -121,14 +122,19 @@ const TablaEditarOrdenes = () => {
 				fecha: x.createdAt,
 				idFactura: x.Factura ? x.Factura.id : null,
 				estadoPago: x.Factura ? x.Factura.estadoPago : null,
-				tipoEnvio: x.TipoEnvioId,
+				tipoEnvioId: x.TipoEnvioId,
+				tipoEnvioDescripcion: getDescriptionShipping(tiposEnvio, x.TipoEnvioId),
 				observaciones: x.observaciones,
 			}));
-			setData(filasTablaOrdenes);
-		};
+			setData(rows);
+		}
+	}, [ordenes, tiposEnvio]);
 
-		crearFilasTablaEditarOrdenes(ordenes);
-	}, [ordenes]);
+	const getDescriptionShipping = (tiposEnvio, id) => {
+		const r = tiposEnvio.find((x) => x.id === id);
+
+		if (r) return r.descripcion;
+	};
 
 	// extraer los id de las columnas
 	const colIndex = columnas.reduce(

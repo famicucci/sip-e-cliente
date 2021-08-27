@@ -12,7 +12,6 @@ import BotonCustomFilaTabla from '../generales/BotonCustomFilaTabla';
 import BotonSinFormato from '../generales/BotonSinFormato';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
 import { pink, deepPurple } from '@material-ui/core/colors';
-import useTipoEnvio from '../../hooks/useTipoEnvio';
 
 const useStyles = makeStyles((theme) => ({
 	estadoPago: {
@@ -33,10 +32,7 @@ const FilaEditarClientes = ({ fila, colIndex }) => {
 		handleOpenModalInformacionCliente,
 		handleOpenModalCrearFactura,
 		handleOpenModalFactura,
-		tiposEnvio,
 	} = useContext(EditarOrdenesContext);
-
-	const { descripcionTipoEnvio } = useTipoEnvio(tiposEnvio, fila.tipoEnvio);
 
 	return (
 		<RowColorIntercalado>
@@ -111,7 +107,7 @@ const FilaEditarClientes = ({ fila, colIndex }) => {
 				</TableCell>
 			) : null}
 			{colIndex['M. Envío'] ? (
-				<TableCell align="center">{descripcionTipoEnvio}</TableCell>
+				<TableCell align="center">{fila.tipoEnvioDescripcion}</TableCell>
 			) : null}
 			{colIndex['Nota'] ? (
 				<TableCell align="left">
