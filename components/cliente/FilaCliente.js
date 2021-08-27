@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
 import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableRow';
 import moment from 'moment';
 import BotonFilaTabla from '../generales/BotonFilaTabla';
 import Tippy from '@tippyjs/react';
@@ -10,6 +9,7 @@ import 'tippy.js/themes/light-border.css';
 import DireccionesCliente from './DireccionesCliente';
 import BotonSinFormato from '../generales/BotonSinFormato';
 import ClientesContext from '../../context/clientes/clientesContext';
+import RowColorIntercalado from '../generales/RowColorIntercalado';
 
 const FilaCliente = ({ fila, colIndex }) => {
 	const [direccionesCliente, setDireccionesCliente] = useState(null);
@@ -23,7 +23,7 @@ const FilaCliente = ({ fila, colIndex }) => {
 	};
 
 	return (
-		<TableRow hover>
+		<RowColorIntercalado>
 			<TableCell align="left">
 				<BotonSinFormato
 					onClick={() => {
@@ -92,7 +92,7 @@ const FilaCliente = ({ fila, colIndex }) => {
 					/>
 				</TableCell>
 			) : null}
-		</TableRow>
+		</RowColorIntercalado>
 	);
 };
 
