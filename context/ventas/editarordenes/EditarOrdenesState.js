@@ -195,6 +195,12 @@ const EditarOrdenesState = (props) => {
 	};
 
 	const modificarOrden = async (ordenId, ordenObj) => {
+		// what can we modify ??
+		// observaciones
+		// direccionEnvio, tarifaEnvio and TipoEnvioId
+		// ordenEcommerce
+		// PtoVentaId
+		// OrdenEstadoId
 		try {
 			await clienteAxios.put(`/api/ordenes/${ordenId}`, ordenObj);
 

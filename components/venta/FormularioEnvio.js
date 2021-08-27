@@ -115,7 +115,7 @@ const FormularioEnvio = (props) => {
 		if (
 			stateEnvio.modoDirecc === 'input' &&
 			stateEnvio.tipo !== 1 &&
-			stateEnvio.input.trim() === ''
+			stateEnvio.input === ''
 		) {
 			mostrarAlerta('Debes colocar una direccion de envío', 'warning');
 		}
