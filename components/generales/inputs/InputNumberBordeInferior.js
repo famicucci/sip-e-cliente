@@ -13,13 +13,14 @@ const useStyles = makeStyles((theme) => ({
 const InputNumberBordeInferior = (props) => {
 	const classes = useStyles(props.styles);
 
-	const {
+	let {
 		label,
 		name,
 		placeholder,
 		ancho,
 		initialvalue,
 		tochangestate,
+		required,
 		disabled,
 		InputProps,
 	} = props;
@@ -33,6 +34,10 @@ const InputNumberBordeInferior = (props) => {
 
 	if (disabled) {
 		disabled = { disabled: true };
+	}
+
+	if (required) {
+		required = { required };
 	}
 
 	return (
@@ -50,6 +55,7 @@ const InputNumberBordeInferior = (props) => {
 				{...disabled}
 				{...InputProps}
 				fullWidth
+				{...required}
 			/>
 		</Grid>
 	);

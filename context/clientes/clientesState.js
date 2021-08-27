@@ -15,6 +15,7 @@ import {
 	CLOSE_MODAL,
 	MOSTRAR_ALERTA_CLIENTES,
 	OCULTAR_ALERTA_CLIENTES,
+	AGREGAR_CLIENTE,
 } from '../../types';
 
 const ClienteState = (props) => {
@@ -51,7 +52,14 @@ const ClienteState = (props) => {
 	// las funciones
 	const crearCliente = async (cliente) => {
 		try {
-			const r = await clienteAxios.post('/api/clientesssss', cliente);
+			const r = await clienteAxios.post('/api/clientes', cliente);
+
+			// stateeeeee
+			console.log(r);
+			dispatch({
+				type: AGREGAR_CLIENTE,
+				payload: r.data,
+			});
 
 			mostrarAlertaClientes('Cliente creado', 'success');
 		} catch (error) {

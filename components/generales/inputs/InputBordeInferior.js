@@ -24,7 +24,7 @@ const InputBordeInferior = ({
 	};
 
 	if (required) {
-		required = { required: true };
+		required = { required };
 	}
 
 	return (

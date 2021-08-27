@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -21,6 +21,7 @@ const inputObservaciones = {
 	label: 'Observaciones',
 	placeholder: 'Observaciones',
 	ancho: 6,
+	required: false,
 };
 
 const inputMascota = {
@@ -28,6 +29,7 @@ const inputMascota = {
 	label: 'Mascota',
 	placeholder: 'Mascota',
 	ancho: 6,
+	required: false,
 };
 
 // label, ancho, valores, descripcionValores
@@ -81,7 +83,7 @@ const MasDatosNuevoCliente = (props) => {
 						name={inputObservaciones.name}
 						placeholder={inputObservaciones.placeholder}
 						ancho={inputObservaciones.ancho}
-						required
+						required={inputObservaciones.required}
 						initialvalue=""
 						tochangestate={props.onChangeAtributo}
 					/>
@@ -90,7 +92,7 @@ const MasDatosNuevoCliente = (props) => {
 						name={inputMascota.name}
 						placeholder={inputMascota.placeholder}
 						ancho={inputMascota.ancho}
-						required
+						required={inputMascota.required}
 						initialvalue=""
 						tochangestate={props.onChangeAtributo}
 					/>
@@ -99,7 +101,7 @@ const MasDatosNuevoCliente = (props) => {
 						label={selectTipo.label}
 						ancho={selectTipo.ancho}
 						data={selectTipo.data}
-						initialvalue={selectTipo.valDefault}
+						initialvalue={inputObservaciones.valDefault}
 						tochangestate={onChangeSelect}
 					/>
 					<SelectBordeInferior

@@ -21,54 +21,63 @@ const inputCalle = {
 	label: 'Calle',
 	placeholder: 'Calle',
 	ancho: 6,
+	required: false,
 };
 const inputNumero = {
 	name: 'numero',
 	label: 'Numero',
 	placeholder: 'Numero',
 	ancho: 2,
+	required: false,
 };
 const inputPiso = {
 	name: 'piso',
 	label: 'Piso',
 	placeholder: 'Piso',
 	ancho: 2,
+	required: false,
 };
 const inputDepto = {
 	name: 'depto',
 	label: 'Depto.',
 	placeholder: 'Depto.',
 	ancho: 2,
+	required: false,
 };
 const inputBarrio = {
 	name: 'barrio',
 	label: 'Barrio',
 	placeholder: 'Barrio',
 	ancho: 4,
+	required: false,
 };
 const inputCodPostal = {
 	name: 'codPostal',
 	label: 'C.P.',
 	placeholder: 'C.P.',
 	ancho: 2,
+	required: false,
 };
 const inputCiudad = {
 	name: 'ciudad',
 	label: 'Ciudad',
 	placeholder: 'Ciudad',
 	ancho: 6,
+	required: false,
 };
 const inputProvincia = {
 	name: 'provincia',
 	label: 'Provincia',
 	placeholder: 'Provincia',
 	ancho: 6,
+	required: false,
 };
 const inputReferencia = {
 	name: 'referencia',
 	label: 'Referencia',
 	placeholder: 'Referencia',
 	ancho: 6,
+	required: false,
 };
 
 const DomicilioNuevoCliente = (props) => {
@@ -90,7 +99,7 @@ const DomicilioNuevoCliente = (props) => {
 						name={inputCalle.name}
 						placeholder={inputCalle.placeholder}
 						ancho={inputCalle.ancho}
-						required
+						required={inputCalle.required}
 						initialvalue=""
 						tochangestate={props.onChangeAtributo}
 					/>
@@ -99,7 +108,7 @@ const DomicilioNuevoCliente = (props) => {
 						name={inputNumero.name}
 						placeholder={inputNumero.placeholder}
 						ancho={inputNumero.ancho}
-						required
+						required={inputNumero.required}
 						initialvalue=""
 						tochangestate={props.onChangeAtributo}
 						styles={{ marginTop: 2 }}
@@ -109,7 +118,7 @@ const DomicilioNuevoCliente = (props) => {
 						name={inputPiso.name}
 						placeholder={inputPiso.placeholder}
 						ancho={inputPiso.ancho}
-						required
+						required={inputPiso.required}
 						initialvalue=""
 						tochangestate={props.onChangeAtributo}
 					/>
@@ -118,7 +127,7 @@ const DomicilioNuevoCliente = (props) => {
 						name={inputDepto.name}
 						placeholder={inputDepto.placeholder}
 						ancho={inputDepto.ancho}
-						required
+						required={inputDepto.required}
 						initialvalue=""
 						tochangestate={props.onChangeAtributo}
 					/>
@@ -127,7 +136,7 @@ const DomicilioNuevoCliente = (props) => {
 						name={inputBarrio.name}
 						placeholder={inputBarrio.placeholder}
 						ancho={inputBarrio.ancho}
-						required
+						required={inputBarrio.required}
 						initialvalue=""
 						tochangestate={props.onChangeAtributo}
 					/>
@@ -136,7 +145,7 @@ const DomicilioNuevoCliente = (props) => {
 						name={inputCodPostal.name}
 						placeholder={inputCodPostal.placeholder}
 						ancho={inputCodPostal.ancho}
-						required
+						required={inputCodPostal.required}
 						initialvalue=""
 						tochangestate={props.onChangeAtributo}
 						styles={{ marginTop: 2 }}
@@ -146,7 +155,7 @@ const DomicilioNuevoCliente = (props) => {
 						name={inputCiudad.name}
 						placeholder={inputCiudad.placeholder}
 						ancho={inputCiudad.ancho}
-						required
+						required={inputCiudad.required}
 						initialvalue=""
 						tochangestate={props.onChangeAtributo}
 					/>
@@ -155,7 +164,7 @@ const DomicilioNuevoCliente = (props) => {
 						name={inputProvincia.name}
 						placeholder={inputProvincia.placeholder}
 						ancho={inputProvincia.ancho}
-						required
+						required={inputProvincia.required}
 						initialvalue=""
 						tochangestate={props.onChangeAtributo}
 					/>
@@ -164,7 +173,7 @@ const DomicilioNuevoCliente = (props) => {
 						name={inputReferencia.name}
 						placeholder={inputReferencia.placeholder}
 						ancho={inputReferencia.ancho}
-						required
+						required={inputReferencia.required}
 						initialvalue=""
 						tochangestate={props.onChangeAtributo}
 					/>

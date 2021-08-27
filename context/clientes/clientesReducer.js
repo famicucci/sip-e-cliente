@@ -10,6 +10,7 @@ import {
 	CLOSE_MODAL,
 	MOSTRAR_ALERTA_CLIENTES,
 	OCULTAR_ALERTA_CLIENTES,
+	AGREGAR_CLIENTE,
 } from '../../types';
 import { filBus } from '../../functions/filtros';
 
@@ -81,6 +82,11 @@ const ClientesReducer = (state, action) => {
 			return {
 				...state,
 				mensajeClientes: null,
+			};
+		case AGREGAR_CLIENTE:
+			return {
+				...state,
+				clientes: [...state.clientes, action.payload],
 			};
 		default:
 			return state;

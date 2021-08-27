@@ -27,18 +27,21 @@ const inputCelular = {
 	label: 'Celular',
 	placeholder: 'Celular',
 	ancho: 6,
+	required: false,
 };
 const inputInstagram = {
 	name: 'instagram',
 	label: 'Instagram',
 	placeholder: 'Instagram',
 	ancho: 6,
+	required: false,
 };
 const inputFacebook = {
 	name: 'facebook',
 	label: 'Facebook',
 	placeholder: 'Facebook',
 	ancho: 6,
+	required: false,
 };
 
 const ContactoNuevoCliente = (props) => {
@@ -60,7 +63,7 @@ const ContactoNuevoCliente = (props) => {
 						name={inputEmail.name}
 						placeholder={inputEmail.placeholder}
 						ancho={inputEmail.ancho}
-						required
+						required={inputEmail.required}
 						initialvalue=""
 						tochangestate={props.onChangeAtributo}
 					/>
@@ -69,7 +72,7 @@ const ContactoNuevoCliente = (props) => {
 						name={inputCelular.name}
 						placeholder={inputCelular.placeholder}
 						ancho={inputCelular.ancho}
-						required
+						required={inputCelular.required}
 						initialvalue=""
 						tochangestate={props.onChangeAtributo}
 					/>
@@ -78,7 +81,7 @@ const ContactoNuevoCliente = (props) => {
 						name={inputInstagram.name}
 						placeholder={inputInstagram.placeholder}
 						ancho={inputInstagram.ancho}
-						required
+						required={inputInstagram.required}
 						initialvalue=""
 						tochangestate={props.onChangeAtributo}
 					/>
@@ -87,7 +90,7 @@ const ContactoNuevoCliente = (props) => {
 						name={inputFacebook.name}
 						placeholder={inputFacebook.placeholder}
 						ancho={inputFacebook.ancho}
-						required
+						required={inputFacebook.required}
 						initialvalue=""
 						tochangestate={props.onChangeAtributo}
 					/>

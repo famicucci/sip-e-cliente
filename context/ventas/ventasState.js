@@ -384,7 +384,6 @@ const VentasState = (props) => {
 		try {
 			const r = await clienteAxios.post('/api/clientes', cliente);
 
-			console.log(r);
 			dispatch({
 				type: AGREGAR_CLIENTE,
 				payload: r.data,

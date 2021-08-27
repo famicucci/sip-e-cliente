@@ -36,6 +36,7 @@ const inputRazonSocial = {
 	label: 'Razon Social',
 	placeholder: 'Razon Social',
 	ancho: 6,
+	required: false,
 };
 
 const inputDniCuitCuil = {
@@ -43,6 +44,7 @@ const inputDniCuitCuil = {
 	label: 'DNI/CUIL/CUIT',
 	placeholder: 'DNI/CUIL/CUIT',
 	ancho: 6,
+	required: false,
 };
 
 const DatosNuevoCliente = (props) => {
@@ -60,8 +62,8 @@ const DatosNuevoCliente = (props) => {
 						name={inputNombre.name}
 						placeholder={inputNombre.placeholder}
 						ancho={inputNombre.ancho}
-						required
 						initialvalue=""
+						required={inputNombre.required}
 						tochangestate={props.onChangeAtributo}
 					/>
 					<InputBordeInferior
@@ -69,7 +71,7 @@ const DatosNuevoCliente = (props) => {
 						name={inputApellido.name}
 						placeholder={inputApellido.placeholder}
 						ancho={inputApellido.ancho}
-						required
+						required={inputApellido.required}
 						initialvalue=""
 						tochangestate={props.onChangeAtributo}
 					/>
@@ -78,7 +80,7 @@ const DatosNuevoCliente = (props) => {
 						name={inputRazonSocial.name}
 						placeholder={inputRazonSocial.placeholder}
 						ancho={inputRazonSocial.ancho}
-						required
+						required={inputRazonSocial.required}
 						initialvalue=""
 						tochangestate={props.onChangeAtributo}
 					/>
@@ -87,7 +89,7 @@ const DatosNuevoCliente = (props) => {
 						name={inputDniCuitCuil.name}
 						placeholder={inputDniCuitCuil.placeholder}
 						ancho={inputDniCuitCuil.ancho}
-						required
+						required={inputDniCuitCuil.required}
 						initialvalue=""
 						tochangestate={props.onChangeAtributo}
 					/>
