@@ -101,9 +101,11 @@ const FilaEditarClientes = ({ fila, colIndex }) => {
 			) : null}
 			{colIndex['Estado Pago'] ? (
 				<TableCell align="center">
-					<span className={classes.estadoPago}>
-						{fila.estadoPago ? fila.estadoPago : '-'}
-					</span>
+					{fila.estadoPago ? (
+						<span className={classes.estadoPago}>{fila.estadoPago}</span>
+					) : (
+						'-'
+					)}
 				</TableCell>
 			) : null}
 			{colIndex['M. Envío'] ? (
