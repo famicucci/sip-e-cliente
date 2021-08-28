@@ -17,8 +17,6 @@ import Alerta from '../generales/Alerta';
 import Alerta2 from '../generales/Alerta2';
 import useFilter from '../../hooks/useFilter';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
-import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
-import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
 
 const useStyles = makeStyles({
 	table: {
@@ -26,12 +24,11 @@ const useStyles = makeStyles({
 	},
 });
 
-const TablaClientes = () => {
+const TablaClientes = (props) => {
 	const classes = useStyles();
+	const { columnas } = props;
 
-	const { busqueda, handleHerramientasClientes } = useContext(
-		BarraHerramientasContext
-	);
+	const { busqueda } = useContext(BarraHerramientasContext);
 
 	// create a state for this table
 	const [data, setData] = useState([]);
@@ -49,50 +46,15 @@ const TablaClientes = () => {
 		traerClientes,
 		handleFilaActiva,
 		handleOpenModalInformacionCliente,
-		handleOpenFacsOrdsCliente,
 	} = useContext(ClientesContext);
 
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
 		usePaginacion(filteredData, 10);
 
 	useEffect(() => {
-		handleHerramientasClientes();
-	}, []);
-
-	useEffect(() => {
 		traerClientes();
 		setData(clientes);
 	}, [clientes]);
-
-	// columnas de la tabla
-	const columnas = [
-		{ id: 1, nombre: 'Nombre y Apellido', align: 'left', minWidth: 230 },
-		{ id: 2, nombre: 'Email', align: 'left', minWidth: 240 },
-		{ id: 7, nombre: 'Celular', align: 'left', minWidth: 125 },
-		{ id: 3, nombre: 'Razon Social', align: 'left', minWidth: 200 },
-		{ id: 4, nombre: 'Observaciones', align: 'left', minWidth: 150 },
-		{ id: 5, nombre: 'Cond. IVA', align: 'left', minWidth: 180 },
-		{ id: 6, nombre: 'Creación', align: 'center', minWidth: 110 },
-		{ id: 8, nombre: 'Tipo', align: 'center', minWidth: 100 },
-		{
-			id: 9,
-			nombre: 'Direcciones',
-			align: 'left',
-			minWidth: 60,
-			boton: true,
-			contenidoBoton: <RoomOutlinedIcon />,
-			funcBoton: null,
-		},
-		{
-			id: 10,
-			nombre: 'Ver Más',
-			align: 'left',
-			minWidth: 60,
-			boton: true,
-			contenidoBoton: <AccountBalanceWalletIcon />,
-			funcBoton: handleOpenFacsOrdsCliente,
-		},
-	];
 
 	const colIndex = columnas.reduce(
 		(acc, el) => ({ ...acc, [el.nombre]: el }),
