@@ -1,30 +1,47 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
 import RowColorIntercalado from '../generales/RowColorIntercalado';
 import BotonTippyHoverTabla from '../generales/BotonTippyHoverTabla';
 
+const useStyles = makeStyles((theme) => ({
+	regalo: {
+		color: (props) => (props.pu === 0 ? theme.palette.success.main : null),
+	},
+}));
+
 const FilaListaProductos = ({ fila, colIndex }) => {
+	const classes = useStyles({ pu: parseFloat(fila.pu) });
+
 	return (
 		<RowColorIntercalado>
 			{colIndex['Código'] ? (
-				<TableCell align="center">{fila.ProductoCodigo}</TableCell>
+				<TableCell className={classes.regalo} align="center">
+					{fila.ProductoCodigo}
+				</TableCell>
 			) : null}
 			{colIndex['Descripción'] ? (
-				<TableCell align="left">{fila.Producto.descripcion}</TableCell>
+				<TableCell className={classes.regalo} align="left">
+					{fila.Producto.descripcion}
+				</TableCell>
 			) : null}
 			{colIndex['Cantidad'] ? (
-				<TableCell align="center">{fila.cantidad}</TableCell>
+				<TableCell className={classes.regalo} align="center">
+					{fila.cantidad}
+				</TableCell>
 			) : null}
 			{colIndex['Precio'] ? (
-				<TableCell align="center">{fila.pu}</TableCell>
+				<TableCell className={classes.regalo} align="center">
+					{fila.pu}
+				</TableCell>
 			) : null}
 			{colIndex['Total'] ? (
-				<TableCell align="center">
+				<TableCell className={classes.regalo} align="center">
 					{(fila.cantidad * fila.pu).toFixed(2)}
 				</TableCell>
 			) : null}
 			{colIndex['Origen'] ? (
-				<TableCell align="center">
+				<TableCell className={classes.regalo} align="center">
 					{fila.origen === 'Producción' ? (
 						<BotonTippyHoverTabla
 							icono={colIndex['Origen'].contenidoBoton}
