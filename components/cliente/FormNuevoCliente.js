@@ -127,7 +127,7 @@ const FormNuevoCliente = (props) => {
 
 		props.crearCliente(client, adress);
 
-		// props.handleClose();
+		if (props.handleClose) props.handleClose();
 	};
 
 	return (
