@@ -101,7 +101,7 @@ const MasDatosNuevoCliente = (props) => {
 						label={selectTipo.label}
 						ancho={selectTipo.ancho}
 						data={selectTipo.data}
-						initialvalue={inputObservaciones.valDefault}
+						initialvalue={selectTipo.valDefault}
 						tochangestate={onChangeSelect}
 					/>
 					<SelectBordeInferior

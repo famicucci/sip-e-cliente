@@ -13,6 +13,7 @@ import {
 	MOSTRAR_ALERTA_CLIENTES,
 	OCULTAR_ALERTA_CLIENTES,
 	AGREGAR_CLIENTE,
+	AGREGAR_NUEVO_CLIENTE,
 } from '../../types';
 
 const ClienteState = (props) => {
@@ -20,6 +21,7 @@ const ClienteState = (props) => {
 		clientes: [],
 		filaActiva: {},
 		clienteActivo: null,
+		newClient: null,
 		ordenesClienteActivo: null,
 		facturasClienteActivo: null,
 		openModalInformacionCliente: false,
@@ -46,18 +48,34 @@ const ClienteState = (props) => {
 	};
 
 	// las funciones
-	const crearCliente = async (cliente) => {
+	const crearCliente = async (client, adress) => {
 		try {
-			const r = await clienteAxios.post('/api/clientes', cliente);
+			// this inserts into the data base must be one http request, in this way can be done a rollback.
+			const r = await clienteAxios.post('/api/clientes', client);
+			let clientCreated = { ...r.data, direcciones: [] };
+
+			if (adress) {
+				const r2 = await clienteAxios.post('/api/direcciones', {
+					...adress,
+					ClienteId: r.data.id,
+				});
+				clientCreated = { ...r.data, direcciones: [{ ...r2.data }] };
+			}
 
 			dispatch({
 				type: AGREGAR_CLIENTE,
-				payload: r.data,
+				payload: clientCreated,
+			});
+
+			dispatch({
+				type: AGREGAR_NUEVO_CLIENTE,
+				payload: clientCreated,
 			});
 
 			mostrarAlertaClientes('Cliente creado', 'success');
 		} catch (error) {
 			mostrarAlertaClientes('Hubo un error', 'error');
+			console.log(error);
 		}
 	};
 
@@ -124,6 +142,7 @@ const ClienteState = (props) => {
 		<ClientesContext.Provider
 			value={{
 				clientes: state.clientes,
+				newClient: state.newClient,
 				openModalInformacionCliente: state.openModalInformacionCliente,
 				openModalNuevoCliente: state.openModalNuevoCliente,
 				openInfoCliente: state.openInfoCliente,

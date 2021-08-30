@@ -24,7 +24,7 @@ const inputCalle = {
 	required: false,
 };
 const inputNumero = {
-	name: 'numero',
+	name: 'numeroCalle',
 	label: 'Numero',
 	placeholder: 'Numero',
 	ancho: 2,

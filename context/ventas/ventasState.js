@@ -380,24 +380,6 @@ const VentasState = (props) => {
 		});
 	};
 
-	const crearYCargarCliente = async (cliente) => {
-		try {
-			const r = await clienteAxios.post('/api/clientes', cliente);
-
-			dispatch({
-				type: AGREGAR_CLIENTE,
-				payload: r.data,
-			});
-
-			mostrarAlertaVentas('Cliente creado', 'success');
-		} catch (error) {
-			dispatch({
-				type: ERROR_PRECIOS,
-				payload: error,
-			});
-		}
-	};
-
 	const handleOrdenActiva = (orden) => {
 		dispatch({
 			type: ACTIVAR_ORDEN,
@@ -532,7 +514,6 @@ const VentasState = (props) => {
 				traerEstadosOrden,
 				handleOpenModalDetalleOrden,
 				handleCloseModal,
-				crearYCargarCliente,
 				handleOrdenActiva,
 				handleOrderToModify,
 				cancelOrderToModify,

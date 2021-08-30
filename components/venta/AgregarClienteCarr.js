@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -12,6 +12,7 @@ import VentasContext from '../../context/ventas/ventasContext';
 import { BotoneraCarrContext } from '../../context/BotoneraCarrContext';
 import AddIcon from '@material-ui/icons/Add';
 import ModalScroll from '../generales/ModalScroll';
+import ClientesContext from '../../context/clientes/clientesContext';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -29,8 +30,14 @@ const AgregarClienteCarr = () => {
 	const { busquedaCliente, handleBusquedaCliente } = useContext(
 		BarraHerramientasContext
 	);
-	const { handleCliente, crearYCargarCliente } = useContext(VentasContext);
+	const { handleCliente } = useContext(VentasContext);
+	const { crearCliente, newClient } = useContext(ClientesContext);
 	const { handleClose, openModalCliente } = useContext(BotoneraCarrContext);
+
+	useEffect(() => {
+		if (newClient) handleCliente(newClient);
+		handleClose();
+	}, [newClient]);
 
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
@@ -76,7 +83,7 @@ const AgregarClienteCarr = () => {
 				<TabPanel value={value} index={0}>
 					<FormNuevoCliente
 						handleClose={handleClose}
-						crearCliente={crearYCargarCliente}
+						crearCliente={crearCliente}
 					/>
 				</TabPanel>
 				<TabPanel value={value} index={1}>

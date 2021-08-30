@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import DatosNuevoCliente from './DatosNuevoCliente';
 import ContactoNuevoCliente from './ContactoNuevoCliente';
@@ -35,10 +35,11 @@ const FormNuevoCliente = (props) => {
 		dni: '',
 		razonSocial: '',
 		codPostal: '',
-		referencia: '',
+		refDireccion: '',
 		calle: '',
+		numeroCalle: '',
 		piso: '',
-		numero: '',
+		depto: '',
 		barrio: '',
 		ciudad: '',
 		provincia: '',
@@ -80,9 +81,53 @@ const FormNuevoCliente = (props) => {
 			return;
 		}
 
-		props.crearCliente(cliente);
+		// I send customer data and adress
+		const client = {
+			nombre: cliente.nombre,
+			apellido: cliente.apellido,
+			instagram: cliente.instagram,
+			facebook: cliente.facebook,
+			celular: cliente.celular,
+			email: cliente.email,
+			mascota: cliente.mascota,
+			tipo: cliente.tipo,
+			dni: cliente.dni,
+			razonSocial: cliente.razonSocial,
+			observaciones: cliente.observaciones,
+			mascota: cliente.mascota,
+			tipo: cliente.tipo,
+			condIva: cliente.condIva,
+		};
 
-		props.handleClose();
+		let adress = {
+			codPostal: cliente.codPostal,
+			refDireccion: cliente.refDireccion,
+			calle: cliente.calle,
+			numeroCalle: cliente.numeroCalle,
+			piso: cliente.piso,
+			depto: cliente.depto,
+			barrio: cliente.barrio,
+			ciudad: cliente.ciudad,
+			provincia: cliente.provincia,
+		};
+
+		let checkValuesAdress = Object.values(adress).every((x) => x === '');
+		if (checkValuesAdress) {
+			adress = null;
+		} else if (
+			!checkValuesAdress &&
+			(adress.calle === '' || adress.numeroCalle === '' || adress.barrio === '')
+		) {
+			mostrarAlerta(
+				'Si quieres agregar una dirección, debes completar al menos calle, numero y barrio',
+				'error'
+			);
+			return;
+		}
+
+		props.crearCliente(client, adress);
+
+		// props.handleClose();
 	};
 
 	return (

@@ -14,6 +14,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import { Box } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
+import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 
 const useStyles = makeStyles((theme) => ({
 	heading: {
@@ -36,6 +37,14 @@ const columnas = [
 		minWidth: 60,
 		boton: true,
 		contenidoBoton: <HomeWorkIcon />,
+	},
+	{
+		id: 4,
+		nombre: 'Origen',
+		align: 'center',
+		minWidth: 60,
+		boton: true,
+		contenidoBoton: <LocalShippingIcon />,
 	},
 ];
 
