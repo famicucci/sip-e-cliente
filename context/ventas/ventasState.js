@@ -419,10 +419,19 @@ const VentasState = (props) => {
 	};
 
 	const editProductsOrder = async () => {
+		const cartToEditOrder = state.carrito.map((x) => ({
+			cantidad: x.cantidad,
+			pu: x['Producto.Precios.pu'],
+			origen: x.origen,
+			ProductoCodigo: x.ProductoCodigo,
+			PtoStockId: x.PtoStockId !== 0 ? x.PtoStockId : null,
+			OrdenId: state.orderToModify,
+		}));
+
 		try {
-			const r = await clienteAxios.put(
+			await clienteAxios.put(
 				`/api/detalles-orden/${state.orderToModify}`,
-				state.carrito
+				cartToEditOrder
 			);
 
 			dispatch({
@@ -431,7 +440,6 @@ const VentasState = (props) => {
 
 			dispatch({
 				type: ORDEN_EDITADA,
-				payload: true,
 			});
 		} catch (error) {
 			console.log(error);

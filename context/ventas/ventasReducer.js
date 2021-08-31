@@ -247,7 +247,7 @@ const VentasReducer = (state, action) => {
 		case ORDEN_EDITADA:
 			return {
 				...state,
-				orderEdited: action.payload,
+				orderEdited: true,
 			};
 		case MODAL_DETALLE_ORDEN:
 			return {
