@@ -50,8 +50,10 @@ const Productos = (props) => {
 			['Producto.Precios.pu']: x.pu,
 			origen: x.origen,
 			ProductoCodigo: x.ProductoCodigo,
-			PtoStockId: x.PtoStock.id,
-			['PtoStock.descripcion']: x.PtoStock.descripcion,
+			PtoStockId: x.PtoStock ? x.PtoStock.id : 0,
+			['PtoStock.descripcion']: x.PtoStock
+				? x.PtoStock.descripcion
+				: 'Producción',
 			['Producto.descripcion']: x.Producto.descripcion,
 		}));
 
