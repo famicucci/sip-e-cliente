@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import BotonVerMasCarrito from './BotonVerMasCarrito';
+import BotonVerMas from '../generales/BotonVerMas';
 import BotonEliminarDeCarrito from './BotonEliminarDeCarrito';
 import CollapseTablaCarrito from './CollapseTablaCarrito';
 import PrecioEditableCarrito from './PrecioEditableCarrito';
@@ -52,7 +52,7 @@ const FilaCarrito = (props) => {
 				</TableCell>
 				<TableCell align="center">
 					<BotonEliminarDeCarrito code={codigo} />
-					<BotonVerMasCarrito setOpen={setOpen} open={open} />
+					<BotonVerMas setOpen={setOpen} open={open} margin={1} />
 				</TableCell>
 			</TableRow>
 			<CollapseTablaCarrito open={open} product={props.product} />

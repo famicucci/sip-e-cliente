@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
 import RowColorIntercalado from '../generales/RowColorIntercalado';
 import BotonTippyHoverTabla from '../generales/BotonTippyHoverTabla';
+import HomeWorkIcon from '@material-ui/icons/HomeWork';
 
 const useStyles = makeStyles((theme) => ({
 	regalo: {
@@ -23,6 +24,14 @@ const FilaListaProductos = ({ fila, colIndex }) => {
 			{colIndex['Descripción'] ? (
 				<TableCell className={classes.regalo} align="left">
 					{fila.Producto.descripcion}
+					<span style={{ marginLeft: 8 }}>
+						{fila.origen === 'Producción' ? (
+							<BotonTippyHoverTabla
+								icono={<HomeWorkIcon />}
+								contenidoTippy={<p>Producto a pedido o en producción</p>}
+							/>
+						) : null}
+					</span>
 				</TableCell>
 			) : null}
 			{colIndex['Cantidad'] ? (
@@ -40,7 +49,7 @@ const FilaListaProductos = ({ fila, colIndex }) => {
 					{(fila.cantidad * fila.pu).toFixed(2)}
 				</TableCell>
 			) : null}
-			{colIndex['Origen'] ? (
+			{/* {colIndex['Origen'] ? (
 				<TableCell className={classes.regalo} align="center">
 					{fila.origen === 'Producción' ? (
 						<BotonTippyHoverTabla
@@ -49,7 +58,7 @@ const FilaListaProductos = ({ fila, colIndex }) => {
 						/>
 					) : null}
 				</TableCell>
-			) : null}
+			) : null} */}
 		</RowColorIntercalado>
 	);
 };

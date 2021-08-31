@@ -7,13 +7,13 @@ import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 const useStyles = makeStyles((theme) => ({
 	root: {
 		'& > *': {
-			margin: theme.spacing(1),
+			margin: (props) => (props.margin ? theme.spacing(props.margin) : 0),
 		},
 	},
 }));
 
-const BotonVerMasCarrito = ({ setOpen, open }) => {
-	const classes = useStyles();
+const BotonVerMas = ({ setOpen, open, margin }) => {
+	const classes = useStyles({ margin });
 
 	return (
 		<div className={classes.root}>
@@ -33,4 +33,4 @@ const BotonVerMasCarrito = ({ setOpen, open }) => {
 	);
 };
 
-export default BotonVerMasCarrito;
+export default BotonVerMas;

@@ -5,16 +5,14 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
-import TablaListaProductos from '../generales/TablaListaProductos';
 import AccordionActions from '@material-ui/core/AccordionActions';
 import Divider from '@material-ui/core/Divider';
-import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import BotonFilaTabla from '../generales/BotonFilaTabla';
 import EditIcon from '@material-ui/icons/Edit';
 import { Box } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
-import LocalShippingIcon from '@material-ui/icons/LocalShipping';
+import TablaDetalleOrden from './TablaDetalleOrden';
 
 const useStyles = makeStyles((theme) => ({
 	heading: {
@@ -32,19 +30,10 @@ const columnas = [
 	{ id: 3, nombre: 'Cantidad', align: 'center', minWidth: 100 },
 	{
 		id: 4,
-		nombre: 'Origen',
+		nombre: 'Ver Más',
 		align: 'center',
 		minWidth: 60,
 		boton: true,
-		contenidoBoton: <HomeWorkIcon />,
-	},
-	{
-		id: 4,
-		nombre: 'Origen',
-		align: 'center',
-		minWidth: 60,
-		boton: true,
-		contenidoBoton: <LocalShippingIcon />,
 	},
 ];
 
@@ -78,7 +67,7 @@ const Productos = (props) => {
 				<Typography className={classes.heading}>Productos</Typography>
 			</AccordionSummary>
 			<AccordionDetails>
-				<TablaListaProductos
+				<TablaDetalleOrden
 					productos={props.filaActiva.detalleOrden}
 					columnas={columnas}
 				/>

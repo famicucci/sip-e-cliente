@@ -252,7 +252,6 @@ const VentasState = (props) => {
 
 		try {
 			let order = await clienteAxios.post('/api/ordenes/', paraCrearOrden);
-			console.log(order);
 
 			try {
 				const createdOrder = await clienteAxios.get(
