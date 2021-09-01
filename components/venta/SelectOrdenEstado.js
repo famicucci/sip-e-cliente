@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import VentasContext from '../../context/ventas/ventasContext';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import AlertaContext from '../../context/alertas/alertaContext';
 import Alerta from '../generales/Alerta';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
+import GlobalDataContext from '../../context/globalData/GlobalDataContext';
 
 const BootstrapButton = withStyles({
 	root: {
@@ -33,9 +33,8 @@ const BootstrapButton = withStyles({
 })(Button);
 
 const SelectOrdenEstado = ({ idOrden, ordenEstadoId }) => {
-	const { estadosOrden, handleEstadoOrden, mensaje } =
-		useContext(EditarOrdenesContext);
-
+	const { orderStatuses } = useContext(GlobalDataContext);
+	const { handleEstadoOrden, mensaje } = useContext(EditarOrdenesContext);
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 
 	const [ordenEstadoDescripcion, setOrdenEstadoDescripcion] = useState(null);
@@ -48,8 +47,8 @@ const SelectOrdenEstado = ({ idOrden, ordenEstadoId }) => {
 			setOrdenEstadoDescripcion(r ? r.descripcion : null);
 			setColor(r ? r.color : null);
 		};
-		modEstadoDescripcionColor(estadosOrden, ordenEstadoId);
-	}, [estadosOrden, ordenEstadoId]);
+		modEstadoDescripcionColor(orderStatuses, ordenEstadoId);
+	}, [orderStatuses, ordenEstadoId]);
 
 	useEffect(() => {
 		if (mensaje) {
@@ -91,7 +90,7 @@ const SelectOrdenEstado = ({ idOrden, ordenEstadoId }) => {
 				open={Boolean(anchorEl)}
 				onClose={handleClose}
 			>
-				{estadosOrden.map((x) => (
+				{orderStatuses.map((x) => (
 					<MenuItem
 						key={x.id}
 						value={x.id}

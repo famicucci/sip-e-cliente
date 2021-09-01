@@ -8,7 +8,6 @@ import { FacturaBD } from '../../../functions/Factura';
 import {
 	TRAER_ORDENES,
 	ELIMINAR_ORDEN,
-	TRAER_ESTADOS_ORDEN,
 	FILA_ACTIVA_ORDEN,
 	MODIFICAR_ORDENES,
 	MODIFICAR_ESTADO_ORDEN,
@@ -36,17 +35,16 @@ const EditarOrdenesState = (props) => {
 		ordenes: [],
 		filaActiva: {},
 		factura: {},
-		estadosOrden: [],
 		openModalDetalleOrden: false,
 		openModalInformacionCliente: false,
 		openModalCrearFactura: false,
 		openModalConfirmarCrearFactura: false,
 		openModalFactura: false,
 		openModalCrearPago: false,
-		tiposEnvio: [],
-		metodosPago: [],
-		ptosVenta: [],
-		mensaje: null,
+		tiposEnvio: [], // global state
+		metodosPago: [], // global state
+		ptosVenta: [], // global state
+		mensaje: null, // ??
 		mensajeEditarOrdenes: null,
 		cargando: true,
 	};
@@ -61,19 +59,6 @@ const EditarOrdenesState = (props) => {
 			dispatch({
 				type: TRAER_ORDENES,
 				payload: { respuesta: r.data, busqueda: busqueda },
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
-	const traerEstadosOrden = async () => {
-		try {
-			const r = await clienteAxios.get('/api/estados-orden/');
-
-			dispatch({
-				type: TRAER_ESTADOS_ORDEN,
-				payload: r.data,
 			});
 		} catch (error) {
 			console.log(error);
@@ -364,7 +349,6 @@ const EditarOrdenesState = (props) => {
 				ordenes: state.ordenes,
 				filaActiva: state.filaActiva,
 				factura: state.factura,
-				estadosOrden: state.estadosOrden,
 				openModalDetalleOrden: state.openModalDetalleOrden,
 				openModalInformacionCliente: state.openModalInformacionCliente,
 				openModalCrearFactura: state.openModalCrearFactura,
@@ -378,7 +362,6 @@ const EditarOrdenesState = (props) => {
 				mensajeEditarOrdenes: state.mensajeEditarOrdenes,
 				cargando: state.cargando,
 				traerOrdenes,
-				traerEstadosOrden,
 				modificarOrden,
 				handleEstadoOrden,
 				handleFilaActivaOrden,

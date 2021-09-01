@@ -20,6 +20,7 @@ import Alerta2 from '../generales/Alerta2';
 import VentasContext from '../../context/ventas/ventasContext';
 import useFilter from '../../hooks/useFilter';
 import { useRouter } from 'next/router';
+import GlobalDataContext from '../../context/globalData/GlobalDataContext';
 
 const useStyles = makeStyles({
 	table: {
@@ -53,10 +54,7 @@ const TablaEditarOrdenes = () => {
 	const { handleHerramientasEditarVentas, busqueda } = useContext(
 		BarraHerramientasContext
 	);
-
-	const [data, setData] = useState([]);
-	const [filteredData] = useFilter(data, busqueda);
-
+	const { getOrderStatuses } = useContext(GlobalDataContext);
 	const { ordenCreada, handleOrdenActiva, handleOrderToModify } =
 		useContext(VentasContext);
 	const {
@@ -64,7 +62,6 @@ const TablaEditarOrdenes = () => {
 		mensajeEditarOrdenes,
 		cargando,
 		traerOrdenes,
-		traerEstadosOrden,
 		traerTiposEnvio,
 		traerPtosVenta,
 		openModalDetalleOrden,
@@ -79,13 +76,16 @@ const TablaEditarOrdenes = () => {
 		tiposEnvio,
 	} = useContext(EditarOrdenesContext);
 
+	const [data, setData] = useState([]);
+	const [filteredData] = useFilter(data, busqueda);
+
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
 		usePaginacion(filteredData, 25);
 
 	useEffect(() => {
 		traerOrdenes(busqueda);
 		handleHerramientasEditarVentas();
-		traerEstadosOrden();
+		getOrderStatuses();
 		traerTiposEnvio();
 		traerPtosVenta();
 
