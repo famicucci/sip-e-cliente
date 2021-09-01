@@ -5,6 +5,7 @@ import TableCell from '@material-ui/core/TableCell';
 import VentasContext from '../../context/ventas/ventasContext';
 import BotonFilaTabla from '../generales/BotonFilaTabla';
 import ClearIcon from '@material-ui/icons/Clear';
+import GlobalDataContext from '../../context/globalData/GlobalDataContext';
 
 const useStyles = makeStyles({
 	negrita: {
@@ -17,21 +18,21 @@ const useStyles = makeStyles({
 const FilaCarrEnvio = () => {
 	const classes = useStyles();
 
-	const { envio, tiposEnvio, handleEnvio, traerTiposEnvio } =
-		useContext(VentasContext);
+	const { shippingTypes, getShippingTypes } = useContext(GlobalDataContext);
+	const { envio, handleEnvio } = useContext(VentasContext);
 
 	const [description, setDescription] = useState(null);
 
 	useEffect(async () => {
-		if (!tiposEnvio) await traerTiposEnvio();
+		if (!shippingTypes) await getShippingTypes();
 	}, []);
 
 	useEffect(() => {
-		if (tiposEnvio && envio) {
-			const r = tiposEnvio.find((x) => x.id === envio.tipo);
+		if (shippingTypes && envio) {
+			const r = shippingTypes.find((x) => x.id === envio.tipo);
 			if (r) setDescription(r.descripcion);
 		}
-	}, [tiposEnvio]);
+	}, [shippingTypes]);
 
 	if (!envio) return null;
 	if (envio.costo === 0 && envio.tipo === 1) return null;

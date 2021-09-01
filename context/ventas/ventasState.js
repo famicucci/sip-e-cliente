@@ -25,7 +25,6 @@ import {
 	ELIMINAR_NOTA,
 	AGREGAR_ORDEN_ECOMMERCE,
 	ELIMINAR_ORDEN_ECOMMERCE,
-	TIPOS_ENVIO,
 	PTO_VENTA,
 	ELIMINAR_PTO_VENTA,
 	TRAER_ESTADOS_ORDEN,
@@ -51,7 +50,6 @@ const VentasState = (props) => {
 		listaPrecio: { descripcion: 'Lista Minorista', id: 1 }, // only id ?
 		valorRadio: 'pto-stock',
 		carrito: [],
-		tiposEnvio: null, // global state? yesssssssss
 		estadosOrden: [], // global state? yesssssssss
 		modo: 'manual', // local state in the corresponding component?
 		orderToModify: null,
@@ -298,23 +296,6 @@ const VentasState = (props) => {
 		});
 	};
 
-	const traerTiposEnvio = async () => {
-		try {
-			const r = await clienteAxios.get(`/api/tipos-envio`);
-
-			dispatch({
-				type: TIPOS_ENVIO,
-				payload: r.data,
-			});
-		} catch (error) {
-			console.log(error);
-			// dispatch({
-			// 	type: ERROR_BARRA_HERRAMIENTAS,
-			// 	payload: error,
-			// });
-		}
-	};
-
 	const handlePtoVenta = (opt) => {
 		dispatch({
 			type: PTO_VENTA,
@@ -460,7 +441,6 @@ const VentasState = (props) => {
 				nota: state.nota,
 				ordenEcommerce: state.ordenEcommerce,
 				ptoVenta: state.ptoVenta,
-				tiposEnvio: state.tiposEnvio,
 				estadosOrden: state.estadosOrden,
 				cargando: state.cargando,
 				ptosStock: state.ptosStock,
@@ -478,7 +458,6 @@ const VentasState = (props) => {
 				crearOrden,
 				handleNota,
 				handleInputOrdenEcommerce,
-				traerTiposEnvio,
 				handlePtoVenta,
 				traerEstadosOrden,
 				handleOpenModalDetalleOrden,

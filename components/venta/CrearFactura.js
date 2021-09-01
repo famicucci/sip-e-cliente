@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ModalScroll from '../generales/ModalScroll';
 import { Typography, Divider, Box } from '@material-ui/core';
-import VentasContext from '../../context/ventas/ventasContext';
 import ProductosCrearFactura from './ProductosCrearFactura';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
 import ImporteCrearFactura from './ImporteCrearFactura';
@@ -10,6 +9,7 @@ import BotonSuccess from '../generales/botones/BotonSuccess';
 import NotaCrearFactura from './NotaCrearFactura';
 import ConfirmarCrearFactura from './ConfirmarCrearFactura';
 import AlertaContext from '../../context/alertas/alertaContext';
+import GlobalDataContext from '../../context/globalData/GlobalDataContext';
 
 const useStyles = makeStyles((theme) => ({
 	dividerHorizontal: {
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 const CrearFactura = () => {
 	const classes = useStyles();
 
-	const { traerTiposEnvio } = useContext(VentasContext);
+	const { getShippingTypes } = useContext(GlobalDataContext);
 	const {
 		filaActiva,
 		openModalCrearFactura,
@@ -60,7 +60,7 @@ const CrearFactura = () => {
 	});
 
 	useEffect(() => {
-		traerTiposEnvio();
+		getShippingTypes();
 	}, []);
 
 	const onChangeObservaciones = (observaciones) => {

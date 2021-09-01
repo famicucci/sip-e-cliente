@@ -11,6 +11,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { IconButton } from '@material-ui/core';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import GlobalDataContext from '../../context/globalData/GlobalDataContext';
 
 const useStyles = makeStyles((theme) => ({
 	dividerHorizontal: {
@@ -29,7 +30,8 @@ const DetalleOrden = () => {
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [statusButton, setStatusButton] = useState({ disabled: true });
 
-	const { traerTiposEnvio, handleOrderToModify } = useContext(VentasContext);
+	const { getShippingTypes } = useContext(GlobalDataContext);
+	const { handleOrderToModify } = useContext(VentasContext);
 	const {
 		filaActiva,
 		openModalDetalleOrden,
@@ -39,7 +41,7 @@ const DetalleOrden = () => {
 	} = useContext(EditarOrdenesContext);
 
 	useEffect(() => {
-		traerTiposEnvio();
+		getShippingTypes();
 	}, []);
 
 	useEffect(() => {

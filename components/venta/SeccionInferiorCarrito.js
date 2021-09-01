@@ -10,9 +10,9 @@ import { BotoneraCarrContext } from '../../context/BotoneraCarrContext';
 import ClienteCarr from './ClienteCarr';
 import AgregarClienteCarr from '../venta/AgregarClienteCarr';
 import AgregarEnvioCarr from './AgregarEnvioCarr';
-import VentasContext from '../../context/ventas/ventasContext';
 import BotoneraModificarOrden from './BotoneraModificarOrden';
 import { useRouter } from 'next/router';
+import GlobalDataContext from '../../context/globalData/GlobalDataContext';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -26,14 +26,12 @@ const SeccionInferiorCarrito = () => {
 	const classes = useStyles();
 	const router = useRouter();
 
+	const { getShippingTypes } = useContext(GlobalDataContext);
 	const { openModalAgregarEnvioCarrito, openNota, openVerMas } =
 		useContext(BotoneraCarrContext);
 
-	const { traerTiposEnvio } = useContext(VentasContext);
-
 	useEffect(() => {
-		// poner los tipos de envio al state ventas
-		traerTiposEnvio();
+		getShippingTypes();
 	}, []);
 
 	return (

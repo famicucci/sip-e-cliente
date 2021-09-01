@@ -19,7 +19,6 @@ import {
 	ELIMINAR_NOTA,
 	AGREGAR_ORDEN_ECOMMERCE,
 	ELIMINAR_ORDEN_ECOMMERCE,
-	TIPOS_ENVIO,
 	PTO_VENTA,
 	ELIMINAR_PTO_VENTA,
 	TRAER_ESTADOS_ORDEN,
@@ -205,11 +204,6 @@ const VentasReducer = (state, action) => {
 			return {
 				...state,
 				ptoVenta: 1,
-			};
-		case TIPOS_ENVIO:
-			return {
-				...state,
-				tiposEnvio: action.payload,
 			};
 		case TRAER_ESTADOS_ORDEN:
 			return {
