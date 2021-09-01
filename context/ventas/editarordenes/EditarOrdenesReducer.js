@@ -16,13 +16,11 @@ import {
 	MODAL_CLOSE_CONFIRMAR_FACTURA,
 	MODAL_CLOSE_CREAR_PAGO,
 	PTOS_VENTA,
-	METODOS_PAGO,
-	CREAR_PAGO,
+	ACTUALIZAR_PAGO,
 	MOSTRAR_ALERTA_EDITAR_ORDENES,
 	OCULTAR_ALERTA_EDITAR_ORDENES,
+	ACTIVAR_ORDEN,
 } from '../../../types';
-import { ModificarArray } from '../../../hooks/General';
-import { FacturaBD } from '../../../functions/Factura';
 
 const EditarOrdenesReducer = (state, action) => {
 	switch (action.type) {
@@ -42,7 +40,11 @@ const EditarOrdenesReducer = (state, action) => {
 				...state,
 				filaActiva: action.payload,
 			};
-
+		case ACTIVAR_ORDEN:
+			return {
+				...state,
+				filaActiva: state.ordenes.find((x) => x.id === action.payload),
+			};
 		case MODIFICAR_ORDENES:
 			return {
 				...state,
@@ -146,50 +148,20 @@ const EditarOrdenesReducer = (state, action) => {
 				...state,
 				ptosVenta: action.payload,
 			};
-		case METODOS_PAGO:
-			return {
-				...state,
-				metodosPago: action.payload,
-			};
-		case CREAR_PAGO:
-			const filtrarMetodoPago = state.metodosPago.find(
-				(x) => x.id === action.payload.MetodoPagoId
-			);
-
-			const pagoMetodoPagoCompleto = {
-				id: action.payload.id,
-				importe: action.payload.importe,
-				createdAt: action.payload.createdAt,
-				MetodoPago: filtrarMetodoPago,
-			};
-			// modificar el action.payload
-			const agregarPagoEnFactura = new ModificarArray(
-				state.filaActiva.Factura.Pagos,
-				pagoMetodoPagoCompleto
-			);
-			const PagosModificado = agregarPagoEnFactura.agregarObjetoEnArray();
-
-			let facturaModificada = {
-				...state.filaActiva.Factura,
-				Pagos: PagosModificado,
-			};
-
-			const factura = new FacturaBD(facturaModificada);
-			const estadoPago = factura.getEstadoPago();
-			facturaModificada = { ...facturaModificada, estadoPago: estadoPago };
-
-			const filaActivaModificada = {
-				...state.filaActiva,
-				Factura: facturaModificada,
-			};
-
+		case ACTUALIZAR_PAGO:
 			return {
 				...state,
 				ordenes: state.ordenes.map((x) =>
-					x.id === filaActivaModificada.id ? filaActivaModificada : x
+					x.id === state.filaActiva.id
+						? {
+								...x,
+								Factura: {
+									...x.Factura,
+									Pagos: [...x.Factura.Pagos, action.payload],
+								},
+						  }
+						: x
 				),
-				filaActiva: filaActivaModificada,
-				mensaje: { msg: 'El pago ha sido creado', categoria: 'success' },
 			};
 		case MOSTRAR_ALERTA_EDITAR_ORDENES:
 			return {

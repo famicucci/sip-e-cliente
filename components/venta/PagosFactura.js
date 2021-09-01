@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import Accordion from '@material-ui/core/Accordion';
@@ -11,6 +11,7 @@ import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrden
 import { FacturaBD } from '../../functions/Factura';
 import ImporteFlexGrow from '../generales/ImporteFlexGrow';
 import AddIcon from '@material-ui/icons/Add';
+import GlobalDataContext from '../../context/globalData/GlobalDataContext';
 
 const useStyles = makeStyles((theme) => ({
 	heading: {
@@ -54,8 +55,13 @@ const useStyles = makeStyles((theme) => ({
 const PagosFactura = () => {
 	const classes = useStyles();
 
+	const { paymentMethods, getPaymentMethods } = useContext(GlobalDataContext);
 	const { filaActiva, handleOpenModalCrearPago } =
 		useContext(EditarOrdenesContext);
+
+	useEffect(() => {
+		if (!paymentMethods) getPaymentMethods();
+	}, []);
 
 	const factura = new FacturaBD(filaActiva.Factura);
 
@@ -75,7 +81,10 @@ const PagosFactura = () => {
 											{i + 1}
 										</Grid>
 										<Grid item xs={4}>
-											{x.MetodoPago.descripcion}
+											{paymentMethods
+												? paymentMethods.find((y) => y.id === x.MetodoPagoId)
+														.descripcion
+												: null}
 										</Grid>
 										<Grid item xs={3} style={{ textAlign: 'center' }}>
 											{moment(x.createdAt).format('DD-MM-YYYY')}

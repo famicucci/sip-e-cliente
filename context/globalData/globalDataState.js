@@ -6,8 +6,9 @@ import clienteAxios from '../../config/axios';
 import {
 	PTOS_STOCK_VENTAS,
 	TRAER_PTOS_VENTA,
-	TIPOS_ENVIO,
+	TRAER_TIPOS_ENVIO,
 	TRAER_ESTADOS_ORDEN,
+	TRAER_METODOS_PAGO,
 } from '../../types';
 
 const GlobalDataState = (props) => {
@@ -16,6 +17,7 @@ const GlobalDataState = (props) => {
 		salePoints: null,
 		shippingTypes: null,
 		orderStatuses: null,
+		paymentMethods: null,
 	};
 
 	const [state, dispatch] = useReducer(GlobalDataReducer, initialState);
@@ -47,7 +49,7 @@ const GlobalDataState = (props) => {
 			const r = await clienteAxios.get(`/api/tipos-envio`);
 
 			dispatch({
-				type: TIPOS_ENVIO,
+				type: TRAER_TIPOS_ENVIO,
 				payload: r.data,
 			});
 		} catch (error) {
@@ -68,6 +70,19 @@ const GlobalDataState = (props) => {
 		}
 	};
 
+	const getPaymentMethods = async () => {
+		try {
+			const respuesta = await clienteAxios.get(`/api/metodos-pago`);
+
+			dispatch({
+				type: TRAER_METODOS_PAGO,
+				payload: respuesta.data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
 		<GlobalDataContext.Provider
 			value={{
@@ -75,10 +90,12 @@ const GlobalDataState = (props) => {
 				salePoints: state.salePoints,
 				shippingTypes: state.shippingTypes,
 				orderStatuses: state.orderStatuses,
+				paymentMethods: state.paymentMethods,
 				getStockPoints,
 				getSalePoints,
 				getShippingTypes,
 				getOrderStatuses,
+				getPaymentMethods,
 			}}
 		>
 			{props.children}

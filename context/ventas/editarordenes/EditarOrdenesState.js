@@ -23,10 +23,10 @@ import {
 	MODAL_CLOSE_CONFIRMAR_FACTURA,
 	MODAL_CLOSE_CREAR_PAGO,
 	PTOS_VENTA,
-	METODOS_PAGO,
-	CREAR_PAGO,
+	ACTUALIZAR_PAGO,
 	MOSTRAR_ALERTA_EDITAR_ORDENES,
 	OCULTAR_ALERTA_EDITAR_ORDENES,
+	ACTIVAR_ORDEN,
 } from '../../../types';
 
 const EditarOrdenesState = (props) => {
@@ -40,7 +40,6 @@ const EditarOrdenesState = (props) => {
 		openModalConfirmarCrearFactura: false,
 		openModalFactura: false,
 		openModalCrearPago: false,
-		metodosPago: [], // global state
 		ptosVenta: [], // global state
 		mensaje: null, // ??
 		mensajeEditarOrdenes: null,
@@ -238,27 +237,11 @@ const EditarOrdenesState = (props) => {
 		}
 	};
 
-	const traerMetodosPago = async () => {
-		try {
-			const respuesta = await clienteAxios.get(`/api/metodos-pago`);
-
-			dispatch({
-				type: METODOS_PAGO,
-				payload: respuesta.data,
-			});
-		} catch (error) {
-			console.log(error);
-			// dispatch({
-			// 	type: ERROR_BARRA_HERRAMIENTAS,
-			// 	payload: error,
-			// });
-		}
-	};
-
 	const crearPago = async (pago) => {
 		try {
 			const respuesta = await clienteAxios.post(`/api/pagos`, pago);
 
+			// this must be in the component
 			// verificar si debo modificar la factura
 			// si corresponde, debo modificar el estadoPago de de la factura
 			const factura = new FacturaBD(state.filaActiva.Factura);
@@ -273,15 +256,18 @@ const EditarOrdenesState = (props) => {
 			}
 
 			dispatch({
-				type: CREAR_PAGO,
+				type: ACTUALIZAR_PAGO,
 				payload: respuesta.data,
 			});
+
+			dispatch({
+				type: ACTIVAR_ORDEN,
+				payload: state.filaActiva.id,
+			});
+
+			mostrarAlertaEditarOrdenes('El pago ha sido creado', 'success');
 		} catch (error) {
 			console.log(error);
-			// dispatch({
-			// 	type: ERROR_BARRA_HERRAMIENTAS,
-			// 	payload: error,
-			// });
 		}
 	};
 
@@ -337,7 +323,6 @@ const EditarOrdenesState = (props) => {
 				openModalFactura: state.openModalFactura,
 				openModalCrearPago: state.openModalCrearPago,
 				tiposEnvio: state.tiposEnvio,
-				metodosPago: state.metodosPago,
 				ptosVenta: state.ptosVenta,
 				mensaje: state.mensaje,
 				mensajeEditarOrdenes: state.mensajeEditarOrdenes,
@@ -358,7 +343,6 @@ const EditarOrdenesState = (props) => {
 				handleCloseModalConfirmarCrearFactura,
 				handleCloseModalCrearPago,
 				traerPtosVenta,
-				traerMetodosPago,
 				crearPago,
 				ocultarAlertaEditarOrdenes,
 				mostrarAlertaEditarOrdenes,

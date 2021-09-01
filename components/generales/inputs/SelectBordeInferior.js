@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -40,26 +40,28 @@ const SelectBordeInferior = ({
 		<Grid item xs={ancho}>
 			<FormControl className={classes.formControl}>
 				<InputLabel shrink>{label}</InputLabel>
-				<Select
-					name={name}
-					value={valor}
-					onChange={handleChange}
-					displayEmpty
-					className={classes.selectEmpty}
-				>
-					{
-						(initialvalue = 'none' ? (
-							<MenuItem value="none" disabled>
-								<Typography color="textSecondary">{placeholder}</Typography>
+				{data ? (
+					<Select
+						name={name}
+						value={valor}
+						onChange={handleChange}
+						displayEmpty
+						className={classes.selectEmpty}
+					>
+						{
+							(initialvalue = 'none' ? (
+								<MenuItem value="none" disabled>
+									<Typography color="textSecondary">{placeholder}</Typography>
+								</MenuItem>
+							) : null)
+						}
+						{data.map((x) => (
+							<MenuItem key={x.id} value={x.id}>
+								{x.descripcion}
 							</MenuItem>
-						) : null)
-					}
-					{data.map((x) => (
-						<MenuItem key={x.id} value={x.id}>
-							{x.descripcion}
-						</MenuItem>
-					))}
-				</Select>
+						))}
+					</Select>
+				) : null}
 			</FormControl>
 		</Grid>
 	);

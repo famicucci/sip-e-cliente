@@ -10,6 +10,7 @@ import SelectBordeInferior from '../generales/inputs/SelectBordeInferior';
 import AlertaContext from '../../context/alertas/alertaContext';
 import moment from 'moment';
 import { FacturaBD } from '../../functions/Factura';
+import GlobalDataContext from '../../context/globalData/GlobalDataContext';
 
 const selectMetodoPago = {
 	name: 'metodopago',
@@ -32,12 +33,11 @@ const useStyles = makeStyles((theme) => ({
 const CrearPago = () => {
 	const classes = useStyles();
 
+	const { paymentMethods, getPaymentMethods } = useContext(GlobalDataContext);
 	const {
 		filaActiva,
 		openModalCrearPago,
-		metodosPago,
 		handleCloseModalCrearPago,
-		traerMetodosPago,
 		crearPago,
 	} = useContext(EditarOrdenesContext);
 	const { mostrarAlerta } = useContext(AlertaContext);
@@ -48,11 +48,12 @@ const CrearPago = () => {
 		createdAt: moment(new Date()).toISOString(),
 		importe: factura.importeFinal - factura.sumaPagos(),
 		MetodoPagoId: '',
+		FacturaId: factura.id,
 	});
 
 	useEffect(() => {
-		if (metodosPago.length === 0) {
-			traerMetodosPago();
+		if (!paymentMethods) {
+			getPaymentMethods();
 		}
 	}, []);
 
@@ -95,10 +96,8 @@ const CrearPago = () => {
 			return;
 		}
 
-		const pagoMod = { ...pago, FacturaId: factura.id };
-
 		// submit
-		crearPago(pagoMod);
+		crearPago(pago);
 
 		handleCloseModalCrearPago();
 	};
@@ -149,7 +148,7 @@ const CrearPago = () => {
 						name={selectMetodoPago.name}
 						label={selectMetodoPago.label}
 						ancho={selectMetodoPago.ancho}
-						data={metodosPago}
+						data={paymentMethods}
 						initialvalue="none"
 						placeholder="Metodo de Pago..."
 						tochangestate={handleMetodoPago}
