@@ -15,7 +15,6 @@ import {
 	MODAL_CLOSE,
 	MODAL_CLOSE_CONFIRMAR_FACTURA,
 	MODAL_CLOSE_CREAR_PAGO,
-	TIPOS_ENVIO,
 	PTOS_VENTA,
 	METODOS_PAGO,
 	CREAR_PAGO,
@@ -141,11 +140,6 @@ const EditarOrdenesReducer = (state, action) => {
 			return {
 				...state,
 				openModalCrearPago: false,
-			};
-		case TIPOS_ENVIO:
-			return {
-				...state,
-				tiposEnvio: action.payload,
 			};
 		case PTOS_VENTA:
 			return {

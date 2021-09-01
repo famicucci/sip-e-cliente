@@ -6,12 +6,12 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import FormularioEnvio from './FormularioEnvio';
-import useEnvio from '../../hooks/useEnvio';
 import AccordionActions from '@material-ui/core/AccordionActions';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
 import { Direccion } from '../../functions/envio';
+import GlobalDataContext from '../../context/globalData/GlobalDataContext';
 
 const useStyles = makeStyles((theme) => ({
 	heading: {
@@ -26,8 +26,8 @@ const EnvioDetalleOrden = () => {
 
 	const [expanded, setExpanded] = useState({ expanded: false });
 
-	const { filaActiva, modificarOrden, tiposEnvio } =
-		useContext(EditarOrdenesContext);
+	const { shippingTypes } = useContext(GlobalDataContext);
+	const { filaActiva, modificarOrden } = useContext(EditarOrdenesContext);
 
 	const envioInit = {
 		modoDirecc: 'input',
@@ -79,7 +79,7 @@ const EnvioDetalleOrden = () => {
 					facturasOrden={filaActiva.Facturas ? filaActiva.Facturas : []}
 					// handleClose={handleClose}
 					envioInit={envioInit}
-					tiposEnvio={tiposEnvio}
+					tiposEnvio={shippingTypes}
 					cliente={filaActiva.Cliente}
 					handleEnvio={modShipping}
 				/>

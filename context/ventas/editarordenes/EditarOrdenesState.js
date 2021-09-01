@@ -22,7 +22,6 @@ import {
 	MODAL_CLOSE,
 	MODAL_CLOSE_CONFIRMAR_FACTURA,
 	MODAL_CLOSE_CREAR_PAGO,
-	TIPOS_ENVIO,
 	PTOS_VENTA,
 	METODOS_PAGO,
 	CREAR_PAGO,
@@ -41,7 +40,6 @@ const EditarOrdenesState = (props) => {
 		openModalConfirmarCrearFactura: false,
 		openModalFactura: false,
 		openModalCrearPago: false,
-		tiposEnvio: [], // global state
 		metodosPago: [], // global state
 		ptosVenta: [], // global state
 		mensaje: null, // ??
@@ -223,23 +221,6 @@ const EditarOrdenesState = (props) => {
 		}
 	};
 
-	const traerTiposEnvio = async () => {
-		try {
-			const r = await clienteAxios.get(`/api/tipos-envio`);
-
-			dispatch({
-				type: TIPOS_ENVIO,
-				payload: r.data,
-			});
-		} catch (error) {
-			console.log(error);
-			// dispatch({
-			// 	type: ERROR_BARRA_HERRAMIENTAS,
-			// 	payload: error,
-			// });
-		}
-	};
-
 	const traerPtosVenta = async () => {
 		try {
 			const respuesta = await clienteAxios.get(`/api/ventas/ptos-venta`);
@@ -376,7 +357,6 @@ const EditarOrdenesState = (props) => {
 				handleCloseModal,
 				handleCloseModalConfirmarCrearFactura,
 				handleCloseModalCrearPago,
-				traerTiposEnvio,
 				traerPtosVenta,
 				traerMetodosPago,
 				crearPago,

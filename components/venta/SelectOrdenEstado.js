@@ -83,27 +83,30 @@ const SelectOrdenEstado = ({ idOrden, ordenEstadoId }) => {
 			>
 				{ordenEstadoDescripcion}
 			</BootstrapButton>
-			<Menu
-				id="simple-menu"
-				anchorEl={anchorEl}
-				keepMounted
-				open={Boolean(anchorEl)}
-				onClose={handleClose}
-			>
-				{orderStatuses.map((x) => (
-					<MenuItem
-						key={x.id}
-						value={x.id}
-						onClick={() => {
-							handleClickItem(idOrden, x.id, x.descripcion);
-						}}
-					>
-						<span style={{ color: `${x.color}`, fontWeight: 'bold' }}>
-							{x.descripcion}
-						</span>
-					</MenuItem>
-				))}
-			</Menu>
+			{orderStatuses ? (
+				<Menu
+					id="simple-menu"
+					anchorEl={anchorEl}
+					keepMounted
+					open={Boolean(anchorEl)}
+					onClose={handleClose}
+				>
+					{orderStatuses.map((x) => (
+						<MenuItem
+							key={x.id}
+							value={x.id}
+							onClick={() => {
+								handleClickItem(idOrden, x.id, x.descripcion);
+							}}
+						>
+							<span style={{ color: `${x.color}`, fontWeight: 'bold' }}>
+								{x.descripcion}
+							</span>
+						</MenuItem>
+					))}
+				</Menu>
+			) : null}
+
 			{alerta !== null ? <Alerta /> : null}
 		</div>
 	);

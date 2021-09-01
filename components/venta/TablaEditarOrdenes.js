@@ -54,7 +54,8 @@ const TablaEditarOrdenes = () => {
 	const { handleHerramientasEditarVentas, busqueda } = useContext(
 		BarraHerramientasContext
 	);
-	const { getOrderStatuses } = useContext(GlobalDataContext);
+	const { shippingTypes, getOrderStatuses, getShippingTypes } =
+		useContext(GlobalDataContext);
 	const { ordenCreada, handleOrdenActiva, handleOrderToModify } =
 		useContext(VentasContext);
 	const {
@@ -62,7 +63,6 @@ const TablaEditarOrdenes = () => {
 		mensajeEditarOrdenes,
 		cargando,
 		traerOrdenes,
-		traerTiposEnvio,
 		traerPtosVenta,
 		openModalDetalleOrden,
 		openModalCrearFactura,
@@ -73,7 +73,6 @@ const TablaEditarOrdenes = () => {
 		handleCloseModal,
 		handleFilaActivaOrden,
 		mostrarAlertaEditarOrdenes,
-		tiposEnvio,
 	} = useContext(EditarOrdenesContext);
 
 	const [data, setData] = useState([]);
@@ -86,7 +85,7 @@ const TablaEditarOrdenes = () => {
 		traerOrdenes(busqueda);
 		handleHerramientasEditarVentas();
 		getOrderStatuses();
-		traerTiposEnvio();
+		getShippingTypes();
 		traerPtosVenta();
 
 		if (ordenCreada) {
@@ -107,7 +106,7 @@ const TablaEditarOrdenes = () => {
 	}, []);
 
 	useEffect(() => {
-		if (ordenes.length !== 0 && tiposEnvio.length !== 0) {
+		if (ordenes.length !== 0 && shippingTypes) {
 			const rows = ordenes.map((x) => ({
 				idOrden: x.id,
 				ordenEstado: x.OrdenEstado.descripcion,
@@ -118,15 +117,18 @@ const TablaEditarOrdenes = () => {
 				idFactura: x.Factura ? x.Factura.id : null,
 				estadoPago: x.Factura ? x.Factura.estadoPago : null,
 				tipoEnvioId: x.TipoEnvioId,
-				tipoEnvioDescripcion: getDescriptionShipping(tiposEnvio, x.TipoEnvioId),
+				tipoEnvioDescripcion: getDescriptionShipping(
+					shippingTypes,
+					x.TipoEnvioId
+				),
 				observaciones: x.observaciones,
 			}));
 			setData(rows);
 		}
-	}, [ordenes, tiposEnvio]);
+	}, [ordenes, shippingTypes]);
 
-	const getDescriptionShipping = (tiposEnvio, id) => {
-		const r = tiposEnvio.find((x) => x.id === id);
+	const getDescriptionShipping = (shippingTypes, id) => {
+		const r = shippingTypes.find((x) => x.id === id);
 
 		if (r) return r.descripcion;
 	};
