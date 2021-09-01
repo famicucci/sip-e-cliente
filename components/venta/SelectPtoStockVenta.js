@@ -35,15 +35,14 @@ const SelectPtoStockVenta = () => {
 	}
 
 	const handleChange = (e) => {
-		const filaPtoStock = stockPoints.find((x) => x.id === e.target.value);
-		handlePtoStock(filaPtoStock);
+		handlePtoStock(e.target.value);
 	};
 
 	return (
 		<FormControl className={classes.formControl}>
 			{stockPoints ? (
 				<Select
-					value={ptoStock.id}
+					value={ptoStock}
 					defaultValue=""
 					onChange={handleChange}
 					displayEmpty

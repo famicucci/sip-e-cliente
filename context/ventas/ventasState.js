@@ -40,7 +40,7 @@ const VentasState = (props) => {
 	const initialState = {
 		preciosPtoStock: [],
 		ordenCreada: null,
-		ptoStock: { descripcion: 'Showroom', id: 1 }, // only id ?
+		ptoStock: 1,
 		ptoVenta: 1,
 		ordenEcommerce: null,
 		cliente: null,
@@ -72,10 +72,10 @@ const VentasState = (props) => {
 		}
 	};
 
-	const handlePtoStock = (ptoStock) => {
+	const handlePtoStock = (stockPointId) => {
 		dispatch({
 			type: PTO_STOCK_VENTAS,
-			payload: ptoStock,
+			payload: stockPointId,
 		});
 	};
 

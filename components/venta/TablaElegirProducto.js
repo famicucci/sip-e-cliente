@@ -43,7 +43,7 @@ const TablaElegirProducto = () => {
 		if (valorRadio === 'total')
 			getStockTotalAndPrices(preciosPtoStock, listaPrecio, true);
 		else if (valorRadio === 'pto-stock')
-			getStockPtoStockAndPrices(preciosPtoStock, listaPrecio, ptoStock.id);
+			getStockPtoStockAndPrices(preciosPtoStock, listaPrecio, ptoStock);
 		else if (valorRadio === 'sin-stock')
 			getStockTotalAndPrices(preciosPtoStock, listaPrecio, false);
 	}, [preciosPtoStock, valorRadio, listaPrecio, ptoStock]);
