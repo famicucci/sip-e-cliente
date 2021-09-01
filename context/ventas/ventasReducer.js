@@ -21,7 +21,6 @@ import {
 	ELIMINAR_ORDEN_ECOMMERCE,
 	PTO_VENTA,
 	ELIMINAR_PTO_VENTA,
-	TRAER_ESTADOS_ORDEN,
 	AGREGAR_ORDEN_A_MODIFICAR,
 	ELIMINAR_ORDEN_A_MODIFICAR,
 	MODAL_DETALLE_ORDEN,
@@ -204,11 +203,6 @@ const VentasReducer = (state, action) => {
 			return {
 				...state,
 				ptoVenta: 1,
-			};
-		case TRAER_ESTADOS_ORDEN:
-			return {
-				...state,
-				estadosOrden: action.payload,
 			};
 		case ACTIVAR_ORDEN:
 			return {

@@ -27,7 +27,6 @@ import {
 	ELIMINAR_ORDEN_ECOMMERCE,
 	PTO_VENTA,
 	ELIMINAR_PTO_VENTA,
-	TRAER_ESTADOS_ORDEN,
 	AGREGAR_ORDEN_A_MODIFICAR,
 	ELIMINAR_ORDEN_A_MODIFICAR,
 	MODAL_DETALLE_ORDEN,
@@ -50,7 +49,6 @@ const VentasState = (props) => {
 		listaPrecio: { descripcion: 'Lista Minorista', id: 1 }, // only id ?
 		valorRadio: 'pto-stock',
 		carrito: [],
-		estadosOrden: [], // global state? yesssssssss
 		modo: 'manual', // local state in the corresponding component?
 		orderToModify: null,
 		cargando: false,
@@ -303,19 +301,6 @@ const VentasState = (props) => {
 		});
 	};
 
-	const traerEstadosOrden = async () => {
-		try {
-			const r = await clienteAxios.get('/api/estados-orden/');
-
-			dispatch({
-				type: TRAER_ESTADOS_ORDEN,
-				payload: r.data,
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
 	const handleOpenModalDetalleOrden = () => {
 		dispatch({
 			type: MODAL_DETALLE_ORDEN,
@@ -459,7 +444,6 @@ const VentasState = (props) => {
 				handleNota,
 				handleInputOrdenEcommerce,
 				handlePtoVenta,
-				traerEstadosOrden,
 				handleOpenModalDetalleOrden,
 				handleCloseModal,
 				handleOrdenActiva,
