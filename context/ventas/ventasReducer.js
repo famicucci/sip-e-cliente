@@ -20,7 +20,6 @@ import {
 	ELIMINAR_NOTA,
 	AGREGAR_ORDEN_ECOMMERCE,
 	ELIMINAR_ORDEN_ECOMMERCE,
-	PTOS_VENTA,
 	TIPOS_ENVIO,
 	PTO_VENTA,
 	ELIMINAR_PTO_VENTA,
@@ -200,11 +199,6 @@ const VentasReducer = (state, action) => {
 			return {
 				...state,
 				ordenEcommerce: null,
-			};
-		case PTOS_VENTA:
-			return {
-				...state,
-				ptosVenta: action.payload,
 			};
 		case PTO_VENTA:
 			localStorage.setItem('ptoVenta', JSON.stringify(action.payload));

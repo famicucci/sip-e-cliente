@@ -26,7 +26,6 @@ import {
 	ELIMINAR_NOTA,
 	AGREGAR_ORDEN_ECOMMERCE,
 	ELIMINAR_ORDEN_ECOMMERCE,
-	PTOS_VENTA,
 	TIPOS_ENVIO,
 	PTO_VENTA,
 	ELIMINAR_PTO_VENTA,
@@ -44,20 +43,19 @@ const VentasState = (props) => {
 	const initialState = {
 		preciosPtoStock: [],
 		ordenCreada: null,
-		ptoStock: { descripcion: 'Showroom', id: 1 },
+		ptoStock: { descripcion: 'Showroom', id: 1 }, // only id ?
 		ptoVenta: 1,
 		ordenEcommerce: null,
 		cliente: null,
 		envio: null,
 		nota: null,
-		listaPrecio: { descripcion: 'Lista Minorista', id: 1 },
+		listaPrecio: { descripcion: 'Lista Minorista', id: 1 }, // only id ?
 		valorRadio: 'pto-stock',
 		carrito: [],
-		ptosStock: null, // global state?
-		ptosVenta: null, // global state?
-		tiposEnvio: null, // global state?
-		estadosOrden: [], // global state?
-		modo: 'manual',
+		ptosStock: null, // global state? yesssssssss
+		tiposEnvio: null, // global state? yesssssssss
+		estadosOrden: [], // global state? yesssssssss
+		modo: 'manual', // local state in the corresponding component?
 		orderToModify: null,
 		cargando: false,
 		mensaje: null,
@@ -311,23 +309,6 @@ const VentasState = (props) => {
 		});
 	};
 
-	const traerPtosVenta = async () => {
-		try {
-			const respuesta = await clienteAxios.get(`/api/ventas/ptos-venta`);
-
-			dispatch({
-				type: PTOS_VENTA,
-				payload: respuesta.data,
-			});
-		} catch (error) {
-			console.log(error);
-			// dispatch({
-			// 	type: ERROR_BARRA_HERRAMIENTAS,
-			// 	payload: error,
-			// });
-		}
-	};
-
 	const traerTiposEnvio = async () => {
 		try {
 			const r = await clienteAxios.get(`/api/tipos-envio`);
@@ -489,7 +470,6 @@ const VentasState = (props) => {
 				envio: state.envio,
 				nota: state.nota,
 				ordenEcommerce: state.ordenEcommerce,
-				ptosVenta: state.ptosVenta,
 				ptoVenta: state.ptoVenta,
 				tiposEnvio: state.tiposEnvio,
 				estadosOrden: state.estadosOrden,
@@ -511,7 +491,6 @@ const VentasState = (props) => {
 				handleInputOrdenEcommerce,
 				traerPtosStock,
 				traerTiposEnvio,
-				traerPtosVenta,
 				handlePtoVenta,
 				traerEstadosOrden,
 				handleOpenModalDetalleOrden,
