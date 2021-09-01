@@ -3,14 +3,24 @@ import GlobalDataContext from './GlobalDataContext';
 import GlobalDataReducer from './GlobalDataReducer';
 import clienteAxios from '../../config/axios';
 
-import { TRAER_PTOS_VENTA } from '../../types';
+import { PTOS_STOCK_VENTAS, TRAER_PTOS_VENTA } from '../../types';
 
 const GlobalDataState = (props) => {
 	const initialState = {
+		stockPoints: null,
 		salePoints: null,
 	};
 
 	const [state, dispatch] = useReducer(GlobalDataReducer, initialState);
+
+	const getStockPoints = async () => {
+		const r = await clienteAxios.get(`/api/stock/ptos-stock`);
+
+		dispatch({
+			type: PTOS_STOCK_VENTAS,
+			payload: r.data,
+		});
+	};
 
 	const getSalePoints = async () => {
 		try {
@@ -28,7 +38,9 @@ const GlobalDataState = (props) => {
 	return (
 		<GlobalDataContext.Provider
 			value={{
+				stockPoints: state.stockPoints,
 				salePoints: state.salePoints,
+				getStockPoints,
 				getSalePoints,
 			}}
 		>

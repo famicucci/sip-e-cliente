@@ -1,7 +1,6 @@
 import {
 	PRODUCTOS_VENTAS,
 	PTO_STOCK_VENTAS,
-	PTOS_STOCK_VENTAS,
 	LISTA_PRECIO_VENTAS,
 	VALOR_RADIO_VENTAS,
 	CARRITO_AGREGAR_PRODUCTO,
@@ -44,11 +43,6 @@ const VentasReducer = (state, action) => {
 			return {
 				...state,
 				ptoStock: action.payload,
-			};
-		case PTOS_STOCK_VENTAS:
-			return {
-				...state,
-				ptosStock: action.payload,
 			};
 		case LISTA_PRECIO_VENTAS:
 			return {

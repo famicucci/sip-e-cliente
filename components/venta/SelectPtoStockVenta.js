@@ -4,6 +4,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import VentasContext from '../../context/ventas/ventasContext';
+import GlobalDataContext from '../../context/globalData/GlobalDataContext';
 
 const useStyles = makeStyles((theme) => ({
 	formControl: {
@@ -19,11 +20,11 @@ const useStyles = makeStyles((theme) => ({
 const SelectPtoStockVenta = () => {
 	const classes = useStyles();
 
-	const { ptosStock, ptoStock, valorRadio, handlePtoStock, traerPtosStock } =
-		useContext(VentasContext);
+	const { stockPoints, getStockPoints } = useContext(GlobalDataContext);
+	const { ptoStock, valorRadio, handlePtoStock } = useContext(VentasContext);
 
 	useEffect(() => {
-		if (!ptosStock) traerPtosStock();
+		if (!stockPoints) getStockPoints();
 	}, []);
 
 	let status = {};
@@ -34,13 +35,13 @@ const SelectPtoStockVenta = () => {
 	}
 
 	const handleChange = (e) => {
-		const filaPtoStock = ptosStock.find((x) => x.id === e.target.value);
+		const filaPtoStock = stockPoints.find((x) => x.id === e.target.value);
 		handlePtoStock(filaPtoStock);
 	};
 
 	return (
 		<FormControl className={classes.formControl}>
-			{ptosStock ? (
+			{stockPoints ? (
 				<Select
 					value={ptoStock.id}
 					defaultValue=""
@@ -50,7 +51,7 @@ const SelectPtoStockVenta = () => {
 					inputProps={{ 'aria-label': 'Without label' }}
 					{...status}
 				>
-					{ptosStock.map((x) => (
+					{stockPoints.map((x) => (
 						<MenuItem key={x.id} value={x.id}>
 							{x.descripcion}
 						</MenuItem>

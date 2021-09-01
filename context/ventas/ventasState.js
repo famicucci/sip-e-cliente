@@ -7,7 +7,6 @@ import { Direccion } from '../../functions/envio';
 import {
 	PRODUCTOS_VENTAS,
 	PTO_STOCK_VENTAS,
-	PTOS_STOCK_VENTAS,
 	LISTA_PRECIO_VENTAS,
 	VALOR_RADIO_VENTAS,
 	CARRITO_AGREGAR_PRODUCTO,
@@ -52,7 +51,6 @@ const VentasState = (props) => {
 		listaPrecio: { descripcion: 'Lista Minorista', id: 1 }, // only id ?
 		valorRadio: 'pto-stock',
 		carrito: [],
-		ptosStock: null, // global state? yesssssssss
 		tiposEnvio: null, // global state? yesssssssss
 		estadosOrden: [], // global state? yesssssssss
 		modo: 'manual', // local state in the corresponding component?
@@ -82,15 +80,6 @@ const VentasState = (props) => {
 		dispatch({
 			type: PTO_STOCK_VENTAS,
 			payload: ptoStock,
-		});
-	};
-
-	const traerPtosStock = async () => {
-		const r = await clienteAxios.get(`/api/stock/ptos-stock`);
-
-		dispatch({
-			type: PTOS_STOCK_VENTAS,
-			payload: r.data,
 		});
 	};
 
@@ -489,7 +478,6 @@ const VentasState = (props) => {
 				crearOrden,
 				handleNota,
 				handleInputOrdenEcommerce,
-				traerPtosStock,
 				traerTiposEnvio,
 				handlePtoVenta,
 				traerEstadosOrden,
