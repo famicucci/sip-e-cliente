@@ -15,7 +15,6 @@ import {
 	MODAL_CLOSE,
 	MODAL_CLOSE_CONFIRMAR_FACTURA,
 	MODAL_CLOSE_CREAR_PAGO,
-	PTOS_VENTA,
 	ACTUALIZAR_PAGO,
 	MOSTRAR_ALERTA_EDITAR_ORDENES,
 	OCULTAR_ALERTA_EDITAR_ORDENES,
@@ -142,11 +141,6 @@ const EditarOrdenesReducer = (state, action) => {
 			return {
 				...state,
 				openModalCrearPago: false,
-			};
-		case PTOS_VENTA:
-			return {
-				...state,
-				ptosVenta: action.payload,
 			};
 		case ACTUALIZAR_PAGO:
 			return {

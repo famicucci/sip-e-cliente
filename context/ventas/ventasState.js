@@ -42,7 +42,7 @@ const VentasState = (props) => {
 		ordenCreada: null,
 		ptoStock: 1,
 		ptoVenta: 1,
-		ordenEcommerce: null,
+		ordenEcommerce: '',
 		cliente: null,
 		envio: null,
 		nota: null,

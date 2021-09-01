@@ -22,7 +22,6 @@ import {
 	MODAL_CLOSE,
 	MODAL_CLOSE_CONFIRMAR_FACTURA,
 	MODAL_CLOSE_CREAR_PAGO,
-	PTOS_VENTA,
 	ACTUALIZAR_PAGO,
 	MOSTRAR_ALERTA_EDITAR_ORDENES,
 	OCULTAR_ALERTA_EDITAR_ORDENES,
@@ -40,8 +39,6 @@ const EditarOrdenesState = (props) => {
 		openModalConfirmarCrearFactura: false,
 		openModalFactura: false,
 		openModalCrearPago: false,
-		ptosVenta: [], // global state
-		mensaje: null, // ??
 		mensajeEditarOrdenes: null,
 		cargando: true,
 	};
@@ -220,23 +217,6 @@ const EditarOrdenesState = (props) => {
 		}
 	};
 
-	const traerPtosVenta = async () => {
-		try {
-			const respuesta = await clienteAxios.get(`/api/ventas/ptos-venta`);
-
-			dispatch({
-				type: PTOS_VENTA,
-				payload: respuesta.data,
-			});
-		} catch (error) {
-			console.log(error);
-			// dispatch({
-			// 	type: ERROR_BARRA_HERRAMIENTAS,
-			// 	payload: error,
-			// });
-		}
-	};
-
 	const crearPago = async (pago) => {
 		try {
 			const respuesta = await clienteAxios.post(`/api/pagos`, pago);
@@ -323,8 +303,6 @@ const EditarOrdenesState = (props) => {
 				openModalFactura: state.openModalFactura,
 				openModalCrearPago: state.openModalCrearPago,
 				tiposEnvio: state.tiposEnvio,
-				ptosVenta: state.ptosVenta,
-				mensaje: state.mensaje,
 				mensajeEditarOrdenes: state.mensajeEditarOrdenes,
 				cargando: state.cargando,
 				traerOrdenes,
@@ -342,7 +320,6 @@ const EditarOrdenesState = (props) => {
 				handleCloseModal,
 				handleCloseModalConfirmarCrearFactura,
 				handleCloseModalCrearPago,
-				traerPtosVenta,
 				crearPago,
 				ocultarAlertaEditarOrdenes,
 				mostrarAlertaEditarOrdenes,

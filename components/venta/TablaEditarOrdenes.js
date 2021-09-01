@@ -63,7 +63,6 @@ const TablaEditarOrdenes = () => {
 		mensajeEditarOrdenes,
 		cargando,
 		traerOrdenes,
-		traerPtosVenta,
 		openModalDetalleOrden,
 		openModalCrearFactura,
 		openModalFactura,
@@ -86,7 +85,6 @@ const TablaEditarOrdenes = () => {
 		handleHerramientasEditarVentas();
 		getOrderStatuses();
 		getShippingTypes();
-		traerPtosVenta();
 
 		if (ordenCreada) {
 			mostrarAlertaEditarOrdenes(
