@@ -15,7 +15,6 @@ const CreateOrEditOrder = () => {
 		BarraHerramientasContext
 	);
 	const {
-		mensaje,
 		restoreCart,
 		handleEnvio,
 		handleCliente,
@@ -23,7 +22,7 @@ const CreateOrEditOrder = () => {
 		handleInputOrdenEcommerce,
 		handlePtoVenta,
 	} = useContext(VentasContext);
-	const { alerta, mostrarAlerta } = useContext(AlertaContext);
+	const { alerta } = useContext(AlertaContext);
 
 	useEffect(() => {
 		handleHerrNuevaVenta();
@@ -46,13 +45,6 @@ const CreateOrEditOrder = () => {
 			getInitialValueOfSale('ptoVenta', handlePtoVenta);
 		}
 	}, []);
-
-	useEffect(() => {
-		if (mensaje) {
-			const { msg, categoria } = mensaje;
-			mostrarAlerta(msg, categoria);
-		}
-	}, [mensaje]);
 
 	return (
 		<>

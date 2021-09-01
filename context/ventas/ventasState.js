@@ -52,7 +52,6 @@ const VentasState = (props) => {
 		modo: 'manual',
 		orderToModify: null,
 		cargando: false,
-		mensaje: null,
 		mensajeVentas: null,
 	};
 
