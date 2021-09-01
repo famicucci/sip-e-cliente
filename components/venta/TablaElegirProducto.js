@@ -41,11 +41,11 @@ const TablaElegirProducto = () => {
 
 	useEffect(() => {
 		if (valorRadio === 'total')
-			getStockTotalAndPrices(preciosPtoStock, listaPrecio.id, true);
+			getStockTotalAndPrices(preciosPtoStock, listaPrecio, true);
 		else if (valorRadio === 'pto-stock')
-			getStockPtoStockAndPrices(preciosPtoStock, listaPrecio.id, ptoStock.id);
+			getStockPtoStockAndPrices(preciosPtoStock, listaPrecio, ptoStock.id);
 		else if (valorRadio === 'sin-stock')
-			getStockTotalAndPrices(preciosPtoStock, listaPrecio.id, false);
+			getStockTotalAndPrices(preciosPtoStock, listaPrecio, false);
 	}, [preciosPtoStock, valorRadio, listaPrecio, ptoStock]);
 
 	const getStockPtoStockAndPrices = (

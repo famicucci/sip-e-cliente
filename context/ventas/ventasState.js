@@ -46,10 +46,10 @@ const VentasState = (props) => {
 		cliente: null,
 		envio: null,
 		nota: null,
-		listaPrecio: { descripcion: 'Lista Minorista', id: 1 }, // only id ?
+		listaPrecio: 1,
 		valorRadio: 'pto-stock',
 		carrito: [],
-		modo: 'manual', // local state in the corresponding component?
+		modo: 'manual',
 		orderToModify: null,
 		cargando: false,
 		mensaje: null,
@@ -79,10 +79,10 @@ const VentasState = (props) => {
 		});
 	};
 
-	const handleListaPrecio = (listaPrecio) => {
+	const handlePriceList = (listId) => {
 		dispatch({
 			type: LISTA_PRECIO_VENTAS,
-			payload: listaPrecio,
+			payload: listId,
 		});
 	};
 
@@ -430,7 +430,7 @@ const VentasState = (props) => {
 				cargando: state.cargando,
 				ptosStock: state.ptosStock,
 				handlePtoStock,
-				handleListaPrecio,
+				handlePriceList,
 				handleValorRadio,
 				handleCarrito,
 				restoreCart,

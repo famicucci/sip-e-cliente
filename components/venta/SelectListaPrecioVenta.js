@@ -24,7 +24,7 @@ const SelectListaPrecioVenta = () => {
 		BarraHerramientasContext
 	);
 
-	const { listaPrecio, handleListaPrecio } = useContext(VentasContext);
+	const { listaPrecio, handlePriceList } = useContext(VentasContext);
 
 	useEffect(() => {
 		traerListasPrecio();
@@ -37,15 +37,14 @@ const SelectListaPrecioVenta = () => {
 	}, [mensaje]);
 
 	const handleChange = (e) => {
-		const filLis = listasPrecio.find((x) => x.id === e.target.value);
-		handleListaPrecio(filLis);
+		handlePriceList(e.target.value);
 	};
 
 	return (
 		<FormControl className={classes.formControl}>
 			{listasPrecio ? (
 				<Select
-					value={listaPrecio.id}
+					value={listaPrecio}
 					onChange={handleChange}
 					displayEmpty
 					className={classes.selectEmpty}

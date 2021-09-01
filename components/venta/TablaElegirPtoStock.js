@@ -23,7 +23,7 @@ const TablaElegirPtoStock = (props) => {
 		const r = preciosPtoStock.filter(
 			(x) =>
 				x.ProductoCodigo === codigo &&
-				x['Producto.Precios.ListaPrecioId'] === listaPrecio.id &&
+				x['Producto.Precios.ListaPrecioId'] === listaPrecio &&
 				x.cantidad !== 0
 		);
 		return r;
