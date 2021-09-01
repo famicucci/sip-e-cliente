@@ -19,6 +19,7 @@ import CrearPago from './CrearPago';
 import Alerta2 from '../generales/Alerta2';
 import VentasContext from '../../context/ventas/ventasContext';
 import useFilter from '../../hooks/useFilter';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles({
 	table: {
@@ -47,6 +48,7 @@ const columnas = [
 
 const TablaEditarOrdenes = () => {
 	const classes = useStyles();
+	const router = useRouter();
 
 	const { handleHerramientasEditarVentas, busqueda } = useContext(
 		BarraHerramientasContext
@@ -55,14 +57,8 @@ const TablaEditarOrdenes = () => {
 	const [data, setData] = useState([]);
 	const [filteredData] = useFilter(data, busqueda);
 
-	const {
-		orderEdited,
-		orderToModify,
-		ordenCreada,
-		handleOrdenActiva,
-		handleOrderEdited,
-		handleOrderToModify,
-	} = useContext(VentasContext);
+	const { ordenCreada, handleOrdenActiva, handleOrderToModify } =
+		useContext(VentasContext);
 	const {
 		ordenes,
 		mensajeEditarOrdenes,
@@ -101,11 +97,10 @@ const TablaEditarOrdenes = () => {
 			handleOrdenActiva(null);
 		}
 
-		if (orderEdited) {
-			handleOrderEdited(false);
+		if (router.query['edited-order']) {
 			handleOrderToModify();
 			mostrarAlertaEditarOrdenes(
-				`Realizaste cambios en la Orden nº ${orderToModify}`,
+				`Realizaste cambios en la Orden nº ${router.query['edited-order']}`,
 				'success'
 			);
 		}

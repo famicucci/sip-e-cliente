@@ -33,7 +33,6 @@ import {
 	TRAER_ESTADOS_ORDEN,
 	AGREGAR_ORDEN_A_MODIFICAR,
 	ELIMINAR_ORDEN_A_MODIFICAR,
-	ORDEN_EDITADA,
 	MODAL_DETALLE_ORDEN,
 	MODAL_CLOSE,
 	MOSTRAR_ALERTA_VENTAS,
@@ -60,7 +59,6 @@ const VentasState = (props) => {
 		estadosOrden: [], // global state?
 		modo: 'manual',
 		orderToModify: null,
-		orderEdited: false,
 		cargando: false,
 		mensaje: null,
 		mensajeVentas: null,
@@ -439,18 +437,16 @@ const VentasState = (props) => {
 			});
 
 			dispatch({
+				type: ELIMINAR_ORDEN_A_MODIFICAR,
+			});
+
+			dispatch({
 				type: ORDEN_EDITADA,
+				payload: true,
 			});
 		} catch (error) {
 			console.log(error);
 		}
-	};
-
-	const handleOrderEdited = (boolean) => {
-		dispatch({
-			type: ORDEN_EDITADA,
-			payload: boolean,
-		});
 	};
 
 	const mostrarAlertaVentas = (msg, categoria) => {
@@ -489,7 +485,6 @@ const VentasState = (props) => {
 				mensajeVentas: state.mensajeVentas,
 				modo: state.modo,
 				orderToModify: state.orderToModify,
-				orderEdited: state.orderEdited,
 				cliente: state.cliente,
 				envio: state.envio,
 				nota: state.nota,
@@ -525,7 +520,6 @@ const VentasState = (props) => {
 				handleOrderToModify,
 				cancelOrderToModify,
 				editProductsOrder,
-				handleOrderEdited,
 				mostrarAlertaVentas,
 				ocultarAlertaVentas,
 			}}

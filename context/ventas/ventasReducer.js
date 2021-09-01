@@ -27,7 +27,6 @@ import {
 	TRAER_ESTADOS_ORDEN,
 	AGREGAR_ORDEN_A_MODIFICAR,
 	ELIMINAR_ORDEN_A_MODIFICAR,
-	ORDEN_EDITADA,
 	MODAL_DETALLE_ORDEN,
 	MODAL_CLOSE,
 	MOSTRAR_ALERTA_VENTAS,
@@ -243,11 +242,6 @@ const VentasReducer = (state, action) => {
 			return {
 				...state,
 				orderToModify: null,
-			};
-		case ORDEN_EDITADA:
-			return {
-				...state,
-				orderEdited: true,
 			};
 		case MODAL_DETALLE_ORDEN:
 			return {

@@ -8,12 +8,13 @@ import { useRouter } from 'next/router';
 const BotoneraModificarOrden = () => {
 	const router = useRouter();
 
-	const { orderEdited, cancelOrderToModify, editProductsOrder } =
+	const { orderToModify, cancelOrderToModify, editProductsOrder } =
 		useContext(VentasContext);
 
 	useEffect(() => {
-		if (orderEdited) router.push('/ventas/consultar');
-	}, [orderEdited]);
+		console.log(orderToModify);
+		if (orderToModify === null) router.push('/ventas/consultar');
+	}, [orderToModify]);
 
 	const onClickCancel = () => {
 		cancelOrderToModify();

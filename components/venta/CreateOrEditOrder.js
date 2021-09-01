@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import ElegirProductos from './ElegirProductos';
 import Carrito from './Carrito';
@@ -6,8 +6,11 @@ import Alerta from '../generales/Alerta';
 import VentasContext from '../../context/ventas/ventasContext';
 import AlertaContext from '../../context/alertas/alertaContext';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
+import { useRouter } from 'next/router';
 
 const CreateOrEditOrder = () => {
+	const router = useRouter();
+
 	const { handleHerrNuevaVenta, handleEtiquetaModificarOrden } = useContext(
 		BarraHerramientasContext
 	);
@@ -23,8 +26,14 @@ const CreateOrEditOrder = () => {
 	} = useContext(VentasContext);
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 
+	const [idOrderToModify, setIdOrderToModify] = useState(null);
+
 	useEffect(() => {
 		handleHerrNuevaVenta();
+
+		if (orderToModify) {
+			setIdOrderToModify(orderToModify);
+		}
 
 		if (orderToModify) {
 			handleEtiquetaModificarOrden(true);
@@ -44,6 +53,14 @@ const CreateOrEditOrder = () => {
 			getInitialValueOfSale('ptoVenta', handlePtoVenta);
 		}
 	}, []);
+
+	useEffect(() => {
+		if (orderToModify === null)
+			router.push({
+				pathname: '/ventas/consultar',
+				query: { 'edited-order': idOrderToModify },
+			});
+	}, [orderToModify]);
 
 	useEffect(() => {
 		if (mensaje) {
