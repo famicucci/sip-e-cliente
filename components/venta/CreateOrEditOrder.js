@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import ElegirProductos from './ElegirProductos';
 import Carrito from './Carrito';
@@ -15,7 +15,6 @@ const CreateOrEditOrder = () => {
 		BarraHerramientasContext
 	);
 	const {
-		orderToModify,
 		mensaje,
 		restoreCart,
 		handleEnvio,
@@ -26,16 +25,10 @@ const CreateOrEditOrder = () => {
 	} = useContext(VentasContext);
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 
-	const [idOrderToModify, setIdOrderToModify] = useState(null);
-
 	useEffect(() => {
 		handleHerrNuevaVenta();
 
-		if (orderToModify) {
-			setIdOrderToModify(orderToModify);
-		}
-
-		if (orderToModify) {
+		if (router.query.id) {
 			handleEtiquetaModificarOrden(true);
 		} else {
 			const getInitialValueOfSale = (key, callback) => {
@@ -53,14 +46,6 @@ const CreateOrEditOrder = () => {
 			getInitialValueOfSale('ptoVenta', handlePtoVenta);
 		}
 	}, []);
-
-	useEffect(() => {
-		if (orderToModify === null)
-			router.push({
-				pathname: '/ventas/consultar',
-				query: { 'edited-order': idOrderToModify },
-			});
-	}, [orderToModify]);
 
 	useEffect(() => {
 		if (mensaje) {

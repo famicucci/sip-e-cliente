@@ -12,6 +12,7 @@ import AgregarClienteCarr from '../venta/AgregarClienteCarr';
 import AgregarEnvioCarr from './AgregarEnvioCarr';
 import VentasContext from '../../context/ventas/ventasContext';
 import BotoneraModificarOrden from './BotoneraModificarOrden';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -23,19 +24,16 @@ const useStyles = makeStyles((theme) => ({
 
 const SeccionInferiorCarrito = () => {
 	const classes = useStyles();
+	const router = useRouter();
 
 	const { openModalAgregarEnvioCarrito, openNota, openVerMas } =
 		useContext(BotoneraCarrContext);
 
-	const { traerTiposEnvio, orderToModify } = useContext(VentasContext);
+	const { traerTiposEnvio } = useContext(VentasContext);
 
 	useEffect(() => {
 		// poner los tipos de envio al state ventas
 		traerTiposEnvio();
-
-		if (localStorage.getItem('orderToModify')) {
-			restoreCart(JSON.parse(localStorage.getItem('carrito')));
-		}
 	}, []);
 
 	return (
@@ -43,7 +41,7 @@ const SeccionInferiorCarrito = () => {
 			<TotalCarrito />
 			<ClienteCarr />
 			<Divider variant="fullWidth" />
-			{!orderToModify ? <BotoneraCarrito /> : <BotoneraModificarOrden />}
+			{!router.query.id ? <BotoneraCarrito /> : <BotoneraModificarOrden />}
 			{openNota || openVerMas ? <Divider variant="fullWidth" /> : null}
 			<NotaVenta />
 			<VerMasCarrito />

@@ -12,21 +12,21 @@ const Nuevo = () => {
 
 	const authContext = useContext(AuthContext);
 	const { autenticado, cargando, usuarioAutenticado } = authContext;
-	const { cancelOrderToModify, orderToModify } = useContext(VentasContext);
+	const { cancelOrderToModify } = useContext(VentasContext);
 
 	useEffect(() => {
 		usuarioAutenticado();
 	}, []);
 
-	// useEffect(() => {
-	// 	const handleRouteChange = (url, { shallow }) => {
-	// 		if (orderToModify && url !== '/ventas/consultar') cancelOrderToModify();
-	// 	};
-	// 	router.events.on('routeChangeStart', handleRouteChange);
-	// 	return () => {
-	// 		router.events.off('routeChangeStart', handleRouteChange);
-	// 	};
-	// }, []);
+	useEffect(() => {
+		const handleRouteChange = (url, { shallow }) => {
+			if (url !== '/ventas/consultar') cancelOrderToModify();
+		};
+		router.events.on('routeChangeStart', handleRouteChange);
+		return () => {
+			router.events.off('routeChangeStart', handleRouteChange);
+		};
+	}, []);
 
 	if (!autenticado && cargando) {
 		return <SpinnerPantalla />;

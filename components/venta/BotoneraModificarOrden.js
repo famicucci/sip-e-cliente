@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import BotonSuccess from '../generales/botones/BotonSuccess';
 import BotonDanger from '../generales/BotonDanger';
 import { Box } from '@material-ui/core';
@@ -8,13 +8,7 @@ import { useRouter } from 'next/router';
 const BotoneraModificarOrden = () => {
 	const router = useRouter();
 
-	const { orderToModify, cancelOrderToModify, editProductsOrder } =
-		useContext(VentasContext);
-
-	useEffect(() => {
-		console.log(orderToModify);
-		if (orderToModify === null) router.push('/ventas/consultar');
-	}, [orderToModify]);
+	const { cancelOrderToModify, editProductsOrder } = useContext(VentasContext);
 
 	const onClickCancel = () => {
 		cancelOrderToModify();
@@ -23,6 +17,10 @@ const BotoneraModificarOrden = () => {
 
 	const onClickConfirmChanges = () => {
 		editProductsOrder();
+		router.push({
+			pathname: '/ventas/consultar',
+			query: { 'edited-order': router.query.id },
+		});
 	};
 
 	return (

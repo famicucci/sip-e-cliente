@@ -60,7 +60,10 @@ const Productos = (props) => {
 		handleCloseModal();
 		handleFilaActivaOrden(null);
 		props.editOrder(props.filaActiva.id, cartToEdit);
-		router.push('/ventas/editar-orden');
+		router.push({
+			pathname: '/ventas/editar-orden',
+			query: { id: props.filaActiva.id },
+		});
 	};
 
 	return (

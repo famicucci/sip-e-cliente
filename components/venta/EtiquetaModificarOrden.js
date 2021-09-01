@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
-import VentasContext from '../../context/ventas/ventasContext';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -16,14 +16,13 @@ const useStyles = makeStyles((theme) => ({
 
 const EtiquetaModificarOrden = () => {
 	const classes = useStyles();
-
-	const { orderToModify } = useContext(VentasContext);
+	const router = useRouter();
 
 	return (
 		<Typography className={classes.root} variant="overline">
 			Modificando Orden nº:
 			<span className={classes.negrita}>
-				{orderToModify ? orderToModify : null}
+				{router.query.id ? router.query.id : null}
 			</span>
 		</Typography>
 	);
