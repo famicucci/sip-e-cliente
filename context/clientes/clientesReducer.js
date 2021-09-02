@@ -40,7 +40,6 @@ const ClientesReducer = (state, action) => {
 		case OPEN_INFORMACION_CLIENTE:
 			return {
 				...state,
-				clienteActivo: action.payload.obj,
 				ordenesClienteActivo: action.payload.ordenes,
 				facturasClienteActivo: action.payload.facturas,
 				openInfoCliente: true,

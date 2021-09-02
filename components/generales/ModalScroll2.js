@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 	paper: {
 		backgroundColor: theme.palette.background.paper,
 		boxShadow: theme.shadows[5],
-		width: 900,
+		maxWidth: 800,
 		borderRadius: '10px',
 		padding: (props) => (props.padding ? props.padding : null),
 	},
