@@ -9,6 +9,7 @@ import {
 	OCULTAR_ALERTA_CLIENTES,
 	AGREGAR_CLIENTE,
 	AGREGAR_NUEVO_CLIENTE,
+	ABRIR_EDITAR_CLIENTE,
 } from '../../types';
 
 const ClientesReducer = (state, action) => {
@@ -43,6 +44,11 @@ const ClientesReducer = (state, action) => {
 				ordenesClienteActivo: action.payload.ordenes,
 				facturasClienteActivo: action.payload.facturas,
 				openInfoCliente: true,
+			};
+		case ABRIR_EDITAR_CLIENTE:
+			return {
+				...state,
+				openEditClient: action.payload,
 			};
 		case CLOSE_MODAL:
 			return {

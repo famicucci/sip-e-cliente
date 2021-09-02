@@ -14,6 +14,7 @@ import {
 	OCULTAR_ALERTA_CLIENTES,
 	AGREGAR_CLIENTE,
 	AGREGAR_NUEVO_CLIENTE,
+	ABRIR_EDITAR_CLIENTE,
 } from '../../types';
 
 const ClienteState = (props) => {
@@ -26,7 +27,7 @@ const ClienteState = (props) => {
 		openModalInformacionCliente: false,
 		openModalNuevoCliente: false,
 		openInfoCliente: false,
-		openModificarCliente: false,
+		openEditClient: false,
 		mensaje: null,
 		mensajeClientes: null,
 		cargando: true,
@@ -125,6 +126,13 @@ const ClienteState = (props) => {
 		});
 	};
 
+	const handleOpenEditClient = (status) => {
+		dispatch({
+			type: ABRIR_EDITAR_CLIENTE,
+			payload: status,
+		});
+	};
+
 	const mostrarAlertaClientes = (msg, severity) => {
 		dispatch({
 			type: MOSTRAR_ALERTA_CLIENTES,
@@ -146,7 +154,7 @@ const ClienteState = (props) => {
 				openModalInformacionCliente: state.openModalInformacionCliente,
 				openModalNuevoCliente: state.openModalNuevoCliente,
 				openInfoCliente: state.openInfoCliente,
-				openModificarCliente: state.openModificarCliente,
+				openEditClient: state.openEditClient,
 				filaActiva: state.filaActiva,
 				ordenesClienteActivo: state.ordenesClienteActivo,
 				facturasClienteActivo: state.facturasClienteActivo,
@@ -159,6 +167,7 @@ const ClienteState = (props) => {
 				handleOpenModalInformacionCliente,
 				handleOpenModalNuevoCliente,
 				handleOpenFacsOrdsCliente,
+				handleOpenEditClient,
 				handleClose,
 			}}
 		>

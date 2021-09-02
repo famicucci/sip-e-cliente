@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
-import { Box, Typography, Divider } from '@material-ui/core';
+import {
+	Box,
+	Typography,
+	Divider,
+	IconButton,
+	Menu,
+	MenuItem,
+} from '@material-ui/core';
+import MoreVert from '@material-ui/icons/MoreVert';
 
 const useStyles = makeStyles((theme) => ({
 	modal: {
@@ -39,10 +47,23 @@ const useStyles = makeStyles((theme) => ({
 	footer: {
 		marginLeft: theme.spacing(2),
 	},
+	grow: {
+		flexGrow: 1,
+	},
 }));
 
 const ModalScroll2 = (props) => {
 	const classes = useStyles(props);
+
+	const [anchorEl, setAnchorEl] = React.useState(null);
+
+	const handleClickMenu = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
+
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
 
 	return (
 		<Modal
@@ -79,6 +100,27 @@ const ModalScroll2 = (props) => {
 									<Typography align="left">{props.anexoTitulo}</Typography>
 								</Box>
 							</>
+						) : null}
+						<div className={classes.grow} />
+						{props.morevertactions ? (
+							<Box>
+								<IconButton size="small" onClick={handleClickMenu}>
+									<MoreVert />
+								</IconButton>
+								<Menu
+									id="simple-menu"
+									anchorEl={anchorEl}
+									keepMounted
+									open={Boolean(anchorEl)}
+									onClose={handleClose}
+								>
+									{props.morevertactions.map((x, i) => (
+										<MenuItem key={i} onClick={x.function}>
+											{x.content}
+										</MenuItem>
+									))}
+								</Menu>
+							</Box>
 						) : null}
 					</Box>
 					<Divider className={classes.dividerSuperior} variant="fullWidth" />
