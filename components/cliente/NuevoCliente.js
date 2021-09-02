@@ -7,6 +7,32 @@ const NuevoCliente = () => {
 	const { openModalNuevoCliente, handleOpenModalNuevoCliente, crearCliente } =
 		useContext(ClientesContext);
 
+	const initialStateCliente = {
+		nombre: '',
+		apellido: '',
+		instagram: '',
+		facebook: '',
+		celular: '',
+		email: '',
+		mascota: '',
+		tipo: '',
+		dni: '',
+		razonSocial: '',
+		codPostal: '',
+		refDireccion: '',
+		calle: '',
+		numeroCalle: '',
+		piso: '',
+		depto: '',
+		barrio: '',
+		ciudad: '',
+		provincia: '',
+		observaciones: '',
+		mascota: '',
+		tipo: 'Minorista',
+		condIva: 'Consumidor Final',
+	};
+
 	return (
 		<ModalScroll2
 			openModal={openModalNuevoCliente}
@@ -17,6 +43,7 @@ const NuevoCliente = () => {
 			<FormNuevoCliente
 				handleClose={handleOpenModalNuevoCliente}
 				crearCliente={crearCliente}
+				initialStateCliente={initialStateCliente}
 			/>
 		</ModalScroll2>
 	);

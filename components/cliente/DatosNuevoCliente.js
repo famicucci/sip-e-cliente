@@ -62,7 +62,7 @@ const DatosNuevoCliente = (props) => {
 						name={inputNombre.name}
 						placeholder={inputNombre.placeholder}
 						ancho={inputNombre.ancho}
-						initialvalue=""
+						initialvalue={props.cliente.nombre}
 						required={inputNombre.required}
 						tochangestate={props.onChangeAtributo}
 					/>
@@ -72,7 +72,7 @@ const DatosNuevoCliente = (props) => {
 						placeholder={inputApellido.placeholder}
 						ancho={inputApellido.ancho}
 						required={inputApellido.required}
-						initialvalue=""
+						initialvalue={props.cliente.apellido}
 						tochangestate={props.onChangeAtributo}
 					/>
 					<InputBordeInferior
@@ -81,7 +81,7 @@ const DatosNuevoCliente = (props) => {
 						placeholder={inputRazonSocial.placeholder}
 						ancho={inputRazonSocial.ancho}
 						required={inputRazonSocial.required}
-						initialvalue=""
+						initialvalue={props.cliente.razonSocial}
 						tochangestate={props.onChangeAtributo}
 					/>
 					<InputBordeInferior
@@ -90,7 +90,7 @@ const DatosNuevoCliente = (props) => {
 						placeholder={inputDniCuitCuil.placeholder}
 						ancho={inputDniCuitCuil.ancho}
 						required={inputDniCuitCuil.required}
-						initialvalue=""
+						initialvalue={props.cliente.dni}
 						tochangestate={props.onChangeAtributo}
 					/>
 				</Grid>

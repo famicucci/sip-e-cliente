@@ -64,7 +64,7 @@ const ContactoNuevoCliente = (props) => {
 						placeholder={inputEmail.placeholder}
 						ancho={inputEmail.ancho}
 						required={inputEmail.required}
-						initialvalue=""
+						initialvalue={props.cliente.email}
 						tochangestate={props.onChangeAtributo}
 					/>
 					<InputBordeInferior
@@ -73,7 +73,7 @@ const ContactoNuevoCliente = (props) => {
 						placeholder={inputCelular.placeholder}
 						ancho={inputCelular.ancho}
 						required={inputCelular.required}
-						initialvalue=""
+						initialvalue={props.cliente.celular}
 						tochangestate={props.onChangeAtributo}
 					/>
 					<InputBordeInferior
@@ -82,7 +82,7 @@ const ContactoNuevoCliente = (props) => {
 						placeholder={inputInstagram.placeholder}
 						ancho={inputInstagram.ancho}
 						required={inputInstagram.required}
-						initialvalue=""
+						initialvalue={props.cliente.instagram}
 						tochangestate={props.onChangeAtributo}
 					/>
 					<InputBordeInferior
@@ -91,7 +91,7 @@ const ContactoNuevoCliente = (props) => {
 						placeholder={inputFacebook.placeholder}
 						ancho={inputFacebook.ancho}
 						required={inputFacebook.required}
-						initialvalue=""
+						initialvalue={props.cliente.facebook}
 						tochangestate={props.onChangeAtributo}
 					/>
 				</Grid>

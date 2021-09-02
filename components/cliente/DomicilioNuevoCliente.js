@@ -100,7 +100,7 @@ const DomicilioNuevoCliente = (props) => {
 						placeholder={inputCalle.placeholder}
 						ancho={inputCalle.ancho}
 						required={inputCalle.required}
-						initialvalue=""
+						initialvalue={props.cliente.calle}
 						tochangestate={props.onChangeAtributo}
 					/>
 					<InputNumberBordeInferior
@@ -109,7 +109,7 @@ const DomicilioNuevoCliente = (props) => {
 						placeholder={inputNumero.placeholder}
 						ancho={inputNumero.ancho}
 						required={inputNumero.required}
-						initialvalue=""
+						initialvalue={props.cliente.numeroCalle}
 						tochangestate={props.onChangeAtributo}
 						styles={{ marginTop: 2 }}
 					/>
@@ -119,7 +119,7 @@ const DomicilioNuevoCliente = (props) => {
 						placeholder={inputPiso.placeholder}
 						ancho={inputPiso.ancho}
 						required={inputPiso.required}
-						initialvalue=""
+						initialvalue={props.cliente.piso}
 						tochangestate={props.onChangeAtributo}
 					/>
 					<InputBordeInferior
@@ -128,7 +128,7 @@ const DomicilioNuevoCliente = (props) => {
 						placeholder={inputDepto.placeholder}
 						ancho={inputDepto.ancho}
 						required={inputDepto.required}
-						initialvalue=""
+						initialvalue={props.cliente.depto}
 						tochangestate={props.onChangeAtributo}
 					/>
 					<InputBordeInferior
@@ -137,7 +137,7 @@ const DomicilioNuevoCliente = (props) => {
 						placeholder={inputBarrio.placeholder}
 						ancho={inputBarrio.ancho}
 						required={inputBarrio.required}
-						initialvalue=""
+						initialvalue={props.cliente.barrio}
 						tochangestate={props.onChangeAtributo}
 					/>
 					<InputNumberBordeInferior
@@ -146,7 +146,7 @@ const DomicilioNuevoCliente = (props) => {
 						placeholder={inputCodPostal.placeholder}
 						ancho={inputCodPostal.ancho}
 						required={inputCodPostal.required}
-						initialvalue=""
+						initialvalue={props.cliente.codPostal}
 						tochangestate={props.onChangeAtributo}
 						styles={{ marginTop: 2 }}
 					/>
@@ -156,7 +156,7 @@ const DomicilioNuevoCliente = (props) => {
 						placeholder={inputCiudad.placeholder}
 						ancho={inputCiudad.ancho}
 						required={inputCiudad.required}
-						initialvalue=""
+						initialvalue={props.cliente.ciudad}
 						tochangestate={props.onChangeAtributo}
 					/>
 					<InputBordeInferior
@@ -165,7 +165,7 @@ const DomicilioNuevoCliente = (props) => {
 						placeholder={inputProvincia.placeholder}
 						ancho={inputProvincia.ancho}
 						required={inputProvincia.required}
-						initialvalue=""
+						initialvalue={props.cliente.provincia}
 						tochangestate={props.onChangeAtributo}
 					/>
 					<InputBordeInferior
@@ -174,7 +174,7 @@ const DomicilioNuevoCliente = (props) => {
 						placeholder={inputReferencia.placeholder}
 						ancho={inputReferencia.ancho}
 						required={inputReferencia.required}
-						initialvalue=""
+						initialvalue={props.cliente.refDireccion}
 						tochangestate={props.onChangeAtributo}
 					/>
 				</Grid>

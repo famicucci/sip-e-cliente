@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -59,6 +59,24 @@ const selectCondIVA = {
 const MasDatosNuevoCliente = (props) => {
 	const classes = useStyles();
 
+	const getIdTipo = () => {
+		let id;
+		const r = selectTipo.data.find((x) => x.descripcion === props.cliente.tipo);
+		if (r) id = r.id;
+		else id = 10;
+		return id;
+	};
+
+	const getIdCondIVA = () => {
+		let id;
+		const r = selectCondIVA.data.find(
+			(x) => x.descripcion === props.cliente.condIva
+		);
+		if (r) id = r.id;
+		else id = 10;
+		return id;
+	};
+
 	const onChangeSelect = (name, value) => {
 		const arrayInputs = [{ ...selectTipo }, { ...selectCondIVA }];
 		const data = arrayInputs.find((x) => x.name === name).data;
@@ -84,7 +102,7 @@ const MasDatosNuevoCliente = (props) => {
 						placeholder={inputObservaciones.placeholder}
 						ancho={inputObservaciones.ancho}
 						required={inputObservaciones.required}
-						initialvalue=""
+						initialvalue={props.cliente.observaciones}
 						tochangestate={props.onChangeAtributo}
 					/>
 					<InputBordeInferior
@@ -93,7 +111,7 @@ const MasDatosNuevoCliente = (props) => {
 						placeholder={inputMascota.placeholder}
 						ancho={inputMascota.ancho}
 						required={inputMascota.required}
-						initialvalue=""
+						initialvalue={props.cliente.mascota}
 						tochangestate={props.onChangeAtributo}
 					/>
 					<SelectBordeInferior
@@ -101,7 +119,7 @@ const MasDatosNuevoCliente = (props) => {
 						label={selectTipo.label}
 						ancho={selectTipo.ancho}
 						data={selectTipo.data}
-						initialvalue={selectTipo.valDefault}
+						initialvalue={getIdTipo()}
 						tochangestate={onChangeSelect}
 					/>
 					<SelectBordeInferior
@@ -109,7 +127,7 @@ const MasDatosNuevoCliente = (props) => {
 						label={selectCondIVA.label}
 						ancho={selectCondIVA.ancho}
 						data={selectCondIVA.data}
-						initialvalue={selectCondIVA.valDefault}
+						initialvalue={getIdCondIVA()}
 						tochangestate={onChangeSelect}
 					/>
 				</Grid>

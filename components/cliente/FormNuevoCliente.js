@@ -23,33 +23,7 @@ const useStyles = makeStyles((theme) => ({
 const FormNuevoCliente = (props) => {
 	const classes = useStyles();
 
-	const initialState = {
-		nombre: '',
-		apellido: '',
-		instagram: '',
-		facebook: '',
-		celular: '',
-		email: '',
-		mascota: '',
-		tipo: '',
-		dni: '',
-		razonSocial: '',
-		codPostal: '',
-		refDireccion: '',
-		calle: '',
-		numeroCalle: '',
-		piso: '',
-		depto: '',
-		barrio: '',
-		ciudad: '',
-		provincia: '',
-		observaciones: '',
-		mascota: '',
-		tipo: 'Mayorista',
-		condIva: 'Consumidor Final',
-	};
-
-	const [cliente, setCliente] = useState(initialState);
+	const [cliente, setCliente] = useState(props.initialStateCliente);
 
 	const { mostrarAlerta } = useContext(AlertaContext);
 
@@ -133,10 +107,22 @@ const FormNuevoCliente = (props) => {
 	return (
 		<form noValidate onSubmit={onSubmit}>
 			<div className={classes.root}>
-				<DatosNuevoCliente onChangeAtributo={onChangeAtributo} />
-				<ContactoNuevoCliente onChangeAtributo={onChangeAtributo} />
-				<DomicilioNuevoCliente onChangeAtributo={onChangeAtributo} />
-				<MasDatosNuevoCliente onChangeAtributo={onChangeAtributo} />
+				<DatosNuevoCliente
+					cliente={cliente}
+					onChangeAtributo={onChangeAtributo}
+				/>
+				<ContactoNuevoCliente
+					cliente={cliente}
+					onChangeAtributo={onChangeAtributo}
+				/>
+				<DomicilioNuevoCliente
+					cliente={cliente}
+					onChangeAtributo={onChangeAtributo}
+				/>
+				<MasDatosNuevoCliente
+					cliente={cliente}
+					onChangeAtributo={onChangeAtributo}
+				/>
 			</div>
 			<Divider className={classes.divider} variant="middle" />
 			<Box className={classes.footer}>
