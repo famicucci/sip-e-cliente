@@ -17,6 +17,7 @@ import Alerta from '../generales/Alerta';
 import Alerta2 from '../generales/Alerta2';
 import useFilter from '../../hooks/useFilter';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
+import EditarCliente from './EditarCliente';
 
 const useStyles = makeStyles({
 	table: {
@@ -37,15 +38,13 @@ const TablaClientes = (props) => {
 	const { alerta } = useContext(AlertaContext);
 	const {
 		clientes,
-		filaActiva,
 		openModalInformacionCliente,
+		openEditClient,
 		openModalNuevoCliente,
 		openInfoCliente,
 		mensajeClientes,
 		cargando,
 		traerClientes,
-		handleFilaActiva,
-		handleOpenModalInformacionCliente,
 	} = useContext(ClientesContext);
 
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
@@ -79,18 +78,8 @@ const TablaClientes = (props) => {
 				</TableBody>
 				{!cargando ? <FooterTabla /> : null}
 			</Table>
-			{openModalInformacionCliente ? (
-				<InformacionCliente
-					cliente={filaActiva}
-					openModalInformacionCliente={openModalInformacionCliente}
-					handleCloseModal={() => {
-						handleOpenModalInformacionCliente(false);
-					}}
-					handleFilaActiva={() => {
-						handleFilaActiva(null);
-					}}
-				/>
-			) : null}
+			{openModalInformacionCliente ? <InformacionCliente /> : null}
+			{openEditClient ? <EditarCliente /> : null}
 			{openInfoCliente ? <FacsOrdsCliente /> : null}
 			{openModalNuevoCliente ? <NuevoCliente /> : null}
 			{alerta !== null ? <Alerta /> : null}

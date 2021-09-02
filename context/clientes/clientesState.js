@@ -65,12 +65,46 @@ const ClienteState = (props) => {
 
 			dispatch({
 				type: AGREGAR_CLIENTE,
-				payload: clientCreated,
+				payload: clientEdited,
 			});
 
 			dispatch({
 				type: AGREGAR_NUEVO_CLIENTE,
-				payload: clientCreated,
+				payload: clientEdited,
+			});
+
+			mostrarAlertaClientes('Cliente creado', 'success');
+		} catch (error) {
+			mostrarAlertaClientes('Hubo un error', 'error');
+			console.log(error);
+		}
+	};
+
+	const editClient = async (client, adress) => {
+		try {
+			let clientEdited;
+
+			if (client) {
+				const r = await clienteAxios.post('/api/clientes', client);
+				clientEdited = { ...r.data, direcciones: [] };
+			}
+
+			if (adress) {
+				const r2 = await clienteAxios.post('/api/direcciones', {
+					...adress,
+					ClienteId: r.data.id,
+				});
+				clientEdited = { ...r.data, direcciones: [{ ...r2.data }] };
+			}
+
+			dispatch({
+				type: AGREGAR_CLIENTE,
+				payload: clientEdited,
+			});
+
+			dispatch({
+				type: AGREGAR_NUEVO_CLIENTE,
+				payload: clientEdited,
 			});
 
 			mostrarAlertaClientes('Cliente creado', 'success');
@@ -163,6 +197,7 @@ const ClienteState = (props) => {
 				cargando: state.cargando,
 				crearCliente,
 				traerClientes,
+				editClient,
 				handleFilaActiva,
 				handleOpenModalInformacionCliente,
 				handleOpenModalNuevoCliente,
