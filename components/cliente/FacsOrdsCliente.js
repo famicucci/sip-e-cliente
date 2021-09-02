@@ -4,7 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
-import ClientesContext from '../../context/clientes/clientesContext';
+import ClienteContext from '../../context/clientes/ClienteContext';
 import ModalScroll from '../generales/ModalScroll';
 import TablaMostrarOrdenes from '../venta/TablaMostrarOrdenes';
 import NoteOutlinedIcon from '@material-ui/icons/NoteOutlined';
@@ -30,7 +30,7 @@ const FacsOrdsCliente = () => {
 		ordenesClienteActivo,
 		facturasClienteActivo,
 		cargando,
-	} = useContext(ClientesContext);
+	} = useContext(ClienteContext);
 
 	const handleChange = (event, newValue) => {
 		setValue(newValue);

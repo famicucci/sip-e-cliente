@@ -8,14 +8,14 @@ import 'tippy.js/dist/tippy.css';
 import 'tippy.js/themes/light-border.css';
 import DireccionesCliente from './DireccionesCliente';
 import BotonSinFormato from '../generales/BotonSinFormato';
-import ClientesContext from '../../context/clientes/clientesContext';
+import ClienteContext from '../../context/clientes/ClienteContext';
 import RowColorIntercalado from '../generales/RowColorIntercalado';
 
 const FilaCliente = ({ fila, colIndex }) => {
 	const [direccionesCliente, setDireccionesCliente] = useState(null);
 
 	const { handleFilaActiva, handleOpenModalInformacionCliente } =
-		useContext(ClientesContext);
+		useContext(ClienteContext);
 
 	const handleOnShowDirecciones = (direcciones) => {
 		const a = <DireccionesCliente direcciones={direcciones} />;

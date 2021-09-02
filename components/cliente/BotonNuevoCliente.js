@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import BotonFilaTabla from '../generales/BotonFilaTabla';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import ClientesContext from '../../context/clientes/clientesContext';
+import ClienteContext from '../../context/clientes/ClienteContext';
 
 const BotonNuevoCliente = () => {
-	const { handleOpenModalNuevoCliente } = useContext(ClientesContext);
+	const { handleOpenModalNuevoCliente } = useContext(ClienteContext);
 	return (
 		<BotonFilaTabla
 			contenido={<PersonAddIcon />}

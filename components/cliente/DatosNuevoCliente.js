@@ -40,7 +40,7 @@ const inputRazonSocial = {
 };
 
 const inputDniCuitCuil = {
-	name: 'dniCuitCuil',
+	name: 'dni',
 	label: 'DNI/CUIL/CUIT',
 	placeholder: 'DNI/CUIL/CUIT',
 	ancho: 6,

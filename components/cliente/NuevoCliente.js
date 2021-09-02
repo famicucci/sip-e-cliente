@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
-import FormNuevoCliente from '../cliente/FormNuevoCliente';
+import FormCreateOrEditClient from '../cliente/FormCreateOrEditClient';
 import ModalScroll2 from '../generales/ModalScroll2';
-import ClientesContext from '../../context/clientes/clientesContext';
+import ClienteContext from '../../context/clientes/ClienteContext';
 
 const NuevoCliente = () => {
 	const { openModalNuevoCliente, handleOpenModalNuevoCliente, crearCliente } =
-		useContext(ClientesContext);
+		useContext(ClienteContext);
 
 	const initialStateCliente = {
 		nombre: '',
@@ -40,7 +40,8 @@ const NuevoCliente = () => {
 			titulo="Nuevo Cliente"
 			padding={16}
 		>
-			<FormNuevoCliente
+			<FormCreateOrEditClient
+				type="create"
 				handleClose={handleOpenModalNuevoCliente}
 				crearCliente={crearCliente}
 				initialStateCliente={initialStateCliente}

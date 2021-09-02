@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 		boxShadow: theme.shadows[5],
 		maxWidth: 800,
 		borderRadius: '10px',
-		padding: (props) => (props.padding ? props.padding : null),
+		padding: (props) => (props.padding ? theme.spacing(props.padding) : null),
 	},
 	contenido: { marginLeft: theme.spacing(2), marginRight: theme.spacing(2) },
 	dividerSuperior: {

@@ -2,7 +2,7 @@ import '../styles/globals.css';
 import MenuProvider from '../context/MenuContext';
 import AuthState from '../context/autenticacion/authState';
 import BarraHerramientas from '../context/barraHerramientas/barraHerramientasState';
-import ClientesState from '../context/clientes/clientesState';
+import ClienteState from '../context/clientes/ClienteState';
 import VentasState from '../context/ventas/ventasState';
 import EditarOrdenesState from '../context/ventas/editarordenes/EditarOrdenesState';
 import GlobalDataState from '../context/globalData/globalDataState';
@@ -15,9 +15,9 @@ function MyApp({ Component, pageProps }) {
 					<BarraHerramientas>
 						<VentasState>
 							<EditarOrdenesState>
-								<ClientesState>
+								<ClienteState>
 									<Component {...pageProps} />
-								</ClientesState>
+								</ClienteState>
 							</EditarOrdenesState>
 						</VentasState>
 					</BarraHerramientas>

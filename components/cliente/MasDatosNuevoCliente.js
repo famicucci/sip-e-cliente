@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -77,12 +77,18 @@ const MasDatosNuevoCliente = (props) => {
 		return id;
 	};
 
-	const onChangeSelect = (name, value) => {
-		const arrayInputs = [{ ...selectTipo }, { ...selectCondIVA }];
-		const data = arrayInputs.find((x) => x.name === name).data;
-		const descripcion = data.find((x) => x.value === value).descripcion;
+	const onChangeSelectTipo = (name, value) => {
+		let type = selectTipo.data.find((x) => x.id === value);
+		type &&= type.descripcion;
 
-		props.onChangeAtributo(name, descripcion);
+		props.onChangeAtributo(name, type);
+	};
+
+	const onChangeSelectCondIVA = (name, value) => {
+		let condIva = selectCondIVA.data.find((x) => x.id === value);
+		condIva &&= condIva.descripcion;
+
+		props.onChangeAtributo(name, condIva);
 	};
 
 	return (
@@ -120,7 +126,7 @@ const MasDatosNuevoCliente = (props) => {
 						ancho={selectTipo.ancho}
 						data={selectTipo.data}
 						initialvalue={getIdTipo()}
-						tochangestate={onChangeSelect}
+						tochangestate={onChangeSelectTipo}
 					/>
 					<SelectBordeInferior
 						name={selectCondIVA.name}
@@ -128,7 +134,7 @@ const MasDatosNuevoCliente = (props) => {
 						ancho={selectCondIVA.ancho}
 						data={selectCondIVA.data}
 						initialvalue={getIdCondIVA()}
-						tochangestate={onChangeSelect}
+						tochangestate={onChangeSelectCondIVA}
 					/>
 				</Grid>
 			</AccordionDetails>

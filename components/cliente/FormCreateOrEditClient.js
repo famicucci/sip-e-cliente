@@ -8,6 +8,7 @@ import Divider from '@material-ui/core/Divider';
 import Box from '@material-ui/core/Box';
 import BotonSuccess from '../generales/botones/BotonSuccess';
 import AlertaContext from '../../context/alertas/alertaContext';
+import ClienteContext from '../../context/clientes/ClienteContext';
 
 const useStyles = makeStyles((theme) => ({
 	divider: { marginTop: theme.spacing(2), marginBottom: theme.spacing(1) },
@@ -20,8 +21,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const FormNuevoCliente = (props) => {
+const FormCreateOrEditClient = (props) => {
 	const classes = useStyles();
+
+	const { crearCliente, editClient } = useContext(ClienteContext);
 
 	const [cliente, setCliente] = useState(props.initialStateCliente);
 
@@ -99,7 +102,9 @@ const FormNuevoCliente = (props) => {
 			return;
 		}
 
-		props.crearCliente(client, adress);
+		if (props.type === 'create') crearCliente(client, adress);
+		else if (props.type === 'edit')
+			editClient(client, adress, cliente.clientId, cliente.direcciones);
 
 		if (props.handleClose) props.handleClose();
 	};
@@ -136,4 +141,4 @@ const FormNuevoCliente = (props) => {
 	);
 };
 
-export default FormNuevoCliente;
+export default FormCreateOrEditClient;

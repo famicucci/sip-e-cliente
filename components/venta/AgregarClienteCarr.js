@@ -4,7 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
-import FormNuevoCliente from '../cliente/FormNuevoCliente';
+import FormCreateOrEditClient from '../cliente/FormCreateOrEditClient';
 import TablaClientes from '../cliente/TablaClientes';
 import BuscadorPapper from '../generales/BuscadorPapper';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
@@ -12,7 +12,7 @@ import VentasContext from '../../context/ventas/ventasContext';
 import { BotoneraCarrContext } from '../../context/BotoneraCarrContext';
 import AddIcon from '@material-ui/icons/Add';
 import ModalScroll from '../generales/ModalScroll';
-import ClientesContext from '../../context/clientes/clientesContext';
+import ClienteContext from '../../context/clientes/ClienteContext';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -31,7 +31,7 @@ const AgregarClienteCarr = () => {
 		BarraHerramientasContext
 	);
 	const { handleCliente } = useContext(VentasContext);
-	const { crearCliente, newClient } = useContext(ClientesContext);
+	const { crearCliente, newClient } = useContext(ClienteContext);
 	const { handleClose, openModalCliente } = useContext(BotoneraCarrContext);
 
 	useEffect(() => {
@@ -81,7 +81,7 @@ const AgregarClienteCarr = () => {
 					</Tabs>
 				</AppBar>
 				<TabPanel value={value} index={0}>
-					<FormNuevoCliente crearCliente={crearCliente} />
+					<FormCreateOrEditClient crearCliente={crearCliente} />
 				</TabPanel>
 				<TabPanel value={value} index={1}>
 					<BuscadorPapper

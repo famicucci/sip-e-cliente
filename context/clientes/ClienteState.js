@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react';
-import ClientesContext from './clientesContext';
-import ClientesReducer from './clientesReducer';
+import ClienteContext from './ClienteContext';
+import ClienteReducer from './ClienteReducer';
 import clienteAxios from '../../config/axios';
 
 import {
@@ -33,7 +33,7 @@ const ClienteState = (props) => {
 		cargando: true,
 	};
 
-	const [state, dispatch] = useReducer(ClientesReducer, initialState);
+	const [state, dispatch] = useReducer(ClienteReducer, initialState);
 
 	const traerClientes = async () => {
 		try {
@@ -80,37 +80,26 @@ const ClienteState = (props) => {
 		}
 	};
 
-	const editClient = async (client, adress) => {
+	const editClient = async (client, adress, clientId, savedAdresses) => {
 		try {
-			let clientEdited;
-
-			if (client) {
-				const r = await clienteAxios.post('/api/clientes', client);
-				clientEdited = { ...r.data, direcciones: [] };
-			}
+			const r = await clienteAxios.put(`/api/clientes/${clientId}`, client);
 
 			if (adress) {
-				const r2 = await clienteAxios.post('/api/direcciones', {
+				await clienteAxios.post('/api/direcciones', {
 					...adress,
-					ClienteId: r.data.id,
+					ClienteId: clientId,
 				});
-				clientEdited = { ...r.data, direcciones: [{ ...r2.data }] };
+				savedAdresses = [...savedAdresses, adress];
 			}
 
 			dispatch({
 				type: AGREGAR_CLIENTE,
-				payload: clientEdited,
+				payload: { ...client, direcciones: savedAdresses },
 			});
 
-			dispatch({
-				type: AGREGAR_NUEVO_CLIENTE,
-				payload: clientEdited,
-			});
-
-			mostrarAlertaClientes('Cliente creado', 'success');
+			mostrarAlertaClientes('Modificaste el cliente', 'success');
 		} catch (error) {
 			mostrarAlertaClientes('Hubo un error', 'error');
-			console.log(error);
 		}
 	};
 
@@ -181,7 +170,7 @@ const ClienteState = (props) => {
 	};
 
 	return (
-		<ClientesContext.Provider
+		<ClienteContext.Provider
 			value={{
 				clientes: state.clientes,
 				newClient: state.newClient,
@@ -207,7 +196,7 @@ const ClienteState = (props) => {
 			}}
 		>
 			{props.children}
-		</ClientesContext.Provider>
+		</ClienteContext.Provider>
 	);
 };
 

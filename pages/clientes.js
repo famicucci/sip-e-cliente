@@ -5,14 +5,14 @@ import IrLogin from '../components/generales/IrLogin';
 import SpinnerPantalla from '../components/generales/SpinnerPantalla';
 import TablaClientes from '../components/cliente/TablaClientes';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
-import ClientesContext from '../context/clientes/clientesContext';
+import ClienteContext from '../context/clientes/ClienteContext';
 import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
 import BarraHerramientasContext from '../context/barraHerramientas/barraHerramientasContext';
 
 const Clientes = () => {
 	const authContext = useContext(AuthContext);
 	const { autenticado, cargando, usuarioAutenticado } = authContext;
-	const { handleOpenFacsOrdsCliente } = useContext(ClientesContext);
+	const { handleOpenFacsOrdsCliente } = useContext(ClienteContext);
 	const { handleHerramientasClientes, busqueda } = useContext(
 		BarraHerramientasContext
 	);

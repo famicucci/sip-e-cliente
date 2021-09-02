@@ -8,7 +8,7 @@ import TableBody from '@material-ui/core/TableBody';
 import usePaginacion from '../../hooks/usePaginacion';
 import FilaCliente from './FilaCliente';
 import SpinnerTabla from '../generales/SpinnerTabla';
-import ClientesContext from '../../context/clientes/clientesContext';
+import ClienteContext from '../../context/clientes/ClienteContext';
 import FacsOrdsCliente from '../cliente/FacsOrdsCliente';
 import InformacionCliente from './InformacionCliente';
 import NuevoCliente from './NuevoCliente';
@@ -45,7 +45,7 @@ const TablaClientes = (props) => {
 		mensajeClientes,
 		cargando,
 		traerClientes,
-	} = useContext(ClientesContext);
+	} = useContext(ClienteContext);
 
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
 		usePaginacion(filteredData, 10);

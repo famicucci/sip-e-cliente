@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
-import FormNuevoCliente from '../cliente/FormNuevoCliente';
+import FormCreateOrEditClient from '../cliente/FormCreateOrEditClient';
 import ModalScroll2 from '../generales/ModalScroll2';
-import ClientesContext from '../../context/clientes/clientesContext';
+import ClienteContext from '../../context/clientes/ClienteContext';
 
 const EditarCliente = () => {
 	const { filaActiva, openEditClient, handleOpenEditClient, editClient } =
-		useContext(ClientesContext);
+		useContext(ClienteContext);
 
 	const initialStateCliente = {
-		clientId: null,
+		clientId: filaActiva.id,
 		nombre: filaActiva.nombre,
 		apellido: filaActiva.apellido,
 		instagram: filaActiva.instagram,
@@ -32,16 +32,19 @@ const EditarCliente = () => {
 		mascota: filaActiva.mascota,
 		tipo: filaActiva.tipo,
 		condIva: filaActiva.condIva,
+		direcciones: filaActiva.direcciones,
 	};
 
 	return (
 		<ModalScroll2
 			openModal={openEditClient}
 			handleClose={handleOpenEditClient}
-			titulo="Nuevo Cliente"
-			padding={16}
+			titulo="Editar Cliente"
+			anexoTitulo={`${filaActiva.nombre} ${filaActiva.apellido}`}
+			padding={2}
 		>
-			<FormNuevoCliente
+			<FormCreateOrEditClient
+				type="edit"
 				handleClose={handleOpenEditClient}
 				crearCliente={editClient}
 				initialStateCliente={initialStateCliente}
