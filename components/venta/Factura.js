@@ -48,7 +48,8 @@ const Factura = () => {
 				handleCloseModal();
 				handleFilaActivaOrden(null);
 			}}
-			padding={16}
+			padding={2}
+			maxWidth={900}
 			titulo={`Factura ${factura.id}`}
 			anexoTitulo={cliente.nombreCompleto}
 		>

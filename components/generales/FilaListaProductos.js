@@ -49,16 +49,6 @@ const FilaListaProductos = ({ fila, colIndex }) => {
 					{(fila.cantidad * fila.pu).toFixed(2)}
 				</TableCell>
 			) : null}
-			{/* {colIndex['Origen'] ? (
-				<TableCell className={classes.regalo} align="center">
-					{fila.origen === 'Producción' ? (
-						<BotonTippyHoverTabla
-							icono={colIndex['Origen'].contenidoBoton}
-							contenidoTippy={<p>Producto a pedido o en producción</p>}
-						/>
-					) : null}
-				</TableCell>
-			) : null} */}
 		</RowColorIntercalado>
 	);
 };
