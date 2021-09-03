@@ -8,6 +8,7 @@ import {
 	MOSTRAR_ALERTA_CLIENTES,
 	OCULTAR_ALERTA_CLIENTES,
 	AGREGAR_CLIENTE,
+	ACTUALIZAR_CLIENTE,
 	AGREGAR_NUEVO_CLIENTE,
 	ABRIR_EDITAR_CLIENTE,
 } from '../../types';
@@ -69,6 +70,13 @@ const ClientesReducer = (state, action) => {
 			return {
 				...state,
 				clientes: [...state.clientes, action.payload],
+			};
+		case ACTUALIZAR_CLIENTE:
+			return {
+				...state,
+				clientes: state.clientes.map((x) =>
+					x.id === action.payload.id ? action.payload : x
+				),
 			};
 		case AGREGAR_NUEVO_CLIENTE:
 			return {

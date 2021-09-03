@@ -13,6 +13,7 @@ import {
 	MOSTRAR_ALERTA_CLIENTES,
 	OCULTAR_ALERTA_CLIENTES,
 	AGREGAR_CLIENTE,
+	ACTUALIZAR_CLIENTE,
 	AGREGAR_NUEVO_CLIENTE,
 	ABRIR_EDITAR_CLIENTE,
 } from '../../types';
@@ -108,8 +109,8 @@ const ClienteState = (props) => {
 			}
 
 			dispatch({
-				type: AGREGAR_CLIENTE,
-				payload: { ...client, direcciones: savedAdresses },
+				type: ACTUALIZAR_CLIENTE,
+				payload: { ...client, id: clientId, direcciones: savedAdresses },
 			});
 
 			mostrarAlertaClientes('Modificaste el cliente', 'success');
