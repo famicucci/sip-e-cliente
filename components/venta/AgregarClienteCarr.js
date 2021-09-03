@@ -63,6 +63,34 @@ const AgregarClienteCarr = () => {
 		},
 	];
 
+	const initialStateCliente = {
+		clientId: '',
+		nombre: '',
+		apellido: '',
+		instagram: '',
+		facebook: '',
+		celular: '',
+		email: '',
+		mascota: '',
+		tipo: '',
+		dni: '',
+		razonSocial: '',
+		codPostal: '',
+		refDireccion: '',
+		calle: '',
+		numeroCalle: '',
+		piso: '',
+		depto: '',
+		barrio: '',
+		ciudad: '',
+		provincia: '',
+		observaciones: '',
+		mascota: '',
+		tipo: 'Minorista',
+		condIva: 'Consumidor Final',
+		direcciones: '',
+	};
+
 	return (
 		<ModalScroll
 			openModal={openModalCliente}
@@ -81,7 +109,11 @@ const AgregarClienteCarr = () => {
 					</Tabs>
 				</AppBar>
 				<TabPanel value={value} index={0}>
-					<FormCreateOrEditClient crearCliente={crearCliente} />
+					<FormCreateOrEditClient
+						type="create"
+						crearCliente={crearCliente}
+						initialStateCliente={initialStateCliente}
+					/>
 				</TabPanel>
 				<TabPanel value={value} index={1}>
 					<BuscadorPapper
