@@ -35,7 +35,7 @@ const DireccionesCliente = (props) => {
 				<>
 					{props.direcciones.map((x, i) => (
 						<Box key={i} display="flex">
-							<Box>
+							<Box flexGrow={1}>
 								<p className={classes.p}>
 									<SpanBold>{`${i + 1})`}</SpanBold>
 									<SpanBold>calle:</SpanBold>
