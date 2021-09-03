@@ -41,7 +41,7 @@ const FormCreateOrEditClient = (props) => {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		// valida los campos -> los require deben estar llenos
+
 		const { nombre, apellido, email, tipo, condIva } = cliente;
 		if (nombre === '' || apellido === '') {
 			mostrarAlerta('El nombre y el apellido son obligatorios', 'error');

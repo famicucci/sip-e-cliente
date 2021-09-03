@@ -41,11 +41,11 @@ const DireccionesCliente = (props) => {
 									<SpanBold>calle:</SpanBold>
 									{`${x.calle} ${x.numeroCalle}, `}
 									<SpanBold>piso:</SpanBold>
-									{`${x.piso}, `}
+									{x.piso ? `${x.piso}` : '- . '}
 									<SpanBold>depto:</SpanBold>
-									{`${x.depto}, `}
+									{x.depto ? `${x.depto}` : '- . '}
 									<SpanBold>cp:</SpanBold>
-									{`${x.codPostal}, `}
+									{x.codPostal ? `${x.codPostal}` : '- . '}
 									<SpanBold>barrio:</SpanBold>
 									{x.barrio ? `${x.barrio}, ` : '- , '}
 									<SpanBold>ciudad:</SpanBold>

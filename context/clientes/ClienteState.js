@@ -101,8 +101,11 @@ const ClienteState = (props) => {
 				if (!adress) deletedAdresses.push(x.id);
 			});
 
-			if (deletedAdresses.length > 0)
-				await clienteAxios.delete(`/api/direcciones/${deletedAdresses}`);
+			if (deletedAdresses.length > 0) {
+				await clienteAxios.delete(
+					`/api/direcciones/${JSON.stringify(deletedAdresses)}`
+				);
+			}
 
 			dispatch({
 				type: AGREGAR_CLIENTE,
@@ -111,6 +114,7 @@ const ClienteState = (props) => {
 
 			mostrarAlertaClientes('Modificaste el cliente', 'success');
 		} catch (error) {
+			console.log(error);
 			mostrarAlertaClientes('Hubo un error', 'error');
 		}
 	};
