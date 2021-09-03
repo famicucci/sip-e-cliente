@@ -82,8 +82,10 @@ const ClienteState = (props) => {
 
 	const editClient = async (client, adress, clientId, savedAdresses) => {
 		try {
-			const r = await clienteAxios.put(`/api/clientes/${clientId}`, client);
+			// edit data client
+			await clienteAxios.put(`/api/clientes/${clientId}`, client);
 
+			// create a new adress if exists
 			if (adress) {
 				await clienteAxios.post('/api/direcciones', {
 					...adress,
@@ -91,6 +93,16 @@ const ClienteState = (props) => {
 				});
 				savedAdresses = [...savedAdresses, adress];
 			}
+
+			// check if any address were deleted
+			let deletedAdresses = [];
+			state.filaActiva.direcciones.forEach((x) => {
+				let adress = savedAdresses.find((y) => x.id === y.id);
+				if (!adress) deletedAdresses.push(x.id);
+			});
+
+			if (deletedAdresses.length > 0)
+				await clienteAxios.delete(`/api/direcciones/${deletedAdresses}`);
 
 			dispatch({
 				type: AGREGAR_CLIENTE,

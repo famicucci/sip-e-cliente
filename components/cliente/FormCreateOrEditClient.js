@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import DatosNuevoCliente from './DatosNuevoCliente';
-import ContactoNuevoCliente from './ContactoNuevoCliente';
-import DomicilioNuevoCliente from './DomicilioNuevoCliente';
-import MasDatosNuevoCliente from './MasDatosNuevoCliente';
+import DataCreateOrEditClient from './DataCreateOrEditClient';
+import ContactCreateOrEditClient from './ContactCreateOrEditClient';
+import AdressCreateOrEditClient from './AdressCreateOrEditClient';
+import MoreDataCreateOrEditClient from './MoreDataCreateOrEditClient';
 import Divider from '@material-ui/core/Divider';
 import Box from '@material-ui/core/Box';
 import BotonSuccess from '../generales/botones/BotonSuccess';
@@ -32,6 +32,11 @@ const FormCreateOrEditClient = (props) => {
 
 	const onChangeAtributo = (name, value) => {
 		setCliente({ ...cliente, [name]: value });
+	};
+
+	const deleteAdress = (adressId) => {
+		const r = cliente.direcciones.filter((x) => x.id !== adressId);
+		setCliente({ ...cliente, direcciones: r });
 	};
 
 	const onSubmit = (e) => {
@@ -112,19 +117,21 @@ const FormCreateOrEditClient = (props) => {
 	return (
 		<form noValidate onSubmit={onSubmit}>
 			<div className={classes.root}>
-				<DatosNuevoCliente
+				<DataCreateOrEditClient
 					cliente={cliente}
 					onChangeAtributo={onChangeAtributo}
 				/>
-				<ContactoNuevoCliente
+				<ContactCreateOrEditClient
 					cliente={cliente}
 					onChangeAtributo={onChangeAtributo}
 				/>
-				<DomicilioNuevoCliente
+				<AdressCreateOrEditClient
+					type={props.type}
 					cliente={cliente}
+					deleteAdress={deleteAdress}
 					onChangeAtributo={onChangeAtributo}
 				/>
-				<MasDatosNuevoCliente
+				<MoreDataCreateOrEditClient
 					cliente={cliente}
 					onChangeAtributo={onChangeAtributo}
 				/>

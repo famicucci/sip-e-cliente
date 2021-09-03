@@ -8,11 +8,21 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Grid from '@material-ui/core/Grid';
 import InputBordeInferior from '../generales/inputs/InputBordeInferior';
 import InputNumberBordeInferior from '../generales/inputs/InputNumberBordeInferior';
+import { Box } from '@material-ui/core';
+import DireccionesCliente from './DireccionesCliente';
 
 const useStyles = makeStyles((theme) => ({
 	heading: {
 		fontSize: theme.typography.pxToRem(15),
 		fontWeight: theme.typography.fontWeightRegular,
+	},
+	caja: {
+		Width: '100%',
+	},
+	label: {
+		marginBottom: theme.spacing(0),
+		marginTop: theme.spacing(0),
+		fontSize: theme.typography.pxToRem(12),
 	},
 }));
 
@@ -80,7 +90,7 @@ const inputReferencia = {
 	required: false,
 };
 
-const DomicilioNuevoCliente = (props) => {
+const AdressCreateOrEditClient = (props) => {
 	const classes = useStyles();
 
 	return (
@@ -90,10 +100,22 @@ const DomicilioNuevoCliente = (props) => {
 				aria-controls="panel1a-content"
 				id="panel1a-header"
 			>
-				<Typography className={classes.heading}>Domicilio</Typography>
+				<Typography className={classes.heading}>Dirección</Typography>
 			</AccordionSummary>
 			<AccordionDetails>
 				<Grid container spacing={2}>
+					{props.type === 'edit' ? (
+						<Grid item xs={12}>
+							<Box className={classes.caja}>
+								<p className={classes.label}>Direcciones</p>
+								<DireccionesCliente
+									type={props.type}
+									direcciones={props.cliente.direcciones}
+									deleteAdress={props.deleteAdress}
+								/>
+							</Box>
+						</Grid>
+					) : null}
 					<InputBordeInferior
 						label={inputCalle.label}
 						name={inputCalle.name}
@@ -183,4 +205,4 @@ const DomicilioNuevoCliente = (props) => {
 	);
 };
 
-export default DomicilioNuevoCliente;
+export default AdressCreateOrEditClient;

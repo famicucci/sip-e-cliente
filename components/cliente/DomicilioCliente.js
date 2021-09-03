@@ -6,7 +6,6 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Grid from '@material-ui/core/Grid';
-import ItemInfoConLabel from '../generales/ItemInfoConLabel';
 import DireccionesCliente from './DireccionesCliente';
 import { Box } from '@material-ui/core';
 
@@ -29,13 +28,6 @@ const useStyles = makeStyles((theme) => ({
 
 const DomicilioCliente = ({ cliente }) => {
 	const classes = useStyles();
-
-	const items = [
-		{ id: 1, label: 'Email', contenido: cliente.email, ancho: 6 },
-		{ id: 2, label: 'Celular', contenido: cliente.celular, ancho: 6 },
-		{ id: 3, label: 'Instagram', contenido: cliente.instagram, ancho: 6 },
-		{ id: 4, label: 'Facebook', contenido: cliente.facebook, ancho: 6 },
-	];
 
 	return (
 		<Accordion>

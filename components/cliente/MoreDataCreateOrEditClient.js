@@ -56,7 +56,7 @@ const selectCondIVA = {
 	valDefault: 10,
 };
 
-const MasDatosNuevoCliente = (props) => {
+const MoreDataCreateOrEditClient = (props) => {
 	const classes = useStyles();
 
 	const getIdTipo = () => {
@@ -79,14 +79,14 @@ const MasDatosNuevoCliente = (props) => {
 
 	const onChangeSelectTipo = (name, value) => {
 		let type = selectTipo.data.find((x) => x.id === value);
-		type &&= type.descripcion;
+		type && (type = type.descripcion);
 
 		props.onChangeAtributo(name, type);
 	};
 
 	const onChangeSelectCondIVA = (name, value) => {
 		let condIva = selectCondIVA.data.find((x) => x.id === value);
-		condIva &&= condIva.descripcion;
+		condIva && (condIva = condIva.descripcion);
 
 		props.onChangeAtributo(name, condIva);
 	};
@@ -142,4 +142,4 @@ const MasDatosNuevoCliente = (props) => {
 	);
 };
 
-export default MasDatosNuevoCliente;
+export default MoreDataCreateOrEditClient;

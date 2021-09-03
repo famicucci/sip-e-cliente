@@ -44,7 +44,7 @@ const inputFacebook = {
 	required: false,
 };
 
-const ContactoNuevoCliente = (props) => {
+const ContactCreateOrEditClient = (props) => {
 	const classes = useStyles();
 
 	return (
@@ -100,4 +100,4 @@ const ContactoNuevoCliente = (props) => {
 	);
 };
 
-export default ContactoNuevoCliente;
+export default ContactCreateOrEditClient;

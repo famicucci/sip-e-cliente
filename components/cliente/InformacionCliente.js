@@ -34,12 +34,6 @@ const InformacionCliente = () => {
 					content: 'Editar',
 					function: editClient,
 				},
-				{
-					content: 'Imprimir',
-					function: () => {
-						console.log('imprimiendooo');
-					},
-				},
 			]}
 			padding={2}
 		>

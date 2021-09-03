@@ -47,7 +47,7 @@ const inputDniCuitCuil = {
 	required: false,
 };
 
-const DatosNuevoCliente = (props) => {
+const DataCreateOrEditClient = (props) => {
 	const classes = useStyles();
 
 	return (
@@ -99,4 +99,4 @@ const DatosNuevoCliente = (props) => {
 	);
 };
 
-export default DatosNuevoCliente;
+export default DataCreateOrEditClient;

@@ -38,7 +38,7 @@ const NuevoCliente = () => {
 			openModal={openModalNuevoCliente}
 			handleClose={handleOpenModalNuevoCliente}
 			titulo="Nuevo Cliente"
-			padding={16}
+			padding={2}
 		>
 			<FormCreateOrEditClient
 				type="create"
