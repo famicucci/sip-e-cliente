@@ -53,6 +53,10 @@ const TablaClientes = (props) => {
 	useEffect(() => {
 		traerClientes();
 		setData(clientes);
+	}, []);
+
+	useEffect(() => {
+		setData(clientes);
 	}, [clientes]);
 
 	const colIndex = columnas.reduce(
