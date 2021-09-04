@@ -108,6 +108,7 @@ const EditarOrdenesState = (props) => {
 			);
 			const idFactura = crearFactura.data.id;
 			const r2 = await clienteAxios.get(`/api/facturas/${idFactura}`);
+
 			const factura = r2.data;
 
 			dispatch({

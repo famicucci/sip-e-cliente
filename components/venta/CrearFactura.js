@@ -53,7 +53,11 @@ const CrearFactura = () => {
 		estado: 'v',
 		estadoPago: 'Pendiente',
 		observaciones: '',
-		detalleFactura: filaActiva.detalleOrden,
+		detalleFactura: filaActiva.detalleOrden.map((x) => ({
+			cantidad: x.cantidad,
+			pu: x.pu,
+			ProductoCodigo: x.ProductoCodigo,
+		})),
 		importe: '',
 		descuento: '',
 		importeFinal: '',

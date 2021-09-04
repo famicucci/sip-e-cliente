@@ -52,6 +52,14 @@ const Factura = () => {
 			maxWidth={900}
 			titulo={`Factura ${factura.id}`}
 			anexoTitulo={cliente.nombreCompleto}
+			morevertactions={[
+				{
+					content: 'cancelar',
+					function: () => {
+						console.log('cancelar factura');
+					},
+				},
+			]}
 		>
 			<TablaListaProductos
 				productos={filaActiva.Factura.detalleFactura}
