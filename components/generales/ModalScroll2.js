@@ -121,6 +121,7 @@ const ModalScroll2 = (props) => {
 												x.function();
 												handleClose();
 											}}
+											{...x.status}
 										>
 											{x.content}
 										</MenuItem>

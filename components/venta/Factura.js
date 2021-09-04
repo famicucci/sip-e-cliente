@@ -44,6 +44,11 @@ const Factura = () => {
 	const cliente = new ClienteBD(filaActiva.Cliente);
 	const factura = new FacturaBD(filaActiva.Factura);
 
+	const getStatusButtonCancel = (payments) => {
+		if (payments.length === 0) return { disabled: false };
+		else return { disabled: true };
+	};
+
 	return (
 		<ModalScroll2
 			openModal={openModalFactura}
@@ -61,6 +66,7 @@ const Factura = () => {
 					function: () => {
 						handleOpenModalConfirmarCancelarFactura(true);
 					},
+					status: getStatusButtonCancel(filaActiva.Factura.Pagos),
 				},
 			]}
 		>
