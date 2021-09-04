@@ -19,6 +19,8 @@ import {
 	MOSTRAR_ALERTA_EDITAR_ORDENES,
 	OCULTAR_ALERTA_EDITAR_ORDENES,
 	ACTIVAR_ORDEN,
+	MODAL_CONFIRMAR_CANCELAR_FACTURA,
+	ELIMINAR_FACTURA,
 } from '../../../types';
 
 const EditarOrdenesReducer = (state, action) => {
@@ -38,6 +40,13 @@ const EditarOrdenesReducer = (state, action) => {
 			return {
 				...state,
 				filaActiva: action.payload,
+			};
+		case ELIMINAR_FACTURA:
+			return {
+				...state,
+				ordenes: state.ordenes.map((x) =>
+					x.id === state.filaActiva.id ? { ...x, Factura: null } : x
+				),
 			};
 		case ACTIVAR_ORDEN:
 			return {
@@ -115,6 +124,11 @@ const EditarOrdenesReducer = (state, action) => {
 				...state,
 				openModalConfirmarCrearFactura: true,
 			};
+		case MODAL_CONFIRMAR_CANCELAR_FACTURA:
+			return {
+				...state,
+				openModalConfirmarCancelarFactura: action.payload,
+			};
 		case MODAL_CREAR_PAGO:
 			return {
 				...state,
@@ -124,13 +138,13 @@ const EditarOrdenesReducer = (state, action) => {
 		case MODAL_CLOSE:
 			return {
 				...state,
-				// filaActiva: {},
 				factura: {},
 				openModalDetalleOrden: false,
 				openModalInformacionCliente: false,
 				openModalCrearFactura: false,
 				openModalFactura: false,
 				openModalConfirmarCrearFactura: false,
+				openModalConfirmarCancelarFactura: false,
 			};
 		case MODAL_CLOSE_CONFIRMAR_FACTURA:
 			return {

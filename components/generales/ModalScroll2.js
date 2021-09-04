@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -115,7 +115,13 @@ const ModalScroll2 = (props) => {
 									onClose={handleClose}
 								>
 									{props.morevertactions.map((x, i) => (
-										<MenuItem key={i} onClick={x.function}>
+										<MenuItem
+											key={i}
+											onClick={() => {
+												x.function();
+												handleClose();
+											}}
+										>
 											{x.content}
 										</MenuItem>
 									))}

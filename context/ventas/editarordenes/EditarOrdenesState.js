@@ -26,6 +26,8 @@ import {
 	MOSTRAR_ALERTA_EDITAR_ORDENES,
 	OCULTAR_ALERTA_EDITAR_ORDENES,
 	ACTIVAR_ORDEN,
+	MODAL_CONFIRMAR_CANCELAR_FACTURA,
+	ELIMINAR_FACTURA,
 } from '../../../types';
 
 const EditarOrdenesState = (props) => {
@@ -37,6 +39,7 @@ const EditarOrdenesState = (props) => {
 		openModalInformacionCliente: false,
 		openModalCrearFactura: false,
 		openModalConfirmarCrearFactura: false,
+		openModalConfirmarCancelarFactura: false,
 		openModalFactura: false,
 		openModalCrearPago: false,
 		mensajeEditarOrdenes: null,
@@ -141,6 +144,13 @@ const EditarOrdenesState = (props) => {
 	const handleOpenModalConfirmarCrearFactura = () => {
 		dispatch({
 			type: MODAL_CONFIRMAR_FACTURA,
+		});
+	};
+
+	const handleOpenModalConfirmarCancelarFactura = (boolean) => {
+		dispatch({
+			type: MODAL_CONFIRMAR_CANCELAR_FACTURA,
+			payload: boolean,
 		});
 	};
 
@@ -291,6 +301,30 @@ const EditarOrdenesState = (props) => {
 		}
 	};
 
+	const cancelInvoice = async () => {
+		try {
+			// call factura controller
+			await clienteAxios.patch(`/api/facturas/${state.filaActiva.Factura.id}`);
+
+			dispatch({
+				type: MODAL_CLOSE,
+			});
+
+			// delete invoice from state orders
+			dispatch({
+				type: ELIMINAR_FACTURA,
+			});
+
+			// remove active row
+			dispatch({
+				type: FILA_ACTIVA_ORDEN,
+				payload: {},
+			});
+		} catch (error) {
+			mostrarAlertaEditarOrdenes('Hubo un error', 'warning');
+		}
+	};
+
 	return (
 		<EditarOrdenesContext.Provider
 			value={{
@@ -301,6 +335,8 @@ const EditarOrdenesState = (props) => {
 				openModalInformacionCliente: state.openModalInformacionCliente,
 				openModalCrearFactura: state.openModalCrearFactura,
 				openModalConfirmarCrearFactura: state.openModalConfirmarCrearFactura,
+				openModalConfirmarCancelarFactura:
+					state.openModalConfirmarCancelarFactura,
 				openModalFactura: state.openModalFactura,
 				openModalCrearPago: state.openModalCrearPago,
 				tiposEnvio: state.tiposEnvio,
@@ -325,6 +361,8 @@ const EditarOrdenesState = (props) => {
 				ocultarAlertaEditarOrdenes,
 				mostrarAlertaEditarOrdenes,
 				removeOrder,
+				handleOpenModalConfirmarCancelarFactura,
+				cancelInvoice,
 			}}
 		>
 			{props.children}

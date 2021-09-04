@@ -8,6 +8,7 @@ import { FacturaBD } from '../../functions/Factura';
 import TablaListaProductos from '../generales/TablaListaProductos';
 import ImporteFlexGrow from '../generales/ImporteFlexGrow';
 import PagosFactura from './PagosFactura';
+import ConfirmarCancelarFactura from './ConfirmarCancelarFactura';
 
 const useStyles = makeStyles((theme) => ({
 	botonAceptar: {
@@ -34,8 +35,10 @@ const Factura = () => {
 	const {
 		filaActiva,
 		openModalFactura,
+		openModalConfirmarCancelarFactura,
 		handleCloseModal,
 		handleFilaActivaOrden,
+		handleOpenModalConfirmarCancelarFactura,
 	} = useContext(EditarOrdenesContext);
 
 	const cliente = new ClienteBD(filaActiva.Cliente);
@@ -56,7 +59,7 @@ const Factura = () => {
 				{
 					content: 'cancelar',
 					function: () => {
-						console.log('cancelar factura');
+						handleOpenModalConfirmarCancelarFactura(true);
 					},
 				},
 			]}
@@ -87,6 +90,7 @@ const Factura = () => {
 				</Box>
 			</Box>
 			<PagosFactura />
+			{openModalConfirmarCancelarFactura ? <ConfirmarCancelarFactura /> : null}
 		</ModalScroll2>
 	);
 };
