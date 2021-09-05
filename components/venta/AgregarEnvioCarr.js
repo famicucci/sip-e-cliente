@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import BotonSuccess from '../generales/botones/BotonSuccess';
 import { BotoneraCarrContext } from '../../context/BotoneraCarrContext';
@@ -50,7 +50,7 @@ const AgregarEnvioCarr = () => {
 			}
 		>
 			<FormularioEnvio
-				envioInit={getInitialEnvio(envio)}
+				initialState={getInitialEnvio(envio)}
 				handleEnvio={handleEnvio}
 				tiposEnvio={shippingTypes}
 				cliente={cliente}

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -7,7 +7,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import FormularioEnvio from './FormularioEnvio';
 import AccordionActions from '@material-ui/core/AccordionActions';
-import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
 import { Direccion } from '../../functions/envio';
@@ -15,22 +14,32 @@ import GlobalDataContext from '../../context/globalData/GlobalDataContext';
 import IconButton from '@material-ui/core/IconButton';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import SaveOutlinedIcon from '@material-ui/icons/SaveOutlined';
+import { Grid } from '@material-ui/core';
+import ItemInfoConLabel from '../generales/ItemInfoConLabel';
+import clsx from 'clsx';
+import SaveIcon from '@material-ui/icons/Save';
 
 const useStyles = makeStyles((theme) => ({
 	heading: {
 		fontSize: theme.typography.pxToRem(15),
 		fontWeight: theme.typography.fontWeightRegular,
 	},
-	botonGuardar: { color: theme.palette.success.main },
+	saveButton: { color: theme.palette.success.dark },
 }));
 
 const EnvioDetalleOrden = () => {
 	const classes = useStyles();
 
 	const [expanded, setExpanded] = useState({ expanded: false });
+	const [edit, setEdit] = useState(false);
+	const [edited, setEdited] = useState(false);
 
-	const { shippingTypes } = useContext(GlobalDataContext);
+	const { shippingTypes, getShippingTypes } = useContext(GlobalDataContext);
 	const { filaActiva, modificarOrden } = useContext(EditarOrdenesContext);
+
+	useEffect(() => {
+		if (!shippingTypes) getShippingTypes();
+	}, []);
 
 	const envioInit = {
 		modoDirecc: 'input',
@@ -69,6 +78,38 @@ const EnvioDetalleOrden = () => {
 		}
 	};
 
+	const getShippingTypeDescription = (shippintTypeId, shippingTypes) => {
+		const r = shippingTypes.find((x) => x.id === shippintTypeId);
+		if (r) return r.descripcion;
+	};
+
+	const onClickEdit = () => {
+		setEdit(true);
+	};
+
+	const items = [
+		{
+			id: 1,
+			label: 'Dirección',
+			contenido: filaActiva.direccionEnvio,
+			ancho: 12,
+		},
+		{
+			id: 2,
+			label: 'Tipo',
+			contenido: shippingTypes
+				? getShippingTypeDescription(filaActiva.TipoEnvioId, shippingTypes)
+				: null,
+			ancho: 6,
+		},
+		{
+			id: 3,
+			label: 'Costo',
+			contenido: filaActiva.tarifaEnvio,
+			ancho: 6,
+		},
+	];
+
 	return (
 		<Accordion {...expanded}>
 			<AccordionSummary
@@ -78,31 +119,46 @@ const EnvioDetalleOrden = () => {
 				<Typography className={classes.heading}>Envío</Typography>
 			</AccordionSummary>
 			<AccordionDetails>
-				<FormularioEnvio
-					facturasOrden={filaActiva.Facturas ? filaActiva.Facturas : []}
-					// handleClose={handleClose}
-					envioInit={envioInit}
-					tiposEnvio={shippingTypes}
-					cliente={filaActiva.Cliente}
-					handleEnvio={modShipping}
-				/>
+				{!edit ? (
+					<Grid container spacing={2}>
+						{items.map((x) => (
+							<ItemInfoConLabel
+								key={x.id}
+								label={x.label}
+								contenido={x.contenido}
+								ancho={x.ancho}
+							/>
+						))}
+					</Grid>
+				) : (
+					<FormularioEnvio
+						facturasOrden={filaActiva.Facturas ? filaActiva.Facturas : []}
+						handleClose={() => {
+							setEdit(false);
+						}}
+						initialState={envioInit}
+						tiposEnvio={shippingTypes}
+						cliente={filaActiva.Cliente}
+						handleEnvio={modShipping}
+						checkForChanges={setEdited}
+					/>
+				)}
 			</AccordionDetails>
 			<Divider />
 			<AccordionActions>
-				{/* <Button
-					className={classes.botonGuardar}
-					type="submit"
-					form="form-envio"
-					size="small"
-					color="primary"
-				>
-					Guardar
-				</Button> */}
-				<IconButton size="small">
+				<IconButton size="small" onClick={onClickEdit}>
 					<EditOutlinedIcon />
 				</IconButton>
-				<IconButton size="small">
-					<SaveOutlinedIcon />
+				<IconButton size="small" type="submit" form="form-envio">
+					{!edited ? (
+						<SaveOutlinedIcon />
+					) : (
+						<SaveIcon
+							className={clsx({
+								[classes.saveButton]: edited,
+							})}
+						/>
+					)}
 				</IconButton>
 			</AccordionActions>
 		</Accordion>

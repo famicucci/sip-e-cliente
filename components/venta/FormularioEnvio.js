@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Box } from '@material-ui/core';
 import SelectBordeInferior from '../generales/inputs/SelectBordeInferior';
@@ -8,7 +8,6 @@ import FlipCameraAndroidIcon from '@material-ui/icons/FlipCameraAndroid';
 import InputBordeInferior from '../generales/inputs/InputBordeInferior';
 import AlertaContext from '../../context/alertas/alertaContext';
 import { Direccion } from '../../functions/envio';
-import useEnvio from '../../hooks/useEnvio';
 import Alerta from '../generales/Alerta';
 
 const useStyles = makeStyles((theme) => ({
@@ -57,18 +56,58 @@ const inputCosto = {
 
 const FormularioEnvio = (props) => {
 	const classes = useStyles();
-	const { facturasOrden, envioInit, handleEnvio, tiposEnvio, cliente } = props;
+	const {
+		facturasOrden,
+		initialState,
+		handleEnvio,
+		tiposEnvio,
+		cliente,
+		checkForChanges,
+	} = props;
 
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 
-	const [
-		stateEnvio,
-		handleSelectDireccion,
-		handleInputDireccion,
-		handleSelectTipo,
-		handleInputCosto,
-		handleSwitchDireccion,
-	] = useEnvio(envioInit, cliente);
+	const [stateEnvio, setStateEnvio] = useState(() =>
+		Object.keys(initialState).length === 0
+			? {
+					modoDirecc: 'select',
+					input: '',
+					select: null,
+					tipo: 1,
+					costo: 0,
+			  }
+			: initialState
+	);
+
+	const handleSwitchDireccion = () => {
+		if (stateEnvio.modoDirecc === 'select') {
+			setStateEnvio({ ...stateEnvio, modoDirecc: 'input' });
+		} else if (stateEnvio.modoDirecc === 'input') {
+			setStateEnvio({ ...stateEnvio, modoDirecc: 'select' });
+		}
+		checkForChanges(true);
+	};
+
+	const handleSelectDireccion = (name, val) => {
+		const r = cliente.direcciones.find((x) => x.id === val);
+		setStateEnvio({ ...stateEnvio, select: r });
+		checkForChanges(true);
+	};
+
+	const handleInputDireccion = (name, val) => {
+		setStateEnvio({ ...stateEnvio, input: val });
+		checkForChanges(true);
+	};
+
+	const handleSelectTipo = (name, val) => {
+		setStateEnvio({ ...stateEnvio, tipo: val });
+		checkForChanges(true);
+	};
+
+	const handleInputCosto = (name, val) => {
+		setStateEnvio({ ...stateEnvio, costo: val });
+		checkForChanges(true);
+	};
 
 	const handleDisabledCostoEnvio = (facturasOrden) => {
 		let estadoInput = false;

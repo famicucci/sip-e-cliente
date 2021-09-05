@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
 		fontSize: theme.typography.pxToRem(15),
 		fontWeight: theme.typography.fontWeightRegular,
 	},
-	botonGuardar: { color: theme.palette.success.main },
 	saveButton: { color: theme.palette.success.dark },
 }));
 
@@ -161,7 +160,6 @@ const MasInformacion = () => {
 								name="nroEcommerce"
 								placeholder="Escribe el identificador aquí.."
 								ancho={9}
-								required={true}
 								initialvalue={masInformacion.ordenEcommerce}
 								tochangestate={onChangeNroEcommerce}
 							/>
@@ -170,7 +168,6 @@ const MasInformacion = () => {
 								name="nota"
 								placeholder="Escribe la nota aquí..."
 								ancho={12}
-								required={true}
 								initialvalue={masInformacion.observaciones}
 								tochangestate={onChangeNota}
 							/>
