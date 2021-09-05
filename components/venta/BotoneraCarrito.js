@@ -14,7 +14,7 @@ import {
 	NoteOutlined,
 	ArrowDropUp,
 	ArrowDropDown,
-	Brush,
+	ClearAll,
 } from '@material-ui/icons';
 
 const BotoneraCarrito = () => {
@@ -98,9 +98,9 @@ const BotoneraCarrito = () => {
 
 	return (
 		<Box display="flex" bgcolor="background.paper">
-			<Box flexGrow={1}>
+			<Box display="flex" flexGrow={1}>
 				<IconButton onClick={onClickClean}>
-					<Brush color="error" />
+					<ClearAll color="error" />
 				</IconButton>
 			</Box>
 			<Box>
