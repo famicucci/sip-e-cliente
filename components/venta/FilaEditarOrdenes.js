@@ -100,6 +100,7 @@ const FilaEditarClientes = ({ fila, colIndex }) => {
 				</TableCell>
 			) : null}
 			{colIndex['Estado Pago'] ? (
+				// this component has to control payments invoice
 				<TableCell align="center">
 					{fila.estadoPago ? (
 						<span className={classes.estadoPago}>{fila.estadoPago}</span>

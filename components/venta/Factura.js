@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
 import { Box, Divider } from '@material-ui/core';
@@ -9,6 +9,7 @@ import TablaListaProductos from '../generales/TablaListaProductos';
 import ImporteFlexGrow from '../generales/ImporteFlexGrow';
 import PagosFactura from './PagosFactura';
 import ConfirmarCancelarFactura from './ConfirmarCancelarFactura';
+import ConfirmarCancelarPago from './ConfirmarCancelarPago';
 
 const useStyles = makeStyles((theme) => ({
 	botonAceptar: {
@@ -39,13 +40,21 @@ const Factura = () => {
 		handleCloseModal,
 		handleFilaActivaOrden,
 		handleOpenModalConfirmarCancelarFactura,
+		openModalConfirmarCancelarPago,
 	} = useContext(EditarOrdenesContext);
+
+	const [activePayment, setActivePayment] = useState(null);
 
 	const cliente = new ClienteBD(filaActiva.Cliente);
 	const factura = new FacturaBD(filaActiva.Factura);
 
 	const getStatusButtonCancel = (payments) => {
-		if (payments.length === 0) return { disabled: false };
+		let sum = 0;
+		payments.forEach((x) => {
+			sum += parseFloat(x.importe);
+		});
+
+		if (sum === 0) return { disabled: false };
 		else return { disabled: true };
 	};
 
@@ -95,8 +104,14 @@ const Factura = () => {
 					</ImporteFlexGrow>
 				</Box>
 			</Box>
-			<PagosFactura />
+			<PagosFactura setActivePayment={setActivePayment} />
 			{openModalConfirmarCancelarFactura ? <ConfirmarCancelarFactura /> : null}
+			{openModalConfirmarCancelarPago ? (
+				<ConfirmarCancelarPago
+					id={activePayment.id}
+					methodPayment={activePayment.methodPayment}
+				/>
+			) : null}
 		</ModalScroll2>
 	);
 };

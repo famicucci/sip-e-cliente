@@ -22,12 +22,14 @@ import {
 	MODAL_CLOSE,
 	MODAL_CLOSE_CONFIRMAR_FACTURA,
 	MODAL_CLOSE_CREAR_PAGO,
-	ACTUALIZAR_PAGO,
+	AGREGAR_PAGO,
 	MOSTRAR_ALERTA_EDITAR_ORDENES,
 	OCULTAR_ALERTA_EDITAR_ORDENES,
 	ACTIVAR_ORDEN,
 	MODAL_CONFIRMAR_CANCELAR_FACTURA,
+	MODAL_CONFIRMAR_CANCELAR_PAGO,
 	ELIMINAR_FACTURA,
+	MODIFICAR_ESTADO_PAGO,
 } from '../../../types';
 
 const EditarOrdenesState = (props) => {
@@ -40,6 +42,7 @@ const EditarOrdenesState = (props) => {
 		openModalCrearFactura: false,
 		openModalConfirmarCrearFactura: false,
 		openModalConfirmarCancelarFactura: false,
+		openModalConfirmarCancelarPago: false,
 		openModalFactura: false,
 		openModalCrearPago: false,
 		mensajeEditarOrdenes: null,
@@ -166,6 +169,13 @@ const EditarOrdenesState = (props) => {
 		});
 	};
 
+	const handleOpenConfirmCancelPayment = (boolean) => {
+		dispatch({
+			type: MODAL_CONFIRMAR_CANCELAR_PAGO,
+			payload: boolean,
+		});
+	};
+
 	const handleCloseModal = () => {
 		dispatch({
 			type: MODAL_CLOSE,
@@ -241,13 +251,14 @@ const EditarOrdenesState = (props) => {
 				parseFloat(pago.importe) + factura.sumaPagos() ===
 				parseFloat(factura.importeFinal)
 			) {
-				const facturaObj = { estadoPago: 'Pago' };
-
-				await clienteAxios.put(`/api/facturas/${factura.id}`, facturaObj);
+				dispatch({
+					type: MODIFICAR_ESTADO_PAGO,
+					payload: 'Pago',
+				});
 			}
 
 			dispatch({
-				type: ACTUALIZAR_PAGO,
+				type: AGREGAR_PAGO,
 				payload: respuesta.data,
 			});
 
@@ -321,7 +332,37 @@ const EditarOrdenesState = (props) => {
 				payload: {},
 			});
 		} catch (error) {
-			mostrarAlertaEditarOrdenes('Hubo un error', 'warning');
+			mostrarAlertaEditarOrdenes('Hubo un error', 'error');
+		}
+	};
+
+	const cancelPayment = async (paymentId, methodPayment) => {
+		// call create payment
+		try {
+			const r = await clienteAxios.patch(`/api/pagos/${paymentId}`, {
+				MetodoPagoId: methodPayment,
+			});
+
+			// update ordenes with canceled payment
+			dispatch({
+				type: AGREGAR_PAGO,
+				payload: r.data,
+			});
+
+			dispatch({
+				type: MODIFICAR_ESTADO_PAGO,
+				payload: 'Pendiente',
+			});
+
+			dispatch({
+				type: ACTIVAR_ORDEN,
+				payload: state.filaActiva.id,
+			});
+
+			mostrarAlertaEditarOrdenes('Se cancelo el pago exitosamente', 'success');
+		} catch (error) {
+			console.log(error);
+			mostrarAlertaEditarOrdenes('Hubo un error', 'error');
 		}
 	};
 
@@ -337,6 +378,7 @@ const EditarOrdenesState = (props) => {
 				openModalConfirmarCrearFactura: state.openModalConfirmarCrearFactura,
 				openModalConfirmarCancelarFactura:
 					state.openModalConfirmarCancelarFactura,
+				openModalConfirmarCancelarPago: state.openModalConfirmarCancelarPago,
 				openModalFactura: state.openModalFactura,
 				openModalCrearPago: state.openModalCrearPago,
 				tiposEnvio: state.tiposEnvio,
@@ -362,7 +404,9 @@ const EditarOrdenesState = (props) => {
 				mostrarAlertaEditarOrdenes,
 				removeOrder,
 				handleOpenModalConfirmarCancelarFactura,
+				handleOpenConfirmCancelPayment,
 				cancelInvoice,
+				cancelPayment,
 			}}
 		>
 			{props.children}

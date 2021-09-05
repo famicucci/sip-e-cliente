@@ -15,12 +15,14 @@ import {
 	MODAL_CLOSE,
 	MODAL_CLOSE_CONFIRMAR_FACTURA,
 	MODAL_CLOSE_CREAR_PAGO,
-	ACTUALIZAR_PAGO,
+	AGREGAR_PAGO,
 	MOSTRAR_ALERTA_EDITAR_ORDENES,
 	OCULTAR_ALERTA_EDITAR_ORDENES,
 	ACTIVAR_ORDEN,
 	MODAL_CONFIRMAR_CANCELAR_FACTURA,
+	MODAL_CONFIRMAR_CANCELAR_PAGO,
 	ELIMINAR_FACTURA,
+	MODIFICAR_ESTADO_PAGO,
 } from '../../../types';
 
 const EditarOrdenesReducer = (state, action) => {
@@ -70,6 +72,21 @@ const EditarOrdenesReducer = (state, action) => {
 								OrdenEstado: {
 									id: action.payload.idStatus,
 									descripcion: action.payload.descriptionStatus,
+								},
+						  }
+						: x
+				),
+			};
+		case MODIFICAR_ESTADO_PAGO:
+			return {
+				...state,
+				ordenes: state.ordenes.map((x) =>
+					x.id === state.filaActiva.id
+						? {
+								...x,
+								Factura: {
+									...x.Factura,
+									estadoPago: action.payload,
 								},
 						  }
 						: x
@@ -129,6 +146,11 @@ const EditarOrdenesReducer = (state, action) => {
 				...state,
 				openModalConfirmarCancelarFactura: action.payload,
 			};
+		case MODAL_CONFIRMAR_CANCELAR_PAGO:
+			return {
+				...state,
+				openModalConfirmarCancelarPago: action.payload,
+			};
 		case MODAL_CREAR_PAGO:
 			return {
 				...state,
@@ -156,7 +178,7 @@ const EditarOrdenesReducer = (state, action) => {
 				...state,
 				openModalCrearPago: false,
 			};
-		case ACTUALIZAR_PAGO:
+		case AGREGAR_PAGO:
 			return {
 				...state,
 				ordenes: state.ordenes.map((x) =>
@@ -181,7 +203,6 @@ const EditarOrdenesReducer = (state, action) => {
 				...state,
 				mensajeEditarOrdenes: null,
 			};
-
 		default:
 			return state;
 	}
