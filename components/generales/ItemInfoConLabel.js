@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 const ItemInfoConLabel = ({ label, contenido, ancho }) => {
 	const classes = useStyles();
 
-	if (contenido === '' || contenido === null) contenido = '-';
+	if (contenido === '' || contenido === null || !contenido) contenido = '-';
 
 	return (
 		<Grid item xs={ancho}>

@@ -9,14 +9,15 @@ import GlobalDataContext from '../../context/globalData/GlobalDataContext';
 const useStyles = makeStyles((theme) => ({
 	formControl: {
 		minWidth: 120,
-	},
-	selectEmpty: {
 		marginTop: theme.spacing(2),
+		marginBottom: (props) =>
+			props.marginBottom ? theme.spacing(props.marginBottom) : 0,
 	},
 }));
 
-const SelectPtoVenta = ({ ptoVenta, handlePtoVenta }) => {
-	const classes = useStyles();
+const SelectPtoVenta = (props) => {
+	const { ptoVenta, handlePtoVenta, marginBottom } = props;
+	const classes = useStyles({ marginBottom });
 
 	const { salePoints, getSalePoints } = useContext(GlobalDataContext);
 
@@ -33,7 +34,6 @@ const SelectPtoVenta = ({ ptoVenta, handlePtoVenta }) => {
 			<InputLabel shrink>Pto. Venta</InputLabel>
 			{salePoints ? (
 				<Select
-					className={classes.selectEmpty}
 					name="ptoventa"
 					value={ptoVenta}
 					defaultValue=""

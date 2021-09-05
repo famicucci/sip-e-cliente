@@ -20,7 +20,11 @@ const VerMasCarrito = () => {
 
 	return (
 		<Collapse in={openVerMas} timeout="auto" unmountOnExit>
-			<SelectPtoVenta ptoVenta={ptoVenta} handlePtoVenta={handlePtoVenta} />
+			<SelectPtoVenta
+				ptoVenta={ptoVenta}
+				handlePtoVenta={handlePtoVenta}
+				marginBottom={2}
+			/>
 			<TextField
 				value={ordenEcommerce}
 				onChange={onChange}

@@ -12,6 +12,9 @@ import Divider from '@material-ui/core/Divider';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
 import { Direccion } from '../../functions/envio';
 import GlobalDataContext from '../../context/globalData/GlobalDataContext';
+import IconButton from '@material-ui/core/IconButton';
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import SaveOutlinedIcon from '@material-ui/icons/SaveOutlined';
 
 const useStyles = makeStyles((theme) => ({
 	heading: {
@@ -86,7 +89,7 @@ const EnvioDetalleOrden = () => {
 			</AccordionDetails>
 			<Divider />
 			<AccordionActions>
-				<Button
+				{/* <Button
 					className={classes.botonGuardar}
 					type="submit"
 					form="form-envio"
@@ -94,7 +97,13 @@ const EnvioDetalleOrden = () => {
 					color="primary"
 				>
 					Guardar
-				</Button>
+				</Button> */}
+				<IconButton size="small">
+					<EditOutlinedIcon />
+				</IconButton>
+				<IconButton size="small">
+					<SaveOutlinedIcon />
+				</IconButton>
 			</AccordionActions>
 		</Accordion>
 	);

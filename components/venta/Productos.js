@@ -7,12 +7,12 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import AccordionActions from '@material-ui/core/AccordionActions';
 import Divider from '@material-ui/core/Divider';
-import BotonFilaTabla from '../generales/BotonFilaTabla';
-import EditIcon from '@material-ui/icons/Edit';
 import { Box } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
 import TablaDetalleOrden from './TablaDetalleOrden';
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles((theme) => ({
 	heading: {
@@ -82,9 +82,11 @@ const Productos = (props) => {
 				<Box
 					className={classes.productsActions}
 					display="flex"
-					justifyContent="flex-start"
+					justifyContent="flex-end"
 				>
-					<BotonFilaTabla contenido={<EditIcon />} onClick={onClickEditOrder} />
+					<IconButton size="small" edge="start" onClick={onClickEditOrder}>
+						<EditOutlinedIcon />
+					</IconButton>
 				</Box>
 			</AccordionActions>
 		</Accordion>
