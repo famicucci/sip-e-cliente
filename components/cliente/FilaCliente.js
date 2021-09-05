@@ -41,7 +41,7 @@ const FilaCliente = ({ fila, colIndex }) => {
 			{colIndex['Razon Social'] ? (
 				<TableCell align="left">{fila.razonSocial}</TableCell>
 			) : null}
-			{colIndex['Observaciones'] ? (
+			{colIndex['Nombre Local / Obs.'] ? (
 				<TableCell align="left">{fila.observaciones}</TableCell>
 			) : null}
 			{colIndex['Cond. IVA'] ? (

@@ -18,8 +18,8 @@ const useStyles = makeStyles((theme) => ({
 
 const inputObservaciones = {
 	name: 'observaciones',
-	label: 'Observaciones',
-	placeholder: 'Observaciones',
+	label: 'Nombre Local / Observaciones',
+	placeholder: 'Nombre Local / Observaciones',
 	ancho: 6,
 	required: false,
 };

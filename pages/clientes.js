@@ -36,7 +36,12 @@ const Clientes = () => {
 		{ id: 2, nombre: 'Email', align: 'left', minWidth: 240 },
 		{ id: 7, nombre: 'Celular', align: 'left', minWidth: 125 },
 		{ id: 3, nombre: 'Razon Social', align: 'left', minWidth: 200 },
-		{ id: 4, nombre: 'Observaciones', align: 'left', minWidth: 150 },
+		{
+			id: 4,
+			nombre: 'Nombre Local / Obs.',
+			align: 'left',
+			minWidth: 150,
+		},
 		{ id: 5, nombre: 'Cond. IVA', align: 'left', minWidth: 180 },
 		{ id: 6, nombre: 'Creación', align: 'center', minWidth: 110 },
 		{ id: 8, nombre: 'Tipo', align: 'center', minWidth: 100 },
