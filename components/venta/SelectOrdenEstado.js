@@ -33,7 +33,7 @@ const BootstrapButton = withStyles({
 })(Button);
 
 const SelectOrdenEstado = ({ idOrden, ordenEstadoId }) => {
-	const { orderStatuses } = useContext(GlobalDataContext);
+	const { orderStatuses, getOrderStatuses } = useContext(GlobalDataContext);
 	const { handleEstadoOrden, mensaje } = useContext(EditarOrdenesContext);
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 
@@ -42,18 +42,15 @@ const SelectOrdenEstado = ({ idOrden, ordenEstadoId }) => {
 	const [anchorEl, setAnchorEl] = useState(null);
 
 	useEffect(() => {
-		const modEstadoDescripcionColor = (estados, ordenEstadoId) => {
-			const r = estados.find((x) => x.id === ordenEstadoId);
-			setOrdenEstadoDescripcion(r ? r.descripcion : null);
-			setColor(r ? r.color : null);
-		};
-		modEstadoDescripcionColor(orderStatuses, ordenEstadoId);
+		if (!orderStatuses) getOrderStatuses();
+	}, []);
+
+	useEffect(() => {
+		if (orderStatuses) modEstadoDescripcionColor(orderStatuses, ordenEstadoId);
 	}, [orderStatuses, ordenEstadoId]);
 
 	useEffect(() => {
-		if (mensaje) {
-			mostrarAlerta(mensaje.msg, mensaje.categoria);
-		}
+		if (mensaje) mostrarAlerta(mensaje.msg, mensaje.categoria);
 	}, [mensaje]);
 
 	const handleClickBoton = (event) => {
@@ -67,6 +64,12 @@ const SelectOrdenEstado = ({ idOrden, ordenEstadoId }) => {
 
 	const handleClose = (event) => {
 		setAnchorEl(null);
+	};
+
+	const modEstadoDescripcionColor = (estados, ordenEstadoId) => {
+		const r = estados.find((x) => x.id === ordenEstadoId);
+		setOrdenEstadoDescripcion(r ? r.descripcion : null);
+		setColor(r ? r.color : null);
 	};
 
 	return (

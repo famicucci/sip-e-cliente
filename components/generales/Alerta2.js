@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import AlertaContext from '../../context/alertas/alertaContext';
 
 function Alert(props) {
 	return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 const Alerta2 = (props) => {
-	// const { alerta, ocultarAlerta } = useContext(AlertaContext);
+	const { ocultarAlerta } = useContext(AlertaContext);
 	if (!props.mensaje) return null;
 
 	const { msg, severity } = props.mensaje;
