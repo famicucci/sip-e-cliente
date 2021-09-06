@@ -6,13 +6,19 @@ import DomicilioCliente from './DomicilioCliente';
 import ModalScroll2 from '../generales/ModalScroll2';
 import ClienteContext from '../../context/clientes/ClienteContext';
 
-const InformacionCliente = () => {
+const InformacionCliente = (props) => {
 	const {
 		filaActiva,
 		openModalInformacionCliente,
+		handleCloseModal,
+		handleFilaActiva,
+	} = props;
+	const {
+		// filaActiva,
+		// openModalInformacionCliente,
 		handleOpenEditClient,
 		handleOpenModalInformacionCliente,
-		handleFilaActiva,
+		// handleFilaActiva,
 	} = useContext(ClienteContext);
 
 	const editClient = () => {
@@ -20,21 +26,28 @@ const InformacionCliente = () => {
 		handleOpenModalInformacionCliente(false);
 	};
 
-	return (
-		<ModalScroll2
-			openModal={openModalInformacionCliente}
-			handleClose={() => {
-				handleOpenModalInformacionCliente(false);
-				handleFilaActiva(null);
-			}}
-			titulo="Cliente"
-			anexoTitulo={`${filaActiva.nombre} ${filaActiva.apellido}`}
-			morevertactions={[
+	const getActions = () => {
+		if (props.edit) {
+			return [
 				{
 					content: 'Editar',
 					function: editClient,
 				},
-			]}
+			];
+		}
+	};
+
+	return (
+		<ModalScroll2
+			openModal={openModalInformacionCliente}
+			handleClose={() => {
+				handleCloseModal();
+				// handleOpenModalInformacionCliente(false);
+				handleFilaActiva(null);
+			}}
+			titulo="Cliente"
+			anexoTitulo={`${filaActiva.nombre} ${filaActiva.apellido}`}
+			morevertactions={getActions()}
 			padding={2}
 		>
 			<DatosCliente cliente={filaActiva} />

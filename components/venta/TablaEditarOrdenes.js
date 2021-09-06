@@ -58,6 +58,7 @@ const TablaEditarOrdenes = () => {
 		useContext(GlobalDataContext);
 	const { ordenCreada, handleOrdenActiva, handleOrderToModify } =
 		useContext(VentasContext);
+
 	const {
 		ordenes,
 		mensajeEditarOrdenes,
@@ -158,7 +159,7 @@ const TablaEditarOrdenes = () => {
 			{openModalDetalleOrden ? <DetalleOrden /> : null}
 			{openModalInformacionCliente ? (
 				<InformacionCliente
-					cliente={filaActiva.Cliente}
+					filaActiva={filaActiva.Cliente}
 					openModalInformacionCliente={openModalInformacionCliente}
 					handleCloseModal={handleCloseModal}
 					handleFilaActiva={handleFilaActivaOrden}

@@ -45,6 +45,10 @@ const TablaClientes = (props) => {
 		mensajeClientes,
 		cargando,
 		traerClientes,
+		filaActiva,
+		// handleOpenEditClient,
+		handleOpenModalInformacionCliente,
+		handleFilaActiva,
 	} = useContext(ClienteContext);
 
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
@@ -82,7 +86,17 @@ const TablaClientes = (props) => {
 				</TableBody>
 				{!cargando ? <FooterTabla /> : null}
 			</Table>
-			{openModalInformacionCliente ? <InformacionCliente /> : null}
+			{openModalInformacionCliente ? (
+				<InformacionCliente
+					filaActiva={filaActiva}
+					edit={true}
+					openModalInformacionCliente={openModalInformacionCliente}
+					handleCloseModal={() => {
+						handleOpenModalInformacionCliente(false);
+					}}
+					handleFilaActiva={handleFilaActiva}
+				/>
+			) : null}
 			{openEditClient ? <EditarCliente /> : null}
 			{openInfoCliente ? <FacsOrdsCliente /> : null}
 			{openModalNuevoCliente ? <NuevoCliente /> : null}
