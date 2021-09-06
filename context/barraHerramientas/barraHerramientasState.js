@@ -18,6 +18,7 @@ import {
 	LISTAS_PRECIO,
 	ERROR_BARRA_HERRAMIENTAS,
 	HERRAMIENTAS_PRODUCTOS_A_MOVER,
+	HERRAMIENTAS_GASTOS,
 } from '../../types';
 
 const BarraHerramientasState = (props) => {
@@ -137,6 +138,12 @@ const BarraHerramientasState = (props) => {
 		});
 	};
 
+	const handleToolsExpenses = () => {
+		dispatch({
+			type: HERRAMIENTAS_GASTOS,
+		});
+	};
+
 	return (
 		<BarraHerramientasContext.Provider
 			value={{
@@ -163,6 +170,7 @@ const BarraHerramientasState = (props) => {
 				traerPtosStock,
 				traerListasPrecio,
 				handleHerrProductosAMover,
+				handleToolsExpenses,
 			}}
 		>
 			{props.children}

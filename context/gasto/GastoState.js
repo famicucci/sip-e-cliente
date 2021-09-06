@@ -3,11 +3,12 @@ import GastoContext from './GastoContext';
 import GastoReducer from './GastoReducer';
 import clienteAxios from '../../config/axios';
 
-import { TRAER_GASTOS } from '../../types';
+import { TRAER_GASTOS, SHOW_LOADING } from '../../types';
 
 const GastoState = (props) => {
 	const initialState = {
-		expenses: null,
+		expenses: [],
+		loading: true,
 	};
 
 	const [state, dispatch] = useReducer(GastoReducer, initialState);
@@ -22,13 +23,20 @@ const GastoState = (props) => {
 				type: TRAER_GASTOS,
 				payload: r.data,
 			});
+
+			dispatch({
+				type: SHOW_LOADING,
+				payload: false,
+			});
 		} catch (error) {
 			console.log(error);
 		}
 	};
 
 	return (
-		<GastoContext.Provider value={{ getExpenses }}>
+		<GastoContext.Provider
+			value={{ expenses: state.expenses, loading: state.loading, getExpenses }}
+		>
 			{props.children}
 		</GastoContext.Provider>
 	);

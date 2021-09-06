@@ -1,4 +1,4 @@
-import { TRAER_GASTOS } from '../../types';
+import { TRAER_GASTOS, SHOW_LOADING } from '../../types';
 
 const PreciosReducer = (state, action) => {
 	switch (action.type) {
@@ -7,7 +7,11 @@ const PreciosReducer = (state, action) => {
 				...state,
 				expenses: action.payload,
 			};
-
+		case SHOW_LOADING:
+			return {
+				...state,
+				loading: action.payload,
+			};
 		default:
 			return state;
 	}
