@@ -7,18 +7,29 @@ const useStyles = makeStyles((theme) => ({
 		width: '100%',
 		paddingLeft: theme.spacing(2),
 		paddingRight: theme.spacing(5),
+		marginTop: (props) =>
+			props.marginTop ? theme.spacing(props.marginTop) : 0,
 	},
 	texto: {
-		fontSize: '17px',
+		fontSize: (props) =>
+			props.fontSize
+				? theme.typography.pxToRem(props.fontSize)
+				: theme.typography.pxToRem(17),
 	},
 	textoConBoton: {
-		fontSize: '17px',
+		fontSize: (props) =>
+			props.fontSize
+				? theme.typography.pxToRem(props.fontSize)
+				: theme.typography.pxToRem(17),
 		marginLeft: theme.spacing(1),
 	},
 }));
 
 const ImporteFlexGrow = (props) => {
-	const classes = useStyles();
+	const classes = useStyles({
+		fontSize: props.fontSize,
+		marginTop: props.marginTop,
+	});
 
 	const { titulo, children, funcContenido, childrenNumDecimal } = props;
 
@@ -45,7 +56,9 @@ const ImporteFlexGrow = (props) => {
 						}).format(children)}
 					</Typography>
 				) : (
-					children
+					<Typography className={classes.textoConBoton} variant="overline">
+						{children}
+					</Typography>
 				)}
 			</Box>
 		</Box>

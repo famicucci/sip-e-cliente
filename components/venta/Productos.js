@@ -13,6 +13,7 @@ import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrden
 import TablaDetalleOrden from './TablaDetalleOrden';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import IconButton from '@material-ui/core/IconButton';
+import ImporteFlexGrow from '../generales/ImporteFlexGrow';
 
 const useStyles = makeStyles((theme) => ({
 	heading: {
@@ -66,16 +67,29 @@ const Productos = (props) => {
 		});
 	};
 
+	const sumTotalQty = (products) => {
+		let qty = 0;
+		products.forEach((x) => {
+			qty += x.cantidad;
+		});
+		return qty;
+	};
+
 	return (
 		<Accordion defaultExpanded>
 			<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 				<Typography className={classes.heading}>Productos</Typography>
 			</AccordionSummary>
 			<AccordionDetails>
-				<TablaDetalleOrden
-					productos={props.filaActiva.detalleOrden}
-					columnas={columnas}
-				/>
+				<Box>
+					<TablaDetalleOrden
+						productos={props.filaActiva.detalleOrden}
+						columnas={columnas}
+					/>
+					<ImporteFlexGrow titulo="Total productos" fontSize={13} marginTop={2}>
+						{sumTotalQty(props.filaActiva.detalleOrden)}
+					</ImporteFlexGrow>
+				</Box>
 			</AccordionDetails>
 			<Divider />
 			<AccordionActions>

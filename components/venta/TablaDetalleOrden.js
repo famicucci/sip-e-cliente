@@ -8,6 +8,7 @@ import TableBody from '@material-ui/core/TableBody';
 import FilaDetalleOrden from './FilaDetalleOrden';
 
 const useStyles = makeStyles({
+	root: { width: '100%' },
 	table: {
 		minWidth: 600,
 	},
@@ -44,7 +45,7 @@ const TablaDetalleOrden = ({ productos, columnas }) => {
 	};
 
 	return (
-		<TableContainer component={Paper}>
+		<TableContainer className={classes.root} component={Paper}>
 			<Table className={classes.table}>
 				<HeadTabla columnas={columnas} />
 				<TableBody>
