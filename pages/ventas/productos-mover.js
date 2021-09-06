@@ -3,6 +3,7 @@ import Layout from '../../components/layouts/Layout';
 import AuthContext from '../../context/autenticacion/authContext';
 import IrLogin from '../../components/generales/IrLogin';
 import SpinnerPantalla from '../../components/generales/SpinnerPantalla';
+import TablaProductosAMover from '../../components/venta/TablaProductosAMover';
 
 const ConsultarVenta = () => {
 	const authContext = useContext(AuthContext);
@@ -22,7 +23,7 @@ const ConsultarVenta = () => {
 
 	return (
 		<Layout>
-			<h1>Desde Productos a Mover</h1>
+			<TablaProductosAMover />
 		</Layout>
 	);
 };

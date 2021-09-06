@@ -12,6 +12,7 @@ import {
 	PTOS_STOCK,
 	LISTAS_PRECIO,
 	ERROR_BARRA_HERRAMIENTAS,
+	HERRAMIENTAS_PRODUCTOS_A_MOVER,
 } from '../../types';
 
 const PreciosReducer = (state, action) => {
@@ -116,7 +117,21 @@ const PreciosReducer = (state, action) => {
 				...state,
 				mensaje: action.payload,
 			};
-
+		case HERRAMIENTAS_PRODUCTOS_A_MOVER:
+			return {
+				...state,
+				buscador: action.payload,
+				selectListaPrecio: false,
+				selectPtoStock: false,
+				listasPrecio: null,
+				ptosStock: null,
+				botonModoCargaVenta: false,
+				botonNuevoCliente: false,
+				etiquetaModificarOrden: false,
+				busqueda: '',
+				busquedaCliente: '',
+				mensaje: null,
+			};
 		default:
 			return state;
 	}

@@ -17,6 +17,7 @@ import {
 	PTOS_STOCK,
 	LISTAS_PRECIO,
 	ERROR_BARRA_HERRAMIENTAS,
+	HERRAMIENTAS_PRODUCTOS_A_MOVER,
 } from '../../types';
 
 const BarraHerramientasState = (props) => {
@@ -129,6 +130,13 @@ const BarraHerramientasState = (props) => {
 		}
 	};
 
+	const handleHerrProductosAMover = (boolean) => {
+		dispatch({
+			type: HERRAMIENTAS_PRODUCTOS_A_MOVER,
+			payload: boolean,
+		});
+	};
+
 	return (
 		<BarraHerramientasContext.Provider
 			value={{
@@ -154,6 +162,7 @@ const BarraHerramientasState = (props) => {
 				handleBusquedaCliente,
 				traerPtosStock,
 				traerListasPrecio,
+				handleHerrProductosAMover,
 			}}
 		>
 			{props.children}
