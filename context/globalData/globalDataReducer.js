@@ -4,6 +4,8 @@ import {
 	TRAER_TIPOS_ENVIO,
 	TRAER_ESTADOS_ORDEN,
 	TRAER_METODOS_PAGO,
+	TRAER_CATEGORIAS_GASTOS,
+	TRAER_SUBCATEGORIAS_GASTOS,
 } from '../../types';
 
 const GlobalDataReducer = (state, action) => {
@@ -32,6 +34,16 @@ const GlobalDataReducer = (state, action) => {
 			return {
 				...state,
 				paymentMethods: action.payload,
+			};
+		case TRAER_CATEGORIAS_GASTOS:
+			return {
+				...state,
+				expenseCategories: action.payload,
+			};
+		case TRAER_SUBCATEGORIAS_GASTOS:
+			return {
+				...state,
+				expenseSubcategories: action.payload,
 			};
 		default:
 			return state;

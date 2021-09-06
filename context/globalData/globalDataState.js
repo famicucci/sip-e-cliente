@@ -9,6 +9,8 @@ import {
 	TRAER_TIPOS_ENVIO,
 	TRAER_ESTADOS_ORDEN,
 	TRAER_METODOS_PAGO,
+	TRAER_CATEGORIAS_GASTOS,
+	TRAER_SUBCATEGORIAS_GASTOS,
 } from '../../types';
 
 const GlobalDataState = (props) => {
@@ -18,6 +20,8 @@ const GlobalDataState = (props) => {
 		shippingTypes: null,
 		orderStatuses: null,
 		paymentMethods: null,
+		expenseCategories: null,
+		expenseSubcategories: null,
 	};
 
 	const [state, dispatch] = useReducer(GlobalDataReducer, initialState);
@@ -83,6 +87,32 @@ const GlobalDataState = (props) => {
 		}
 	};
 
+	const getCategorieExpenses = async () => {
+		try {
+			const r = await clienteAxios.get(`/api/gastos/categorias`);
+
+			dispatch({
+				type: TRAER_CATEGORIAS_GASTOS,
+				payload: r.data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const getSubcategorieExpenses = async () => {
+		try {
+			const r = await clienteAxios.get(`/api/gastos/subcategorias`);
+
+			dispatch({
+				type: TRAER_SUBCATEGORIAS_GASTOS,
+				payload: r.data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
 		<GlobalDataContext.Provider
 			value={{
@@ -91,11 +121,15 @@ const GlobalDataState = (props) => {
 				shippingTypes: state.shippingTypes,
 				orderStatuses: state.orderStatuses,
 				paymentMethods: state.paymentMethods,
+				expenseCategories: state.expenseCategories,
+				expenseSubcategories: state.expenseSubcategories,
 				getStockPoints,
 				getSalePoints,
 				getShippingTypes,
 				getOrderStatuses,
 				getPaymentMethods,
+				getCategorieExpenses,
+				getSubcategorieExpenses,
 			}}
 		>
 			{props.children}

@@ -11,6 +11,7 @@ import SpinnerTabla from '../generales/SpinnerTabla';
 import useFilter from '../../hooks/useFilter';
 import GastoContext from '../../context/gasto/GastoContext';
 import FilaGastos from './FilaGastos';
+import GlobalDataContext from '../../context/globalData/GlobalDataContext';
 
 const useStyles = makeStyles({
 	table: {
@@ -25,7 +26,7 @@ const columnas = [
 	{ id: 7, nombre: 'Categoría', align: 'left', minWidth: 110 },
 	{ id: 3, nombre: 'Subcategoría', align: 'left', minWidth: 80 },
 	{ id: 4, nombre: 'Descripción', align: 'left', minWidth: 100 },
-	{ id: 4, nombre: 'Importe', align: 'center', minWidth: 100 },
+	{ id: 5, nombre: 'Importe', align: 'center', minWidth: 100 },
 ];
 
 const TablaGastos = () => {
@@ -35,9 +36,14 @@ const TablaGastos = () => {
 		BarraHerramientasContext
 	);
 	const { expenses, getExpenses, loading } = useContext(GastoContext);
+	const {
+		expenseCategories,
+		expenseSubcategories,
+		getCategorieExpenses,
+		getSubcategorieExpenses,
+	} = useContext(GlobalDataContext);
 
 	const [data, setData] = useState([]);
-	console.log(data);
 	const [filteredData] = useFilter(data, busqueda);
 
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
@@ -45,6 +51,12 @@ const TablaGastos = () => {
 
 	useEffect(() => {
 		getExpenses();
+
+		if (!expenseCategories && !expenseSubcategories) {
+			getCategorieExpenses();
+			getSubcategorieExpenses();
+		}
+
 		handleToolsExpenses();
 	}, []);
 
@@ -58,9 +70,7 @@ const TablaGastos = () => {
 				<HeadTabla columnas={columnas} />
 				<TableBody>
 					{!loading ? (
-						cortePagina.map((x) => (
-							<FilaGastos key={x.ProductoCodigo} fila={x} />
-						))
+						cortePagina.map((x) => <FilaGastos key={x.id} fila={x} />)
 					) : (
 						<SpinnerTabla cantColumnas={3} />
 					)}
