@@ -6,6 +6,7 @@ import ClienteState from '../context/clientes/ClienteState';
 import VentasState from '../context/ventas/ventasState';
 import EditarOrdenesState from '../context/ventas/editarordenes/EditarOrdenesState';
 import GlobalDataState from '../context/globalData/globalDataState';
+import GastoState from '../context/gasto/GastoState';
 
 function MyApp({ Component, pageProps }) {
 	return (
@@ -16,7 +17,9 @@ function MyApp({ Component, pageProps }) {
 						<VentasState>
 							<EditarOrdenesState>
 								<ClienteState>
-									<Component {...pageProps} />
+									<GastoState>
+										<Component {...pageProps} />
+									</GastoState>
 								</ClienteState>
 							</EditarOrdenesState>
 						</VentasState>

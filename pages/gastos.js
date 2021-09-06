@@ -3,6 +3,7 @@ import Layout from '../components/layouts/Layout';
 import AuthContext from '../context/autenticacion/authContext';
 import IrLogin from '../components/generales/IrLogin';
 import SpinnerPantalla from '../components/generales/SpinnerPantalla';
+import TablaGastos from '../components/gasto/TablaGastos';
 
 const Gastos = () => {
 	const authContext = useContext(AuthContext);
@@ -22,7 +23,7 @@ const Gastos = () => {
 
 	return (
 		<Layout>
-			<h1>Desde Gastos</h1>
+			<TablaGastos />
 		</Layout>
 	);
 };
