@@ -26,7 +26,7 @@ const columnas = [
 	{ id: 7, nombre: 'Categoría', align: 'left', minWidth: 110 },
 	{ id: 3, nombre: 'Subcategoría', align: 'left', minWidth: 80 },
 	{ id: 4, nombre: 'Descripción', align: 'left', minWidth: 100 },
-	{ id: 5, nombre: 'Importe', align: 'center', minWidth: 100 },
+	{ id: 5, nombre: 'Importe\xa0($)', align: 'center', minWidth: 100 },
 ];
 
 const TablaGastos = () => {

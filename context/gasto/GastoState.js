@@ -3,7 +3,7 @@ import GastoContext from './GastoContext';
 import GastoReducer from './GastoReducer';
 import clienteAxios from '../../config/axios';
 
-import { TRAER_GASTOS, SHOW_LOADING } from '../../types';
+import { TRAER_GASTOS, SHOW_LOADING, MODIFICAR_ESTADO_PAGO } from '../../types';
 
 const GastoState = (props) => {
 	const initialState = {
@@ -33,9 +33,30 @@ const GastoState = (props) => {
 		}
 	};
 
+	const handleStatusPayment = async (expenseId, statusPayment) => {
+		// call bd
+		try {
+			const r = await clienteAxios.put(`/api/gastos/${expenseId}`, {
+				estado: statusPayment,
+			});
+
+			dispatch({
+				type: MODIFICAR_ESTADO_PAGO,
+				payload: { expenseId, statusPayment },
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
 		<GastoContext.Provider
-			value={{ expenses: state.expenses, loading: state.loading, getExpenses }}
+			value={{
+				expenses: state.expenses,
+				loading: state.loading,
+				getExpenses,
+				handleStatusPayment,
+			}}
 		>
 			{props.children}
 		</GastoContext.Provider>

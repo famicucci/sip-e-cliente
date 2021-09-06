@@ -3,6 +3,7 @@ import TableCell from '@material-ui/core/TableCell';
 import RowColorIntercalado from '../generales/RowColorIntercalado';
 import moment from 'moment';
 import GlobalDataContext from '../../context/globalData/GlobalDataContext';
+import SelectStatusPayment from './SelectStatusPayment';
 
 const FilaGastos = (props) => {
 	const { fila } = props;
@@ -22,7 +23,9 @@ const FilaGastos = (props) => {
 
 	return (
 		<RowColorIntercalado>
-			<TableCell align="center">{fila.estado}</TableCell>
+			<TableCell align="center">
+				<SelectStatusPayment content={fila.estado} expenseId={fila.id} />
+			</TableCell>
 			<TableCell align="center">
 				{moment(fila.createdAt).format('DD-MM-YYYY')}
 			</TableCell>

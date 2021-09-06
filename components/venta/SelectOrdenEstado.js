@@ -8,12 +8,12 @@ import Alerta from '../generales/Alerta';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
 import GlobalDataContext from '../../context/globalData/GlobalDataContext';
 
-const BootstrapButton = withStyles({
+const BootstrapButton = withStyles((theme) => ({
 	root: {
 		boxShadow: 'none',
 		textTransform: 'none',
-		fontSize: 16,
-		padding: '6px 12px',
+		fontSize: theme.typography.pxToRem(14),
+		padding: '4px 6px',
 		border: '1px solid',
 		borderRadius: '5px',
 		lineHeight: 1.5,
@@ -30,7 +30,7 @@ const BootstrapButton = withStyles({
 			'"Segoe UI Symbol"',
 		].join(','),
 	},
-})(Button);
+}))(Button);
 
 const SelectOrdenEstado = ({ idOrden, ordenEstadoId }) => {
 	const { orderStatuses, getOrderStatuses } = useContext(GlobalDataContext);
