@@ -1,4 +1,9 @@
-import { TRAER_GASTOS, SHOW_LOADING, MODIFICAR_ESTADO_PAGO } from '../../types';
+import {
+	TRAER_GASTOS,
+	SHOW_LOADING,
+	MODIFICAR_ESTADO_PAGO,
+	ACTIVAR_GASTO,
+} from '../../types';
 
 const PreciosReducer = (state, action) => {
 	switch (action.type) {
@@ -20,6 +25,11 @@ const PreciosReducer = (state, action) => {
 						? { ...x, estado: action.payload.statusPayment }
 						: x
 				),
+			};
+		case ACTIVAR_GASTO:
+			return {
+				...state,
+				activatedExpense: action.payload,
 			};
 		default:
 			return state;

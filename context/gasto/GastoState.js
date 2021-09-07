@@ -3,11 +3,17 @@ import GastoContext from './GastoContext';
 import GastoReducer from './GastoReducer';
 import clienteAxios from '../../config/axios';
 
-import { TRAER_GASTOS, SHOW_LOADING, MODIFICAR_ESTADO_PAGO } from '../../types';
+import {
+	TRAER_GASTOS,
+	SHOW_LOADING,
+	MODIFICAR_ESTADO_PAGO,
+	ACTIVAR_GASTO,
+} from '../../types';
 
 const GastoState = (props) => {
 	const initialState = {
 		expenses: [],
+		activatedExpense: null,
 		loading: true,
 	};
 
@@ -49,13 +55,22 @@ const GastoState = (props) => {
 		}
 	};
 
+	const handleActivateExpense = async (expenseId) => {
+		dispatch({
+			type: ACTIVAR_GASTO,
+			payload: expenseId,
+		});
+	};
+
 	return (
 		<GastoContext.Provider
 			value={{
 				expenses: state.expenses,
+				activatedExpense: state.activatedExpense,
 				loading: state.loading,
 				getExpenses,
 				handleStatusPayment,
+				handleActivateExpense,
 			}}
 		>
 			{props.children}
