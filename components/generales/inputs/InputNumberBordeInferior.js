@@ -5,7 +5,8 @@ import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		marginTop: (props) => theme.spacing(props.marginTop),
+		marginTop: (props) =>
+			props.marginTop ? theme.spacing(props.marginTop) : theme.spacing(0),
 		width: '100%',
 	},
 }));

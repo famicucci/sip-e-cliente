@@ -133,7 +133,6 @@ const AdressCreateOrEditClient = (props) => {
 						required={inputNumero.required}
 						initialvalue={props.cliente.numeroCalle}
 						tochangestate={props.onChangeAtributo}
-						styles={{ marginTop: 2 }}
 					/>
 					<InputBordeInferior
 						label={inputPiso.label}
@@ -170,7 +169,6 @@ const AdressCreateOrEditClient = (props) => {
 						required={inputCodPostal.required}
 						initialvalue={props.cliente.codPostal}
 						tochangestate={props.onChangeAtributo}
-						styles={{ marginTop: 2 }}
 					/>
 					<InputBordeInferior
 						label={inputCiudad.label}

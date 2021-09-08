@@ -13,7 +13,7 @@ const FilaGastos = (props) => {
 
 	const { expenseCategories, expenseSubcategories } =
 		useContext(GlobalDataContext);
-	const { handleActivateExpense } = useContext(GastoContext);
+	const { handleOpenModalEditExpense } = useContext(GastoContext);
 
 	const getCategorie = (categorieId) => {
 		const r = expenseCategories.find((x) => x.id === categorieId);
@@ -49,7 +49,7 @@ const FilaGastos = (props) => {
 				<IconButton
 					size="small"
 					onClick={() => {
-						handleActivateExpense(fila.id);
+						handleOpenModalEditExpense(fila.id);
 					}}
 				>
 					<EditOutlinedIcon />

@@ -10,30 +10,34 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles((theme) => ({
 	formControl: {
 		width: '100%',
-		marginTop: theme.spacing(2),
+		marginTop: (props) =>
+			props.marginTop ? theme.spacing(props.marginTop) : theme.spacing(0),
 		minWidth: 100,
 	},
 	selectEmpty: {
-		marginTop: theme.spacing(2),
+		marginTop: theme.spacing(0),
 	},
 }));
 
-const SelectBordeInferior = ({
-	name,
-	label,
-	ancho,
-	data,
-	initialvalue,
-	placeholder,
-	tochangestate,
-}) => {
-	const classes = useStyles();
+const SelectBordeInferior = (props) => {
+	const { name, label, ancho, data, placeholder, tochangestate } = props;
+	let { initialvalue } = props;
+	const classes = useStyles({ marginTop: props.marginTop });
 
 	const [valor, setValor] = useState(initialvalue);
 
 	const handleChange = (e) => {
 		setValor(e.target.value);
-		tochangestate(e.target.name, e.target.value);
+
+		if (props.getDescription) {
+			const description = getDescription(e.target.value);
+			tochangestate(e.target.name, description);
+		} else tochangestate(e.target.name, e.target.value);
+	};
+
+	const getDescription = (id) => {
+		const r = data.find((x) => x.id === id);
+		if (r) return r.descripcion;
 	};
 
 	return (

@@ -12,6 +12,9 @@ import useFilter from '../../hooks/useFilter';
 import GastoContext from '../../context/gasto/GastoContext';
 import FilaGastos from './FilaGastos';
 import GlobalDataContext from '../../context/globalData/GlobalDataContext';
+import EditarGasto from './EditarGasto';
+import CrearGasto from './CrearGasto';
+import Alerta2 from '../generales/Alerta2';
 
 const useStyles = makeStyles({
 	table: {
@@ -36,7 +39,14 @@ const TablaGastos = () => {
 	const { busqueda, handleToolsExpenses } = useContext(
 		BarraHerramientasContext
 	);
-	const { expenses, getExpenses, loading } = useContext(GastoContext);
+	const {
+		expenses,
+		getExpenses,
+		openModalEditExpense,
+		openModalCreateExpense,
+		loading,
+		mensajeGastos,
+	} = useContext(GastoContext);
 	const {
 		expenseCategories,
 		expenseSubcategories,
@@ -81,6 +91,9 @@ const TablaGastos = () => {
 				</TableBody>
 				{!loading ? <FooterTabla /> : null}
 			</Table>
+			{openModalEditExpense ? <EditarGasto /> : null}
+			{openModalCreateExpense ? <CrearGasto /> : null}
+			{mensajeGastos ? <Alerta2 mensaje={mensajeGastos} /> : null}
 		</TableContainer>
 	);
 };

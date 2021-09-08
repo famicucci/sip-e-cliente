@@ -1,0 +1,207 @@
+import React, { useEffect, useState, useContext } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import moment from 'moment';
+import InputFecha from '../generales/inputs/InputFecha';
+import SelectBordeInferior from '../generales/inputs/SelectBordeInferior';
+import { Grid } from '@material-ui/core';
+import GlobalDataContext from '../../context/globalData/GlobalDataContext';
+import InputBordeInferior from '../generales/inputs/InputBordeInferior';
+import InputNumberBordeInferior from '../generales/inputs/InputNumberBordeInferior';
+import AlertaContext from '../../context/alertas/alertaContext';
+import Alerta from '../generales/Alerta';
+import GastoContext from '../../context/gasto/GastoContext';
+
+const useStyles = makeStyles(() => ({
+	form: { width: '100%' },
+}));
+
+const FormGasto = (props) => {
+	const classes = useStyles();
+
+	const {
+		expenseCategories,
+		expenseSubcategories,
+		getCategorieExpenses,
+		getSubcategorieExpenses,
+	} = useContext(GlobalDataContext);
+	const { createExpense, editExpense } = useContext(GastoContext);
+	const { alerta, mostrarAlerta } = useContext(AlertaContext);
+
+	const [expense, setExpense] = useState(
+		props.initialState
+			? props.initialState
+			: {
+					createdAt: moment(new Date()).toISOString(),
+					estado: 'Pendiente',
+					GastoCategoriaId: null,
+					GastoSubcategoriaId: null,
+					descripcion: '',
+					importe: '',
+			  }
+	);
+	const [subcategories, setSubcategories] = useState([]);
+
+	useEffect(() => {
+		if (!expenseCategories || expenseSubcategories) {
+			getCategorieExpenses();
+			getSubcategorieExpenses();
+		}
+	}, []);
+
+	useEffect(() => {
+		const r = getSubcategoriesFromCategorie(expense.GastoCategoriaId);
+		setSubcategories(r);
+	}, [expense.GastoCategoriaId]);
+
+	const handleDate = (date) => {
+		setExpense({ ...expense, createdAt: moment(date).toISOString() });
+	};
+
+	const handleAtributte = (name, value) => {
+		setExpense({ ...expense, [name]: value });
+	};
+
+	const onSubmit = (e) => {
+		e.preventDefault();
+
+		// validation
+		if (!expense.GastoCategoriaId) {
+			mostrarAlerta('Debes elegir una categoría', 'error');
+			return;
+		}
+
+		if (!expense.GastoSubcategoriaId) {
+			mostrarAlerta('Debes elegir una Subcategoría', 'error');
+			return;
+		}
+
+		if (!expense.descripcion) {
+			mostrarAlerta('Coloca una descripción', 'error');
+			return;
+		}
+
+		if (!expense.importe) {
+			mostrarAlerta('Coloca un importe', 'error');
+			return;
+		}
+
+		if (props.type === 'create') createExpense(expense);
+		else if (props.type === 'edit') editExpense(expense);
+
+		// close modal
+		if (props.handleClose) props.handleClose();
+	};
+
+	const getSubcategoriesFromCategorie = (categorieId) => {
+		const r = expenseSubcategories.filter(
+			(x) => x.GastoCategoriaId === categorieId
+		);
+		return r;
+	};
+
+	const paymentStatus = {
+		name: 'estado',
+		label: 'Estado del Pago',
+		ancho: 6,
+		data: [
+			{ id: 10, descripcion: 'Pago' },
+			{ id: 20, descripcion: 'Pendiente' },
+		],
+		initialvalue: 20,
+		placeholder: 'Elegir estado del pago',
+	};
+
+	const expenseCategorie = {
+		name: 'GastoCategoriaId',
+		label: 'Categoría',
+		ancho: 6,
+		data: expenseCategories,
+		initialvalue: 'none',
+		placeholder: 'Elegir Categoría',
+	};
+
+	const expenseSubcategorie = {
+		name: 'GastoSubcategoriaId',
+		label: 'Subcategoría',
+		ancho: 6,
+		data: subcategories,
+		initialvalue: 'none',
+		placeholder:
+			subcategories.length === 0
+				? 'Elige primero una categoría'
+				: 'Elegir Subcategoría',
+	};
+
+	const expenseDescription = {
+		name: 'descripcion',
+		label: 'Descripción',
+		ancho: 6,
+		initialvalue: '',
+		placeholder: 'Escribe una dirección',
+	};
+
+	const expenseAmount = {
+		label: 'Importe',
+		name: 'importe',
+		placeholder: 'Escribe un importe',
+		ancho: 6,
+		initialvalue: '',
+	};
+
+	return (
+		<form className={classes.form} id="form-gasto" onSubmit={onSubmit}>
+			<Grid container spacing={3}>
+				<Grid item xs={6}>
+					<InputFecha tochangestate={handleDate} />
+				</Grid>
+				<SelectBordeInferior
+					name={paymentStatus.name}
+					label={paymentStatus.label}
+					ancho={paymentStatus.ancho}
+					data={paymentStatus.data}
+					initialvalue={paymentStatus.initialvalue}
+					placeholder={paymentStatus.placeholder}
+					tochangestate={handleAtributte}
+					getDescription
+				/>
+				<SelectBordeInferior
+					name={expenseCategorie.name}
+					label={expenseCategorie.label}
+					ancho={expenseCategorie.ancho}
+					data={expenseCategorie.data}
+					initialvalue={expenseCategorie.initialvalue}
+					placeholder={expenseCategorie.placeholder}
+					tochangestate={handleAtributte}
+				/>
+				<SelectBordeInferior
+					name={expenseSubcategorie.name}
+					label={expenseSubcategorie.label}
+					ancho={expenseSubcategorie.ancho}
+					data={expenseSubcategorie.data}
+					initialvalue={expenseSubcategorie.initialvalue}
+					placeholder={expenseSubcategorie.placeholder}
+					tochangestate={handleAtributte}
+				/>
+				<InputBordeInferior
+					name={expenseDescription.name}
+					label={expenseDescription.label}
+					placeholder={expenseDescription.placeholder}
+					ancho={expenseDescription.ancho}
+					initialvalue={expenseDescription.initialvalue}
+					tochangestate={handleAtributte}
+				/>
+				<InputNumberBordeInferior
+					label={expenseAmount.label}
+					name={expenseAmount.name}
+					placeholder={expenseAmount.placeholder}
+					ancho={expenseAmount.ancho}
+					initialvalue={expenseAmount.initialvalue}
+					tochangestate={handleAtributte}
+				/>
+			</Grid>
+			{alerta !== null ? <Alerta /> : null}
+		</form>
+	);
+};
+
+export default FormGasto;

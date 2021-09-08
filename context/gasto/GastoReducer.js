@@ -3,6 +3,12 @@ import {
 	SHOW_LOADING,
 	MODIFICAR_ESTADO_PAGO,
 	ACTIVAR_GASTO,
+	MOSTRAR_MODAL_EDITAR_GASTO,
+	MOSTRAR_MODAL_CREAR_GASTO,
+	AGREGAR_GASTO,
+	MODIFICAR_GASTO,
+	MOSTRAR_ALERTA_GASTOS,
+	OCULTAR_ALERTA_GASTOS,
 } from '../../types';
 
 const PreciosReducer = (state, action) => {
@@ -30,6 +36,38 @@ const PreciosReducer = (state, action) => {
 			return {
 				...state,
 				activatedExpense: action.payload,
+			};
+		case MOSTRAR_MODAL_EDITAR_GASTO:
+			return {
+				...state,
+				openModalEditExpense: action.payload,
+			};
+		case MOSTRAR_MODAL_CREAR_GASTO:
+			return {
+				...state,
+				openModalCreateExpense: action.payload,
+			};
+		case AGREGAR_GASTO:
+			return {
+				...state,
+				expenses: [...state.expenses, action.payload],
+			};
+		case MODIFICAR_GASTO:
+			return {
+				...state,
+				expenses: state.expenses.map((x) =>
+					x.id === state.activatedExpense ? action.payload : x
+				),
+			};
+		case MOSTRAR_ALERTA_GASTOS:
+			return {
+				...state,
+				mensajeGastos: action.payload,
+			};
+		case OCULTAR_ALERTA_GASTOS:
+			return {
+				...state,
+				mensajeGastos: null,
 			};
 		default:
 			return state;

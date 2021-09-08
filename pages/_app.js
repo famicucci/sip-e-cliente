@@ -5,7 +5,7 @@ import BarraHerramientas from '../context/barraHerramientas/barraHerramientasSta
 import ClienteState from '../context/clientes/ClienteState';
 import VentasState from '../context/ventas/ventasState';
 import EditarOrdenesState from '../context/ventas/editarordenes/EditarOrdenesState';
-import GlobalDataState from '../context/globalData/globalDataState';
+import GlobalDataState from '../context/globalData/GlobalDataState';
 import GastoState from '../context/gasto/GastoState';
 
 function MyApp({ Component, pageProps }) {

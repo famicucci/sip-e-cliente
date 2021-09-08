@@ -27,6 +27,7 @@ const PreciosReducer = (state, action) => {
 				botonModoCargaVenta: false,
 				botonNuevoCliente: false,
 				etiquetaModificarOrden: false,
+				botonNuevoGasto: false,
 			};
 		case HERRAMIENTAS_STOCK_PRODUCTO:
 			return {
@@ -37,6 +38,7 @@ const PreciosReducer = (state, action) => {
 				botonModoCargaVenta: false,
 				botonNuevoCliente: false,
 				etiquetaModificarOrden: false,
+				botonNuevoGasto: false,
 			};
 		case HERRAMIENTAS_STOCK_PTO_STOCK:
 			return {
@@ -47,6 +49,7 @@ const PreciosReducer = (state, action) => {
 				botonModoCargaVenta: false,
 				botonNuevoCliente: false,
 				etiquetaModificarOrden: false,
+				botonNuevoGasto: false,
 			};
 		case HERRAMIENTAS_STOCK_MOVIMIENTOS:
 			return {
@@ -57,6 +60,7 @@ const PreciosReducer = (state, action) => {
 				botonModoCargaVenta: false,
 				botonNuevoCliente: false,
 				etiquetaModificarOrden: false,
+				botonNuevoGasto: false,
 			};
 		case HERRAMIENTAS_NUEVA_VENTA:
 			return {
@@ -66,6 +70,7 @@ const PreciosReducer = (state, action) => {
 				selectListaPrecio: false,
 				selectPtoStock: false,
 				botonNuevoCliente: false,
+				botonNuevoGasto: false,
 			};
 		case HERRAMIENTAS_EDITAR_VENTAS:
 			return {
@@ -75,6 +80,7 @@ const PreciosReducer = (state, action) => {
 				selectListaPrecio: false,
 				selectPtoStock: false,
 				botonNuevoCliente: false,
+				botonNuevoGasto: false,
 				etiquetaModificarOrden: false,
 			};
 		case HERRAMIENTAS_CLIENTES:
@@ -82,6 +88,7 @@ const PreciosReducer = (state, action) => {
 				...state,
 				botonModoCargaVenta: false,
 				botonNuevoCliente: true,
+				botonNuevoGasto: false,
 				buscador: true,
 				selectListaPrecio: false,
 				selectPtoStock: false,
@@ -128,6 +135,7 @@ const PreciosReducer = (state, action) => {
 				ptosStock: null,
 				botonModoCargaVenta: false,
 				botonNuevoCliente: false,
+				botonNuevoGasto: false,
 				etiquetaModificarOrden: false,
 				busqueda: '',
 				busquedaCliente: '',
@@ -143,6 +151,7 @@ const PreciosReducer = (state, action) => {
 				ptosStock: null,
 				botonModoCargaVenta: false,
 				botonNuevoCliente: false,
+				botonNuevoGasto: true,
 				etiquetaModificarOrden: false,
 				busqueda: '',
 				busquedaCliente: '',

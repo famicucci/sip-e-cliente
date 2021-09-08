@@ -1,14 +1,21 @@
+import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import 'date-fns';
-import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
+import { es } from 'date-fns/locale';
 import {
 	MuiPickersUtilsProvider,
 	KeyboardDatePicker,
 } from '@material-ui/pickers';
 
+const useStyles = makeStyles(() => ({
+	root: { width: '100%' },
+}));
+
 const InputFecha = (props) => {
-	const [selectedDate, setSelectedDate] = React.useState(new Date());
+	const classes = useStyles();
+	const [selectedDate, setSelectedDate] = useState(new Date());
 
 	const handleDateChange = (date) => {
 		setSelectedDate(date);
@@ -16,20 +23,16 @@ const InputFecha = (props) => {
 	};
 
 	return (
-		<MuiPickersUtilsProvider utils={DateFnsUtils}>
+		<MuiPickersUtilsProvider utils={DateFnsUtils} locale={es}>
 			<Grid container justify="space-around">
 				<KeyboardDatePicker
+					className={classes.root}
 					disableToolbar
 					variant="inline"
-					format="MM/dd/yyyy"
-					// margin="normal"
-					id="date-picker-inline"
+					format="dd/MM/yyyy"
 					label="Fecha"
 					value={selectedDate}
 					onChange={handleDateChange}
-					KeyboardButtonProps={{
-						'aria-label': 'change date',
-					}}
 				/>
 			</Grid>
 		</MuiPickersUtilsProvider>
