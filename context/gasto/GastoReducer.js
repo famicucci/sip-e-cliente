@@ -32,6 +32,13 @@ const PreciosReducer = (state, action) => {
 						: x
 				),
 			};
+		case MODIFICAR_GASTO:
+			return {
+				...state,
+				expenses: state.expenses.map((x) =>
+					x.id === action.payload.id ? action.payload : x
+				),
+			};
 		case ACTIVAR_GASTO:
 			return {
 				...state,
@@ -51,13 +58,6 @@ const PreciosReducer = (state, action) => {
 			return {
 				...state,
 				expenses: [...state.expenses, action.payload],
-			};
-		case MODIFICAR_GASTO:
-			return {
-				...state,
-				expenses: state.expenses.map((x) =>
-					x.id === state.activatedExpense ? action.payload : x
-				),
 			};
 		case MOSTRAR_ALERTA_GASTOS:
 			return {

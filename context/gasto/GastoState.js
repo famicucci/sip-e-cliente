@@ -51,7 +51,7 @@ const GastoState = (props) => {
 	const handleStatusPayment = async (expenseId, statusPayment) => {
 		// call bd
 		try {
-			const r = await clienteAxios.put(`/api/gastos/${expenseId}`, {
+			await clienteAxios.put(`/api/gastos/${expenseId}`, {
 				estado: statusPayment,
 			});
 
@@ -100,14 +100,11 @@ const GastoState = (props) => {
 
 	const editExpense = async (expense) => {
 		try {
-			const r = await clienteAxios.post(
-				`/api/gastos/${state.activatedExpense}`,
-				{ expense }
-			);
+			await clienteAxios.put(`/api/gastos/${state.activatedExpense}`, expense);
 
 			dispatch({
 				type: MODIFICAR_GASTO,
-				payload: r.data,
+				payload: { ...expense, id: state.activatedExpense },
 			});
 
 			dispatch({

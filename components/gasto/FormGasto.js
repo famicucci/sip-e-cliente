@@ -28,18 +28,18 @@ const FormGasto = (props) => {
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 
 	const [expense, setExpense] = useState(
-		props.initialState
+		props.initialState && props.type === 'edit'
 			? props.initialState
 			: {
 					createdAt: moment(new Date()).toISOString(),
 					estado: 'Pendiente',
-					GastoCategoriaId: null,
-					GastoSubcategoriaId: null,
+					['GastoCategoria.id']: null,
+					['GastoSubcategoria.id']: null,
 					descripcion: '',
 					importe: '',
 			  }
 	);
-	const [subcategories, setSubcategories] = useState([]);
+	const [subcategories, setSubcategories] = useState(null);
 
 	useEffect(() => {
 		if (!expenseCategories || expenseSubcategories) {
@@ -49,9 +49,9 @@ const FormGasto = (props) => {
 	}, []);
 
 	useEffect(() => {
-		const r = getSubcategoriesFromCategorie(expense.GastoCategoriaId);
+		const r = getSubcategoriesFromCategorie(expense['GastoCategoria.id']);
 		setSubcategories(r);
-	}, [expense.GastoCategoriaId]);
+	}, [expense['GastoCategoria.id']]);
 
 	const handleDate = (date) => {
 		setExpense({ ...expense, createdAt: moment(date).toISOString() });
@@ -65,12 +65,12 @@ const FormGasto = (props) => {
 		e.preventDefault();
 
 		// validation
-		if (!expense.GastoCategoriaId) {
+		if (!expense['GastoCategoria.id']) {
 			mostrarAlerta('Debes elegir una categoría', 'error');
 			return;
 		}
 
-		if (!expense.GastoSubcategoriaId) {
+		if (!expense['GastoSubcategoria.id']) {
 			mostrarAlerta('Debes elegir una Subcategoría', 'error');
 			return;
 		}
@@ -107,36 +107,40 @@ const FormGasto = (props) => {
 			{ id: 10, descripcion: 'Pago' },
 			{ id: 20, descripcion: 'Pendiente' },
 		],
-		initialvalue: 20,
+		initialvalue: expense.estado === 'Pago' ? 10 : 20,
 		placeholder: 'Elegir estado del pago',
 	};
 
 	const expenseCategorie = {
-		name: 'GastoCategoriaId',
+		name: 'GastoCategoria.id',
 		label: 'Categoría',
 		ancho: 6,
 		data: expenseCategories,
-		initialvalue: 'none',
+		initialvalue: expense['GastoCategoria.id']
+			? expense['GastoCategoria.id']
+			: 'none',
 		placeholder: 'Elegir Categoría',
 	};
 
 	const expenseSubcategorie = {
-		name: 'GastoSubcategoriaId',
+		name: 'GastoSubcategoria.id',
 		label: 'Subcategoría',
 		ancho: 6,
 		data: subcategories,
-		initialvalue: 'none',
-		placeholder:
-			subcategories.length === 0
-				? 'Elige primero una categoría'
-				: 'Elegir Subcategoría',
+		initialvalue:
+			subcategories && expense['GastoSubcategoria.id']
+				? expense['GastoSubcategoria.id']
+				: 'none',
+		placeholder: subcategories
+			? 'Elige primero una categoría'
+			: 'Elegir Subcategoría',
 	};
 
 	const expenseDescription = {
 		name: 'descripcion',
 		label: 'Descripción',
 		ancho: 6,
-		initialvalue: '',
+		initialvalue: expense.descripcion ? expense.descripcion : '',
 		placeholder: 'Escribe una dirección',
 	};
 
@@ -145,14 +149,17 @@ const FormGasto = (props) => {
 		name: 'importe',
 		placeholder: 'Escribe un importe',
 		ancho: 6,
-		initialvalue: '',
+		initialvalue: expense.importe ? expense.importe : '',
 	};
 
 	return (
 		<form className={classes.form} id="form-gasto" onSubmit={onSubmit}>
 			<Grid container spacing={3}>
 				<Grid item xs={6}>
-					<InputFecha tochangestate={handleDate} />
+					<InputFecha
+						initialValue={expense.createdAt}
+						tochangestate={handleDate}
+					/>
 				</Grid>
 				<SelectBordeInferior
 					name={paymentStatus.name}
@@ -173,15 +180,17 @@ const FormGasto = (props) => {
 					placeholder={expenseCategorie.placeholder}
 					tochangestate={handleAtributte}
 				/>
-				<SelectBordeInferior
-					name={expenseSubcategorie.name}
-					label={expenseSubcategorie.label}
-					ancho={expenseSubcategorie.ancho}
-					data={expenseSubcategorie.data}
-					initialvalue={expenseSubcategorie.initialvalue}
-					placeholder={expenseSubcategorie.placeholder}
-					tochangestate={handleAtributte}
-				/>
+				{subcategories ? (
+					<SelectBordeInferior
+						name={expenseSubcategorie.name}
+						label={expenseSubcategorie.label}
+						ancho={expenseSubcategorie.ancho}
+						data={expenseSubcategorie.data}
+						initialvalue={expenseSubcategorie.initialvalue}
+						placeholder={expenseSubcategorie.placeholder}
+						tochangestate={handleAtributte}
+					/>
+				) : null}
 				<InputBordeInferior
 					name={expenseDescription.name}
 					label={expenseDescription.label}

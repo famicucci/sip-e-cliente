@@ -9,8 +9,6 @@ import IconButton from '@material-ui/core/IconButton';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 
 const FilaGastos = (props) => {
-	const { fila } = props;
-
 	const { expenseCategories, expenseSubcategories } =
 		useContext(GlobalDataContext);
 	const { handleOpenModalEditExpense } = useContext(GastoContext);
@@ -28,28 +26,33 @@ const FilaGastos = (props) => {
 	return (
 		<RowColorIntercalado>
 			<TableCell align="center">
-				<SelectStatusPayment content={fila.estado} expenseId={fila.id} />
+				<SelectStatusPayment
+					content={props.fila.estado}
+					expenseId={props.fila.id}
+				/>
 			</TableCell>
 			<TableCell align="center">
-				{moment(fila.createdAt).format('DD-MM-YYYY')}
+				{moment(props.fila.createdAt).format('DD-MM-YYYY')}
 			</TableCell>
 			<TableCell align="left">
-				{expenseCategories ? getCategorie(fila['GastoCategoria.id']) : '-'}
+				{expenseCategories
+					? getCategorie(props.fila['GastoCategoria.id'])
+					: '-'}
 			</TableCell>
 			<TableCell align="left">
 				{expenseSubcategories
-					? getSubcategorie(fila['GastoSubcategoria.id'])
+					? getSubcategorie(props.fila['GastoSubcategoria.id'])
 					: '-'}
 			</TableCell>
-			<TableCell align="left">{fila.descripcion}</TableCell>
+			<TableCell align="left">{props.fila.descripcion}</TableCell>
 			<TableCell align="center">
-				{parseFloat(fila.importe).toFixed(2)}
+				{parseFloat(props.fila.importe).toFixed(2)}
 			</TableCell>
 			<TableCell align="center">
 				<IconButton
 					size="small"
 					onClick={() => {
-						handleOpenModalEditExpense(fila.id);
+						handleOpenModalEditExpense(props.fila.id);
 					}}
 				>
 					<EditOutlinedIcon />

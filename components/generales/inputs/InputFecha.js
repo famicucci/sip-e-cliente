@@ -15,7 +15,9 @@ const useStyles = makeStyles(() => ({
 
 const InputFecha = (props) => {
 	const classes = useStyles();
-	const [selectedDate, setSelectedDate] = useState(new Date());
+	const [selectedDate, setSelectedDate] = useState(
+		props.initialValue ? props.initialValue : new Date()
+	);
 
 	const handleDateChange = (date) => {
 		setSelectedDate(date);

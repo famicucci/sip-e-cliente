@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import BotonSuccess from '../generales/botones/BotonSuccess';
 import ModalCentrado from '../generales/ModalCentrado';
@@ -14,17 +14,32 @@ const useStyles = makeStyles(() => ({
 
 const EditarGasto = () => {
 	const classes = useStyles();
-	const { openModalEditExpense, handleOpenModalEditExpense } =
-		useContext(GastoContext);
+	const {
+		expenses,
+		openModalEditExpense,
+		activatedExpense,
+		handleOpenModalEditExpense,
+	} = useContext(GastoContext);
 
-	// const initialState = {
-	// 	createdAt: new Date(),
-	// 	estado: 'Pago',
-	// 	GastoCategoriaId: 1,
-	// 	GastoSubcategoriaId: null,
-	// 	descripcion: '',
-	// 	importe: '',
-	// };
+	const [expenseToEdit, setExpenseToEdit] = useState({});
+
+	useEffect(() => {
+		getExpenseToEdit();
+	}, []);
+
+	const getExpenseToEdit = () => {
+		const r = expenses.find((x) => x.id === activatedExpense);
+		if (r) {
+			setExpenseToEdit({
+				createdAt: r.createdAt,
+				estado: r.estado,
+				['GastoCategoria.id']: r['GastoCategoria.id'],
+				['GastoSubcategoria.id']: r['GastoSubcategoria.id'],
+				descripcion: r.descripcion,
+				importe: r.importe,
+			});
+		}
+	};
 
 	return (
 		<ModalCentrado
@@ -46,7 +61,7 @@ const EditarGasto = () => {
 		>
 			<FormGasto
 				type="edit"
-				initialState={initialState}
+				initialState={expenseToEdit}
 				handleClose={() => {
 					handleOpenModalEditExpense(false);
 				}}
