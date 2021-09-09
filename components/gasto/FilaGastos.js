@@ -35,13 +35,11 @@ const FilaGastos = (props) => {
 				{moment(props.fila.createdAt).format('DD-MM-YYYY')}
 			</TableCell>
 			<TableCell align="left">
-				{expenseCategories
-					? getCategorie(props.fila['GastoCategoria.id'])
-					: '-'}
+				{expenseCategories ? getCategorie(props.fila.GastoCategoriaId) : '-'}
 			</TableCell>
 			<TableCell align="left">
 				{expenseSubcategories
-					? getSubcategorie(props.fila['GastoSubcategoria.id'])
+					? getSubcategorie(props.fila.GastoSubcategoriaId)
 					: '-'}
 			</TableCell>
 			<TableCell align="left">{props.fila.descripcion}</TableCell>

@@ -33,8 +33,8 @@ const EditarGasto = () => {
 			setExpenseToEdit({
 				createdAt: r.createdAt,
 				estado: r.estado,
-				['GastoCategoria.id']: r['GastoCategoria.id'],
-				['GastoSubcategoria.id']: r['GastoSubcategoria.id'],
+				GastoCategoriaId: r.GastoCategoriaId,
+				GastoSubcategoriaId: r.GastoSubcategoriaId,
 				descripcion: r.descripcion,
 				importe: r.importe,
 			});

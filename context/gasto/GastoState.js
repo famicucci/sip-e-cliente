@@ -112,7 +112,7 @@ const GastoState = (props) => {
 				payload: null,
 			});
 
-			mostrarAlertaGastos('Creaste el gasto', 'success');
+			mostrarAlertaGastos('Modificaste el gasto', 'success');
 		} catch (error) {
 			console.log(error);
 		}

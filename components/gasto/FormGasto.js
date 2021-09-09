@@ -33,8 +33,8 @@ const FormGasto = (props) => {
 			: {
 					createdAt: moment(new Date()).toISOString(),
 					estado: 'Pendiente',
-					['GastoCategoria.id']: null,
-					['GastoSubcategoria.id']: null,
+					GastoCategoriaId: null,
+					GastoSubcategoriaId: null,
 					descripcion: '',
 					importe: '',
 			  }
@@ -49,9 +49,9 @@ const FormGasto = (props) => {
 	}, []);
 
 	useEffect(() => {
-		const r = getSubcategoriesFromCategorie(expense['GastoCategoria.id']);
+		const r = getSubcategoriesFromCategorie(expense.GastoCategoriaId);
 		setSubcategories(r);
-	}, [expense['GastoCategoria.id']]);
+	}, [expense.GastoCategoriaId]);
 
 	const handleDate = (date) => {
 		setExpense({ ...expense, createdAt: moment(date).toISOString() });
@@ -65,12 +65,12 @@ const FormGasto = (props) => {
 		e.preventDefault();
 
 		// validation
-		if (!expense['GastoCategoria.id']) {
+		if (!expense.GastoCategoriaId) {
 			mostrarAlerta('Debes elegir una categoría', 'error');
 			return;
 		}
 
-		if (!expense['GastoSubcategoria.id']) {
+		if (!expense.GastoSubcategoriaId) {
 			mostrarAlerta('Debes elegir una Subcategoría', 'error');
 			return;
 		}
@@ -112,24 +112,22 @@ const FormGasto = (props) => {
 	};
 
 	const expenseCategorie = {
-		name: 'GastoCategoria.id',
+		name: 'GastoCategoriaId',
 		label: 'Categoría',
 		ancho: 6,
 		data: expenseCategories,
-		initialvalue: expense['GastoCategoria.id']
-			? expense['GastoCategoria.id']
-			: 'none',
+		initialvalue: expense.GastoCategoriaId ? expense.GastoCategoriaId : 'none',
 		placeholder: 'Elegir Categoría',
 	};
 
 	const expenseSubcategorie = {
-		name: 'GastoSubcategoria.id',
+		name: 'GastoSubcategoriaId',
 		label: 'Subcategoría',
 		ancho: 6,
 		data: subcategories,
 		initialvalue:
-			subcategories && expense['GastoSubcategoria.id']
-				? expense['GastoSubcategoria.id']
+			subcategories && expense.GastoSubcategoriaId
+				? expense.GastoSubcategoriaId
 				: 'none',
 		placeholder: subcategories
 			? 'Elige primero una categoría'

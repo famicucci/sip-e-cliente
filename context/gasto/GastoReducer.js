@@ -57,7 +57,7 @@ const PreciosReducer = (state, action) => {
 		case AGREGAR_GASTO:
 			return {
 				...state,
-				expenses: [...state.expenses, action.payload],
+				expenses: [action.payload, ...state.expenses],
 			};
 		case MOSTRAR_ALERTA_GASTOS:
 			return {
