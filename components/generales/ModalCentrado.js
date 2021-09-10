@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 	contenido: { marginLeft: theme.spacing(2), marginRight: theme.spacing(2) },
 	dividerSuperior: {
 		marginTop: theme.spacing(1),
-		marginBottom: theme.spacing(3),
+		marginBottom: theme.spacing(1),
 	},
 	dividerInferior: {
 		marginBottom: theme.spacing(1),
