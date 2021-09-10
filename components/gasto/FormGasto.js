@@ -11,8 +11,23 @@ import AlertaContext from '../../context/alertas/alertaContext';
 import Alerta from '../generales/Alerta';
 import GastoContext from '../../context/gasto/GastoContext';
 
-const useStyles = makeStyles(() => ({
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import Typography from '@material-ui/core/Typography';
+
+const useStyles = makeStyles((theme) => ({
 	form: { width: '100%' },
+	formControl: {
+		width: '100%',
+		marginTop: (props) =>
+			props.marginTop ? theme.spacing(props.marginTop) : theme.spacing(0),
+		minWidth: 100,
+	},
+	selectEmpty: {
+		marginTop: theme.spacing(0),
+	},
 }));
 
 const FormGasto = (props) => {
@@ -33,13 +48,24 @@ const FormGasto = (props) => {
 			: {
 					createdAt: moment(new Date()).toISOString(),
 					estado: 'Pendiente',
-					GastoCategoriaId: null,
-					GastoSubcategoriaId: null,
+					GastoCategoriaId: 'none',
+					GastoSubcategoriaId: 'none',
 					descripcion: '',
 					importe: '',
 			  }
 	);
-	const [subcategories, setSubcategories] = useState(null);
+
+	const getSubcategoriesFromCategorie = (categorieId) => {
+		return expenseSubcategories.filter(
+			(x) => x.GastoCategoriaId === categorieId
+		);
+	};
+
+	const [data, setData] = useState(
+		getSubcategoriesFromCategorie(expense.GastoCategoriaId)
+			? getSubcategoriesFromCategorie(expense.GastoCategoriaId)
+			: []
+	);
 
 	useEffect(() => {
 		if (!expenseCategories || expenseSubcategories) {
@@ -47,11 +73,6 @@ const FormGasto = (props) => {
 			getSubcategorieExpenses();
 		}
 	}, []);
-
-	useEffect(() => {
-		const r = getSubcategoriesFromCategorie(expense.GastoCategoriaId);
-		setSubcategories(r);
-	}, [expense.GastoCategoriaId]);
 
 	const handleDate = (date) => {
 		setExpense({ ...expense, createdAt: moment(date).toISOString() });
@@ -61,16 +82,31 @@ const FormGasto = (props) => {
 		setExpense({ ...expense, [name]: value });
 	};
 
+	const onChange = (e) => {
+		setExpense({ ...expense, [e.target.name]: e.target.value });
+	};
+
+	const onChangeCategorie = (e) => {
+		const r = getSubcategoriesFromCategorie(e.target.value);
+		setData(r);
+
+		setExpense({
+			...expense,
+			[e.target.name]: e.target.value,
+			GastoSubcategoriaId: 'none',
+		});
+	};
+
 	const onSubmit = (e) => {
 		e.preventDefault();
 
 		// validation
-		if (!expense.GastoCategoriaId) {
+		if (!expense.GastoCategoriaId === 'none') {
 			mostrarAlerta('Debes elegir una categoría', 'error');
 			return;
 		}
 
-		if (!expense.GastoSubcategoriaId) {
+		if (expense.GastoSubcategoriaId === 'none') {
 			mostrarAlerta('Debes elegir una Subcategoría', 'error');
 			return;
 		}
@@ -92,13 +128,6 @@ const FormGasto = (props) => {
 		if (props.handleClose) props.handleClose();
 	};
 
-	const getSubcategoriesFromCategorie = (categorieId) => {
-		const r = expenseSubcategories.filter(
-			(x) => x.GastoCategoriaId === categorieId
-		);
-		return r;
-	};
-
 	const paymentStatus = {
 		name: 'estado',
 		label: 'Estado del Pago',
@@ -109,29 +138,6 @@ const FormGasto = (props) => {
 		],
 		initialvalue: expense.estado === 'Pago' ? 10 : 20,
 		placeholder: 'Elegir estado del pago',
-	};
-
-	const expenseCategorie = {
-		name: 'GastoCategoriaId',
-		label: 'Categoría',
-		ancho: 6,
-		data: expenseCategories,
-		initialvalue: expense.GastoCategoriaId ? expense.GastoCategoriaId : 'none',
-		placeholder: 'Elegir Categoría',
-	};
-
-	const expenseSubcategorie = {
-		name: 'GastoSubcategoriaId',
-		label: 'Subcategoría',
-		ancho: 6,
-		data: subcategories,
-		initialvalue:
-			subcategories && expense.GastoSubcategoriaId
-				? expense.GastoSubcategoriaId
-				: 'none',
-		placeholder: subcategories
-			? 'Elige primero una categoría'
-			: 'Elegir Subcategoría',
 	};
 
 	const expenseDescription = {
@@ -169,26 +175,56 @@ const FormGasto = (props) => {
 					tochangestate={handleAtributte}
 					getDescription
 				/>
-				<SelectBordeInferior
-					name={expenseCategorie.name}
-					label={expenseCategorie.label}
-					ancho={expenseCategorie.ancho}
-					data={expenseCategorie.data}
-					initialvalue={expenseCategorie.initialvalue}
-					placeholder={expenseCategorie.placeholder}
-					tochangestate={handleAtributte}
-				/>
-				{subcategories ? (
-					<SelectBordeInferior
-						name={expenseSubcategorie.name}
-						label={expenseSubcategorie.label}
-						ancho={expenseSubcategorie.ancho}
-						data={expenseSubcategorie.data}
-						initialvalue={expenseSubcategorie.initialvalue}
-						placeholder={expenseSubcategorie.placeholder}
-						tochangestate={handleAtributte}
-					/>
-				) : null}
+				<Grid item xs={6}>
+					<FormControl className={classes.formControl}>
+						<InputLabel shrink>Categoría</InputLabel>
+						<Select
+							name="GastoCategoriaId"
+							value={expense.GastoCategoriaId}
+							onChange={onChangeCategorie}
+							displayEmpty
+							className={classes.selectEmpty}
+						>
+							<MenuItem value="none" disabled>
+								<Typography color="textSecondary">
+									Elige una categoría
+								</Typography>
+							</MenuItem>
+							{expenseCategories.map((x) => (
+								<MenuItem key={x.id} value={x.id}>
+									{x.descripcion}
+								</MenuItem>
+							))}
+						</Select>
+					</FormControl>
+				</Grid>
+
+				<Grid item xs={6}>
+					<FormControl className={classes.formControl}>
+						<InputLabel shrink>Subcategoría</InputLabel>
+						<Select
+							name="GastoSubcategoriaId"
+							value={expense.GastoSubcategoriaId}
+							onChange={onChange}
+							displayEmpty
+							className={classes.selectEmpty}
+						>
+							<MenuItem value="none" disabled>
+								<Typography color="textSecondary">
+									{expense.GastoCategoriaId !== 'none'
+										? 'Elige una subcategoría'
+										: 'Elige primero una categoría'}
+								</Typography>
+							</MenuItem>
+							{data.map((x) => (
+								<MenuItem key={x.id} value={x.id}>
+									{x.descripcion}
+								</MenuItem>
+							))}
+						</Select>
+					</FormControl>
+				</Grid>
+
 				<InputBordeInferior
 					name={expenseDescription.name}
 					label={expenseDescription.label}
