@@ -11,6 +11,7 @@ import {
 	TRAER_METODOS_PAGO,
 	TRAER_CATEGORIAS_GASTOS,
 	TRAER_SUBCATEGORIAS_GASTOS,
+	TRAER_FACTURAS,
 } from '../../types';
 
 const GlobalDataState = (props) => {
@@ -22,6 +23,7 @@ const GlobalDataState = (props) => {
 		paymentMethods: null,
 		expenseCategories: null,
 		expenseSubcategories: null,
+		invoices: [],
 	};
 
 	const [state, dispatch] = useReducer(GlobalDataReducer, initialState);
@@ -113,6 +115,21 @@ const GlobalDataState = (props) => {
 		}
 	};
 
+	const getInvoicing = async (startDate, endDate) => {
+		try {
+			const r = await clienteAxios.get(
+				`/api/facturas/${JSON.stringify({ startDate, endDate })}`
+			);
+
+			dispatch({
+				type: TRAER_FACTURAS,
+				payload: r.data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
 		<GlobalDataContext.Provider
 			value={{
@@ -123,6 +140,7 @@ const GlobalDataState = (props) => {
 				paymentMethods: state.paymentMethods,
 				expenseCategories: state.expenseCategories,
 				expenseSubcategories: state.expenseSubcategories,
+				invoices: state.invoices,
 				getStockPoints,
 				getSalePoints,
 				getShippingTypes,
@@ -130,6 +148,7 @@ const GlobalDataState = (props) => {
 				getPaymentMethods,
 				getCategorieExpenses,
 				getSubcategorieExpenses,
+				getInvoicing,
 			}}
 		>
 			{props.children}

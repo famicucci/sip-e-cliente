@@ -6,6 +6,7 @@ import {
 	TRAER_METODOS_PAGO,
 	TRAER_CATEGORIAS_GASTOS,
 	TRAER_SUBCATEGORIAS_GASTOS,
+	TRAER_FACTURAS,
 } from '../../types';
 
 const GlobalDataReducer = (state, action) => {
@@ -44,6 +45,11 @@ const GlobalDataReducer = (state, action) => {
 			return {
 				...state,
 				expenseSubcategories: action.payload,
+			};
+		case TRAER_FACTURAS:
+			return {
+				...state,
+				invoices: action.payload,
 			};
 		default:
 			return state;
