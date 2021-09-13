@@ -9,7 +9,7 @@ import moment from 'moment';
 import { Box, Typography } from '@material-ui/core';
 import GlobalDataContext from '../../context/globalData/GlobalDataContext';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
 	inputRoot: {
 		color: '#fff',
 		width: '50px',

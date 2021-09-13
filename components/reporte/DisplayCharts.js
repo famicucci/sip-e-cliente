@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { Grid } from '@material-ui/core';
-import ChartGrossRevenue from './ChartGrossRevenue';
+import ChartRevenuesVsExpenses from './ChartRevenuesVsExpenses';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 
 const useStyles = makeStyles((theme) => ({
@@ -32,7 +32,7 @@ const DisplayCharts = () => {
 			<Grid container spacing={3}>
 				<Grid item xs={6}>
 					<Paper className={classes.paper} elevation={3}>
-						<ChartGrossRevenue />
+						<ChartRevenuesVsExpenses />
 					</Paper>
 				</Grid>
 			</Grid>
