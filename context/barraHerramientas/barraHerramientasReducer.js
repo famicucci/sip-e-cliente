@@ -14,6 +14,7 @@ import {
 	ERROR_BARRA_HERRAMIENTAS,
 	HERRAMIENTAS_PRODUCTOS_A_MOVER,
 	HERRAMIENTAS_GASTOS,
+	HERRAMIENTAS_REPORTES,
 } from '../../types';
 
 const PreciosReducer = (state, action) => {
@@ -152,6 +153,24 @@ const PreciosReducer = (state, action) => {
 				botonModoCargaVenta: false,
 				botonNuevoCliente: false,
 				botonNuevoGasto: true,
+				etiquetaModificarOrden: false,
+				busqueda: '',
+				busquedaCliente: '',
+				mensaje: null,
+			};
+
+		case HERRAMIENTAS_REPORTES:
+			return {
+				...state,
+				buscador: false,
+				selectListaPrecio: false,
+				selectPtoStock: false,
+				listasPrecio: null,
+				ptosStock: null,
+				botonModoCargaVenta: false,
+				botonNuevoCliente: false,
+				botonNuevoGasto: false,
+				selectBetweenMonths: true,
 				etiquetaModificarOrden: false,
 				busqueda: '',
 				busquedaCliente: '',

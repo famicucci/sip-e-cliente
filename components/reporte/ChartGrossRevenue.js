@@ -8,7 +8,7 @@ const ChartGrossRevenue = () => {
 
 	const [chartData, setChartData] = useState({});
 
-	const startDate = '2021-08-02';
+	const startDate = '2021-07-02';
 	const endDate = '2021-10-04';
 
 	const chart = (startDate, endDate) => {
@@ -26,7 +26,7 @@ const ChartGrossRevenue = () => {
 
 		let amountPerMonth = {};
 		monthsBetweenDates.forEach((x) => {
-			amountPerMonth[x] ??= 0;
+			amountPerMonth[x] = amountPerMonth[x] ?? 0;
 		});
 
 		validInvoices.forEach((x) => {

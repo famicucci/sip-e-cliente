@@ -20,6 +20,7 @@ import EtiquetaModificarOrden from '../venta/EtiquetaModificarOrden';
 import AuthContext from '../../context/autenticacion/authContext';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import StockContext from '../../context/stock/stockContext';
+import SelectBetweenMonths from '../generales/SelectBetweenMonths';
 
 const drawerWidth = 240;
 
@@ -72,6 +73,7 @@ const Navbar = (props) => {
 		botonModoCargaVenta,
 		botonNuevoCliente,
 		botonNuevoGasto,
+		selectBetweenMonths,
 		etiquetaModificarOrden,
 	} = useContext(BarraHerramientasContext);
 	const { usuario, cerrarSesion } = useContext(AuthContext);
@@ -206,6 +208,7 @@ const Navbar = (props) => {
 					{botonNuevoCliente ? <BotonNuevoCliente /> : null}
 					{botonNuevoGasto ? <BotonNuevoGasto /> : null}
 					{etiquetaModificarOrden ? <EtiquetaModificarOrden /> : null}
+					{selectBetweenMonths ? <SelectBetweenMonths /> : null}
 
 					<div className={classes.grow} />
 

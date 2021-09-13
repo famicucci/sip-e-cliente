@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { Grid } from '@material-ui/core';
 import ChartGrossRevenue from './ChartGrossRevenue';
+import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -19,6 +20,12 @@ const useStyles = makeStyles((theme) => ({
 
 const DisplayCharts = () => {
 	const classes = useStyles();
+
+	const { handleToolsReports } = useContext(BarraHerramientasContext);
+
+	useEffect(() => {
+		handleToolsReports();
+	}, []);
 
 	return (
 		<div className={classes.root}>

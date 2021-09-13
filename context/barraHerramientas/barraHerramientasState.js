@@ -19,6 +19,7 @@ import {
 	ERROR_BARRA_HERRAMIENTAS,
 	HERRAMIENTAS_PRODUCTOS_A_MOVER,
 	HERRAMIENTAS_GASTOS,
+	HERRAMIENTAS_REPORTES,
 } from '../../types';
 
 const BarraHerramientasState = (props) => {
@@ -31,6 +32,7 @@ const BarraHerramientasState = (props) => {
 		botonModoCargaVenta: false,
 		botonNuevoCliente: false,
 		botonNuevoGasto: true,
+		selectBetweenMonths: false,
 		etiquetaModificarOrden: false,
 		busqueda: '',
 		busquedaCliente: '',
@@ -145,6 +147,12 @@ const BarraHerramientasState = (props) => {
 		});
 	};
 
+	const handleToolsReports = () => {
+		dispatch({
+			type: HERRAMIENTAS_REPORTES,
+		});
+	};
+
 	return (
 		<BarraHerramientasContext.Provider
 			value={{
@@ -157,6 +165,7 @@ const BarraHerramientasState = (props) => {
 				botonModoCargaVenta: state.botonModoCargaVenta,
 				botonNuevoCliente: state.botonNuevoCliente,
 				botonNuevoGasto: state.botonNuevoGasto,
+				selectBetweenMonths: state.selectBetweenMonths,
 				busquedaCliente: state.busquedaCliente,
 				etiquetaModificarOrden: state.etiquetaModificarOrden,
 				handleHerramientasPrecios,
@@ -173,6 +182,7 @@ const BarraHerramientasState = (props) => {
 				traerListasPrecio,
 				handleHerrProductosAMover,
 				handleToolsExpenses,
+				handleToolsReports,
 			}}
 		>
 			{props.children}
