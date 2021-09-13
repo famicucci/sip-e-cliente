@@ -12,6 +12,8 @@ import {
 	TRAER_CATEGORIAS_GASTOS,
 	TRAER_SUBCATEGORIAS_GASTOS,
 	TRAER_FACTURAS,
+	ACTUALIZAR_FECHA_INICIO,
+	ACTUALIZAR_FECHA_FIN,
 } from '../../types';
 
 const GlobalDataState = (props) => {
@@ -24,6 +26,8 @@ const GlobalDataState = (props) => {
 		expenseCategories: null,
 		expenseSubcategories: null,
 		invoices: [],
+		startDate: null,
+		endDate: null,
 	};
 
 	const [state, dispatch] = useReducer(GlobalDataReducer, initialState);
@@ -130,6 +134,20 @@ const GlobalDataState = (props) => {
 		}
 	};
 
+	const handleStartDate = (date) => {
+		dispatch({
+			type: ACTUALIZAR_FECHA_INICIO,
+			payload: date,
+		});
+	};
+
+	const handleEndDate = (date) => {
+		dispatch({
+			type: ACTUALIZAR_FECHA_FIN,
+			payload: date,
+		});
+	};
+
 	return (
 		<GlobalDataContext.Provider
 			value={{
@@ -141,6 +159,8 @@ const GlobalDataState = (props) => {
 				expenseCategories: state.expenseCategories,
 				expenseSubcategories: state.expenseSubcategories,
 				invoices: state.invoices,
+				startDate: state.startDate,
+				endDate: state.endDate,
 				getStockPoints,
 				getSalePoints,
 				getShippingTypes,
@@ -149,6 +169,8 @@ const GlobalDataState = (props) => {
 				getCategorieExpenses,
 				getSubcategorieExpenses,
 				getInvoicing,
+				handleStartDate,
+				handleEndDate,
 			}}
 		>
 			{props.children}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { DatePicker } from '@material-ui/pickers';
 import 'date-fns';
@@ -7,6 +7,7 @@ import { es } from 'date-fns/locale';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import moment from 'moment';
 import { Box, Typography } from '@material-ui/core';
+import GlobalDataContext from '../../context/globalData/GlobalDataContext';
 
 const useStyles = makeStyles((theme) => ({
 	inputRoot: {
@@ -18,17 +19,36 @@ const useStyles = makeStyles((theme) => ({
 
 const SelectBetweenMonths = () => {
 	const classes = useStyles();
-	const [startDate, setStartDate] = useState(new Date());
-	const [endDate, setEndDate] = useState(new Date());
+
+	const { startDate, endDate, handleStartDate, handleEndDate } =
+		useContext(GlobalDataContext);
 
 	useEffect(() => {
-		const startOfMonth = moment(startDate)
-			.startOf('month')
-			.format('YYYY-MM-DD hh:mm');
-		const endOfMonth = moment(endDate)
-			.endOf('month')
-			.format('YYYY-MM-DD hh:mm');
-	}, [startDate, endDate]);
+		if (!startDate || !endDate) {
+			const startOfMonth = getStartDateOfMonth(new Date());
+			const endOfMonth = getEndDateOfMonth(new Date());
+			handleStartDate(startOfMonth);
+			handleEndDate(endOfMonth);
+		}
+	}, []);
+
+	const onChangeStartDate = (date) => {
+		const startOfMonth = getStartDateOfMonth(date);
+		handleStartDate(startOfMonth);
+	};
+
+	const onChangeEndDate = (date) => {
+		const endOfMonth = getEndDateOfMonth(date);
+		handleEndDate(endOfMonth);
+	};
+
+	const getStartDateOfMonth = (date) => {
+		return moment(date).startOf('month').format('YYYY-MM-DD hh:mm');
+	};
+
+	const getEndDateOfMonth = (date) => {
+		return moment(date).endOf('month').format('YYYY-MM-DD hh:mm');
+	};
 
 	return (
 		<Box display="flex">
@@ -45,7 +65,7 @@ const SelectBetweenMonths = () => {
 						format="MM/yy"
 						value={startDate}
 						InputProps={{ classes: { root: classes.inputRoot } }}
-						onChange={setStartDate}
+						onChange={onChangeStartDate}
 					/>
 				</MuiPickersUtilsProvider>
 			</Box>
@@ -69,7 +89,7 @@ const SelectBetweenMonths = () => {
 						format="MM/yy"
 						value={endDate}
 						InputProps={{ classes: { root: classes.inputRoot } }}
-						onChange={setEndDate}
+						onChange={onChangeEndDate}
 					/>
 				</MuiPickersUtilsProvider>
 			</Box>

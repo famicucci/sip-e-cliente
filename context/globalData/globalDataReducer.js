@@ -7,6 +7,8 @@ import {
 	TRAER_CATEGORIAS_GASTOS,
 	TRAER_SUBCATEGORIAS_GASTOS,
 	TRAER_FACTURAS,
+	ACTUALIZAR_FECHA_INICIO,
+	ACTUALIZAR_FECHA_FIN,
 } from '../../types';
 
 const GlobalDataReducer = (state, action) => {
@@ -50,6 +52,16 @@ const GlobalDataReducer = (state, action) => {
 			return {
 				...state,
 				invoices: action.payload,
+			};
+		case ACTUALIZAR_FECHA_INICIO:
+			return {
+				...state,
+				startDate: action.payload,
+			};
+		case ACTUALIZAR_FECHA_FIN:
+			return {
+				...state,
+				endDate: action.payload,
 			};
 		default:
 			return state;
