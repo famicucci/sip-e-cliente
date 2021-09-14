@@ -38,7 +38,7 @@ const ChartSubcategorieExpenses = () => {
 		if (!expenseCategories) getCategorieExpenses();
 		if (!expenseSubcategories) getSubcategorieExpenses();
 
-		if (expenses && expenseCategories && expenseSubcategories)
+		if (expenses.length > 0 && expenseCategories && expenseSubcategories)
 			handleCharData(startDate, endDate);
 	}, [expenses, expenseCategories, startDate, endDate, categorieId]);
 
