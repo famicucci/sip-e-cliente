@@ -5,6 +5,7 @@ import { Grid } from '@material-ui/core';
 import ChartRevenuesVsExpenses from './ChartRevenuesVsExpenses';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import ChartCategorieExpenses from './ChartCategorieExpenses';
+import ChartSubcategorieExpenses from './ChartSubcategorieExpenses';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -39,6 +40,16 @@ const DisplayCharts = () => {
 				<Grid item xs={6}>
 					<Paper className={classes.paper} elevation={3}>
 						<ChartCategorieExpenses />
+					</Paper>
+				</Grid>
+				<Grid item xs={6}>
+					<Paper className={classes.paper} elevation={3}>
+						<ChartSubcategorieExpenses />
+					</Paper>
+				</Grid>
+				<Grid item xs={6}>
+					<Paper className={classes.paper} elevation={3}>
+						Tabla de productos más vendidos
 					</Paper>
 				</Grid>
 			</Grid>

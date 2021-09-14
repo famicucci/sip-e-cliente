@@ -99,6 +99,7 @@ const ChartRevenuesVsExpenses = () => {
 			data={chartData}
 			options={{
 				responsive: true,
+				plugins: { title: { text: 'Ingresos vs Gastos', display: true } },
 			}}
 		/>
 	);

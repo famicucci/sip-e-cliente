@@ -129,6 +129,7 @@ const ChartCategorieExpenses = () => {
 			data={chartData}
 			options={{
 				responsive: true,
+				plugins: { title: { text: 'Gastos por Categoría', display: true } },
 			}}
 		/>
 	);
