@@ -1,5 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
 import Paper from '@material-ui/core/Paper';
 import { Grid } from '@material-ui/core';
 import ChartRevenuesVsExpenses from './ChartRevenuesVsExpenses';
@@ -19,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
 		textAlign: 'center',
 		color: theme.palette.text.secondary,
 	},
+	paperheight: { height: '65vh' },
 }));
 
 const DisplayCharts = () => {
@@ -44,12 +46,18 @@ const DisplayCharts = () => {
 					</Paper>
 				</Grid>
 				<Grid item xs={4}>
-					<Paper className={classes.paper} elevation={3}>
+					<Paper
+						className={clsx(classes.paper, classes.paperheight)}
+						elevation={3}
+					>
 						<ChartSubcategorieExpenses />
 					</Paper>
 				</Grid>
 				<Grid item xs={8}>
-					<Paper className={classes.paper} elevation={3}>
+					<Paper
+						className={clsx(classes.paper, classes.paperheight)}
+						elevation={3}
+					>
 						<TablaProductosMasVendidos />
 					</Paper>
 				</Grid>

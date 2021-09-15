@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import GlobalDataContext from '../../context/globalData/GlobalDataContext';
-import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -27,6 +26,7 @@ const useStyles = makeStyles({
 	tableContainer: {
 		flex: 1,
 		minHeight: 0,
+		height: '100%',
 	},
 });
 
@@ -42,22 +42,15 @@ const TablaProductosMasVendidos = () => {
 	}, []);
 
 	useEffect(() => {
+		getInvoicing(startDate, endDate);
+	}, [startDate, endDate]);
+
+	useEffect(() => {
 		if (invoices.length > 0) getDataTable(invoices, startDate, endDate);
 	}, [invoices, startDate, endDate]);
 
 	const getDataTable = (invoices, startDate, endDate) => {
-		// filter by date
-		// console.log(moment(startDate).format('YYYY-MM-DDTHH:mm:ss.SSSSZ'));
-		// console.log(moment(endDate).format('YYYY-MM-DDTHH:mm:ss.SSSSZ'));
-		// console.log(invoices);
-		// console.log(
-		// 	moment(invoices[0]['createdAt']).format('YYYY-MM-DDTHH:mm:ss.SSSSZ')
-		// );
-		// console.log(
-		// 	moment(invoices[0]['createdAt']).format('YYYY-MM-DDTHH:mm:ss.SSSSZ')
-		// );
-
-		const filteredIvoices = invoices.filter(
+		const filteredInvoices = invoices.filter(
 			(x) =>
 				moment(startDate).format('YYYY-MM-DDTHH:mm:ss.SSSSZ') <
 					moment(x.createdAt).format('YYYY-MM-DDTHH:mm:ss.SSSSZ') &&
@@ -68,17 +61,34 @@ const TablaProductosMasVendidos = () => {
 				x.estadoPago === 'Pago'
 		);
 
-		console.log(filteredIvoices);
+		let products = filteredInvoices.map((x) => x.detalleFactura).flat();
+
+		let mostSelledProducts = {};
+		products.forEach((x) => {
+			mostSelledProducts[x.Producto.codigo] = mostSelledProducts[
+				x.Producto.codigo
+			] ?? {
+				codigo: x.Producto.codigo,
+				descripcion: x.Producto.descripcion,
+				cantidad: 0,
+				facturacion: 0,
+			};
+			mostSelledProducts[x.Producto.codigo]['cantidad'] += parseFloat(
+				x.cantidad
+			);
+			mostSelledProducts[x.Producto.codigo]['facturacion'] += parseFloat(x.pu);
+		});
+
+		let arrayMostSelledProducts = Object.values(mostSelledProducts);
+
+		arrayMostSelledProducts.sort((a, b) => b.facturacion - a.facturacion);
+
+		setData(arrayMostSelledProducts);
 	};
 
-	// useEffect(() => {
-	// 	if (invoices.length === 0) getInvoicing(startDate, endDate);
-	// 	console.log(invoices);
-	// }, [invoices, startDate, endDate]);
-
 	return (
-		<TableContainer className={classes.tableContainer} component={Paper}>
-			<Table aria-label="sticky table">
+		<TableContainer className={classes.tableContainer}>
+			<Table stickyHeader>
 				<TableHead>
 					<TableRow>
 						{columnas.map((columna) => (
@@ -93,9 +103,9 @@ const TablaProductosMasVendidos = () => {
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					<FilaProductosMasVendidos
-						fila={{ ProductoCodigo: 'CO34567ASDFGT', pu: '6754' }}
-					/>
+					{data.map((x) => (
+						<FilaProductosMasVendidos key={x.codigo} fila={x} />
+					))}
 				</TableBody>
 			</Table>
 		</TableContainer>

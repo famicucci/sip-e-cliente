@@ -3,16 +3,16 @@ import TableCell from '@material-ui/core/TableCell';
 import RowColorIntercalado from '../generales/RowColorIntercalado';
 
 const FilaProductosMasVendidos = (props) => {
-	const { ProductoCodigo, pu } = props.fila;
+	const { codigo, descripcion, cantidad, facturacion } = props.fila;
 
 	return (
 		<RowColorIntercalado>
 			<TableCell component="th" scope="row">
-				{ProductoCodigo}
+				{codigo}
 			</TableCell>
-			<TableCell align="left">{props.fila['Producto.descripcion']}</TableCell>
-			<TableCell align="center">{pu}</TableCell>
-			<TableCell align="center">{pu}</TableCell>
+			<TableCell align="left">{descripcion}</TableCell>
+			<TableCell align="center">{cantidad}</TableCell>
+			<TableCell align="center">{facturacion}</TableCell>
 		</RowColorIntercalado>
 	);
 };
