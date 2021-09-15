@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
-import { Box, Typography, Divider } from '@material-ui/core';
+import {
+	Box,
+	Typography,
+	Divider,
+	IconButton,
+	Menu,
+	MenuItem,
+} from '@material-ui/core';
+import MoreVert from '@material-ui/icons/MoreVert';
 
 const useStyles = makeStyles((theme) => ({
 	modal: {
@@ -31,10 +39,23 @@ const useStyles = makeStyles((theme) => ({
 	footer: {
 		marginLeft: theme.spacing(2),
 	},
+	grow: {
+		flexGrow: 1,
+	},
 }));
 
 const ModalCentrado = (props) => {
 	const classes = useStyles(props);
+
+	const [anchorEl, setAnchorEl] = useState(null);
+
+	const handleClickMenu = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
+
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
 
 	return (
 		<Modal
@@ -51,9 +72,42 @@ const ModalCentrado = (props) => {
 		>
 			<Fade in={props.openModal}>
 				<Paper className={classes.paper}>
-					<Typography variant="h5" align="left">
-						{props.titulo}
-					</Typography>
+					<Box
+						display="flex"
+						justifyContent="flex-center"
+						alignItems="flex-end"
+					>
+						<Typography variant="h5" align="left">
+							{props.titulo}
+						</Typography>
+						<div className={classes.grow} />
+						{props.morevertactions ? (
+							<Box>
+								<IconButton size="small" onClick={handleClickMenu}>
+									<MoreVert />
+								</IconButton>
+								<Menu
+									anchorEl={anchorEl}
+									keepMounted
+									open={Boolean(anchorEl)}
+									onClose={handleClose}
+								>
+									{props.morevertactions.map((x, i) => (
+										<MenuItem
+											key={i}
+											onClick={() => {
+												x.function();
+												handleClose();
+											}}
+											{...x.status}
+										>
+											{x.content}
+										</MenuItem>
+									))}
+								</Menu>
+							</Box>
+						) : null}
+					</Box>
 					<Divider className={classes.dividerSuperior} variant="fullWidth" />
 					<Box className={classes.contenido}>{props.children}</Box>
 					{props.footer ? (
