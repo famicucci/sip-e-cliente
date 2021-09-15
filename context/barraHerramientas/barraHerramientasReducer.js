@@ -29,6 +29,7 @@ const PreciosReducer = (state, action) => {
 				botonNuevoCliente: false,
 				etiquetaModificarOrden: false,
 				botonNuevoGasto: false,
+				selectBetweenMonths: false,
 			};
 		case HERRAMIENTAS_STOCK_PRODUCTO:
 			return {
@@ -40,6 +41,7 @@ const PreciosReducer = (state, action) => {
 				botonNuevoCliente: false,
 				etiquetaModificarOrden: false,
 				botonNuevoGasto: false,
+				selectBetweenMonths: false,
 			};
 		case HERRAMIENTAS_STOCK_PTO_STOCK:
 			return {
@@ -51,6 +53,7 @@ const PreciosReducer = (state, action) => {
 				botonNuevoCliente: false,
 				etiquetaModificarOrden: false,
 				botonNuevoGasto: false,
+				selectBetweenMonths: false,
 			};
 		case HERRAMIENTAS_STOCK_MOVIMIENTOS:
 			return {
@@ -60,6 +63,7 @@ const PreciosReducer = (state, action) => {
 				selectPtoStock: false,
 				botonModoCargaVenta: false,
 				botonNuevoCliente: false,
+				selectBetweenMonths: true,
 				etiquetaModificarOrden: false,
 				botonNuevoGasto: false,
 			};
@@ -72,6 +76,7 @@ const PreciosReducer = (state, action) => {
 				selectPtoStock: false,
 				botonNuevoCliente: false,
 				botonNuevoGasto: false,
+				selectBetweenMonths: false,
 			};
 		case HERRAMIENTAS_EDITAR_VENTAS:
 			return {
@@ -82,7 +87,25 @@ const PreciosReducer = (state, action) => {
 				selectPtoStock: false,
 				botonNuevoCliente: false,
 				botonNuevoGasto: false,
+				selectBetweenMonths: false,
 				etiquetaModificarOrden: false,
+			};
+		case HERRAMIENTAS_PRODUCTOS_A_MOVER:
+			return {
+				...state,
+				buscador: action.payload,
+				selectListaPrecio: false,
+				selectPtoStock: false,
+				listasPrecio: null,
+				ptosStock: null,
+				botonModoCargaVenta: false,
+				botonNuevoCliente: false,
+				botonNuevoGasto: false,
+				selectBetweenMonths: false,
+				etiquetaModificarOrden: false,
+				busqueda: '',
+				busquedaCliente: '',
+				mensaje: null,
 			};
 		case HERRAMIENTAS_CLIENTES:
 			return {
@@ -90,10 +113,46 @@ const PreciosReducer = (state, action) => {
 				botonModoCargaVenta: false,
 				botonNuevoCliente: true,
 				botonNuevoGasto: false,
+				selectBetweenMonths: false,
 				buscador: true,
 				selectListaPrecio: false,
 				selectPtoStock: false,
 				etiquetaModificarOrden: false,
+			};
+		case HERRAMIENTAS_GASTOS:
+			return {
+				...state,
+				buscador: true,
+				selectListaPrecio: false,
+				selectPtoStock: false,
+				listasPrecio: null,
+				ptosStock: null,
+				botonModoCargaVenta: false,
+				botonNuevoCliente: false,
+				botonNuevoGasto: true,
+				selectBetweenMonths: true,
+				etiquetaModificarOrden: false,
+				busqueda: '',
+				busquedaCliente: '',
+				mensaje: null,
+			};
+
+		case HERRAMIENTAS_REPORTES:
+			return {
+				...state,
+				buscador: false,
+				selectListaPrecio: false,
+				selectPtoStock: false,
+				listasPrecio: null,
+				ptosStock: null,
+				botonModoCargaVenta: false,
+				botonNuevoCliente: false,
+				botonNuevoGasto: false,
+				selectBetweenMonths: true,
+				etiquetaModificarOrden: false,
+				busqueda: '',
+				busquedaCliente: '',
+				mensaje: null,
 			};
 		case ETIQUETA_MODIFICAR_ORDEN:
 			return {
@@ -125,56 +184,6 @@ const PreciosReducer = (state, action) => {
 			return {
 				...state,
 				mensaje: action.payload,
-			};
-		case HERRAMIENTAS_PRODUCTOS_A_MOVER:
-			return {
-				...state,
-				buscador: action.payload,
-				selectListaPrecio: false,
-				selectPtoStock: false,
-				listasPrecio: null,
-				ptosStock: null,
-				botonModoCargaVenta: false,
-				botonNuevoCliente: false,
-				botonNuevoGasto: false,
-				etiquetaModificarOrden: false,
-				busqueda: '',
-				busquedaCliente: '',
-				mensaje: null,
-			};
-		case HERRAMIENTAS_GASTOS:
-			return {
-				...state,
-				buscador: true,
-				selectListaPrecio: false,
-				selectPtoStock: false,
-				listasPrecio: null,
-				ptosStock: null,
-				botonModoCargaVenta: false,
-				botonNuevoCliente: false,
-				botonNuevoGasto: true,
-				etiquetaModificarOrden: false,
-				busqueda: '',
-				busquedaCliente: '',
-				mensaje: null,
-			};
-
-		case HERRAMIENTAS_REPORTES:
-			return {
-				...state,
-				buscador: false,
-				selectListaPrecio: false,
-				selectPtoStock: false,
-				listasPrecio: null,
-				ptosStock: null,
-				botonModoCargaVenta: false,
-				botonNuevoCliente: false,
-				botonNuevoGasto: false,
-				selectBetweenMonths: true,
-				etiquetaModificarOrden: false,
-				busqueda: '',
-				busquedaCliente: '',
-				mensaje: null,
 			};
 		default:
 			return state;
