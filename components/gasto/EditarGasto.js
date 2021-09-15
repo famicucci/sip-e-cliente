@@ -19,6 +19,7 @@ const EditarGasto = () => {
 		openModalEditExpense,
 		activatedExpense,
 		handleOpenModalEditExpense,
+		removeExpense,
 	} = useContext(GastoContext);
 
 	const [expenseToEdit, setExpenseToEdit] = useState({});
@@ -44,6 +45,15 @@ const EditarGasto = () => {
 	return (
 		<ModalCentrado
 			titulo="Modificar Gasto"
+			morevertactions={[
+				{
+					content: 'Eliminar',
+					function: () => {
+						removeExpense();
+						handleOpenModalEditExpense(null);
+					},
+				},
+			]}
 			padding={16}
 			width={600}
 			openModal={openModalEditExpense}

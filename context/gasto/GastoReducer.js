@@ -7,6 +7,7 @@ import {
 	MOSTRAR_MODAL_CREAR_GASTO,
 	AGREGAR_GASTO,
 	MODIFICAR_GASTO,
+	ELIMINAR_GASTO,
 	MOSTRAR_ALERTA_GASTOS,
 	OCULTAR_ALERTA_GASTOS,
 } from '../../types';
@@ -59,6 +60,12 @@ const PreciosReducer = (state, action) => {
 				...state,
 				expenses: [action.payload, ...state.expenses],
 			};
+		case ELIMINAR_GASTO:
+			return {
+				...state,
+				expenses: state.expenses.filter((x) => x.id !== action.payload),
+			};
+
 		case MOSTRAR_ALERTA_GASTOS:
 			return {
 				...state,

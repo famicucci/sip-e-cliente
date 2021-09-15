@@ -12,6 +12,7 @@ import {
 	MOSTRAR_MODAL_CREAR_GASTO,
 	AGREGAR_GASTO,
 	MODIFICAR_GASTO,
+	ELIMINAR_GASTO,
 	MOSTRAR_ALERTA_GASTOS,
 	OCULTAR_ALERTA_GASTOS,
 } from '../../types';
@@ -118,6 +119,26 @@ const GastoState = (props) => {
 		}
 	};
 
+	const removeExpense = async () => {
+		try {
+			await clienteAxios.delete(`/api/gastos/${state.activatedExpense}`);
+
+			dispatch({
+				type: ELIMINAR_GASTO,
+				payload: state.activatedExpense,
+			});
+
+			dispatch({
+				type: ACTIVAR_GASTO,
+				payload: null,
+			});
+
+			mostrarAlertaGastos('Eliminaste el gasto', 'success');
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	const mostrarAlertaGastos = (msg, categoria) => {
 		dispatch({
 			type: MOSTRAR_ALERTA_GASTOS,
@@ -146,6 +167,7 @@ const GastoState = (props) => {
 				handleOpenModalCreateExpense,
 				createExpense,
 				editExpense,
+				removeExpense,
 				mostrarAlertaGastos,
 			}}
 		>
