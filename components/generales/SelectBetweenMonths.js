@@ -23,33 +23,30 @@ const useStyles = makeStyles(() => ({
 const SelectBetweenMonths = () => {
 	const classes = useStyles();
 
-	const { handleDates } = useContext(GlobalDataContext);
+	const { dates, handleDates } = useContext(GlobalDataContext);
 
-	const [dates, setDates] = useState({
+	const [datesLocal, setDatesLocal] = useState({
 		begin: '',
 		end: '',
 	});
 	const [changed, setChanged] = useState(false);
 
 	useEffect(() => {
-		const startOfMonth = getStartDateOfMonth(new Date());
-		const endOfMonth = getEndDateOfMonth(new Date());
-		handleDates({ startDate: startOfMonth, endDate: endOfMonth });
-		setDates({
-			begin: startOfMonth,
-			end: endOfMonth,
+		setDatesLocal({
+			begin: dates.startDate,
+			end: dates.endDate,
 		});
 	}, []);
 
 	const onChangeStartDate = (date) => {
 		const startOfMonth = getStartDateOfMonth(date);
-		setDates({ ...dates, begin: startOfMonth });
+		setDatesLocal({ ...datesLocal, begin: startOfMonth });
 		setChanged(true);
 	};
 
 	const onChangeEndDate = (date) => {
 		const endOfMonth = getEndDateOfMonth(date);
-		setDates({ ...dates, end: endOfMonth });
+		setDatesLocal({ ...datesLocal, end: endOfMonth });
 		setChanged(true);
 	};
 
@@ -63,7 +60,7 @@ const SelectBetweenMonths = () => {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		handleDates({ startDate: dates.begin, endDate: dates.end });
+		handleDates({ startDate: datesLocal.begin, endDate: datesLocal.end });
 		setChanged(false);
 	};
 
@@ -81,7 +78,7 @@ const SelectBetweenMonths = () => {
 							openTo="month"
 							views={['year', 'month']}
 							format="MM/yy"
-							value={dates.begin}
+							value={datesLocal.begin}
 							InputProps={{ classes: { root: classes.inputRoot } }}
 							onChange={onChangeStartDate}
 							autoOk
@@ -109,7 +106,7 @@ const SelectBetweenMonths = () => {
 							openTo="month"
 							views={['year', 'month']}
 							format="MM/yy"
-							value={dates.end}
+							value={datesLocal.end}
 							InputProps={{ classes: { root: classes.inputRoot } }}
 							onChange={onChangeEndDate}
 							autoOk

@@ -36,8 +36,6 @@ const GastoState = (props) => {
 				`/api/gastos/${JSON.stringify({ startDate, endDate })}`
 			);
 
-			console.log(r.data);
-
 			dispatch({
 				type: TRAER_GASTOS,
 				payload: r.data,

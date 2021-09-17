@@ -37,10 +37,8 @@ const DisplayCharts = () => {
 	}, []);
 
 	useEffect(() => {
-		if (dates.startDate && dates.endDate) {
-			getExpenses(dates.startDate, dates.endDate);
-			getInvoicing(dates.startDate, dates.endDate);
-		}
+		getExpenses(dates.startDate, dates.endDate);
+		getInvoicing(dates.startDate, dates.endDate);
 	}, [dates]);
 
 	return (

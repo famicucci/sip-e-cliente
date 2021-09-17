@@ -2,6 +2,7 @@ import React, { useReducer } from 'react';
 import GlobalDataContext from './GlobalDataContext';
 import GlobalDataReducer from './GlobalDataReducer';
 import clienteAxios from '../../config/axios';
+import moment from 'moment';
 
 import {
 	PTOS_STOCK_VENTAS,
@@ -26,7 +27,10 @@ const GlobalDataState = (props) => {
 		expenseCategories: null,
 		expenseSubcategories: null,
 		invoices: [],
-		dates: { startDate: null, endDate: null },
+		dates: {
+			startDate: moment(new Date()).startOf('month').format('YYYY-MM-DD hh:mm'),
+			endDate: moment(new Date()).endOf('month').format('YYYY-MM-DD hh:mm'),
+		},
 		loadingGlobalData: true,
 	};
 

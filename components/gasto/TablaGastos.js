@@ -15,7 +15,6 @@ import GlobalDataContext from '../../context/globalData/GlobalDataContext';
 import EditarGasto from './EditarGasto';
 import CrearGasto from './CrearGasto';
 import Alerta2 from '../generales/Alerta2';
-import moment from 'moment';
 
 const useStyles = makeStyles({
 	table: {
@@ -49,8 +48,7 @@ const TablaGastos = () => {
 		mensajeGastos,
 	} = useContext(GastoContext);
 	const {
-		startDate,
-		endDate,
+		dates,
 		expenseCategories,
 		expenseSubcategories,
 		getCategorieExpenses,
@@ -73,33 +71,35 @@ const TablaGastos = () => {
 	}, []);
 
 	useEffect(() => {
-		if (startDate && endDate) getExpenses(startDate, endDate);
-	}, [startDate, endDate]);
+		getExpenses(dates.startDate, dates.endDate);
+	}, [dates]);
 
 	useEffect(() => {
 		setData(expenses);
 	}, [expenses]);
 
 	return (
-		<TableContainer component={Paper}>
-			<Table className={classes.table}>
-				<HeadTabla columnas={columnas} />
-				<TableBody>
-					{!loading ? (
-						cortePagina.map((x) => <FilaGastos key={x.id} fila={x} />)
-					) : (
-						<SpinnerTabla cantColumnas={3} />
-					)}
-					{cortePagina.length === 0 && !loading
-						? bodyVacio(columnas)
-						: filasVacias}
-				</TableBody>
-				{!loading ? <FooterTabla /> : null}
-			</Table>
+		<>
+			<TableContainer component={Paper}>
+				{!loading ? (
+					<Table className={classes.table}>
+						<HeadTabla columnas={columnas} />
+						<TableBody>
+							{cortePagina.map((x) => (
+								<FilaGastos key={x.id} fila={x} />
+							))}
+							{cortePagina.length === 0 ? bodyVacio(columnas) : filasVacias}
+						</TableBody>
+						<FooterTabla />
+					</Table>
+				) : (
+					<SpinnerTabla cantColumnas={3} />
+				)}
+			</TableContainer>
 			{openModalEditExpense ? <EditarGasto /> : null}
 			{openModalCreateExpense ? <CrearGasto /> : null}
 			{mensajeGastos ? <Alerta2 mensaje={mensajeGastos} /> : null}
-		</TableContainer>
+		</>
 	);
 };
 
