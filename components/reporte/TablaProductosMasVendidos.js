@@ -33,22 +33,23 @@ const useStyles = makeStyles({
 
 const TablaProductosMasVendidos = () => {
 	const classes = useStyles();
-	const { startDate, endDate, invoices, loadingGlobalData, getInvoicing } =
+	const { dates, invoices, loadingGlobalData, getInvoicing } =
 		useContext(GlobalDataContext);
 
 	const [data, setData] = useState([]);
 
 	useEffect(() => {
-		if (invoices.length === 0) getInvoicing(startDate, endDate);
+		if (invoices.length === 0) getInvoicing(dates.startDate, dates.endDate);
 	}, []);
 
 	useEffect(() => {
-		getInvoicing(startDate, endDate);
-	}, [startDate, endDate]);
+		getInvoicing(dates.startDate, dates.endDate);
+	}, [dates]);
 
 	useEffect(() => {
-		if (invoices.length > 0) getDataTable(invoices, startDate, endDate);
-	}, [invoices, startDate, endDate]);
+		if (invoices.length > 0)
+			getDataTable(invoices, dates.startDate, dates.endDate);
+	}, [invoices]);
 
 	const getDataTable = (invoices, startDate, endDate) => {
 		const filteredInvoices = invoices.filter(

@@ -8,6 +8,8 @@ import BarraHerramientasContext from '../../context/barraHerramientas/barraHerra
 import ChartCategorieExpenses from './ChartCategorieExpenses';
 import ChartSubcategorieExpenses from './ChartSubcategorieExpenses';
 import TablaProductosMasVendidos from './TablaProductosMasVendidos';
+import GlobalDataContext from '../../context/globalData/GlobalDataContext';
+import GastoContext from '../../context/gasto/GastoContext';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -27,10 +29,19 @@ const DisplayCharts = () => {
 	const classes = useStyles();
 
 	const { handleToolsReports } = useContext(BarraHerramientasContext);
+	const { dates, getInvoicing } = useContext(GlobalDataContext);
+	const { getExpenses } = useContext(GastoContext);
 
 	useEffect(() => {
 		handleToolsReports();
 	}, []);
+
+	useEffect(() => {
+		if (dates.startDate && dates.endDate) {
+			getExpenses(dates.startDate, dates.endDate);
+			getInvoicing(dates.startDate, dates.endDate);
+		}
+	}, [dates]);
 
 	return (
 		<div className={classes.root}>

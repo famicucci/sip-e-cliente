@@ -22,15 +22,14 @@ const useStyles = makeStyles((theme) => ({
 const ChartSubcategorieExpenses = () => {
 	const classes = useStyles();
 	const {
-		startDate,
-		endDate,
+		dates,
 		loadingGlobalData,
 		expenseCategories,
 		expenseSubcategories,
 		getCategorieExpenses,
 		getSubcategorieExpenses,
 	} = useContext(GlobalDataContext);
-	const { expenses, loading, getExpenses } = useContext(GastoContext);
+	const { expenses, loading } = useContext(GastoContext);
 
 	const [chartData, setChartData] = useState({});
 	const [categorieId, setCategorieId] = useState(1);
@@ -41,12 +40,8 @@ const ChartSubcategorieExpenses = () => {
 	}, []);
 
 	useEffect(() => {
-		if (startDate && endDate) getExpenses(startDate, endDate);
-	}, [startDate, endDate]);
-
-	useEffect(() => {
 		if (expenseCategories && expenseSubcategories)
-			handleCharData(startDate, endDate);
+			handleCharData(dates.startDate, dates.endDate);
 	}, [expenses, expenseCategories, expenseSubcategories, categorieId]);
 
 	const handleChange = (event) => {

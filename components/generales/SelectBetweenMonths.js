@@ -23,7 +23,7 @@ const useStyles = makeStyles(() => ({
 const SelectBetweenMonths = () => {
 	const classes = useStyles();
 
-	const { handleStartDate, handleEndDate } = useContext(GlobalDataContext);
+	const { handleDates } = useContext(GlobalDataContext);
 
 	const [dates, setDates] = useState({
 		begin: '',
@@ -34,8 +34,7 @@ const SelectBetweenMonths = () => {
 	useEffect(() => {
 		const startOfMonth = getStartDateOfMonth(new Date());
 		const endOfMonth = getEndDateOfMonth(new Date());
-		handleStartDate(startOfMonth);
-		handleEndDate(endOfMonth);
+		handleDates({ startDate: startOfMonth, endDate: endOfMonth });
 		setDates({
 			begin: startOfMonth,
 			end: endOfMonth,
@@ -64,8 +63,7 @@ const SelectBetweenMonths = () => {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		handleStartDate(dates.begin);
-		handleEndDate(dates.end);
+		handleDates({ startDate: dates.begin, endDate: dates.end });
 		setChanged(false);
 	};
 

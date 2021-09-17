@@ -6,14 +6,9 @@ import moment from 'moment';
 import SpinnerTabla from '../generales/SpinnerTabla';
 
 const ChartCategorieExpenses = () => {
-	const {
-		startDate,
-		endDate,
-		loadingGlobalData,
-		expenseCategories,
-		getCategorieExpenses,
-	} = useContext(GlobalDataContext);
-	const { expenses, loading, getExpenses } = useContext(GastoContext);
+	const { dates, loadingGlobalData, expenseCategories, getCategorieExpenses } =
+		useContext(GlobalDataContext);
+	const { expenses, loading } = useContext(GastoContext);
 
 	const [chartData, setChartData] = useState({});
 
@@ -22,11 +17,7 @@ const ChartCategorieExpenses = () => {
 	}, []);
 
 	useEffect(() => {
-		if (startDate & endDate) getExpenses(startDate, endDate);
-	}, [startDate, endDate]);
-
-	useEffect(() => {
-		if (expenseCategories) handleCharData(startDate, endDate);
+		if (expenseCategories) handleCharData(dates.startDate, dates.endDate);
 	}, [expenses, expenseCategories]);
 
 	const handleCharData = (startDate, endDate) => {

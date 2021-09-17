@@ -12,8 +12,7 @@ import {
 	TRAER_CATEGORIAS_GASTOS,
 	TRAER_SUBCATEGORIAS_GASTOS,
 	TRAER_FACTURAS,
-	ACTUALIZAR_FECHA_INICIO,
-	ACTUALIZAR_FECHA_FIN,
+	ACTUALIZAR_FECHAS_LIMITE,
 	SHOW_LOADING,
 } from '../../types';
 
@@ -27,8 +26,7 @@ const GlobalDataState = (props) => {
 		expenseCategories: null,
 		expenseSubcategories: null,
 		invoices: [],
-		startDate: null,
-		endDate: null,
+		dates: { startDate: null, endDate: null },
 		loadingGlobalData: true,
 	};
 
@@ -141,17 +139,10 @@ const GlobalDataState = (props) => {
 		}
 	};
 
-	const handleStartDate = (date) => {
+	const handleDates = (dates) => {
 		dispatch({
-			type: ACTUALIZAR_FECHA_INICIO,
-			payload: date,
-		});
-	};
-
-	const handleEndDate = (date) => {
-		dispatch({
-			type: ACTUALIZAR_FECHA_FIN,
-			payload: date,
+			type: ACTUALIZAR_FECHAS_LIMITE,
+			payload: dates,
 		});
 	};
 
@@ -166,8 +157,7 @@ const GlobalDataState = (props) => {
 				expenseCategories: state.expenseCategories,
 				expenseSubcategories: state.expenseSubcategories,
 				invoices: state.invoices,
-				startDate: state.startDate,
-				endDate: state.endDate,
+				dates: state.dates,
 				loadingGlobalData: state.loadingGlobalData,
 				getStockPoints,
 				getSalePoints,
@@ -177,8 +167,7 @@ const GlobalDataState = (props) => {
 				getCategorieExpenses,
 				getSubcategorieExpenses,
 				getInvoicing,
-				handleStartDate,
-				handleEndDate,
+				handleDates,
 			}}
 		>
 			{props.children}
