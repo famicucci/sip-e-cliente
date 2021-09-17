@@ -13,16 +13,6 @@ const FilaGastos = (props) => {
 		useContext(GlobalDataContext);
 	const { handleOpenModalEditExpense } = useContext(GastoContext);
 
-	const getCategorie = (categorieId) => {
-		const r = expenseCategories.find((x) => x.id === categorieId);
-		if (r) return r.descripcion;
-	};
-
-	const getSubcategorie = (subcategorieId) => {
-		const r = expenseSubcategories.find((x) => x.id === subcategorieId);
-		if (r) return r.descripcion;
-	};
-
 	return (
 		<RowColorIntercalado>
 			<TableCell align="center">
@@ -31,17 +21,9 @@ const FilaGastos = (props) => {
 					expenseId={props.fila.id}
 				/>
 			</TableCell>
-			<TableCell align="center">
-				{moment(props.fila.createdAt).format('DD-MM-YYYY')}
-			</TableCell>
-			<TableCell align="left">
-				{expenseCategories ? getCategorie(props.fila.GastoCategoriaId) : '-'}
-			</TableCell>
-			<TableCell align="left">
-				{expenseSubcategories
-					? getSubcategorie(props.fila.GastoSubcategoriaId)
-					: '-'}
-			</TableCell>
+			<TableCell align="center">{props.fila.createdAt}</TableCell>
+			<TableCell align="left">{props.fila.categoria}</TableCell>
+			<TableCell align="left">{props.fila.subcategoria}</TableCell>
 			<TableCell align="left">{props.fila.descripcion}</TableCell>
 			<TableCell align="center">
 				{parseFloat(props.fila.importe).toFixed(2)}

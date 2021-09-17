@@ -15,6 +15,7 @@ import GlobalDataContext from '../../context/globalData/GlobalDataContext';
 import EditarGasto from './EditarGasto';
 import CrearGasto from './CrearGasto';
 import Alerta2 from '../generales/Alerta2';
+import moment from 'moment';
 
 const useStyles = makeStyles({
 	table: {
@@ -57,6 +58,8 @@ const TablaGastos = () => {
 
 	const [data, setData] = useState([]);
 	const [filteredData] = useFilter(data, busqueda);
+	const [categoriesIndex, setCategoriesIndex] = useState(null);
+	const [subcategoriesIndex, setSubcategoriesIndex] = useState(null);
 
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
 		usePaginacion(filteredData, 25);
@@ -71,11 +74,40 @@ const TablaGastos = () => {
 	}, []);
 
 	useEffect(() => {
+		if (expenseCategories && expenseSubcategories) {
+			const categories = expenseCategories.reduce(
+				(acc, el) => ({ ...acc, [el.id]: el }),
+				{}
+			);
+			const subcategorias = expenseSubcategories.reduce(
+				(acc, el) => ({ ...acc, [el.id]: el }),
+				{}
+			);
+
+			setCategoriesIndex(categories);
+			setSubcategoriesIndex(subcategorias);
+		}
+	}, [expenseCategories, expenseSubcategories]);
+
+	useEffect(() => {
 		getExpenses(dates.startDate, dates.endDate);
 	}, [dates]);
 
 	useEffect(() => {
-		setData(expenses);
+		const newData = expenses.map((x) => ({
+			id: x.id,
+			estado: x.estado,
+			createdAt: moment(x.createdAt).format('DD-MM-YYYY'),
+			categoria: categoriesIndex
+				? categoriesIndex[x.GastoCategoriaId]['descripcion']
+				: '-',
+			subcategoria: subcategoriesIndex
+				? subcategoriesIndex[x.GastoSubcategoriaId]['descripcion']
+				: '-',
+			descripcion: x.descripcion,
+			importe: x.importe,
+		}));
+		setData(newData);
 	}, [expenses]);
 
 	return (
