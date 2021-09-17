@@ -66,12 +66,12 @@ const ClienteState = (props) => {
 
 			dispatch({
 				type: AGREGAR_CLIENTE,
-				payload: clientEdited,
+				payload: clientCreated,
 			});
 
 			dispatch({
 				type: AGREGAR_NUEVO_CLIENTE,
-				payload: clientEdited,
+				payload: clientCreated,
 			});
 
 			mostrarAlertaClientes('Cliente creado', 'success');
