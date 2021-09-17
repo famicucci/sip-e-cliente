@@ -15,6 +15,7 @@ import GlobalDataContext from '../../context/globalData/GlobalDataContext';
 import EditarGasto from './EditarGasto';
 import CrearGasto from './CrearGasto';
 import Alerta2 from '../generales/Alerta2';
+import moment from 'moment';
 
 const useStyles = makeStyles({
 	table: {
@@ -48,6 +49,8 @@ const TablaGastos = () => {
 		mensajeGastos,
 	} = useContext(GastoContext);
 	const {
+		startDate,
+		endDate,
 		expenseCategories,
 		expenseSubcategories,
 		getCategorieExpenses,
@@ -61,8 +64,6 @@ const TablaGastos = () => {
 		usePaginacion(filteredData, 25);
 
 	useEffect(() => {
-		getExpenses();
-
 		if (!expenseCategories && !expenseSubcategories) {
 			getCategorieExpenses();
 			getSubcategorieExpenses();
@@ -70,6 +71,10 @@ const TablaGastos = () => {
 
 		handleToolsExpenses();
 	}, []);
+
+	useEffect(() => {
+		if (startDate && endDate) getExpenses(startDate, endDate);
+	}, [startDate, endDate]);
 
 	useEffect(() => {
 		setData(expenses);

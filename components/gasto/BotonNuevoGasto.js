@@ -15,7 +15,7 @@ const BotonNuevoGasto = () => {
 			size="small"
 			edge="start"
 			onClick={onClick}
-			style={{ color: '#fff' }}
+			style={{ color: '#fff', marginRight: '8px' }}
 		>
 			<AddCircleIcon />
 		</IconButton>

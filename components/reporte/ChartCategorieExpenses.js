@@ -2,22 +2,32 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Bar } from 'react-chartjs-2';
 import GlobalDataContext from '../../context/globalData/GlobalDataContext';
 import GastoContext from '../../context/gasto/GastoContext';
-
 import moment from 'moment';
+import SpinnerTabla from '../generales/SpinnerTabla';
 
 const ChartCategorieExpenses = () => {
-	const { startDate, endDate, expenseCategories, getCategorieExpenses } =
-		useContext(GlobalDataContext);
-	const { expenses, getExpenses } = useContext(GastoContext);
+	const {
+		startDate,
+		endDate,
+		loadingGlobalData,
+		expenseCategories,
+		getCategorieExpenses,
+	} = useContext(GlobalDataContext);
+	const { expenses, loading, getExpenses } = useContext(GastoContext);
 
 	const [chartData, setChartData] = useState({});
 
 	useEffect(() => {
-		if (expenses.length === 0) getExpenses();
 		if (!expenseCategories) getCategorieExpenses();
+	}, []);
 
-		if (expenses && expenseCategories) handleCharData(startDate, endDate);
-	}, [expenses, expenseCategories, startDate, endDate]);
+	useEffect(() => {
+		if (startDate & endDate) getExpenses(startDate, endDate);
+	}, [startDate, endDate]);
+
+	useEffect(() => {
+		if (expenseCategories) handleCharData(startDate, endDate);
+	}, [expenses, expenseCategories]);
 
 	const handleCharData = (startDate, endDate) => {
 		let monthsBetweenDates = getMonthsBetweenDates(startDate, endDate);
@@ -125,13 +135,19 @@ const ChartCategorieExpenses = () => {
 	};
 
 	return (
-		<Bar
-			data={chartData}
-			options={{
-				responsive: true,
-				plugins: { title: { text: 'Gastos por Categoría', display: true } },
-			}}
-		/>
+		<>
+			{!loading && !loadingGlobalData ? (
+				<Bar
+					data={chartData}
+					options={{
+						responsive: true,
+						plugins: { title: { text: 'Gastos por Categoría', display: true } },
+					}}
+				/>
+			) : (
+				<SpinnerTabla />
+			)}
+		</>
 	);
 };
 

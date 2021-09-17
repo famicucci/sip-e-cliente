@@ -2,23 +2,27 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Bar } from 'react-chartjs-2';
 import GlobalDataContext from '../../context/globalData/GlobalDataContext';
 import GastoContext from '../../context/gasto/GastoContext';
+import SpinnerTabla from '../generales/SpinnerTabla';
 
 import moment from 'moment';
 
 const ChartRevenuesVsExpenses = () => {
-	const { startDate, endDate, invoices, getInvoicing } =
+	const { startDate, endDate, loadingGlobalData, invoices, getInvoicing } =
 		useContext(GlobalDataContext);
-	const { expenses, getExpenses } = useContext(GastoContext);
+	const { expenses, loading, getExpenses } = useContext(GastoContext);
 
 	const [chartData, setChartData] = useState({});
 
 	useEffect(() => {
-		if (expenses.length === 0) getExpenses();
-		if (invoices.length === 0) getInvoicing(startDate, endDate);
+		if (startDate && endDate) {
+			getExpenses(startDate, endDate);
+			getInvoicing(startDate, endDate);
+		}
+	}, [startDate, endDate]);
 
-		if (expenses.length > 0 && invoices.length > 0)
-			handleCharData(startDate, endDate);
-	}, [expenses, invoices, startDate, endDate]);
+	useEffect(() => {
+		handleCharData(startDate, endDate);
+	}, [expenses, invoices]);
 
 	const handleCharData = (startDate, endDate) => {
 		let monthsBetweenDates = getMonthsBetweenDates(startDate, endDate);
@@ -49,8 +53,6 @@ const ChartRevenuesVsExpenses = () => {
 	};
 
 	const revenuePerMonth = (monthsBetweenDates) => {
-		// let monthsBetweenDates = getMonthsBetweenDates(startDate, endDate);
-
 		const validInvoices = invoices.filter(
 			(x) => x.tipo === 'fac' && (x.estado === 'v') & (x.estadoPago === 'Pago')
 		);
@@ -95,13 +97,19 @@ const ChartRevenuesVsExpenses = () => {
 	};
 
 	return (
-		<Bar
-			data={chartData}
-			options={{
-				responsive: true,
-				plugins: { title: { text: 'Ingresos vs Gastos', display: true } },
-			}}
-		/>
+		<>
+			{!loading && !loadingGlobalData ? (
+				<Bar
+					data={chartData}
+					options={{
+						responsive: true,
+						plugins: { title: { text: 'Ingresos vs Gastos', display: true } },
+					}}
+				/>
+			) : (
+				<SpinnerTabla />
+			)}
+		</>
 	);
 };
 

@@ -30,10 +30,13 @@ const GastoState = (props) => {
 	const [state, dispatch] = useReducer(GastoReducer, initialState);
 
 	// las funciones
-	const getExpenses = async () => {
-		// call bd
+	const getExpenses = async (startDate, endDate) => {
 		try {
-			const r = await clienteAxios.get('/api/gastos');
+			const r = await clienteAxios.get(
+				`/api/gastos/${JSON.stringify({ startDate, endDate })}`
+			);
+
+			console.log(r.data);
 
 			dispatch({
 				type: TRAER_GASTOS,

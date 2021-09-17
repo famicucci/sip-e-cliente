@@ -14,6 +14,7 @@ import {
 	TRAER_FACTURAS,
 	ACTUALIZAR_FECHA_INICIO,
 	ACTUALIZAR_FECHA_FIN,
+	SHOW_LOADING,
 } from '../../types';
 
 const GlobalDataState = (props) => {
@@ -28,6 +29,7 @@ const GlobalDataState = (props) => {
 		invoices: [],
 		startDate: null,
 		endDate: null,
+		loadingGlobalData: true,
 	};
 
 	const [state, dispatch] = useReducer(GlobalDataReducer, initialState);
@@ -129,6 +131,11 @@ const GlobalDataState = (props) => {
 				type: TRAER_FACTURAS,
 				payload: r.data,
 			});
+
+			dispatch({
+				type: SHOW_LOADING,
+				payload: false,
+			});
 		} catch (error) {
 			console.log(error);
 		}
@@ -161,6 +168,7 @@ const GlobalDataState = (props) => {
 				invoices: state.invoices,
 				startDate: state.startDate,
 				endDate: state.endDate,
+				loadingGlobalData: state.loadingGlobalData,
 				getStockPoints,
 				getSalePoints,
 				getShippingTypes,

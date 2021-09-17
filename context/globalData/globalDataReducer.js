@@ -9,6 +9,7 @@ import {
 	TRAER_FACTURAS,
 	ACTUALIZAR_FECHA_INICIO,
 	ACTUALIZAR_FECHA_FIN,
+	SHOW_LOADING,
 } from '../../types';
 
 const GlobalDataReducer = (state, action) => {
@@ -62,6 +63,11 @@ const GlobalDataReducer = (state, action) => {
 			return {
 				...state,
 				endDate: action.payload,
+			};
+		case SHOW_LOADING:
+			return {
+				...state,
+				loadingGlobalData: action.payload,
 			};
 		default:
 			return state;

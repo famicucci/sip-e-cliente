@@ -9,6 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import FilaProductosMasVendidos from './FilaProductosMasVendidos';
 import moment from 'moment';
+import SpinnerTabla from '../generales/SpinnerTabla';
 
 const columnas = [
 	{ id: 'codigo', label: 'Código', minWidth: 20, align: 'left' },
@@ -32,7 +33,7 @@ const useStyles = makeStyles({
 
 const TablaProductosMasVendidos = () => {
 	const classes = useStyles();
-	const { startDate, endDate, invoices, getInvoicing } =
+	const { startDate, endDate, invoices, loadingGlobalData, getInvoicing } =
 		useContext(GlobalDataContext);
 
 	const [data, setData] = useState([]);
@@ -87,28 +88,34 @@ const TablaProductosMasVendidos = () => {
 	};
 
 	return (
-		<TableContainer className={classes.tableContainer}>
-			<Table stickyHeader>
-				<TableHead>
-					<TableRow>
-						{columnas.map((columna) => (
-							<TableCell
-								key={columna.id}
-								align={columna.align}
-								style={{ minWidth: columna.minWidth }}
-							>
-								{columna.label}
-							</TableCell>
-						))}
-					</TableRow>
-				</TableHead>
-				<TableBody>
-					{data.map((x) => (
-						<FilaProductosMasVendidos key={x.codigo} fila={x} />
-					))}
-				</TableBody>
-			</Table>
-		</TableContainer>
+		<>
+			{!loadingGlobalData ? (
+				<TableContainer className={classes.tableContainer}>
+					<Table stickyHeader>
+						<TableHead>
+							<TableRow>
+								{columnas.map((columna) => (
+									<TableCell
+										key={columna.id}
+										align={columna.align}
+										style={{ minWidth: columna.minWidth }}
+									>
+										{columna.label}
+									</TableCell>
+								))}
+							</TableRow>
+						</TableHead>
+						<TableBody>
+							{data.map((x) => (
+								<FilaProductosMasVendidos key={x.codigo} fila={x} />
+							))}
+						</TableBody>
+					</Table>
+				</TableContainer>
+			) : (
+				<SpinnerTabla />
+			)}
+		</>
 	);
 };
 

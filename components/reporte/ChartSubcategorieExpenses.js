@@ -9,6 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import SpinnerTabla from '../generales/SpinnerTabla';
 
 const useStyles = makeStyles((theme) => ({
 	formControl: {
@@ -23,24 +24,30 @@ const ChartSubcategorieExpenses = () => {
 	const {
 		startDate,
 		endDate,
+		loadingGlobalData,
 		expenseCategories,
 		expenseSubcategories,
 		getCategorieExpenses,
 		getSubcategorieExpenses,
 	} = useContext(GlobalDataContext);
-	const { expenses, getExpenses } = useContext(GastoContext);
+	const { expenses, loading, getExpenses } = useContext(GastoContext);
 
 	const [chartData, setChartData] = useState({});
 	const [categorieId, setCategorieId] = useState(1);
 
 	useEffect(() => {
-		if (expenses.length === 0) getExpenses();
 		if (!expenseCategories) getCategorieExpenses();
 		if (!expenseSubcategories) getSubcategorieExpenses();
+	}, []);
 
-		if (expenses.length > 0 && expenseCategories && expenseSubcategories)
+	useEffect(() => {
+		if (startDate && endDate) getExpenses(startDate, endDate);
+	}, [startDate, endDate]);
+
+	useEffect(() => {
+		if (expenseCategories && expenseSubcategories)
 			handleCharData(startDate, endDate);
-	}, [expenses, expenseCategories, startDate, endDate, categorieId]);
+	}, [expenses, expenseCategories, expenseSubcategories, categorieId]);
 
 	const handleChange = (event) => {
 		setCategorieId(event.target.value);
@@ -152,28 +159,34 @@ const ChartSubcategorieExpenses = () => {
 
 	return (
 		<Box>
-			<Box display="flex" justifyContent="flex-start">
-				<FormControl className={classes.formControl}>
-					<InputLabel>Categoría</InputLabel>
-					{expenseCategories ? (
-						<Select value={categorieId} onChange={handleChange}>
-							{expenseCategories.map((x) => (
-								<MenuItem key={x.id} value={x.id}>
-									{x.descripcion}
-								</MenuItem>
-							))}
-						</Select>
-					) : null}
-				</FormControl>
-			</Box>
-			<Box>
-				<Doughnut
-					data={chartData}
-					options={{
-						responsive: true,
-					}}
-				/>
-			</Box>
+			{!loadingGlobalData ? (
+				<Box display="flex" justifyContent="flex-start">
+					<FormControl className={classes.formControl}>
+						<InputLabel>Categoría</InputLabel>
+						{expenseCategories ? (
+							<Select value={categorieId} onChange={handleChange}>
+								{expenseCategories.map((x) => (
+									<MenuItem key={x.id} value={x.id}>
+										{x.descripcion}
+									</MenuItem>
+								))}
+							</Select>
+						) : null}
+					</FormControl>
+				</Box>
+			) : null}
+			{!loading ? (
+				<Box>
+					<Doughnut
+						data={chartData}
+						options={{
+							responsive: true,
+						}}
+					/>
+				</Box>
+			) : (
+				<SpinnerTabla />
+			)}
 		</Box>
 	);
 };

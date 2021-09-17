@@ -206,9 +206,9 @@ const Navbar = (props) => {
 					) : null}
 					{botonModoCargaVenta ? <BotonModoCargaVenta /> : null}
 					{botonNuevoCliente ? <BotonNuevoCliente /> : null}
-					{botonNuevoGasto ? <BotonNuevoGasto /> : null}
 					{etiquetaModificarOrden ? <EtiquetaModificarOrden /> : null}
 					{selectBetweenMonths ? <SelectBetweenMonths /> : null}
+					{botonNuevoGasto ? <BotonNuevoGasto /> : null}
 
 					<div className={classes.grow} />
 

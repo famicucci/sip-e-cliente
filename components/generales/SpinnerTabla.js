@@ -1,28 +1,31 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Box from '@material-ui/core/Box';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
 
-const SpinnerTabla = ({ cantColumnas }) => {
+const useStyles = makeStyles(() => ({
+	root: {
+		width: '100%',
+		height: '100%',
+	},
+}));
+
+const SpinnerTabla = () => {
+	const classes = useStyles();
 	return (
-		<TableRow>
-			<TableCell colSpan={cantColumnas}>
-				<div style={{ width: '100%' }}>
-					<Box
-						display="flex"
-						justifyContent="center"
-						alignItems="center"
-						css={{ height: 450 }}
-						m={1}
-						p={1}
-						bgcolor="background.paper"
-					>
-						<CircularProgress />
-					</Box>
-				</div>
-			</TableCell>
-		</TableRow>
+		<div className={classes.root}>
+			<Box
+				display="flex"
+				justifyContent="center"
+				alignItems="center"
+				css={{ height: '100%' }}
+				m={1}
+				p={1}
+				bgcolor="background.paper"
+			>
+				<CircularProgress />
+			</Box>
+		</div>
 	);
 };
 
