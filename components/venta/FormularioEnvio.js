@@ -56,14 +56,8 @@ const inputCosto = {
 
 const FormularioEnvio = (props) => {
 	const classes = useStyles();
-	const {
-		facturasOrden,
-		initialState,
-		handleEnvio,
-		tiposEnvio,
-		cliente,
-		checkForChanges,
-	} = props;
+	const { facturasOrden, initialState, handleEnvio, tiposEnvio, cliente } =
+		props;
 
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 
@@ -85,28 +79,28 @@ const FormularioEnvio = (props) => {
 		} else if (stateEnvio.modoDirecc === 'input') {
 			setStateEnvio({ ...stateEnvio, modoDirecc: 'select' });
 		}
-		checkForChanges(true);
+		if (props.checkForChanges) props.checkForChanges(true);
 	};
 
 	const handleSelectDireccion = (name, val) => {
 		const r = cliente.direcciones.find((x) => x.id === val);
 		setStateEnvio({ ...stateEnvio, select: r });
-		checkForChanges(true);
+		if (props.checkForChanges) props.checkForChanges(true);
 	};
 
 	const handleInputDireccion = (name, val) => {
 		setStateEnvio({ ...stateEnvio, input: val });
-		checkForChanges(true);
+		if (props.checkForChanges) props.checkForChanges(true);
 	};
 
 	const handleSelectTipo = (name, val) => {
 		setStateEnvio({ ...stateEnvio, tipo: val });
-		checkForChanges(true);
+		if (props.checkForChanges) props.checkForChanges(true);
 	};
 
 	const handleInputCosto = (name, val) => {
 		setStateEnvio({ ...stateEnvio, costo: val });
-		checkForChanges(true);
+		if (props.checkForChanges) props.checkForChanges(true);
 	};
 
 	const handleDisabledCostoEnvio = (facturasOrden) => {
