@@ -16,8 +16,8 @@ import AlertaContext from '../../context/alertas/alertaContext';
 import Alerta from '../generales/Alerta';
 import Alerta2 from '../generales/Alerta2';
 import useFilter from '../../hooks/useFilter';
-import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import EditarCliente from './EditarCliente';
+import moment from 'moment';
 
 const useStyles = makeStyles({
 	table: {
@@ -29,11 +29,9 @@ const TablaClientes = (props) => {
 	const classes = useStyles();
 	const { columnas } = props;
 
-	const { busqueda } = useContext(BarraHerramientasContext);
-
 	// create a state for this table
 	const [data, setData] = useState([]);
-	const [filteredData] = useFilter(data, busqueda);
+	const [filteredData] = useFilter(data, props.busqueda);
 
 	const { alerta } = useContext(AlertaContext);
 	const {
@@ -56,11 +54,14 @@ const TablaClientes = (props) => {
 
 	useEffect(() => {
 		traerClientes();
-		setData(clientes);
 	}, []);
 
 	useEffect(() => {
-		setData(clientes);
+		const newData = clientes.map((x) => ({
+			...x,
+			createdAt: moment(x.createdAt).format('DD-MM-YYYY'),
+		}));
+		setData(newData);
 	}, [clientes]);
 
 	const colIndex = columnas.reduce(

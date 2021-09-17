@@ -48,9 +48,7 @@ const FilaCliente = ({ fila, colIndex }) => {
 				<TableCell align="left">{fila.condIva}</TableCell>
 			) : null}
 			{colIndex['Creación'] ? (
-				<TableCell align="left">
-					{moment(fila.createdAt).format('DD-MM-YYYY')}
-				</TableCell>
+				<TableCell align="left">{fila.createdAt}</TableCell>
 			) : null}
 			{colIndex['Tipo'] ? (
 				<TableCell align="left">{fila.tipo}</TableCell>
