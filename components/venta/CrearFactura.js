@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useReff } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import ModalScroll from '../generales/ModalScroll';
-import { Typography, Divider, Box } from '@material-ui/core';
+import { Divider, Box } from '@material-ui/core';
 import ProductosCrearFactura from './ProductosCrearFactura';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
 import ImporteCrearFactura from './ImporteCrearFactura';
@@ -10,6 +9,8 @@ import NotaCrearFactura from './NotaCrearFactura';
 import ConfirmarCrearFactura from './ConfirmarCrearFactura';
 import AlertaContext from '../../context/alertas/alertaContext';
 import GlobalDataContext from '../../context/globalData/GlobalDataContext';
+import ModalScroll2 from '../generales/ModalScroll2';
+import { useReactToPrint } from 'react-to-print';
 
 const useStyles = makeStyles((theme) => ({
 	dividerHorizontal: {
@@ -104,37 +105,30 @@ const CrearFactura = () => {
 	};
 
 	return (
-		<form
-			noValidate
-			autoComplete="off"
-			onSubmit={onSubmit}
-			id="form-crear-factura"
+		<ModalScroll2
+			openModal={openModalCrearFactura}
+			handleClose={() => {
+				handleCloseModal();
+				handleFilaActivaOrden(null);
+			}}
+			padding={2}
+			titulo={`Facturar orden ${filaActiva.id}`}
+			anexoTitulo={`${filaActiva.Cliente.nombre} ${filaActiva.Cliente.apellido}`}
+			morevertactions={[
+				{
+					content: 'imprimir',
+					function: () => {
+						console.log('imprimiendoooo');
+					},
+				},
+			]}
 		>
-			<ModalScroll
-				openModal={openModalCrearFactura}
-				handleClose={() => {
-					handleCloseModal();
-					handleFilaActivaOrden(null);
-				}}
-				padding={2}
+			<form
+				noValidate
+				autoComplete="off"
+				onSubmit={onSubmit}
+				id="form-crear-factura"
 			>
-				<Box display="flex" justifyContent="flex-center" alignItems="flex-end">
-					<Box>
-						<Typography variant="h5" align="left">
-							{`Facturar orden ${filaActiva.id}`}
-						</Typography>
-					</Box>
-					<Divider
-						className={classes.dividerVertical}
-						orientation="vertical"
-						variant="inset"
-						flexItem
-					/>
-					<Box>
-						<Typography align="left">{`${filaActiva.Cliente.nombre} ${filaActiva.Cliente.apellido}`}</Typography>
-					</Box>
-				</Box>
-				<Divider className={classes.dividerHorizontal} variant="fullWidth" />
 				<ProductosCrearFactura productos={filaActiva.detalleOrden} />
 				<ImporteCrearFactura tochangestate={onChangeImportes} />
 				<NotaCrearFactura tochangestate={onChangeObservaciones} />
@@ -148,8 +142,8 @@ const CrearFactura = () => {
 					/>
 				</Box>
 				{openModalConfirmarCrearFactura ? <ConfirmarCrearFactura /> : null}
-			</ModalScroll>
-		</form>
+			</form>
+		</ModalScroll2>
 	);
 };
 
