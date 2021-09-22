@@ -15,7 +15,6 @@ import {
 	TRAER_FACTURAS,
 	ACTUALIZAR_FECHAS_LIMITE,
 	SHOW_LOADING,
-	TRAER_EMPRESA,
 } from '../../types';
 
 const GlobalDataState = (props) => {
@@ -33,7 +32,6 @@ const GlobalDataState = (props) => {
 			endDate: moment(new Date()).endOf('month').format('YYYY-MM-DD hh:mm'),
 		},
 		loadingGlobalData: true,
-		company: null,
 	};
 
 	const [state, dispatch] = useReducer(GlobalDataReducer, initialState);
@@ -152,19 +150,6 @@ const GlobalDataState = (props) => {
 		});
 	};
 
-	const getCompany = async () => {
-		try {
-			const r = await clienteAxios.get('/api/empresas/');
-
-			dispatch({
-				type: TRAER_EMPRESA,
-				payload: r.data,
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
 	return (
 		<GlobalDataContext.Provider
 			value={{
@@ -178,7 +163,6 @@ const GlobalDataState = (props) => {
 				invoices: state.invoices,
 				dates: state.dates,
 				loadingGlobalData: state.loadingGlobalData,
-				company: state.company,
 				getStockPoints,
 				getSalePoints,
 				getShippingTypes,
@@ -188,7 +172,6 @@ const GlobalDataState = (props) => {
 				getSubcategorieExpenses,
 				getInvoicing,
 				handleDates,
-				getCompany,
 			}}
 		>
 			{props.children}

@@ -12,7 +12,6 @@ import {
 	MODIFICAR_ORDENES,
 	MODIFICAR_ESTADO_ORDEN,
 	CREAR_DETALLE_FACTURA,
-	CREAR_FACTURA,
 	MODAL_DETALLE_ORDEN,
 	MODAL_INFORMACION_CLIENTE,
 	MODAL_CREAR_FACTURA,
@@ -112,14 +111,24 @@ const EditarOrdenesState = (props) => {
 				'/api/facturas/',
 				objFactura
 			);
-			const idFactura = crearFactura.data.id;
-			const r2 = await clienteAxios.get(`/api/facturas/${idFactura}`);
 
-			const factura = r2.data;
+			const filaActivaMod = {
+				...state.filaActiva,
+				Factura: {
+					...crearFactura.data,
+					detalleFactura: objFactura.detalleFactura,
+					Pagos: [],
+				},
+			};
 
 			dispatch({
-				type: CREAR_FACTURA,
-				payload: factura,
+				type: FILA_ACTIVA_ORDEN,
+				payload: filaActivaMod,
+			});
+
+			dispatch({
+				type: MODIFICAR_ORDENES,
+				payload: filaActivaMod,
 			});
 		} catch (error) {
 			console.log(error);

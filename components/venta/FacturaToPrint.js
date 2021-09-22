@@ -57,7 +57,7 @@ class FacturaToPrint extends React.PureComponent {
 							{factura.detalleFactura.map((x) => (
 								<RowColorIntercalado>
 									<TableCell align="center">{x.ProductoCodigo}</TableCell>
-									<TableCell align="left">{x.descripcion}</TableCell>
+									<TableCell align="left">{x.Producto.descripcion}</TableCell>
 									<TableCell align="center">{x.cantidad}</TableCell>
 									<TableCell align="center">{x.pu}</TableCell>
 									<TableCell align="center">

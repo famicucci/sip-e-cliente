@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useRef } from 'react';
+import React, { useContext, useState, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Divider, Box } from '@material-ui/core';
 import ProductosCrearFactura from './ProductosCrearFactura';
@@ -8,7 +8,6 @@ import BotonSuccess from '../generales/botones/BotonSuccess';
 import NotaCrearFactura from './NotaCrearFactura';
 import ConfirmarCrearFactura from './ConfirmarCrearFactura';
 import AlertaContext from '../../context/alertas/alertaContext';
-import GlobalDataContext from '../../context/globalData/GlobalDataContext';
 import ModalScroll2 from '../generales/ModalScroll2';
 import { useReactToPrint } from 'react-to-print';
 import FacturaToPrint from './FacturaToPrint';
@@ -34,8 +33,6 @@ const useStyles = makeStyles((theme) => ({
 const CrearFactura = () => {
 	const classes = useStyles();
 
-	const { company, getShippingTypes, getCompany } =
-		useContext(GlobalDataContext);
 	const {
 		filaActiva,
 		openModalCrearFactura,
@@ -60,17 +57,12 @@ const CrearFactura = () => {
 			cantidad: x.cantidad,
 			pu: x.pu,
 			ProductoCodigo: x.ProductoCodigo,
-			descripcion: x.Producto.descripcion,
+			Producto: { descripcion: x.Producto.descripcion },
 		})),
 		importe: '',
 		descuento: '',
 		importeFinal: '',
 	});
-
-	useEffect(() => {
-		getShippingTypes();
-		if (!company) getCompany();
-	}, []);
 
 	const onChangeObservaciones = (observaciones) => {
 		setFactura({ ...factura, observaciones: observaciones });
