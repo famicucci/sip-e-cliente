@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useReff } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Divider, Box } from '@material-ui/core';
 import ProductosCrearFactura from './ProductosCrearFactura';
@@ -11,6 +11,7 @@ import AlertaContext from '../../context/alertas/alertaContext';
 import GlobalDataContext from '../../context/globalData/GlobalDataContext';
 import ModalScroll2 from '../generales/ModalScroll2';
 import { useReactToPrint } from 'react-to-print';
+import CrearFacturaToPrint from './CrearFacturaToPrint';
 
 const useStyles = makeStyles((theme) => ({
 	dividerHorizontal: {
@@ -33,7 +34,8 @@ const useStyles = makeStyles((theme) => ({
 const CrearFactura = () => {
 	const classes = useStyles();
 
-	const { getShippingTypes } = useContext(GlobalDataContext);
+	const { company, getShippingTypes, getCompany } =
+		useContext(GlobalDataContext);
 	const {
 		filaActiva,
 		openModalCrearFactura,
@@ -49,7 +51,7 @@ const CrearFactura = () => {
 	const [factura, setFactura] = useState({
 		OrdenId: filaActiva.id,
 		ClienteId: filaActiva.Cliente.id,
-		tarifaEnvio: filaActiva.tarifaEnvio,
+		tarifaEnvio: parseFloat(filaActiva.tarifaEnvio),
 		tipo: 'fac',
 		estado: 'v',
 		estadoPago: 'Pendiente',
@@ -58,6 +60,7 @@ const CrearFactura = () => {
 			cantidad: x.cantidad,
 			pu: x.pu,
 			ProductoCodigo: x.ProductoCodigo,
+			descripcion: x.Producto.descripcion,
 		})),
 		importe: '',
 		descuento: '',
@@ -66,6 +69,7 @@ const CrearFactura = () => {
 
 	useEffect(() => {
 		getShippingTypes();
+		if (!company) getCompany();
 	}, []);
 
 	const onChangeObservaciones = (observaciones) => {
@@ -104,6 +108,11 @@ const CrearFactura = () => {
 		})();
 	};
 
+	const componentRef = useRef();
+	const handlePrint = useReactToPrint({
+		content: () => componentRef.current,
+	});
+
 	return (
 		<ModalScroll2
 			openModal={openModalCrearFactura}
@@ -117,9 +126,7 @@ const CrearFactura = () => {
 			morevertactions={[
 				{
 					content: 'imprimir',
-					function: () => {
-						console.log('imprimiendoooo');
-					},
+					function: handlePrint,
 				},
 			]}
 		>
@@ -129,6 +136,9 @@ const CrearFactura = () => {
 				onSubmit={onSubmit}
 				id="form-crear-factura"
 			>
+				<div style={{ display: 'none' }}>
+					<CrearFacturaToPrint factura={factura} ref={componentRef} />
+				</div>
 				<ProductosCrearFactura productos={filaActiva.detalleOrden} />
 				<ImporteCrearFactura tochangestate={onChangeImportes} />
 				<NotaCrearFactura tochangestate={onChangeObservaciones} />

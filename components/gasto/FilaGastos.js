@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import RowColorIntercalado from '../generales/RowColorIntercalado';
-import moment from 'moment';
 import GlobalDataContext from '../../context/globalData/GlobalDataContext';
 import GastoContext from '../../context/gasto/GastoContext';
 import SelectStatusPayment from './SelectStatusPayment';

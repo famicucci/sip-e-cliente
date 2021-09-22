@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
 import TableCell from '@material-ui/core/TableCell';
-import moment from 'moment';
 import BotonFilaTabla from '../generales/BotonFilaTabla';
 import Tippy from '@tippyjs/react';
 import { IconButton } from '@material-ui/core';

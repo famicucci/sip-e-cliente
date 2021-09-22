@@ -79,10 +79,7 @@ const Factura = () => {
 				},
 			]}
 		>
-			<TablaListaProductos
-				productos={filaActiva.Factura.detalleFactura}
-				columnas={columnas}
-			/>
+			<TablaListaProductos productos={filaActiva.Factura.detalleFactura} />
 			<Divider className={classes.divider} variant="fullWidth" />
 			<Box
 				className={classes.boxPadre}
