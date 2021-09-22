@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -24,6 +24,21 @@ const columnas = [
 const TablaListaProductos = ({ productos }) => {
 	const classes = useStyles();
 
+	const [data, setData] = useState([]);
+
+	useEffect(() => {
+		const newData = {};
+		productos.forEach((x) => {
+			newData[x.ProductoCodigo] = newData[x.ProductoCodigo] ?? {
+				...x,
+				cantidad: 0,
+			};
+			newData[x.ProductoCodigo]['cantidad'] += x.cantidad;
+		});
+
+		setData(Object.values(newData));
+	}, []);
+
 	// extraer los id de las columnas
 	const colIndex = columnas.reduce(
 		(acc, el) => ({ ...acc, [el.nombre]: el }),
@@ -35,7 +50,7 @@ const TablaListaProductos = ({ productos }) => {
 			<Table className={classes.table}>
 				<HeadTabla columnas={columnas} />
 				<TableBody>
-					{productos.map((x, i) => (
+					{data.map((x, i) => (
 						<FilaListaProductos key={i} fila={x} colIndex={colIndex} />
 					))}
 				</TableBody>
