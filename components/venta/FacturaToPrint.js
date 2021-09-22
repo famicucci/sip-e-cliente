@@ -18,7 +18,7 @@ const columnas = [
 	{ id: 5, nombre: 'Total', align: 'center', minWidth: 80 },
 ];
 
-class CrearFacturaToPrint extends React.PureComponent {
+class FacturaToPrint extends React.PureComponent {
 	render() {
 		const { factura } = this.props;
 
@@ -95,4 +95,4 @@ class CrearFacturaToPrint extends React.PureComponent {
 	}
 }
 
-export default CrearFacturaToPrint;
+export default FacturaToPrint;

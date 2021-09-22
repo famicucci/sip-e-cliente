@@ -11,7 +11,7 @@ import AlertaContext from '../../context/alertas/alertaContext';
 import GlobalDataContext from '../../context/globalData/GlobalDataContext';
 import ModalScroll2 from '../generales/ModalScroll2';
 import { useReactToPrint } from 'react-to-print';
-import CrearFacturaToPrint from './CrearFacturaToPrint';
+import FacturaToPrint from './FacturaToPrint';
 
 const useStyles = makeStyles((theme) => ({
 	dividerHorizontal: {
@@ -137,7 +137,7 @@ const CrearFactura = () => {
 				id="form-crear-factura"
 			>
 				<div style={{ display: 'none' }}>
-					<CrearFacturaToPrint factura={factura} ref={componentRef} />
+					<FacturaToPrint factura={factura} ref={componentRef} />
 				</div>
 				<ProductosCrearFactura productos={filaActiva.detalleOrden} />
 				<ImporteCrearFactura tochangestate={onChangeImportes} />

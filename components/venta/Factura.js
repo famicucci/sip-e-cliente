@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
 import { Box, Divider } from '@material-ui/core';
@@ -10,6 +10,8 @@ import ImporteFlexGrow from '../generales/ImporteFlexGrow';
 import PagosFactura from './PagosFactura';
 import ConfirmarCancelarFactura from './ConfirmarCancelarFactura';
 import ConfirmarCancelarPago from './ConfirmarCancelarPago';
+import { useReactToPrint } from 'react-to-print';
+import FacturaToPrint from './FacturaToPrint';
 
 const useStyles = makeStyles((theme) => ({
 	botonAceptar: {
@@ -21,14 +23,6 @@ const useStyles = makeStyles((theme) => ({
 	boxPadre: { width: '100%' },
 	boxImportes: { width: '50%' },
 }));
-
-const columnas = [
-	{ id: 1, nombre: 'Código', align: 'left', minWidth: 100 },
-	{ id: 2, nombre: 'Descripción', align: 'left', minWidth: 300 },
-	{ id: 3, nombre: 'Cantidad', align: 'center', minWidth: 100 },
-	{ id: 4, nombre: 'Precio', align: 'center', minWidth: 100 },
-	{ id: 5, nombre: 'Total', align: 'center', minWidth: 100 },
-];
 
 const Factura = () => {
 	const classes = useStyles();
@@ -58,6 +52,11 @@ const Factura = () => {
 		else return { disabled: true };
 	};
 
+	const componentRef = useRef();
+	const handlePrint = useReactToPrint({
+		content: () => componentRef.current,
+	});
+
 	return (
 		<ModalScroll2
 			openModal={openModalFactura}
@@ -71,6 +70,10 @@ const Factura = () => {
 			anexoTitulo={cliente.nombreCompleto}
 			morevertactions={[
 				{
+					content: 'imprimir',
+					function: handlePrint,
+				},
+				{
 					content: 'cancelar',
 					function: () => {
 						handleOpenModalConfirmarCancelarFactura(true);
@@ -79,6 +82,9 @@ const Factura = () => {
 				},
 			]}
 		>
+			<div style={{ display: 'none' }}>
+				<FacturaToPrint factura={filaActiva.Factura} ref={componentRef} />
+			</div>
 			<TablaListaProductos productos={filaActiva.Factura.detalleFactura} />
 			<Divider className={classes.divider} variant="fullWidth" />
 			<Box
