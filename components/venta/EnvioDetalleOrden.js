@@ -18,6 +18,8 @@ import { Grid } from '@material-ui/core';
 import ItemInfoConLabel from '../generales/ItemInfoConLabel';
 import clsx from 'clsx';
 import SaveIcon from '@material-ui/icons/Save';
+import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const useStyles = makeStyles((theme) => ({
 	heading: {
@@ -146,6 +148,18 @@ const EnvioDetalleOrden = () => {
 			</AccordionDetails>
 			<Divider />
 			<AccordionActions>
+				<CopyToClipboard
+					text={`${getShippingTypeDescription(
+						filaActiva.TipoEnvioId,
+						shippingTypes
+					)}\n${
+						filaActiva.direccionEnvio ? filaActiva.direccionEnvio : ' - '
+					}\n${filaActiva.tarifaEnvio}`}
+				>
+					<IconButton type="button" size="small">
+						<FileCopyOutlinedIcon />
+					</IconButton>
+				</CopyToClipboard>
 				<IconButton size="small" onClick={onClickEdit}>
 					<EditOutlinedIcon />
 				</IconButton>
