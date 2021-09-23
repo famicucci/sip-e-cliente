@@ -11,11 +11,13 @@ import SpinnerTabla from '../generales/SpinnerTabla';
 import useFilter from '../../hooks/useFilter';
 import clienteAxios from '../../config/axios';
 import FilaProductosAMover from './FilaProductosAMover';
+import { Box } from '@material-ui/core';
 
 const useStyles = makeStyles({
 	table: {
 		minWidth: 600,
 	},
+	spinner: { height: '86vh' },
 });
 
 // columnas de la tabla
@@ -68,22 +70,24 @@ const TablaProductosAMover = () => {
 
 	return (
 		<TableContainer component={Paper}>
-			<Table className={classes.table}>
-				<HeadTabla columnas={columnas} />
-				<TableBody>
-					{!cargando ? (
-						cortePagina.map((x) => (
+			{!cargando ? (
+				<Table className={classes.table}>
+					<HeadTabla columnas={columnas} />
+					<TableBody>
+						{cortePagina.map((x) => (
 							<FilaProductosAMover key={x.ProductoCodigo} fila={x} />
-						))
-					) : (
-						<SpinnerTabla cantColumnas={3} />
-					)}
-					{cortePagina.length === 0 && !cargando
-						? bodyVacio(columnas)
-						: filasVacias}
-				</TableBody>
-				{!cargando ? <FooterTabla /> : null}
-			</Table>
+						))}
+						{cortePagina.length === 0 && !cargando
+							? bodyVacio(columnas)
+							: filasVacias}
+					</TableBody>
+					<FooterTabla />
+				</Table>
+			) : (
+				<Box className={classes.spinner}>
+					<SpinnerTabla />
+				</Box>
+			)}
 		</TableContainer>
 	);
 };

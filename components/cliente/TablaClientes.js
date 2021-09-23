@@ -18,11 +18,13 @@ import Alerta2 from '../generales/Alerta2';
 import useFilter from '../../hooks/useFilter';
 import EditarCliente from './EditarCliente';
 import moment from 'moment';
+import { Box } from '@material-ui/core';
 
 const useStyles = makeStyles({
 	table: {
 		minWidth: 600,
 	},
+	spinner: { height: '86vh' },
 });
 
 const TablaClientes = (props) => {
@@ -71,22 +73,25 @@ const TablaClientes = (props) => {
 
 	return (
 		<TableContainer component={Paper}>
-			<Table className={classes.table}>
-				<HeadTabla columnas={columnas} />
-				<TableBody>
-					{!cargando ? (
-						cortePagina.map((x) => (
+			{!cargando ? (
+				<Table className={classes.table}>
+					<HeadTabla columnas={columnas} />
+					<TableBody>
+						{cortePagina.map((x) => (
 							<FilaCliente key={x.id} fila={x} colIndex={colIndex} />
-						))
-					) : (
-						<SpinnerTabla cantColumnas={3} />
-					)}
-					{cortePagina.length === 0 && !cargando
-						? bodyVacio(columnas)
-						: filasVacias}
-				</TableBody>
-				{!cargando ? <FooterTabla /> : null}
-			</Table>
+						))}
+						{cortePagina.length === 0 && !cargando
+							? bodyVacio(columnas)
+							: filasVacias}
+					</TableBody>
+					<FooterTabla />
+				</Table>
+			) : (
+				<Box className={classes.spinner}>
+					<SpinnerTabla />
+				</Box>
+			)}
+
 			{openModalInformacionCliente ? (
 				<InformacionCliente
 					filaActiva={filaActiva}

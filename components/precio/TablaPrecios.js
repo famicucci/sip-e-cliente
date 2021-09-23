@@ -10,11 +10,13 @@ import FilaPrecio from './FilaPrecio';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import PreciosContext from '../../context/precios/preciosContext';
 import SpinnerTabla from '../generales/SpinnerTabla';
+import { Box } from '@material-ui/core';
 
 const useStyles = makeStyles({
 	table: {
 		minWidth: 500,
 	},
+	spinner: { height: '86vh' },
 });
 
 // columnas de la tabla
@@ -52,20 +54,24 @@ const TablaPrecios = () => {
 
 	return (
 		<TableContainer component={Paper}>
-			<Table className={classes.table}>
-				<HeadTabla columnas={columnas} />
-				<TableBody>
-					{!cargando ? (
-						cortePagina.map((fila) => <FilaPrecio key={fila.id} fila={fila} />)
-					) : (
-						<SpinnerTabla cantColumnas={3} />
-					)}
-					{cortePagina.length === 0 && !cargando
-						? bodyVacio(columnas)
-						: filasVacias}
-				</TableBody>
-				{!cargando ? <FooterTabla /> : null}
-			</Table>
+			{!cargando ? (
+				<Table className={classes.table}>
+					<HeadTabla columnas={columnas} />
+					<TableBody>
+						{cortePagina.map((fila) => (
+							<FilaPrecio key={fila.id} fila={fila} />
+						))}
+						{cortePagina.length === 0 && !cargando
+							? bodyVacio(columnas)
+							: filasVacias}
+					</TableBody>
+					<FooterTabla />
+				</Table>
+			) : (
+				<Box className={classes.spinner}>
+					<SpinnerTabla />
+				</Box>
+			)}
 		</TableContainer>
 	);
 };

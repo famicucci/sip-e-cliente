@@ -12,11 +12,13 @@ import BarraHerramientasContext from '../../context/barraHerramientas/barraHerra
 import StockContext from '../../context/stock/stockContext';
 import AlertaContext from '../../context/alertas/alertaContext';
 import SpinnerTabla from '../generales/SpinnerTabla';
+import { Box } from '@material-ui/core';
 
 const useStyles = makeStyles({
 	table: {
 		minWidth: 500,
 	},
+	spinner: { height: '86vh' },
 });
 
 // columnas de la tabla
@@ -71,21 +73,22 @@ const TablaPuntoStock = () => {
 
 	return (
 		<TableContainer component={Paper}>
-			<Table className={classes.table}>
-				<HeadTabla columnas={columnas} />
-				<TableBody>
-					{!cargando ? (
-						cortePagina.map((fila) => (
+			{!cargando ? (
+				<Table className={classes.table}>
+					<HeadTabla columnas={columnas} />
+					<TableBody>
+						{cortePagina.map((fila) => (
 							<FilaPuntoStock key={fila.ProductoCodigo} fila={fila} />
-						))
-					) : (
-						<SpinnerTabla cantColumnas={4} />
-					)}
-
-					{cortePagina.length === 0 ? bodyVacio(columnas) : filasVacias}
-				</TableBody>
-				{!cargando ? <FooterTabla /> : null}
-			</Table>
+						))}
+						{cortePagina.length === 0 ? bodyVacio(columnas) : filasVacias}
+					</TableBody>
+					<FooterTabla />
+				</Table>
+			) : (
+				<Box className={classes.spinner}>
+					<SpinnerTabla />
+				</Box>
+			)}
 			{alerta !== null ? <Alerta /> : null}
 		</TableContainer>
 	);

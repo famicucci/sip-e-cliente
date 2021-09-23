@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -29,22 +29,22 @@ const TablaMostrarOrdenes = ({ columnas, filas, cargando }) => {
 
 	return (
 		<TableContainer component={Paper}>
-			<Table className={classes.table}>
-				<HeadTabla columnas={columnas} />
-				<TableBody>
-					{!cargando ? (
-						cortePagina.map((x) => (
+			{!cargando ? (
+				<Table className={classes.table}>
+					<HeadTabla columnas={columnas} />
+					<TableBody>
+						{cortePagina.map((x) => (
 							<FilaMostrarOrdenes key={x.id} fila={x} colIndex={colIndex} />
-						))
-					) : (
-						<SpinnerTabla cantColumnas={3} />
-					)}
-					{cortePagina.length === 0 && !cargando
-						? bodyVacio(columnas)
-						: filasVacias}
-				</TableBody>
-				{!cargando ? <FooterTabla /> : null}
-			</Table>
+						))}
+						{cortePagina.length === 0 && !cargando
+							? bodyVacio(columnas)
+							: filasVacias}
+					</TableBody>
+					<FooterTabla />
+				</Table>
+			) : (
+				<SpinnerTabla />
+			)}
 		</TableContainer>
 	);
 };
