@@ -92,17 +92,19 @@ const Productos = (props) => {
 				</Box>
 			</AccordionDetails>
 			<Divider />
-			<AccordionActions>
-				<Box
-					className={classes.productsActions}
-					display="flex"
-					justifyContent="flex-end"
-				>
-					<IconButton size="small" edge="start" onClick={onClickEditOrder}>
-						<EditOutlinedIcon />
-					</IconButton>
-				</Box>
-			</AccordionActions>
+			{!props.filaActiva.Factura ? (
+				<AccordionActions>
+					<Box
+						className={classes.productsActions}
+						display="flex"
+						justifyContent="flex-end"
+					>
+						<IconButton size="small" edge="start" onClick={onClickEditOrder}>
+							<EditOutlinedIcon />
+						</IconButton>
+					</Box>
+				</AccordionActions>
+			) : null}
 		</Accordion>
 	);
 };

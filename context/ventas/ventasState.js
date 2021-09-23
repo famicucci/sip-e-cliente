@@ -374,13 +374,8 @@ const VentasState = (props) => {
 			dispatch({
 				type: ELIMINAR_ORDEN_A_MODIFICAR,
 			});
-
-			dispatch({
-				type: ORDEN_EDITADA,
-				payload: true,
-			});
 		} catch (error) {
-			console.log(error);
+			mostrarAlertaVentas('Hubo un error', 'error');
 		}
 	};
 
