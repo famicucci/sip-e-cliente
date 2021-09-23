@@ -49,6 +49,8 @@ const CrearPago = () => {
 		importe: factura.importeFinal - factura.sumaPagos(),
 		MetodoPagoId: '',
 		FacturaId: factura.id,
+		estado: 'v',
+		tipo: 'i',
 	});
 
 	useEffect(() => {

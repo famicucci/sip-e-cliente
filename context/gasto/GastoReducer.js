@@ -1,7 +1,7 @@
 import {
 	TRAER_GASTOS,
 	SHOW_LOADING,
-	MODIFICAR_ESTADO_PAGO,
+	MODIFICAR_ESTADO_PAGO_FACTURA,
 	ACTIVAR_GASTO,
 	MOSTRAR_MODAL_EDITAR_GASTO,
 	MOSTRAR_MODAL_CREAR_GASTO,
@@ -24,7 +24,7 @@ const PreciosReducer = (state, action) => {
 				...state,
 				loading: action.payload,
 			};
-		case MODIFICAR_ESTADO_PAGO:
+		case MODIFICAR_ESTADO_PAGO_FACTURA:
 			return {
 				...state,
 				expenses: state.expenses.map((x) =>

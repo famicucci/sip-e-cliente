@@ -28,6 +28,7 @@ import {
 	MODAL_CONFIRMAR_CANCELAR_FACTURA,
 	MODAL_CONFIRMAR_CANCELAR_PAGO,
 	ELIMINAR_FACTURA,
+	MODIFICAR_ESTADO_PAGO_FACTURA,
 	MODIFICAR_ESTADO_PAGO,
 } from '../../../types';
 
@@ -261,7 +262,7 @@ const EditarOrdenesState = (props) => {
 				parseFloat(factura.importeFinal)
 			) {
 				dispatch({
-					type: MODIFICAR_ESTADO_PAGO,
+					type: MODIFICAR_ESTADO_PAGO_FACTURA,
 					payload: 'Pago',
 				});
 			}
@@ -359,8 +360,13 @@ const EditarOrdenesState = (props) => {
 			});
 
 			dispatch({
-				type: MODIFICAR_ESTADO_PAGO,
+				type: MODIFICAR_ESTADO_PAGO_FACTURA,
 				payload: 'Pendiente',
+			});
+
+			dispatch({
+				type: MODIFICAR_ESTADO_PAGO,
+				payload: { paymentId, estado: 'c' },
 			});
 
 			dispatch({

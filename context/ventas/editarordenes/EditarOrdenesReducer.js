@@ -21,6 +21,7 @@ import {
 	MODAL_CONFIRMAR_CANCELAR_FACTURA,
 	MODAL_CONFIRMAR_CANCELAR_PAGO,
 	ELIMINAR_FACTURA,
+	MODIFICAR_ESTADO_PAGO_FACTURA,
 	MODIFICAR_ESTADO_PAGO,
 } from '../../../types';
 
@@ -76,7 +77,7 @@ const EditarOrdenesReducer = (state, action) => {
 						: x
 				),
 			};
-		case MODIFICAR_ESTADO_PAGO:
+		case MODIFICAR_ESTADO_PAGO_FACTURA:
 			return {
 				...state,
 				ordenes: state.ordenes.map((x) =>
@@ -86,6 +87,25 @@ const EditarOrdenesReducer = (state, action) => {
 								Factura: {
 									...x.Factura,
 									estadoPago: action.payload,
+								},
+						  }
+						: x
+				),
+			};
+		case MODIFICAR_ESTADO_PAGO:
+			return {
+				...state,
+				ordenes: state.ordenes.map((x) =>
+					x.id === state.filaActiva.id
+						? {
+								...x,
+								Factura: {
+									...x.Factura,
+									Pagos: x.Factura.Pagos.map((y) =>
+										y.id === action.payload.paymentId
+											? { ...y, estado: action.payload.estado }
+											: y
+									),
 								},
 						  }
 						: x

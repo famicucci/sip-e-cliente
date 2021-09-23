@@ -6,7 +6,7 @@ import clienteAxios from '../../config/axios';
 import {
 	TRAER_GASTOS,
 	SHOW_LOADING,
-	MODIFICAR_ESTADO_PAGO,
+	MODIFICAR_ESTADO_PAGO_FACTURA,
 	ACTIVAR_GASTO,
 	MOSTRAR_MODAL_EDITAR_GASTO,
 	MOSTRAR_MODAL_CREAR_GASTO,
@@ -58,7 +58,7 @@ const GastoState = (props) => {
 			});
 
 			dispatch({
-				type: MODIFICAR_ESTADO_PAGO,
+				type: MODIFICAR_ESTADO_PAGO_FACTURA,
 				payload: { expenseId, statusPayment },
 			});
 		} catch (error) {

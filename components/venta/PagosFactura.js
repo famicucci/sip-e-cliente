@@ -113,18 +113,20 @@ const PagosFactura = (props) => {
 											{parseFloat(x.importe).toFixed(2)}
 										</Grid>
 										<Grid item xs={3} style={{ textAlign: 'right' }}>
-											<IconButton
-												size="small"
-												onClick={() => {
-													props.setActivePayment({
-														id: x.id,
-														methodPayment: x.MetodoPagoId,
-													});
-													handleOpenConfirmCancelPayment(true);
-												}}
-											>
-												<ClearIcon fontSize="small" />
-											</IconButton>
+											{x.tipo !== 'nc' && x.estado !== 'c' ? (
+												<IconButton
+													size="small"
+													onClick={() => {
+														props.setActivePayment({
+															id: x.id,
+															methodPayment: x.MetodoPagoId,
+														});
+														handleOpenConfirmCancelPayment(true);
+													}}
+												>
+													<ClearIcon fontSize="small" />
+												</IconButton>
+											) : null}
 										</Grid>
 									</Grid>
 								</Paper>
