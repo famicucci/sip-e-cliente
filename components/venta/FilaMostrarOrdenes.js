@@ -34,7 +34,7 @@ const FilaMostrarOrdenes = ({ fila, colIndex }) => {
 				<TableCell align="left">{fila.OrdenEstado.descripcion}</TableCell>
 			) : null}
 			{colIndex['Tipo Envio'] ? (
-				<TableCell align="center">{fila.TipoEnvio.descripcion}</TableCell>
+				<TableCell align="center">{fila.TipoEnvioId}</TableCell>
 			) : null}
 			{colIndex['Observaciones'] ? (
 				<TableCell align="left">
@@ -59,9 +59,9 @@ const FilaMostrarOrdenes = ({ fila, colIndex }) => {
 				<TableCell align="center">
 					<BotonFilaTabla
 						contenido={colIndex['Ver Detalle'].contenidoBoton}
-						// onClick={() => {
-						// 	colIndex['Ver Detalle'].funcBoton(fila);
-						// }}
+						onClick={() => {
+							setSelectedOrder(fila);
+						}}
 					/>
 				</TableCell>
 			) : null}

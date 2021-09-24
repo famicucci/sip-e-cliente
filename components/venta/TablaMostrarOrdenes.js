@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -8,6 +8,8 @@ import TableBody from '@material-ui/core/TableBody';
 import usePaginacion from '../../hooks/usePaginacion';
 import FilaMostrarOrdenes from './FilaMostrarOrdenes';
 import SpinnerTabla from '../generales/SpinnerTabla';
+import ModalScroll2 from '../generales/ModalScroll2';
+import TablaListaProductos from '../generales/TablaListaProductos';
 
 const useStyles = makeStyles({
 	table: {
@@ -18,6 +20,8 @@ const useStyles = makeStyles({
 const TablaMostrarOrdenes = ({ columnas, filas, cargando }) => {
 	const classes = useStyles();
 
+	const [openDetalleOrden, setOpenDetalleOrden] = useState(true);
+	const [selectedOrder, setSelectedOrder] = useState({});
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
 		usePaginacion(filas, 5);
 
@@ -28,24 +32,41 @@ const TablaMostrarOrdenes = ({ columnas, filas, cargando }) => {
 	);
 
 	return (
-		<TableContainer component={Paper}>
-			{!cargando ? (
-				<Table className={classes.table}>
-					<HeadTabla columnas={columnas} />
-					<TableBody>
-						{cortePagina.map((x) => (
-							<FilaMostrarOrdenes key={x.id} fila={x} colIndex={colIndex} />
-						))}
-						{cortePagina.length === 0 && !cargando
-							? bodyVacio(columnas)
-							: filasVacias}
-					</TableBody>
-					<FooterTabla />
-				</Table>
-			) : (
-				<SpinnerTabla />
-			)}
-		</TableContainer>
+		<>
+			<TableContainer component={Paper}>
+				{!cargando ? (
+					<Table className={classes.table}>
+						<HeadTabla columnas={columnas} />
+						<TableBody>
+							{cortePagina.map((x) => (
+								<FilaMostrarOrdenes
+									key={x.id}
+									fila={x}
+									colIndex={colIndex}
+									setSelectedOrder={setSelectedOrder}
+								/>
+							))}
+							{cortePagina.length === 0 && !cargando
+								? bodyVacio(columnas)
+								: filasVacias}
+						</TableBody>
+						<FooterTabla />
+					</Table>
+				) : (
+					<SpinnerTabla />
+				)}
+			</TableContainer>
+			<ModalScroll2
+				openModal={openDetalleOrden}
+				handleClose={() => {
+					setOpenDetalleOrden(!openDetalleOrden);
+				}}
+				titulo="Mostrar Detalle Orden"
+				padding={2}
+			>
+				{/* <TablaListaProductos productos={selectedOrder.detalleOrden} /> */}
+			</ModalScroll2>
+		</>
 	);
 };
 

@@ -46,7 +46,6 @@ const TablaClientes = (props) => {
 		cargando,
 		traerClientes,
 		filaActiva,
-		// handleOpenEditClient,
 		handleOpenModalInformacionCliente,
 		handleFilaActiva,
 	} = useContext(ClienteContext);
