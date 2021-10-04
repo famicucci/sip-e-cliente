@@ -46,7 +46,6 @@ const TablaProductosAMover = () => {
 	useEffect(async () => {
 		const r = await clienteAxios.get('/api/productos/a-mover/');
 
-		console.log(r.data);
 		showProducts(r.data);
 		// setCargando(false);
 		handleHerrProductosAMover(true);

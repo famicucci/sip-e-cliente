@@ -10,8 +10,8 @@ const FilaProductosAMover = (props) => {
 	return (
 		<RowColorIntercalado>
 			<TableCell align="left">{fila.ProductoCodigo}</TableCell>
-			<TableCell align="left">{fila.Descripcion}</TableCell>
-			<TableCell align="center">{fila.Cantidad}</TableCell>
+			<TableCell align="left">{fila.descripcion}</TableCell>
+			<TableCell align="center">{fila.cantidad}</TableCell>
 			<TableCell align="center">
 				{fila.Pto_Stock_Producto_Descripcion}
 			</TableCell>
