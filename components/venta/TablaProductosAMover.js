@@ -57,12 +57,12 @@ const TablaProductosAMover = () => {
 		data.forEach((x) => {
 			products[x.ProductoCodigo] = products[x.ProductoCodigo] ?? {
 				ProductoCodigo: x.ProductoCodigo,
-				Descripcion: x.Descripcion,
-				Cantidad: 0,
+				descripcion: x.descripcion,
+				cantidad: 0,
 				Pto_Stock_Producto_Descripcion: x.Pto_Stock_Producto_Descripcion,
 				Pto_Stock_Pto_Venta_Descripcion: x.Pto_Stock_Pto_Venta_Descripcion,
 			};
-			products[x.ProductoCodigo]['Cantidad'] += x.Cantidad;
+			products[x.ProductoCodigo]['cantidad'] += x.cantidad;
 		});
 
 		setData(Object.values(products));
