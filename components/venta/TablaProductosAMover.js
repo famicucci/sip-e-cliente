@@ -36,7 +36,7 @@ const TablaProductosAMover = () => {
 		BarraHerramientasContext
 	);
 
-	const [cargando, setCargando] = useState(false);
+	const [cargando, setCargando] = useState(true);
 	const [data, setData] = useState([]);
 	const [filteredData] = useFilter(data, busqueda);
 
@@ -47,7 +47,7 @@ const TablaProductosAMover = () => {
 		const r = await clienteAxios.get('/api/productos/a-mover/');
 
 		showProducts(r.data);
-		// setCargando(false);
+		setCargando(false);
 		handleHerrProductosAMover(true);
 	}, []);
 
