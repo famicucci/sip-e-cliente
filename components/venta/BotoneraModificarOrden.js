@@ -17,10 +17,10 @@ const BotoneraModificarOrden = () => {
 
 	const onClickConfirmChanges = () => {
 		editProductsOrder();
-		router.push({
-			pathname: '/ventas/consultar',
-			query: { 'edited-order': router.query.id },
-		});
+		// router.push({
+		// 	pathname: '/ventas/consultar',
+		// 	query: { 'edited-order': router.query.id },
+		// });
 	};
 
 	return (
