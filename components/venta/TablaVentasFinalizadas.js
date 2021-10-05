@@ -8,18 +8,13 @@ import TableBody from '@material-ui/core/TableBody';
 import usePaginacion from '../../hooks/usePaginacion';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import SpinnerTabla from '../generales/SpinnerTabla';
-import FilaEditarOrdenes from '../venta/FilaEditarOrdenes';
+import FilaEditarOrdenes from './FilaEditarOrdenes';
 import NoteOutlinedIcon from '@material-ui/icons/NoteOutlined';
 import DetalleOrden from './DetalleOrden';
 import EditarOrdenesContext from '../../context/ventas/editarordenes/EditarOrdenesContext';
 import InformacionCliente from '../cliente/InformacionCliente';
-import CrearFactura from './CrearFactura';
 import Factura from './Factura';
-import CrearPago from './CrearPago';
-import Alerta2 from '../generales/Alerta2';
-import VentasContext from '../../context/ventas/ventasContext';
 import useFilter from '../../hooks/useFilter';
-import { useRouter } from 'next/router';
 import GlobalDataContext from '../../context/globalData/GlobalDataContext';
 import { Box } from '@material-ui/core';
 
@@ -30,7 +25,6 @@ const useStyles = makeStyles({
 	spinner: { height: '86vh' },
 });
 
-// columnas de la tabla
 const columnas = [
 	{ id: 1, nombre: 'Nº', align: 'center', minWidth: 60 },
 	{ id: 2, nombre: 'Estado', align: 'center', minWidth: 110 },
@@ -49,65 +43,39 @@ const columnas = [
 	},
 ];
 
-const TablaEditarOrdenes = () => {
+const TablaVentasFinalizadas = () => {
 	const classes = useStyles();
-	const router = useRouter();
 
 	const { handleHerramientasEditarVentas, busqueda } = useContext(
 		BarraHerramientasContext
 	);
-	const { shippingTypes, getOrderStatuses, getShippingTypes } =
-		useContext(GlobalDataContext);
-	const { ordenCreada, handleOrdenActiva, handleOrderToModify } =
-		useContext(VentasContext);
-
+	const [data, setData] = useState([]);
+	const [filteredData] = useFilter(data, busqueda);
+	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
+		usePaginacion(filteredData, 25);
 	const {
 		ordenes,
-		mensajeEditarOrdenes,
-		cargando,
-		traerOrdenes,
+		traerOrdenesFinalizadas,
 		openModalDetalleOrden,
-		openModalCrearFactura,
 		openModalFactura,
-		openModalCrearPago,
 		filaActiva,
+		cargando,
 		openModalInformacionCliente,
 		handleCloseModal,
 		handleFilaActivaOrden,
-		mostrarAlertaEditarOrdenes,
 	} = useContext(EditarOrdenesContext);
-
-	const [data, setData] = useState([]);
-	const [filteredData] = useFilter(data, busqueda);
-
-	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
-		usePaginacion(filteredData, 25);
+	const { shippingTypes, getOrderStatuses, getShippingTypes } =
+		useContext(GlobalDataContext);
 
 	useEffect(() => {
-		traerOrdenes();
-		handleHerramientasEditarVentas();
+		traerOrdenesFinalizadas();
 		getOrderStatuses();
 		getShippingTypes();
-
-		if (ordenCreada) {
-			mostrarAlertaEditarOrdenes(
-				`Orden creada nº ${ordenCreada.id}`,
-				'success'
-			);
-			handleOrdenActiva(null);
-		}
-
-		if (router.query['edited-order']) {
-			handleOrderToModify();
-			mostrarAlertaEditarOrdenes(
-				`Realizaste cambios en la Orden nº ${router.query['edited-order']}`,
-				'success'
-			);
-		}
+		handleHerramientasEditarVentas();
 	}, []);
 
 	useEffect(() => {
-		if (ordenes.length !== 0 && shippingTypes) {
+		if (shippingTypes) {
 			const rows = ordenes.map((x) => ({
 				idOrden: x.id,
 				ordenEstado: x.OrdenEstado.descripcion,
@@ -124,6 +92,7 @@ const TablaEditarOrdenes = () => {
 				),
 				observaciones: x.observaciones,
 			}));
+
 			setData(rows);
 		}
 	}, [ordenes, shippingTypes]);
@@ -169,12 +138,9 @@ const TablaEditarOrdenes = () => {
 					handleFilaActiva={handleFilaActivaOrden}
 				/>
 			) : null}
-			{openModalCrearFactura ? <CrearFactura /> : null}
 			{openModalFactura ? <Factura /> : null}
-			{openModalCrearPago ? <CrearPago /> : null}
-			{mensajeEditarOrdenes ? <Alerta2 mensaje={mensajeEditarOrdenes} /> : null}
 		</TableContainer>
 	);
 };
 
-export default TablaEditarOrdenes;
+export default TablaVentasFinalizadas;

@@ -23,6 +23,7 @@ import {
 	ELIMINAR_FACTURA,
 	MODIFICAR_ESTADO_PAGO_FACTURA,
 	MODIFICAR_ESTADO_PAGO,
+	OCULTAR_CARGANDO,
 } from '../../../types';
 
 const EditarOrdenesReducer = (state, action) => {
@@ -30,8 +31,7 @@ const EditarOrdenesReducer = (state, action) => {
 		case TRAER_ORDENES:
 			return {
 				...state,
-				ordenes: action.payload.respuesta,
-				cargando: false,
+				ordenes: action.payload,
 			};
 		case ELIMINAR_ORDEN:
 			return {
@@ -203,6 +203,11 @@ const EditarOrdenesReducer = (state, action) => {
 			return {
 				...state,
 				mensajeEditarOrdenes: null,
+			};
+		case OCULTAR_CARGANDO:
+			return {
+				...state,
+				cargando: false,
 			};
 		default:
 			return state;

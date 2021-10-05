@@ -114,6 +114,22 @@ const Ventas = () => {
 							<ListItemText primary="Prod. a Mover" />
 						</ListItem>
 					</Link>
+					<Link href="\ventas\finalizadas">
+						<ListItem
+							button
+							className={clsx(classes.nested, {
+								[classes.botonToggle]: activoProdMov,
+							})}
+							onClick={() => {
+								setBotonActivo(botonProdMov);
+							}}
+						>
+							<ListItemIcon>
+								<ArrowRightIcon />
+							</ListItemIcon>
+							<ListItemText primary="Finalizadas" />
+						</ListItem>
+					</Link>
 				</List>
 			</Collapse>
 		</>

@@ -30,11 +30,13 @@ import {
 	ELIMINAR_FACTURA,
 	MODIFICAR_ESTADO_PAGO_FACTURA,
 	MODIFICAR_ESTADO_PAGO,
+	OCULTAR_CARGANDO,
 } from '../../../types';
 
 const EditarOrdenesState = (props) => {
 	const initialState = {
 		ordenes: [],
+		ordenesFinalizadas: [],
 		filaActiva: {},
 		factura: {},
 		openModalDetalleOrden: false,
@@ -52,13 +54,34 @@ const EditarOrdenesState = (props) => {
 	const [state, dispatch] = useReducer(EditarOrdenesReducer, initialState);
 
 	// las funciones
-	const traerOrdenes = async (busqueda) => {
+	const traerOrdenes = async () => {
 		try {
 			let r = await clienteAxios.get('/api/ordenes/');
 
 			dispatch({
 				type: TRAER_ORDENES,
-				payload: { respuesta: r.data, busqueda: busqueda },
+				payload: r.data,
+			});
+
+			dispatch({
+				type: OCULTAR_CARGANDO,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const traerOrdenesFinalizadas = async () => {
+		try {
+			const r = await clienteAxios.get(`/api/ordenes/finalizadas`);
+
+			dispatch({
+				type: TRAER_ORDENES,
+				payload: r.data,
+			});
+
+			dispatch({
+				type: OCULTAR_CARGANDO,
 			});
 		} catch (error) {
 			console.log(error);
@@ -385,6 +408,7 @@ const EditarOrdenesState = (props) => {
 		<EditarOrdenesContext.Provider
 			value={{
 				ordenes: state.ordenes,
+				ordenesFinalizadas: state.ordenesFinalizadas,
 				filaActiva: state.filaActiva,
 				factura: state.factura,
 				openModalDetalleOrden: state.openModalDetalleOrden,
@@ -422,6 +446,7 @@ const EditarOrdenesState = (props) => {
 				handleOpenConfirmCancelPayment,
 				cancelInvoice,
 				cancelPayment,
+				traerOrdenesFinalizadas,
 			}}
 		>
 			{props.children}
