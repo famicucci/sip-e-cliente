@@ -113,7 +113,9 @@ const PagosFactura = (props) => {
 											{parseFloat(x.importe).toFixed(2)}
 										</Grid>
 										<Grid item xs={3} style={{ textAlign: 'right' }}>
-											{x.tipo !== 'nc' && x.estado !== 'c' ? (
+											{x.tipo !== 'nc' &&
+											x.estado !== 'c' &&
+											filaActiva.OrdenEstado.descripcion !== 'Finalizado' ? (
 												<IconButton
 													size="small"
 													onClick={() => {
@@ -141,7 +143,8 @@ const PagosFactura = (props) => {
 							<Typography align="center">No hay pagos realizados</Typography>
 						</Paper>
 					)}
-					{factura.importeFinal - factura.sumaPagos() > 0 ? (
+					{factura.importeFinal - factura.sumaPagos() > 0 &&
+					filaActiva.OrdenEstado.descripcion !== 'Finalizado' ? (
 						<Paper
 							className={classes.paperRealizarPago}
 							variant="elevation"
