@@ -147,34 +147,36 @@ const EnvioDetalleOrden = () => {
 				)}
 			</AccordionDetails>
 			<Divider />
-			<AccordionActions>
-				<CopyToClipboard
-					text={`${getShippingTypeDescription(
-						filaActiva.TipoEnvioId,
-						shippingTypes
-					)}\n${
-						filaActiva.direccionEnvio ? filaActiva.direccionEnvio : ' - '
-					}\n${filaActiva.tarifaEnvio}`}
-				>
-					<IconButton type="button" size="small">
-						<FileCopyOutlinedIcon />
+			{!filaActiva.Factura ? (
+				<AccordionActions>
+					<CopyToClipboard
+						text={`${getShippingTypeDescription(
+							filaActiva.TipoEnvioId,
+							shippingTypes
+						)}\n${
+							filaActiva.direccionEnvio ? filaActiva.direccionEnvio : ' - '
+						}\n${filaActiva.tarifaEnvio}`}
+					>
+						<IconButton type="button" size="small">
+							<FileCopyOutlinedIcon />
+						</IconButton>
+					</CopyToClipboard>
+					<IconButton size="small" onClick={onClickEdit}>
+						<EditOutlinedIcon />
 					</IconButton>
-				</CopyToClipboard>
-				<IconButton size="small" onClick={onClickEdit}>
-					<EditOutlinedIcon />
-				</IconButton>
-				<IconButton size="small" type="submit" form="form-envio">
-					{!edited ? (
-						<SaveOutlinedIcon />
-					) : (
-						<SaveIcon
-							className={clsx({
-								[classes.saveButton]: edited,
-							})}
-						/>
-					)}
-				</IconButton>
-			</AccordionActions>
+					<IconButton size="small" type="submit" form="form-envio">
+						{!edited ? (
+							<SaveOutlinedIcon />
+						) : (
+							<SaveIcon
+								className={clsx({
+									[classes.saveButton]: edited,
+								})}
+							/>
+						)}
+					</IconButton>
+				</AccordionActions>
+			) : null}
 		</Accordion>
 	);
 };

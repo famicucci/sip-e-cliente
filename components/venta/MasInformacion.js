@@ -176,22 +176,24 @@ const MasInformacion = () => {
 				)}
 			</AccordionDetails>
 			<Divider />
-			<AccordionActions>
-				<IconButton size="small" onClick={onClickEdit}>
-					<EditOutlinedIcon />
-				</IconButton>
-				<IconButton size="small" type="submit" form="form-mas-informacion">
-					{!edited ? (
-						<SaveOutlinedIcon />
-					) : (
-						<SaveIcon
-							className={clsx({
-								[classes.saveButton]: edited,
-							})}
-						/>
-					)}
-				</IconButton>
-			</AccordionActions>
+			{!filaActiva.Factura ? (
+				<AccordionActions>
+					<IconButton size="small" onClick={onClickEdit}>
+						<EditOutlinedIcon />
+					</IconButton>
+					<IconButton size="small" type="submit" form="form-mas-informacion">
+						{!edited ? (
+							<SaveOutlinedIcon />
+						) : (
+							<SaveIcon
+								className={clsx({
+									[classes.saveButton]: edited,
+								})}
+							/>
+						)}
+					</IconButton>
+				</AccordionActions>
+			) : null}
 		</Accordion>
 	);
 };
