@@ -15,12 +15,13 @@ const BotoneraModificarOrden = () => {
 		router.push('/ventas/consultar');
 	};
 
-	const onClickConfirmChanges = () => {
-		editProductsOrder();
-		// router.push({
-		// 	pathname: '/ventas/consultar',
-		// 	query: { 'edited-order': router.query.id },
-		// });
+	const onClickConfirmChanges = async () => {
+		await editProductsOrder();
+
+		router.push({
+			pathname: '/ventas/consultar',
+			query: { 'edited-order': router.query.id },
+		});
 	};
 
 	return (

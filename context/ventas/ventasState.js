@@ -361,8 +361,6 @@ const VentasState = (props) => {
 			OrdenId: state.orderToModify,
 		}));
 
-		console.log(cartToEditOrder);
-
 		try {
 			await clienteAxios.put(
 				`/api/detalles-orden/${state.orderToModify}`,
