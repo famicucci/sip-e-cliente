@@ -32,7 +32,7 @@ const BootstrapButton = withStyles((theme) => ({
 	},
 }))(Button);
 
-const SelectOrdenEstado = ({ idOrden, ordenEstadoId }) => {
+const SelectOrdenEstado = ({ idOrden, ordenEstadoId, showFinalizado }) => {
 	const { orderStatuses, getOrderStatuses } = useContext(GlobalDataContext);
 	const { handleEstadoOrden, mensaje } = useContext(EditarOrdenesContext);
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
@@ -94,19 +94,38 @@ const SelectOrdenEstado = ({ idOrden, ordenEstadoId }) => {
 					open={Boolean(anchorEl)}
 					onClose={handleClose}
 				>
-					{orderStatuses.map((x) => (
-						<MenuItem
-							key={x.id}
-							value={x.id}
-							onClick={() => {
-								handleClickItem(idOrden, x.id, x.descripcion);
-							}}
-						>
-							<span style={{ color: `${x.color}`, fontWeight: 'bold' }}>
-								{x.descripcion}
-							</span>
-						</MenuItem>
-					))}
+					{orderStatuses.map((x) => {
+						if (!showFinalizado) {
+							if (x.descripcion !== 'Finalizado')
+								return (
+									<MenuItem
+										key={x.id}
+										value={x.id}
+										onClick={() => {
+											handleClickItem(idOrden, x.id, x.descripcion);
+										}}
+									>
+										<span style={{ color: `${x.color}`, fontWeight: 'bold' }}>
+											{x.descripcion}
+										</span>
+									</MenuItem>
+								);
+						} else {
+							return (
+								<MenuItem
+									key={x.id}
+									value={x.id}
+									onClick={() => {
+										handleClickItem(idOrden, x.id, x.descripcion);
+									}}
+								>
+									<span style={{ color: `${x.color}`, fontWeight: 'bold' }}>
+										{x.descripcion}
+									</span>
+								</MenuItem>
+							);
+						}
+					})}
 				</Menu>
 			) : null}
 
