@@ -52,15 +52,15 @@ const FacsOrdsCliente = () => {
 			boton: true,
 			contenidoBoton: <NoteOutlinedIcon />,
 		},
-		{
-			id: 8,
-			nombre: 'Ver Detalle',
-			align: 'center',
-			minWidth: 60,
-			boton: true,
-			contenidoBoton: <CallMadeOutlinedIcon />,
-			funcBoton: null,
-		},
+		// {
+		// 	id: 8,
+		// 	nombre: 'Ver Detalle',
+		// 	align: 'center',
+		// 	minWidth: 60,
+		// 	boton: true,
+		// 	contenidoBoton: <CallMadeOutlinedIcon />,
+		// 	funcBoton: null,
+		// },
 	];
 
 	const columnasFacts = [
@@ -79,15 +79,15 @@ const FacsOrdsCliente = () => {
 			boton: true,
 			contenidoBoton: <NoteOutlinedIcon />,
 		},
-		{
-			id: 9,
-			nombre: 'Ver Detalle',
-			align: 'center',
-			minWidth: 60,
-			boton: true,
-			contenidoBoton: <CallMadeOutlinedIcon />,
-			funcBoton: null,
-		},
+		// {
+		// 	id: 9,
+		// 	nombre: 'Ver Detalle',
+		// 	align: 'center',
+		// 	minWidth: 60,
+		// 	boton: true,
+		// 	contenidoBoton: <CallMadeOutlinedIcon />,
+		// 	funcBoton: null,
+		// },
 	];
 
 	return (

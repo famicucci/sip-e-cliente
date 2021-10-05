@@ -8,7 +8,7 @@ import { IconButton } from '@material-ui/core';
 import 'tippy.js/dist/tippy.css';
 import 'tippy.js/themes/light-border.css';
 
-const FilaMostrarOrdenes = ({ fila, colIndex }) => {
+const FilaMostrarOrdenes = ({ fila, colIndex, shippings }) => {
 	const [observacionesCliente, setObservacionesCliente] = useState(null);
 
 	const handleOnShowDirecciones = (observaciones) => {
@@ -34,7 +34,7 @@ const FilaMostrarOrdenes = ({ fila, colIndex }) => {
 				<TableCell align="left">{fila.OrdenEstado.descripcion}</TableCell>
 			) : null}
 			{colIndex['Tipo Envio'] ? (
-				<TableCell align="center">{fila.TipoEnvioId}</TableCell>
+				<TableCell align="center">{shippings[fila.TipoEnvioId]}</TableCell>
 			) : null}
 			{colIndex['Observaciones'] ? (
 				<TableCell align="left">
