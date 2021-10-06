@@ -16,6 +16,7 @@ import {
 	MODAL_OPEN,
 	MODAL_CLOSE,
 	ERROR_STOCK,
+	ACTUALIZAR_STOCK,
 } from '../../types';
 
 const StockState = (props) => {
@@ -106,6 +107,11 @@ const StockState = (props) => {
 			dispatch({
 				type: CONFIRMAR_CAMBIO_STOCK,
 				payload: { respuesta, fila },
+			});
+
+			dispatch({
+				type: ACTUALIZAR_STOCK,
+				payload: datos,
 			});
 		} catch (error) {
 			const alerta = {

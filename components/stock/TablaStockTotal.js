@@ -58,7 +58,7 @@ const TablaStockTotal = () => {
 				descripcion: x['Producto.descripcion'],
 				cantidad: 0,
 			};
-			stockTotal[x.ProductoCodigo]['cantidad'] += x.cantidad;
+			stockTotal[x.ProductoCodigo]['cantidad'] += parseInt(x.cantidad);
 		});
 
 		setData(Object.values(stockTotal));

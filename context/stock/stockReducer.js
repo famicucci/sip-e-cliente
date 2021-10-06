@@ -11,6 +11,7 @@ import {
 	MODAL_OPEN,
 	MODAL_CLOSE,
 	ERROR_STOCK,
+	ACTUALIZAR_STOCK,
 } from '../../types';
 import { filtro } from '../../functions/filtros.js';
 
@@ -23,8 +24,8 @@ const StockReducer = (state, action) => {
 				cargando: false,
 			};
 		case TRAER_MOVIMIENTOS_STOCK:
-			vars = { bus: action.payload.bus };
-			r = filtro(action.payload.arrayProd, vars);
+			let vars = { bus: action.payload.bus };
+			let r = filtro(action.payload.arrayProd, vars);
 			return {
 				...state,
 				stocks: action.payload.arrayProd,
@@ -101,6 +102,16 @@ const StockReducer = (state, action) => {
 			return {
 				...state,
 				mensaje: action.payload,
+			};
+		case ACTUALIZAR_STOCK:
+			return {
+				...state,
+				stocks: state.stocks.map((x) =>
+					x.ProductoCodigo === action.payload.ProductoCodigo &&
+					x.PtoStockId === action.payload.PtoStockId
+						? { ...x, cantidad: action.payload.cantidad }
+						: x
+				),
 			};
 		default:
 			return state;
