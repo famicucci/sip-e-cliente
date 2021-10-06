@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -14,6 +14,7 @@ import StockContext from '../../context/stock/stockContext';
 import AlertaContext from '../../context/alertas/alertaContext';
 import SpinnerTabla from '../generales/SpinnerTabla';
 import { Box } from '@material-ui/core';
+import useFilter from '../../hooks/useFilter';
 
 const useStyles = makeStyles({
 	table: {
@@ -33,34 +34,25 @@ const columnas = [
 const TablaStockTotal = () => {
 	const classes = useStyles();
 
-	// context barra de herramientas
 	const { busqueda, handleHerrStockTot } = useContext(BarraHerramientasContext);
-
-	// context stock
-	const {
-		stocks,
-		filas,
-		mensaje,
-		cargando,
-		traerStocksTotal,
-		handleFilasStockTotal,
-	} = useContext(StockContext);
-
+	const [data, setData] = useState([]);
+	const [filteredData] = useFilter(data, busqueda);
+	const { stocks, mensaje, cargando, traerStocksTotal } =
+		useContext(StockContext);
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 
 	// hook paginación
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
-		usePaginacion(filas);
+		usePaginacion(filteredData);
 
 	useEffect(() => {
-		handleHerrStockTot();
 		traerStocksTotal(busqueda);
+		handleHerrStockTot();
 	}, []);
 
 	useEffect(() => {
-		handleFilasStockTotal(busqueda);
-		setPage(0);
-	}, [stocks, busqueda]);
+		setData(stocks);
+	}, [stocks]);
 
 	useEffect(() => {
 		if (mensaje) {

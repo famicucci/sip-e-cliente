@@ -7,7 +7,6 @@ import {
 	TRAER_STOCK_TOTAL,
 	TRAER_STOCK_PTO_STOCK,
 	TRAER_MOVIMIENTOS_STOCK,
-	FILAS_STOCK_TOTAL,
 	FILAS_PTO_STOCK,
 	FILAS_MOVIMIENTOS_STOCK,
 	PTO_STOCK,
@@ -84,13 +83,6 @@ const StockState = (props) => {
 	const handleFilasPtoStock = (bus) => {
 		dispatch({
 			type: FILAS_PTO_STOCK,
-			payload: bus,
-		});
-	};
-
-	const handleFilasStockTotal = (bus) => {
-		dispatch({
-			type: FILAS_STOCK_TOTAL,
 			payload: bus,
 		});
 	};
@@ -220,7 +212,6 @@ const StockState = (props) => {
 				traerStocksTotal,
 				traerStocksPtoStock,
 				traerMovimientosStock,
-				handleFilasStockTotal,
 				handleFilasPtoStock,
 				handleFilasMovStock,
 				handleProductoActivo,
