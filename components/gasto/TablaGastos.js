@@ -16,6 +16,7 @@ import EditarGasto from './EditarGasto';
 import CrearGasto from './CrearGasto';
 import Alerta2 from '../generales/Alerta2';
 import moment from 'moment';
+import authContext from '../../context/autenticacion/authContext';
 
 const useStyles = makeStyles({
 	table: {
@@ -37,6 +38,7 @@ const columnas = [
 const TablaGastos = () => {
 	const classes = useStyles();
 
+	const { usuario } = useContext(authContext);
 	const { busqueda, handleToolsExpenses } = useContext(
 		BarraHerramientasContext
 	);
@@ -106,8 +108,14 @@ const TablaGastos = () => {
 				: '-',
 			descripcion: x.descripcion,
 			importe: x.importe,
+			usuarioId: x.Usuario.id,
 		}));
-		setData(newData);
+
+		if (usuario.rol) {
+			setData(newData);
+		} else {
+			setData(newData.filter((x) => x.usuarioId === usuario.id));
+		}
 	}, [expenses]);
 
 	return (
