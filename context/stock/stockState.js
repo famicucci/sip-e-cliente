@@ -7,7 +7,6 @@ import {
 	TRAER_STOCK_TOTAL,
 	TRAER_STOCK_PTO_STOCK,
 	TRAER_MOVIMIENTOS_STOCK,
-	FILAS_PTO_STOCK,
 	FILAS_MOVIMIENTOS_STOCK,
 	PTO_STOCK,
 	PRODUCTO_ACTIVO,
@@ -51,13 +50,13 @@ const StockState = (props) => {
 		}
 	};
 
-	const traerStocksPtoStock = async (bus) => {
+	const traerStocksPtoStock = async () => {
 		try {
 			const r = await clienteAxios.get('/api/stock/pto-stock/');
 
 			dispatch({
 				type: TRAER_STOCK_PTO_STOCK,
-				payload: { arrayProd: r.data, bus: bus },
+				payload: r.data,
 			});
 		} catch (error) {
 			dispatch({
@@ -78,13 +77,6 @@ const StockState = (props) => {
 		} catch (error) {
 			console.log(error);
 		}
-	};
-
-	const handleFilasPtoStock = (bus) => {
-		dispatch({
-			type: FILAS_PTO_STOCK,
-			payload: bus,
-		});
 	};
 
 	const handleFilasMovStock = (bus) => {
@@ -212,7 +204,6 @@ const StockState = (props) => {
 				traerStocksTotal,
 				traerStocksPtoStock,
 				traerMovimientosStock,
-				handleFilasPtoStock,
 				handleFilasMovStock,
 				handleProductoActivo,
 				handleFilaActiva,

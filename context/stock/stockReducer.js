@@ -2,7 +2,6 @@ import {
 	TRAER_STOCK_TOTAL,
 	TRAER_STOCK_PTO_STOCK,
 	TRAER_MOVIMIENTOS_STOCK,
-	FILAS_PTO_STOCK,
 	FILAS_MOVIMIENTOS_STOCK,
 	PTO_STOCK,
 	PRODUCTO_ACTIVO,
@@ -28,12 +27,9 @@ const StockReducer = (state, action) => {
 				cargando: false,
 			};
 		case TRAER_STOCK_PTO_STOCK:
-			let vars = { ptoStock: state.ptoStock, bus: action.payload.bus };
-			let r = filtro(action.payload.arrayProd, vars);
 			return {
 				...state,
-				stocks: action.payload.arrayProd,
-				filas: r,
+				stocks: action.payload,
 				cargando: false,
 			};
 		case TRAER_MOVIMIENTOS_STOCK:
@@ -44,13 +40,6 @@ const StockReducer = (state, action) => {
 				stocks: action.payload.arrayProd,
 				filas: r,
 				cargando: false,
-			};
-		case FILAS_PTO_STOCK:
-			vars = { bus: action.payload, ptoStock: state.ptoStock };
-			r = filtro(state.stocks, vars);
-			return {
-				...state,
-				filas: r,
 			};
 		case FILAS_MOVIMIENTOS_STOCK:
 			vars = { bus: action.payload };
