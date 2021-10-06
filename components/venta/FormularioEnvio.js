@@ -229,6 +229,7 @@ const FormularioEnvio = (props) => {
 					data={tiposEnvio}
 					initialvalue={stateEnvio.tipo}
 					tochangestate={handleSelectTipo}
+					marginTop={2}
 				/>
 				<InputNumberBordeInferior
 					name={inputCosto.name}
