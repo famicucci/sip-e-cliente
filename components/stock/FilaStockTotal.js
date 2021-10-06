@@ -15,7 +15,7 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 const FilaStockTotal = (props) => {
-	const { ProductoCodigo, cantidad } = props.fila;
+	const { ProductoCodigo, cantidad, descripcion } = props.fila;
 
 	// context stock
 	const { handleProductoActivo, handleOpen } = useContext(StockContext);
@@ -25,7 +25,7 @@ const FilaStockTotal = (props) => {
 			<TableCell component="th" scope="row">
 				{ProductoCodigo}
 			</TableCell>
-			<TableCell align="left">{props.fila['Producto.descripcion']}</TableCell>
+			<TableCell align="left">{descripcion}</TableCell>
 			<TableCell align="center">{cantidad}</TableCell>
 			<TableCell align="center">
 				<IconButton

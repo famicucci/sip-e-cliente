@@ -37,7 +37,7 @@ const TablaStockTotal = () => {
 	const { busqueda, handleHerrStockTot } = useContext(BarraHerramientasContext);
 	const [data, setData] = useState([]);
 	const [filteredData] = useFilter(data, busqueda);
-	const { stocks, mensaje, cargando, traerStocksTotal } =
+	const { stocks, mensaje, cargando, traerStocksPtoStock } =
 		useContext(StockContext);
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 
@@ -46,12 +46,22 @@ const TablaStockTotal = () => {
 		usePaginacion(filteredData);
 
 	useEffect(() => {
-		traerStocksTotal(busqueda);
+		traerStocksPtoStock();
 		handleHerrStockTot();
 	}, []);
 
 	useEffect(() => {
-		setData(stocks);
+		let stockTotal = {};
+		stocks.forEach((x) => {
+			stockTotal[x.ProductoCodigo] = stockTotal[x.ProductoCodigo] ?? {
+				ProductoCodigo: x.ProductoCodigo,
+				descripcion: x['Producto.descripcion'],
+				cantidad: 0,
+			};
+			stockTotal[x.ProductoCodigo]['cantidad'] += x.cantidad;
+		});
+
+		setData(Object.values(stockTotal));
 	}, [stocks]);
 
 	useEffect(() => {

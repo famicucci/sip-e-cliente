@@ -1,5 +1,4 @@
 import {
-	TRAER_STOCK_TOTAL,
 	TRAER_STOCK_PTO_STOCK,
 	TRAER_MOVIMIENTOS_STOCK,
 	FILAS_MOVIMIENTOS_STOCK,
@@ -17,15 +16,6 @@ import { filtro } from '../../functions/filtros.js';
 
 const StockReducer = (state, action) => {
 	switch (action.type) {
-		case TRAER_STOCK_TOTAL:
-			vars = { bus: action.payload.bus };
-			r = filtro(action.payload.arrayProd, vars);
-			return {
-				...state,
-				stocks: action.payload.arrayProd,
-				filas: r,
-				cargando: false,
-			};
 		case TRAER_STOCK_PTO_STOCK:
 			return {
 				...state,

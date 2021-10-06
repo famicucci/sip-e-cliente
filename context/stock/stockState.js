@@ -4,7 +4,6 @@ import StockReducer from './stockReducer';
 import clienteAxios from '../../config/axios';
 
 import {
-	TRAER_STOCK_TOTAL,
 	TRAER_STOCK_PTO_STOCK,
 	TRAER_MOVIMIENTOS_STOCK,
 	FILAS_MOVIMIENTOS_STOCK,
@@ -34,22 +33,6 @@ const StockState = (props) => {
 	const [state, dispatch] = useReducer(StockReducer, initialState);
 
 	// las funciones
-	const traerStocksTotal = async (bus) => {
-		try {
-			const r = await clienteAxios.get('/api/stock/total');
-
-			dispatch({
-				type: TRAER_STOCK_TOTAL,
-				payload: { arrayProd: r.data, bus: bus },
-			});
-		} catch (error) {
-			dispatch({
-				type: ERROR_STOCK,
-				payload: error,
-			});
-		}
-	};
-
 	const traerStocksPtoStock = async () => {
 		try {
 			const r = await clienteAxios.get('/api/stock/pto-stock/');
@@ -201,7 +184,6 @@ const StockState = (props) => {
 				mensaje: state.mensaje,
 				cargando: state.cargando,
 				handlePtoStock,
-				traerStocksTotal,
 				traerStocksPtoStock,
 				traerMovimientosStock,
 				handleFilasMovStock,
