@@ -101,12 +101,20 @@ const GastoState = (props) => {
 	};
 
 	const editExpense = async (expense) => {
+		const expenseState = state.expenses.find(
+			(x) => x.id === state.activatedExpense
+		);
+
 		try {
 			await clienteAxios.put(`/api/gastos/${state.activatedExpense}`, expense);
 
 			dispatch({
 				type: MODIFICAR_GASTO,
-				payload: { ...expense, id: state.activatedExpense },
+				payload: {
+					...expense,
+					Usuario: expenseState.Usuario,
+					id: state.activatedExpense,
+				},
 			});
 
 			dispatch({
