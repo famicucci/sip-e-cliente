@@ -163,6 +163,11 @@ const StockState = (props) => {
 		dispatch({
 			type: MODAL_CLOSE,
 		});
+
+		dispatch({
+			type: PRODUCTO_ACTIVO,
+			payload: {},
+		});
 	};
 
 	const handlePtoStock = (ptoStock) => {

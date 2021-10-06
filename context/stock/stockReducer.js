@@ -93,27 +93,8 @@ const StockReducer = (state, action) => {
 				openModal: true,
 			};
 		case MODAL_CLOSE:
-			const cantTotalProducto = (arrayProducto) => {
-				let cantidades = [];
-				arrayProducto.map((fila) => cantidades.push(parseInt(fila.cantidad)));
-
-				var total = cantidades.reduce(function (previo, actual) {
-					return previo + actual;
-				}, 0);
-				return total;
-			};
-
-			const cantTotal = cantTotalProducto(state.productoActivo);
-			const codigoProducto = state.productoActivo[0]['ProductoCodigo'];
-
 			return {
 				...state,
-				stocks: state.stocks.map((fila) =>
-					fila.ProductoCodigo === codigoProducto
-						? { ...fila, cantidad: cantTotal }
-						: { ...fila }
-				),
-				productoActivo: {},
 				openModal: false,
 			};
 		case ERROR_STOCK:
