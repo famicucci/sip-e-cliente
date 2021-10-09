@@ -3,7 +3,7 @@ import GlobalDataContext from './GlobalDataContext';
 import GlobalDataReducer from './GlobalDataReducer';
 import clienteAxios from '../../config/axios';
 import moment from 'moment';
-
+import axios from 'axios';
 import {
 	PTOS_STOCK_VENTAS,
 	TRAER_PTOS_VENTA,
@@ -19,6 +19,7 @@ import {
 
 const GlobalDataState = (props) => {
 	const initialState = {
+		productsTiendaOnline: [],
 		stockPoints: null,
 		salePoints: null,
 		shippingTypes: null,
@@ -150,9 +151,39 @@ const GlobalDataState = (props) => {
 		});
 	};
 
+	const accessToken = '5c4d34b857d27539a980f5c659b28a45ce0459d1';
+	const apiUrl = 'https://api.tiendanube.com';
+
+	const tiendaNubeAxios = axios.create({
+		baseURL: apiUrl,
+		headers: {
+			Authentication: `bearer ${accessToken}`,
+			'User-Agent': 'API para Sip (famicucci@email.com)',
+			'Access-Control-Allow-Origin': '*',
+			'Access-Control-Allow-Methods': 'GET',
+		},
+	});
+
+	const getProductsTiendaOnline = async () => {
+		try {
+			const r = await tiendaNubeAxios.get('/v1/1894966/products');
+
+			console.log(r);
+			console.log('hola');
+
+			// dispatch({
+			// 	type: TRAER_PRODUCTOS_TIENDA_ONLINE,
+			// 	payload: r.data,
+			// });
+		} catch (error) {
+			console.log(error.toJSON());
+		}
+	};
+
 	return (
 		<GlobalDataContext.Provider
 			value={{
+				productsTiendaOnline: state.productsTiendaOnline,
 				stockPoints: state.stockPoints,
 				salePoints: state.salePoints,
 				shippingTypes: state.shippingTypes,
@@ -172,6 +203,7 @@ const GlobalDataState = (props) => {
 				getSubcategorieExpenses,
 				getInvoicing,
 				handleDates,
+				getProductsTiendaOnline,
 			}}
 		>
 			{props.children}

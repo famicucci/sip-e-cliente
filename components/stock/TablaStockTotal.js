@@ -15,6 +15,7 @@ import AlertaContext from '../../context/alertas/alertaContext';
 import SpinnerTabla from '../generales/SpinnerTabla';
 import { Box } from '@material-ui/core';
 import useFilter from '../../hooks/useFilter';
+import GlobalDataContext from '../../context/globalData/GlobalDataContext';
 
 const useStyles = makeStyles({
 	table: {
@@ -34,6 +35,7 @@ const columnas = [
 const TablaStockTotal = () => {
 	const classes = useStyles();
 
+	const { getProductsTiendaOnline } = useContext(GlobalDataContext);
 	const { busqueda, handleHerrStockTot } = useContext(BarraHerramientasContext);
 	const [data, setData] = useState([]);
 	const [filteredData] = useFilter(data, busqueda);
@@ -47,6 +49,7 @@ const TablaStockTotal = () => {
 
 	useEffect(() => {
 		traerStocksPtoStock();
+		getProductsTiendaOnline();
 		handleHerrStockTot();
 	}, []);
 
