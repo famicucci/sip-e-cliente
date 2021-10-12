@@ -94,6 +94,63 @@ const ChartSubcategorieExpenses = () => {
 			12: {
 				background: 'rgba(54, 162, 235)',
 			},
+			13: {
+				background: 'rgba(54, 162, 235)',
+			},
+			14: {
+				background: 'rgba(54, 162, 235)',
+			},
+			15: {
+				background: 'rgba(54, 162, 235)',
+			},
+			16: {
+				background: 'rgba(54, 162, 235)',
+			},
+			17: {
+				background: 'rgba(54, 162, 235)',
+			},
+			18: {
+				background: 'rgba(54, 162, 235)',
+			},
+			19: {
+				background: 'rgba(54, 162, 235)',
+			},
+			20: {
+				background: 'rgba(54, 162, 235)',
+			},
+			21: {
+				background: 'rgba(54, 162, 235)',
+			},
+			22: {
+				background: 'rgba(54, 162, 235)',
+			},
+			23: {
+				background: 'rgba(54, 162, 235)',
+			},
+			24: {
+				background: 'rgba(54, 162, 235)',
+			},
+			25: {
+				background: 'rgba(54, 162, 235)',
+			},
+			26: {
+				background: 'rgba(54, 162, 235)',
+			},
+			27: {
+				background: 'rgba(54, 162, 235)',
+			},
+			28: {
+				background: 'rgba(54, 162, 235)',
+			},
+			29: {
+				background: 'rgba(54, 162, 235)',
+			},
+			30: {
+				background: 'rgba(54, 162, 235)',
+			},
+			31: {
+				background: 'rgba(54, 162, 235)',
+			},
 		};
 
 		const charData = {

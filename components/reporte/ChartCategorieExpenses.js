@@ -53,6 +53,10 @@ const ChartCategorieExpenses = () => {
 				border: 'rgba(54, 162, 235)',
 				background: 'rgba(54, 162, 235, 0.2)',
 			},
+			7: {
+				border: 'rgba(54, 162, 235)',
+				background: 'rgba(54, 162, 235, 0.2)',
+			},
 		};
 
 		let categoriesData = {};
