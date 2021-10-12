@@ -160,7 +160,6 @@ const GlobalDataState = (props) => {
 			Authentication: `bearer ${accessToken}`,
 			'User-Agent': 'API para Sip (famicucci@email.com)',
 			'Access-Control-Allow-Origin': '*',
-			'Access-Control-Allow-Methods': 'GET',
 		},
 	});
 
@@ -169,16 +168,14 @@ const GlobalDataState = (props) => {
 			const r = await tiendaNubeAxios.get('/v1/1894966/products');
 
 			console.log(r);
-			console.log('hola');
-
-			// dispatch({
-			// 	type: TRAER_PRODUCTOS_TIENDA_ONLINE,
-			// 	payload: r.data,
-			// });
 		} catch (error) {
 			console.log(error.toJSON());
 		}
 	};
+	// dispatch({
+	// 	type: TRAER_PRODUCTOS_TIENDA_ONLINE,
+	// 	payload: r.data,
+	// });
 
 	return (
 		<GlobalDataContext.Provider
