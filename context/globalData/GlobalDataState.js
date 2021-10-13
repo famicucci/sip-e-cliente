@@ -2,8 +2,8 @@ import React, { useReducer } from 'react';
 import GlobalDataContext from './GlobalDataContext';
 import GlobalDataReducer from './GlobalDataReducer';
 import clienteAxios from '../../config/axios';
+import tiendaNubeAxios from '../../config/tiendaNubeAxios';
 import moment from 'moment';
-import axios from 'axios';
 import {
 	PTOS_STOCK_VENTAS,
 	TRAER_PTOS_VENTA,
@@ -151,31 +151,19 @@ const GlobalDataState = (props) => {
 		});
 	};
 
-	const accessToken = '5c4d34b857d27539a980f5c659b28a45ce0459d1';
-	const apiUrl = 'https://api.tiendanube.com';
-
-	const tiendaNubeAxios = axios.create({
-		baseURL: apiUrl,
-		headers: {
-			Authentication: `bearer ${accessToken}`,
-			'User-Agent': 'API para Sip (famicucci@email.com)',
-			'Access-Control-Allow-Origin': '*',
-		},
-	});
-
 	const getProductsTiendaOnline = async () => {
 		try {
-			const r = await tiendaNubeAxios.get('/v1/1894966/products');
+			const r = await tiendaNubeAxios.get('/api/productos');
 
-			console.log(r);
+			console.log(r.data);
+			// dispatch({
+			// 	type: TRAER_PRODUCTOS_TIENDA_ONLINE,
+			// 	payload: r.data,
+			// });
 		} catch (error) {
-			console.log(error.toJSON());
+			console.log(error);
 		}
 	};
-	// dispatch({
-	// 	type: TRAER_PRODUCTOS_TIENDA_ONLINE,
-	// 	payload: r.data,
-	// });
 
 	return (
 		<GlobalDataContext.Provider
