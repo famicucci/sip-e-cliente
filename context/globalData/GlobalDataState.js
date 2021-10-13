@@ -15,6 +15,7 @@ import {
 	TRAER_FACTURAS,
 	ACTUALIZAR_FECHAS_LIMITE,
 	SHOW_LOADING,
+	TRAER_PRODUCTOS_TIENDA_ONLINE,
 } from '../../types';
 
 const GlobalDataState = (props) => {
@@ -155,11 +156,10 @@ const GlobalDataState = (props) => {
 		try {
 			const r = await tiendaNubeAxios.get('/api/productos');
 
-			console.log(r.data);
-			// dispatch({
-			// 	type: TRAER_PRODUCTOS_TIENDA_ONLINE,
-			// 	payload: r.data,
-			// });
+			dispatch({
+				type: TRAER_PRODUCTOS_TIENDA_ONLINE,
+				payload: r.data,
+			});
 		} catch (error) {
 			console.log(error);
 		}

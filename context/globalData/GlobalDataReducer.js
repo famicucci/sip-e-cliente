@@ -9,6 +9,7 @@ import {
 	TRAER_FACTURAS,
 	ACTUALIZAR_FECHAS_LIMITE,
 	SHOW_LOADING,
+	TRAER_PRODUCTOS_TIENDA_ONLINE,
 } from '../../types';
 
 const GlobalDataReducer = (state, action) => {
@@ -62,6 +63,11 @@ const GlobalDataReducer = (state, action) => {
 			return {
 				...state,
 				loadingGlobalData: action.payload,
+			};
+		case TRAER_PRODUCTOS_TIENDA_ONLINE:
+			return {
+				...state,
+				productsTiendaOnline: action.payload,
 			};
 		default:
 			return state;
