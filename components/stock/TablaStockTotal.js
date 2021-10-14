@@ -35,11 +35,12 @@ const columnas = [
 const TablaStockTotal = () => {
 	const classes = useStyles();
 
-	const { getProductsTiendaOnline } = useContext(GlobalDataContext);
+	const { productsTiendaOnline, getProductsTiendaOnline } =
+		useContext(GlobalDataContext);
 	const { busqueda, handleHerrStockTot } = useContext(BarraHerramientasContext);
 	const [data, setData] = useState([]);
 	const [filteredData] = useFilter(data, busqueda);
-	const { stocks, mensaje, cargando, traerStocksPtoStock } =
+	const { stocks, mensaje, cargando, traerStocksPtoStock, modifyProductQty } =
 		useContext(StockContext);
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 
@@ -66,6 +67,41 @@ const TablaStockTotal = () => {
 
 		setData(Object.values(stockTotal));
 	}, [stocks]);
+
+	useEffect(() => {
+		const products = productsTiendaOnline.map((x) => x.variants);
+		const stockTiendaOnline = products.flat().map((x) => ({
+			ProductoCodigo: x.sku,
+			cantidad: x.stock,
+		}));
+		const modDataTable = stocks.filter(
+			(x) => x['PtoStock.descripcion'] === 'Showroom'
+		);
+		const colIndexByProductoCodigo = modDataTable.reduce(
+			(acc, el) => ({ ...acc, [el.ProductoCodigo]: el }),
+			{}
+		);
+
+		const dataProducts = [];
+		stockTiendaOnline.forEach((x) => {
+			if (x.cantidad && colIndexByProductoCodigo[x.ProductoCodigo]) {
+				if (
+					x.cantidad !== colIndexByProductoCodigo[x.ProductoCodigo]['cantidad']
+				) {
+					const product = {
+						ProductoCodigo: x.ProductoCodigo,
+						PtoStockId: 1,
+						cantidad: x.cantidad,
+						motivo: 'Tienda Nube',
+					};
+					dataProducts.push(product);
+				}
+			}
+		});
+
+		// data.map(x=> x.ProductoCodigo)
+		modifyProductQty(dataProducts);
+	}, [productsTiendaOnline]);
 
 	useEffect(() => {
 		if (mensaje) {
