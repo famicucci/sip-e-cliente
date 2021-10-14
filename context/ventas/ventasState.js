@@ -203,11 +203,11 @@ const VentasState = (props) => {
 			direccionEnvio = state.envio.input;
 		}
 
-		let OrdenEstadoId = 2;
+		let OrdenEstadoId = 6;
 		const detalleOrden = state.carrito.map((x) => {
 			const productToProduction = x.PtoStockId === 0;
 
-			if (productToProduction) OrdenEstadoId = 1;
+			if (productToProduction) OrdenEstadoId = 4;
 
 			return {
 				cantidad: x.cantidad,
