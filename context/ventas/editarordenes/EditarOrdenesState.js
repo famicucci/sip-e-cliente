@@ -71,9 +71,11 @@ const EditarOrdenesState = (props) => {
 		}
 	};
 
-	const traerOrdenesFinalizadas = async () => {
+	const traerOrdenesFinalizadas = async (startDate, endDate) => {
 		try {
-			const r = await clienteAxios.get(`/api/ordenes/finalizadas`);
+			const r = await clienteAxios.get(
+				`/api/ordenes/finalizadas/${JSON.stringify({ startDate, endDate })}`
+			);
 
 			dispatch({
 				type: TRAER_ORDENES,

@@ -20,6 +20,7 @@ import {
 	HERRAMIENTAS_PRODUCTOS_A_MOVER,
 	HERRAMIENTAS_GASTOS,
 	HERRAMIENTAS_REPORTES,
+	HERRAMIENTAS_EDITAR_VENTAS_FINALIZADAS,
 } from '../../types';
 
 const BarraHerramientasState = (props) => {
@@ -69,6 +70,12 @@ const BarraHerramientasState = (props) => {
 	const handleHerramientasEditarVentas = () => {
 		dispatch({
 			type: HERRAMIENTAS_EDITAR_VENTAS,
+		});
+	};
+
+	const handleHerramientasEditarVentasFinalizadas = () => {
+		dispatch({
+			type: HERRAMIENTAS_EDITAR_VENTAS_FINALIZADAS,
 		});
 	};
 
@@ -183,6 +190,7 @@ const BarraHerramientasState = (props) => {
 				handleHerrProductosAMover,
 				handleToolsExpenses,
 				handleToolsReports,
+				handleHerramientasEditarVentasFinalizadas,
 			}}
 		>
 			{props.children}

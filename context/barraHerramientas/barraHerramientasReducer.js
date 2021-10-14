@@ -15,6 +15,7 @@ import {
 	HERRAMIENTAS_PRODUCTOS_A_MOVER,
 	HERRAMIENTAS_GASTOS,
 	HERRAMIENTAS_REPORTES,
+	HERRAMIENTAS_EDITAR_VENTAS_FINALIZADAS,
 } from '../../types';
 
 const PreciosReducer = (state, action) => {
@@ -88,6 +89,18 @@ const PreciosReducer = (state, action) => {
 				botonNuevoCliente: false,
 				botonNuevoGasto: false,
 				selectBetweenMonths: false,
+				etiquetaModificarOrden: false,
+			};
+		case HERRAMIENTAS_EDITAR_VENTAS_FINALIZADAS:
+			return {
+				...state,
+				botonModoCargaVenta: false,
+				buscador: true,
+				selectListaPrecio: false,
+				selectPtoStock: false,
+				botonNuevoCliente: false,
+				botonNuevoGasto: false,
+				selectBetweenMonths: true,
 				etiquetaModificarOrden: false,
 			};
 		case HERRAMIENTAS_PRODUCTOS_A_MOVER:

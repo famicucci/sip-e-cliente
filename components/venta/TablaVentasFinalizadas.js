@@ -46,7 +46,7 @@ const columnas = [
 const TablaVentasFinalizadas = () => {
 	const classes = useStyles();
 
-	const { handleHerramientasEditarVentas, busqueda } = useContext(
+	const { handleHerramientasEditarVentasFinalizadas, busqueda } = useContext(
 		BarraHerramientasContext
 	);
 	const [data, setData] = useState([]);
@@ -64,15 +64,18 @@ const TablaVentasFinalizadas = () => {
 		handleCloseModal,
 		handleFilaActivaOrden,
 	} = useContext(EditarOrdenesContext);
-	const { shippingTypes, getOrderStatuses, getShippingTypes } =
+	const { dates, shippingTypes, getOrderStatuses, getShippingTypes } =
 		useContext(GlobalDataContext);
 
 	useEffect(() => {
-		traerOrdenesFinalizadas();
 		getOrderStatuses();
 		getShippingTypes();
-		handleHerramientasEditarVentas();
+		handleHerramientasEditarVentasFinalizadas();
 	}, []);
+
+	useEffect(() => {
+		traerOrdenesFinalizadas(dates.startDate, dates.endDate);
+	}, [dates]);
 
 	useEffect(() => {
 		if (shippingTypes) {
