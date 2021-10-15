@@ -174,19 +174,14 @@ const StockState = (props) => {
 					payload: x,
 				});
 
-				if (data.length === i + 1)
+				if (data.length === i + 1) {
 					dispatch({
 						type: OCULTAR_ALERTA_STOCK,
 					});
+					mostrarAlertaEditarOrdenes('stock actualizado!', 'success');
+				}
 			} catch (error) {
-				const alerta = {
-					msg: error.response.data.msg,
-					categoria: error.response.data.severity,
-				};
-				dispatch({
-					type: ERROR_STOCK,
-					payload: alerta,
-				});
+				mostrarAlertaEditarOrdenes('Hubo un error', 'error');
 			}
 		});
 	};
@@ -220,6 +215,19 @@ const StockState = (props) => {
 			type: PTO_STOCK,
 			payload: ptoStock,
 		});
+	};
+
+	const mostrarAlertaEditarOrdenes = (msg, categoria) => {
+		dispatch({
+			type: MOSTRAR_ALERTA_STOCK,
+			payload: { msg, categoria },
+		});
+
+		setTimeout(() => {
+			dispatch({
+				type: OCULTAR_ALERTA_STOCK,
+			});
+		}, 4000);
 	};
 
 	return (
