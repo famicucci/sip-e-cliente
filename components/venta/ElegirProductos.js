@@ -17,12 +17,7 @@ const useStyles = makeStyles((theme) => ({
 const ElegirProductos = () => {
 	const classes = useStyles();
 
-	const { modo, traerProductos } = useContext(VentasContext);
-	const { busqueda } = useContext(BarraHerramientasContext);
-
-	useEffect(() => {
-		traerProductos(busqueda);
-	}, []);
+	const { modo } = useContext(VentasContext);
 
 	return (
 		<Paper className={classes.paper} variant="outlined">

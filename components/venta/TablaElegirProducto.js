@@ -36,8 +36,12 @@ const TablaElegirProducto = () => {
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
 		usePaginacion(filteredData, 5);
 
-	const { preciosPtoStock, ptoStock, listaPrecio, valorRadio } =
+	const { preciosPtoStock, ptoStock, listaPrecio, valorRadio, traerProductos } =
 		useContext(VentasContext);
+
+	useEffect(() => {
+		traerProductos();
+	}, []);
 
 	useEffect(() => {
 		if (valorRadio === 'total')
