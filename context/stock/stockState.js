@@ -153,26 +153,25 @@ const StockState = (props) => {
 	};
 
 	const modifyProductQty = async (data) => {
-		console.log(data);
-		// data.forEach(async (x) => {
-		// 	try {
-		// 		await clienteAxios.put('/api/stock/', x);
+		data.forEach(async (x) => {
+			try {
+				await clienteAxios.put('/api/stock/', x);
 
-		// 		dispatch({
-		// 			type: ACTUALIZAR_STOCK,
-		// 			payload: x,
-		// 		});
-		// 	} catch (error) {
-		// 		const alerta = {
-		// 			msg: error.response.data.msg,
-		// 			categoria: error.response.data.severity,
-		// 		};
-		// 		dispatch({
-		// 			type: ERROR_STOCK,
-		// 			payload: alerta,
-		// 		});
-		// 	}
-		// });
+				dispatch({
+					type: ACTUALIZAR_STOCK,
+					payload: x,
+				});
+			} catch (error) {
+				const alerta = {
+					msg: error.response.data.msg,
+					categoria: error.response.data.severity,
+				};
+				dispatch({
+					type: ERROR_STOCK,
+					payload: alerta,
+				});
+			}
+		});
 	};
 
 	const handleNuevaCantidad = (cantidad) => {
