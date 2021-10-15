@@ -17,6 +17,8 @@ import {
 	MODAL_CLOSE,
 	ERROR_STOCK,
 	ACTUALIZAR_STOCK,
+	MOSTRAR_ALERTA_STOCK,
+	OCULTAR_ALERTA_STOCK,
 } from '../../types';
 
 const StockState = (props) => {
@@ -28,6 +30,7 @@ const StockState = (props) => {
 		filaActivaProducto: {},
 		openModal: false,
 		mensaje: null,
+		mensajeStock: null,
 		cargando: true,
 	};
 
@@ -153,7 +156,16 @@ const StockState = (props) => {
 	};
 
 	const modifyProductQty = async (data) => {
-		data.forEach(async (x) => {
+		// actualizando stock de tienda nube...
+		dispatch({
+			type: MOSTRAR_ALERTA_STOCK,
+			payload: {
+				msg: 'Actualizando stock de tienda nube...',
+				severity: 'warning',
+			},
+		});
+
+		data.forEach(async (x, i) => {
 			try {
 				await clienteAxios.put('/api/stock/', x);
 
@@ -161,6 +173,11 @@ const StockState = (props) => {
 					type: ACTUALIZAR_STOCK,
 					payload: x,
 				});
+
+				if (data.length === i + 1)
+					dispatch({
+						type: OCULTAR_ALERTA_STOCK,
+					});
 			} catch (error) {
 				const alerta = {
 					msg: error.response.data.msg,
@@ -215,6 +232,7 @@ const StockState = (props) => {
 				filaActivaProducto: state.filaActivaProducto,
 				openModal: state.openModal,
 				mensaje: state.mensaje,
+				mensajeStock: state.mensajeStock,
 				cargando: state.cargando,
 				handlePtoStock,
 				traerStocksPtoStock,

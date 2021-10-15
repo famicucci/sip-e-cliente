@@ -12,6 +12,8 @@ import {
 	MODAL_CLOSE,
 	ERROR_STOCK,
 	ACTUALIZAR_STOCK,
+	MOSTRAR_ALERTA_STOCK,
+	OCULTAR_ALERTA_STOCK,
 } from '../../types';
 import { filtro } from '../../functions/filtros.js';
 
@@ -112,6 +114,16 @@ const StockReducer = (state, action) => {
 						? { ...x, cantidad: action.payload.cantidad }
 						: x
 				),
+			};
+		case MOSTRAR_ALERTA_STOCK:
+			return {
+				...state,
+				mensajeStock: action.payload,
+			};
+		case OCULTAR_ALERTA_STOCK:
+			return {
+				...state,
+				mensajeStock: null,
 			};
 		default:
 			return state;

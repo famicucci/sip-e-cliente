@@ -16,6 +16,7 @@ import SpinnerTabla from '../generales/SpinnerTabla';
 import { Box } from '@material-ui/core';
 import useFilter from '../../hooks/useFilter';
 import GlobalDataContext from '../../context/globalData/GlobalDataContext';
+import Alerta2 from '../generales/Alerta2';
 
 const useStyles = makeStyles({
 	table: {
@@ -40,8 +41,14 @@ const TablaStockTotal = () => {
 	const { busqueda, handleHerrStockTot } = useContext(BarraHerramientasContext);
 	const [data, setData] = useState([]);
 	const [filteredData] = useFilter(data, busqueda);
-	const { stocks, mensaje, cargando, traerStocksPtoStock, modifyProductQty } =
-		useContext(StockContext);
+	const {
+		stocks,
+		mensaje,
+		mensajeStock,
+		cargando,
+		traerStocksPtoStock,
+		modifyProductQty,
+	} = useContext(StockContext);
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 
 	// hook paginación
@@ -82,6 +89,7 @@ const TablaStockTotal = () => {
 			{}
 		);
 
+		// update quantity from online shop
 		const dataProducts = [];
 		stockTiendaOnline.forEach((x) => {
 			if (x.cantidad && colIndexByProductoCodigo[x.ProductoCodigo]) {
@@ -100,7 +108,7 @@ const TablaStockTotal = () => {
 		});
 
 		// data.map(x=> x.ProductoCodigo)
-		modifyProductQty(dataProducts);
+		if (dataProducts.length > 0) modifyProductQty(dataProducts);
 	}, [productsTiendaOnline]);
 
 	useEffect(() => {
@@ -130,6 +138,7 @@ const TablaStockTotal = () => {
 			)}
 			<ModalStockProducto />
 			{alerta !== null ? <Alerta /> : null}
+			{mensajeStock ? <Alerta2 mensaje={mensajeStock} /> : null}
 		</TableContainer>
 	);
 };
