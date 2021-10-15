@@ -91,7 +91,10 @@ const GastoState = (props) => {
 
 			dispatch({
 				type: AGREGAR_GASTO,
-				payload: r.data,
+				payload: {
+					...r.data,
+					Usuario: { id: r.data.UsuarioId },
+				},
 			});
 
 			mostrarAlertaGastos('Creaste el gasto', 'success');
