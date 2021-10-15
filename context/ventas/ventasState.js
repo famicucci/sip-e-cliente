@@ -34,6 +34,7 @@ import {
 	MOSTRAR_ALERTA_VENTAS,
 	OCULTAR_ALERTA_VENTAS,
 	ACTIVAR_ORDEN,
+	OCULTAR_CARGANDO,
 } from '../../types';
 
 const VentasState = (props) => {
@@ -51,7 +52,7 @@ const VentasState = (props) => {
 		carrito: [],
 		modo: 'manual',
 		orderToModify: null,
-		cargando: false,
+		cargando: true,
 		mensajeVentas: null,
 	};
 
@@ -64,6 +65,11 @@ const VentasState = (props) => {
 
 			dispatch({
 				type: PRODUCTOS_VENTAS,
+				payload: ptoStock.data,
+			});
+
+			dispatch({
+				type: OCULTAR_CARGANDO,
 				payload: ptoStock.data,
 			});
 		} catch (error) {

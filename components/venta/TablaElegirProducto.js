@@ -12,6 +12,8 @@ import VentasContext from '../../context/ventas/ventasContext';
 import FilaElegirProducto from './FilaElegirProducto';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import useFilter from '../../hooks/useFilter';
+import SpinnerTabla from '../generales/SpinnerTabla';
+import { Box } from '@material-ui/core';
 
 const columnas = [
 	{ id: 'producto', label: 'Producto', minWidth: 80 },
@@ -24,6 +26,7 @@ const useStyles = makeStyles({
 		flex: 1,
 		minHeight: 0,
 	},
+	spinner: { height: '60vh' },
 });
 
 const TablaElegirProducto = () => {
@@ -36,8 +39,14 @@ const TablaElegirProducto = () => {
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
 		usePaginacion(filteredData, 5);
 
-	const { preciosPtoStock, ptoStock, listaPrecio, valorRadio, traerProductos } =
-		useContext(VentasContext);
+	const {
+		preciosPtoStock,
+		ptoStock,
+		listaPrecio,
+		valorRadio,
+		cargando,
+		traerProductos,
+	} = useContext(VentasContext);
 
 	useEffect(() => {
 		traerProductos();
@@ -104,29 +113,35 @@ const TablaElegirProducto = () => {
 
 	return (
 		<TableContainer className={classes.tableContainer} component={Paper}>
-			<Table stickyHeader aria-label="sticky table">
-				<TableHead>
-					<TableRow>
-						{columnas.map((column) => (
-							<TableCell
-								key={column.id}
-								align={column.align}
-								style={{ minWidth: column.minWidth }}
-							>
-								{column.label}
-							</TableCell>
+			{!cargando ? (
+				<Table stickyHeader aria-label="sticky table">
+					<TableHead>
+						<TableRow>
+							{columnas.map((column) => (
+								<TableCell
+									key={column.id}
+									align={column.align}
+									style={{ minWidth: column.minWidth }}
+								>
+									{column.label}
+								</TableCell>
+							))}
+						</TableRow>
+					</TableHead>
+					<TableBody>
+						{filteredData.map((fila) => (
+							<FilaElegirProducto key={fila.ProductoCodigo} fila={fila} />
 						))}
-					</TableRow>
-				</TableHead>
-				<TableBody>
-					{filteredData.map((fila) => (
-						<FilaElegirProducto key={fila.ProductoCodigo} fila={fila} />
-					))}
-					{filteredData.length === 0
-						? bodyVacio(columnas, 'Ningún producto coincide...')
-						: filasVacias}
-				</TableBody>
-			</Table>
+						{filteredData.length === 0
+							? bodyVacio(columnas, 'Ningún producto coincide...')
+							: filasVacias}
+					</TableBody>
+				</Table>
+			) : (
+				<Box className={classes.spinner}>
+					<SpinnerTabla />
+				</Box>
+			)}
 		</TableContainer>
 	);
 };

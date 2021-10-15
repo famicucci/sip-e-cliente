@@ -28,6 +28,7 @@ import {
 	MOSTRAR_ALERTA_VENTAS,
 	OCULTAR_ALERTA_VENTAS,
 	ACTIVAR_ORDEN,
+	OCULTAR_CARGANDO,
 } from '../../types';
 
 const VentasReducer = (state, action) => {
@@ -238,6 +239,11 @@ const VentasReducer = (state, action) => {
 			return {
 				...state,
 				mensajeVentas: null,
+			};
+		case OCULTAR_CARGANDO:
+			return {
+				...state,
+				cargando: false,
 			};
 		default:
 			return state;
