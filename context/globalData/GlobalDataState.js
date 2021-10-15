@@ -154,7 +154,7 @@ const GlobalDataState = (props) => {
 
 	const getProductsTiendaOnline = async () => {
 		try {
-			const r = await tiendaNubeAxios.get('/api/productos');
+			const r = await clienteAxios.get('/api/tiendanube/productos');
 
 			dispatch({
 				type: TRAER_PRODUCTOS_TIENDA_ONLINE,
