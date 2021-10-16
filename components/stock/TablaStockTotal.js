@@ -108,7 +108,8 @@ const TablaStockTotal = () => {
 		});
 
 		// data.map(x=> x.ProductoCodigo)
-		if (dataProducts.length > 0) modifyProductQty(dataProducts);
+		console.log(dataProducts);
+		modifyProductQty(dataProducts);
 	}, [productsTiendaOnline]);
 
 	useEffect(() => {
