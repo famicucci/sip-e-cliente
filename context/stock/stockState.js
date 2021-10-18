@@ -2,9 +2,11 @@ import React, { useReducer } from 'react';
 import StockContext from './stockContext';
 import StockReducer from './stockReducer';
 import clienteAxios from '../../config/axios';
+import { ptoStockToSync } from '../../config/globalVariables';
 
 import {
 	TRAER_STOCK_PTO_STOCK,
+	TRAER_PRODUCTOS_TIENDA_ONLINE,
 	TRAER_MOVIMIENTOS_STOCK,
 	FILAS_MOVIMIENTOS_STOCK,
 	PTO_STOCK,
@@ -24,6 +26,7 @@ import {
 const StockState = (props) => {
 	const initialState = {
 		stocks: [],
+		stocksTN: [],
 		filas: [],
 		ptoStock: 1,
 		productoActivo: {},
@@ -38,18 +41,91 @@ const StockState = (props) => {
 
 	// las funciones
 	const traerStocksPtoStock = async () => {
+		// get stock from sip-e
 		try {
 			const r = await clienteAxios.get('/api/stock/pto-stock/');
+			const stockSipe = r.data;
 
 			dispatch({
 				type: TRAER_STOCK_PTO_STOCK,
-				payload: r.data,
+				payload: stockSipe,
 			});
+
+			try {
+				const r = await clienteAxios.get('/api/tiendanube/productos');
+
+				dispatch({
+					type: TRAER_PRODUCTOS_TIENDA_ONLINE,
+					payload: r.data,
+				});
+
+				const stocksTiendaOnline = [];
+				for (const product of r.data) {
+					for (let variant of product.variants) {
+						if (variant.stock) {
+							const el = {
+								ProductoCodigo: variant.sku,
+								cantidad: variant.stock,
+								PtoStockId: ptoStockToSync,
+							};
+
+							stocksTiendaOnline.push(el);
+						}
+					}
+				}
+
+				let indexStockSipe = {};
+				stockSipe.forEach((x) => {
+					if (x.PtoStockId === ptoStockToSync)
+						indexStockSipe[x.ProductoCodigo] = indexStockSipe[
+							x.ProductoCodigo
+						] ?? { ...x };
+				});
+
+				// compare arrays
+				let arrayDiff = [];
+				stocksTiendaOnline.forEach((x) => {
+					if (x.cantidad !== indexStockSipe[x.ProductoCodigo]['cantidad']) {
+						arrayDiff.push(x);
+					}
+				});
+
+				if (arrayDiff.length > 0)
+					dispatch({
+						type: MOSTRAR_ALERTA_STOCK,
+						payload: {
+							msg: 'Actualizando stock de tienda nube...',
+							severity: 'warning',
+						},
+					});
+
+				arrayDiff.forEach(async (x, i) => {
+					try {
+						await clienteAxios.put('/api/stock/', x);
+
+						dispatch({
+							type: ACTUALIZAR_STOCK,
+							payload: x,
+						});
+
+						if (arrayDiff.length === i + 1) {
+							dispatch({
+								type: OCULTAR_ALERTA_STOCK,
+							});
+							mostrarAlertaEditarOrdenes(
+								'Stocks actualizados con Tienda Nube!',
+								'success'
+							);
+						}
+					} catch (error) {
+						mostrarAlertaEditarOrdenes('Hubo un error', 'error');
+					}
+				});
+			} catch (error) {
+				mostrarAlertaEditarOrdenes('Hubo un error', 'error');
+			}
 		} catch (error) {
-			dispatch({
-				type: ERROR_STOCK,
-				payload: error,
-			});
+			mostrarAlertaEditarOrdenes('Hubo un error', 'error');
 		}
 	};
 
@@ -155,37 +231,6 @@ const StockState = (props) => {
 		}
 	};
 
-	const modifyProductQty = async (data) => {
-		// actualizando stock de tienda nube...
-		dispatch({
-			type: MOSTRAR_ALERTA_STOCK,
-			payload: {
-				msg: 'Actualizando stock de tienda nube...',
-				severity: 'warning',
-			},
-		});
-
-		data.forEach(async (x, i) => {
-			try {
-				await clienteAxios.put('/api/stock/', x);
-
-				dispatch({
-					type: ACTUALIZAR_STOCK,
-					payload: x,
-				});
-
-				if (data.length === i + 1) {
-					dispatch({
-						type: OCULTAR_ALERTA_STOCK,
-					});
-					mostrarAlertaEditarOrdenes('stock actualizado!', 'success');
-				}
-			} catch (error) {
-				mostrarAlertaEditarOrdenes('Hubo un error', 'error');
-			}
-		});
-	};
-
 	const handleNuevaCantidad = (cantidad) => {
 		dispatch({
 			type: NUEVA_CANTIDAD_STOCK,
@@ -234,6 +279,7 @@ const StockState = (props) => {
 		<StockContext.Provider
 			value={{
 				stocks: state.stocks,
+				stocksTN: state.stocksTN,
 				filas: state.filas,
 				ptoStock: state.ptoStock,
 				productoActivo: state.productoActivo,
@@ -253,7 +299,6 @@ const StockState = (props) => {
 				handleNuevaCantidad,
 				handleOpen,
 				handleClose,
-				modifyProductQty,
 			}}
 		>
 			{props.children}

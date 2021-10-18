@@ -15,7 +15,6 @@ import AlertaContext from '../../context/alertas/alertaContext';
 import SpinnerTabla from '../generales/SpinnerTabla';
 import { Box } from '@material-ui/core';
 import useFilter from '../../hooks/useFilter';
-import GlobalDataContext from '../../context/globalData/GlobalDataContext';
 import Alerta2 from '../generales/Alerta2';
 
 const useStyles = makeStyles({
@@ -36,19 +35,11 @@ const columnas = [
 const TablaStockTotal = () => {
 	const classes = useStyles();
 
-	const { productsTiendaOnline, getProductsTiendaOnline } =
-		useContext(GlobalDataContext);
 	const { busqueda, handleHerrStockTot } = useContext(BarraHerramientasContext);
 	const [data, setData] = useState([]);
 	const [filteredData] = useFilter(data, busqueda);
-	const {
-		stocks,
-		mensaje,
-		mensajeStock,
-		cargando,
-		traerStocksPtoStock,
-		modifyProductQty,
-	} = useContext(StockContext);
+	const { stocks, mensaje, mensajeStock, cargando, traerStocksPtoStock } =
+		useContext(StockContext);
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 
 	// hook paginación
@@ -57,7 +48,6 @@ const TablaStockTotal = () => {
 
 	useEffect(() => {
 		traerStocksPtoStock();
-		getProductsTiendaOnline();
 		handleHerrStockTot();
 	}, []);
 
@@ -74,43 +64,6 @@ const TablaStockTotal = () => {
 
 		setData(Object.values(stockTotal));
 	}, [stocks]);
-
-	useEffect(() => {
-		const products = productsTiendaOnline.map((x) => x.variants);
-		const stockTiendaOnline = products.flat().map((x) => ({
-			ProductoCodigo: x.sku,
-			cantidad: x.stock,
-		}));
-		const modDataTable = stocks.filter(
-			(x) => x['PtoStock.descripcion'] === 'Showroom'
-		);
-		const colIndexByProductoCodigo = modDataTable.reduce(
-			(acc, el) => ({ ...acc, [el.ProductoCodigo]: el }),
-			{}
-		);
-
-		// update quantity from online shop
-		const dataProducts = [];
-		stockTiendaOnline.forEach((x) => {
-			if (x.cantidad && colIndexByProductoCodigo[x.ProductoCodigo]) {
-				if (
-					x.cantidad !== colIndexByProductoCodigo[x.ProductoCodigo]['cantidad']
-				) {
-					const product = {
-						ProductoCodigo: x.ProductoCodigo,
-						PtoStockId: 1,
-						cantidad: x.cantidad,
-						motivo: 'Tienda Nube',
-					};
-					dataProducts.push(product);
-				}
-			}
-		});
-
-		// data.map(x=> x.ProductoCodigo)
-		console.log(dataProducts);
-		modifyProductQty(dataProducts);
-	}, [productsTiendaOnline]);
 
 	useEffect(() => {
 		if (mensaje) {

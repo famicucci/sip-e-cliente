@@ -1,5 +1,6 @@
 import {
 	TRAER_STOCK_PTO_STOCK,
+	TRAER_PRODUCTOS_TIENDA_ONLINE,
 	TRAER_MOVIMIENTOS_STOCK,
 	FILAS_MOVIMIENTOS_STOCK,
 	PTO_STOCK,
@@ -24,6 +25,11 @@ const StockReducer = (state, action) => {
 				...state,
 				stocks: action.payload,
 				cargando: false,
+			};
+		case TRAER_PRODUCTOS_TIENDA_ONLINE:
+			return {
+				...state,
+				stocksTN: action.payload,
 			};
 		case TRAER_MOVIMIENTOS_STOCK:
 			let vars = { bus: action.payload.bus };
