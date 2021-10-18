@@ -15,6 +15,7 @@ import SpinnerTabla from '../generales/SpinnerTabla';
 import { Box } from '@material-ui/core';
 import useFilter from '../../hooks/useFilter';
 import useFilterPtoStock from '../../hooks/useFilterPtoStock';
+import Alerta2 from '../generales/Alerta2';
 
 const useStyles = makeStyles({
 	table: {
@@ -38,8 +39,14 @@ const TablaPuntoStock = () => {
 	const { busqueda, handleHerramientasStockPtoStock } = useContext(
 		BarraHerramientasContext
 	);
-	const { stocks, ptoStock, mensaje, cargando, traerStocksPtoStock } =
-		useContext(StockContext);
+	const {
+		stocks,
+		ptoStock,
+		mensaje,
+		mensajeStock,
+		cargando,
+		traerStocksPtoStock,
+	} = useContext(StockContext);
 	const [data, setData] = useState([]);
 	const [ptoStockData] = useFilterPtoStock(data, ptoStock);
 	const [filteredData] = useFilter(ptoStockData, busqueda);
@@ -84,6 +91,7 @@ const TablaPuntoStock = () => {
 				</Box>
 			)}
 			{alerta !== null ? <Alerta /> : null}
+			{mensajeStock ? <Alerta2 mensaje={mensajeStock} /> : null}
 		</TableContainer>
 	);
 };
