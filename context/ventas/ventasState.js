@@ -294,14 +294,9 @@ const VentasState = (props) => {
 								for (const product of stocksTN) {
 									for (const variant of product.variants) {
 										if (variant.sku === productOrder.ProductoCodigo) {
-											const productCurrentStock = state.preciosPtoStock.find(
-												(x) =>
-													x.ProductoCodigo === productOrder.ProductoCodigo &&
-													x.PtoStockId === productOrder.PtoStockId
-											).cantidad;
 											await clienteAxios.put(
 												`/api/tiendanube/stock/${variant.product_id}/${variant.id}`,
-												{ qty: productCurrentStock - productOrder.cantidad }
+												{ qty: variant.stock - productOrder.cantidad }
 											);
 										}
 									}
