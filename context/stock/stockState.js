@@ -192,15 +192,29 @@ const StockState = (props) => {
 				type: ACTUALIZAR_STOCK,
 				payload: datos,
 			});
+
+			// update in TN
+			if (datos.PtoStockId === ptoStockToSync)
+				try {
+					for (const product of state.stocksTN) {
+						for (const variant of product.variants) {
+							if (variant.sku === datos.ProductoCodigo) {
+								await clienteAxios.put(
+									`/api/tiendanube/stock/${variant.product_id}/${variant.id}`,
+									{ qty: datos.cantidad }
+								);
+								mostrarAlertaEditarOrdenes(
+									'Stock actualizado en Tienda Nube',
+									'success'
+								);
+							}
+						}
+					}
+				} catch (error) {
+					mostrarAlertaEditarOrdenes('Hubo un error!', 'error');
+				}
 		} catch (error) {
-			const alerta = {
-				msg: error.response.data.msg,
-				categoria: error.response.data.severity,
-			};
-			dispatch({
-				type: ERROR_STOCK,
-				payload: alerta,
-			});
+			mostrarAlertaEditarOrdenes('Hubo un error!', 'error');
 		}
 	};
 
@@ -219,15 +233,29 @@ const StockState = (props) => {
 				type: CONFIRMAR_CAMBIO_STOCK_PTO_STOCK,
 				payload: { respuesta },
 			});
+
+			// update in TN
+			if (datos.PtoStockId === ptoStockToSync)
+				try {
+					for (const product of state.stocksTN) {
+						for (const variant of product.variants) {
+							if (variant.sku === datos.ProductoCodigo) {
+								await clienteAxios.put(
+									`/api/tiendanube/stock/${variant.product_id}/${variant.id}`,
+									{ qty: datos.cantidad }
+								);
+								mostrarAlertaEditarOrdenes(
+									'Stock actualizado en Tienda Nube',
+									'success'
+								);
+							}
+						}
+					}
+				} catch (error) {
+					mostrarAlertaEditarOrdenes('Hubo un error!', 'error');
+				}
 		} catch (error) {
-			const alerta = {
-				msg: error.response.data.msg,
-				categoria: error.response.data.severity,
-			};
-			dispatch({
-				type: ERROR_STOCK,
-				payload: alerta,
-			});
+			mostrarAlertaEditarOrdenes('Hubo un error!', 'error');
 		}
 	};
 
