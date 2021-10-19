@@ -313,7 +313,14 @@ const VentasState = (props) => {
 				mostrarAlertaVentas('Hubo un error', 'error');
 			}
 		} catch (error) {
-			mostrarAlertaVentas('Hubo un error al crear la orden', 'error');
+			if (error.response.data.productWithoutStock) {
+				mostrarAlertaVentas(
+					`Producto sin stock suficiente: ${error.response.data.productWithoutStock}`,
+					'error'
+				);
+			} else {
+				mostrarAlertaVentas('Hubo un error al crear la orden', 'error');
+			}
 		}
 	};
 
@@ -422,10 +429,10 @@ const VentasState = (props) => {
 		}
 	};
 
-	const mostrarAlertaVentas = (msg, categoria) => {
+	const mostrarAlertaVentas = (msg, severity) => {
 		dispatch({
 			type: MOSTRAR_ALERTA_VENTAS,
-			payload: { msg, categoria },
+			payload: { msg, severity },
 		});
 
 		setTimeout(() => {

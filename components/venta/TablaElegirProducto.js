@@ -51,6 +51,7 @@ const TablaElegirProducto = () => {
 		listaPrecio,
 		valorRadio,
 		cargando,
+		mensajeVentas,
 		traerProductos,
 	} = useContext(VentasContext);
 
@@ -155,6 +156,7 @@ const TablaElegirProducto = () => {
 				</Box>
 			)}
 			{mensajeStock ? <Alerta2 mensaje={mensajeStock} /> : null}
+			{mensajeVentas ? <Alerta2 mensaje={mensajeVentas} /> : null}
 		</TableContainer>
 	);
 };
