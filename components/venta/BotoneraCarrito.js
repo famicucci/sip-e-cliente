@@ -1,4 +1,5 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import { useRouter } from 'next/router';
 import VentasContext from '../../context/ventas/ventasContext';
 import AlertaContext from '../../context/alertas/alertaContext';
@@ -16,14 +17,26 @@ import {
 	ArrowDropDown,
 	ClearAll,
 } from '@material-ui/icons';
+import { Backdrop } from '@material-ui/core';
+import { CircularProgress } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+	backdrop: {
+		zIndex: theme.zIndex.drawer + 1,
+		color: '#fff',
+	},
+}));
 
 const BotoneraCarrito = () => {
+	const classes = useStyles();
 	const router = useRouter();
 
+	const [open, setOpen] = useState(false);
 	const {
 		carrito,
 		envio,
 		cliente,
+		mensajeVentas,
 		crearOrden,
 		ordenCreada,
 		handleEnvio,
@@ -47,6 +60,10 @@ const BotoneraCarrito = () => {
 			});
 		}
 	}, [ordenCreada]);
+
+	useEffect(() => {
+		if (mensajeVentas) setOpen(false);
+	}, [mensajeVentas]);
 
 	const onClickClean = () => {
 		handleEnvio(null);
@@ -93,6 +110,7 @@ const BotoneraCarrito = () => {
 			return;
 		}
 
+		setOpen(true);
 		crearOrden();
 	};
 
@@ -123,6 +141,9 @@ const BotoneraCarrito = () => {
 				/>
 			</Box>
 			{alerta !== null ? <Alerta /> : null}
+			<Backdrop className={classes.backdrop} open={open}>
+				<CircularProgress color="primary" />
+			</Backdrop>
 		</Box>
 	);
 };
