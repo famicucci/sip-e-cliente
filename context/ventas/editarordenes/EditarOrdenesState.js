@@ -4,6 +4,7 @@ import EditarOrdenesReducer from './EditarOrdenesReducer';
 import clienteAxios from '../../../config/axios';
 import { DetalleFactura } from '../../../functions/Factura';
 import { FacturaBD } from '../../../functions/Factura';
+import { ptoStockToSync } from '../../../config/globalVariables';
 
 import {
 	TRAER_ORDENES,
@@ -330,8 +331,38 @@ const EditarOrdenesState = (props) => {
 	};
 
 	const removeOrder = async (idOrder) => {
+		const detalleOrden = state.filaActiva.detalleOrden;
 		try {
 			let r = await clienteAxios.delete(`/api/ordenes/${idOrder}`);
+
+			// get products TN
+			try {
+				const r = await clienteAxios.get('/api/tiendanube/productos');
+				const stocksTN = r.data;
+				// update in TN
+				for (const productOrder of detalleOrden) {
+					if (productOrder.PtoStock.id === ptoStockToSync)
+						try {
+							for (const product of stocksTN) {
+								for (const variant of product.variants) {
+									if (variant.sku === productOrder.ProductoCodigo) {
+										await clienteAxios.put(
+											`/api/tiendanube/stock/${variant.product_id}/${variant.id}`,
+											{ qty: variant.stock + productOrder.cantidad }
+										);
+									}
+								}
+							}
+						} catch (error) {
+							mostrarAlertaVentas(
+								'Hubo un error al actualizar Tienda Nube!',
+								'error'
+							);
+						}
+				}
+			} catch (error) {
+				mostrarAlertaVentas('Hubo un error', 'error');
+			}
 
 			dispatch({
 				type: ELIMINAR_ORDEN,
