@@ -37,7 +37,6 @@ const CreateOrEditOrder = () => {
 				}
 			};
 
-			getInitialValueOfSale('carrito', restoreCart);
 			getInitialValueOfSale('envio', handleEnvio);
 			getInitialValueOfSale('cliente', handleCliente);
 			getInitialValueOfSale('nota', handleNota);

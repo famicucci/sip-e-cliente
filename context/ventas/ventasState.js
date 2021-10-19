@@ -99,6 +99,16 @@ const VentasState = (props) => {
 			dispatch({
 				type: OCULTAR_CARGANDO,
 			});
+
+			// poner los productos en el carrito
+			const getInitialValueOfSale = (key, callback) => {
+				if (localStorage.getItem(key)) {
+					const initialState = JSON.parse(localStorage.getItem(key));
+					callback(initialState);
+				}
+			};
+
+			getInitialValueOfSale('carrito', restoreCart);
 		} catch (error) {
 			console.log(error);
 		}
