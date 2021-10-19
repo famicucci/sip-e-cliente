@@ -3,6 +3,7 @@ import VentasContext from './ventasContext';
 import VentasReducer from './ventasReducer';
 import clienteAxios from '../../config/axios';
 import { Direccion } from '../../functions/envio';
+import { ptoStockToSync } from '../../config/globalVariables';
 
 import {
 	PRODUCTOS_VENTAS,
@@ -280,6 +281,41 @@ const VentasState = (props) => {
 				const createdOrder = await clienteAxios.get(
 					`/api/ordenes/${order.data.id}`
 				);
+
+				// get products TN
+				try {
+					const r = await clienteAxios.get('/api/tiendanube/productos');
+					const stocksTN = r.data;
+
+					// update in TN
+					for (const productOrder of detalleOrden) {
+						if (productOrder.PtoStockId === ptoStockToSync)
+							try {
+								for (const product of stocksTN) {
+									for (const variant of product.variants) {
+										if (variant.sku === productOrder.ProductoCodigo) {
+											const productCurrentStock = state.preciosPtoStock.find(
+												(x) =>
+													x.ProductoCodigo === productOrder.ProductoCodigo &&
+													x.PtoStockId === productOrder.PtoStockId
+											).cantidad;
+											await clienteAxios.put(
+												`/api/tiendanube/stock/${variant.product_id}/${variant.id}`,
+												{ qty: productCurrentStock - productOrder.cantidad }
+											);
+										}
+									}
+								}
+							} catch (error) {
+								mostrarAlertaVentas(
+									'Hubo un error al actualizar Tienda Nube!',
+									'error'
+								);
+							}
+					}
+				} catch (error) {
+					mostrarAlertaVentas('Hubo un error', 'error');
+				}
 
 				dispatch({
 					type: ACTIVAR_ORDEN,
