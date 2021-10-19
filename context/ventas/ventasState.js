@@ -59,18 +59,45 @@ const VentasState = (props) => {
 	const [state, dispatch] = useReducer(VentasReducer, initialState);
 
 	// las funciones
-	const traerProductos = async () => {
+	const traerProductos = async (stocks, prices) => {
 		try {
-			let ptoStock = await clienteAxios.get('/api/ventas/pto-stock/');
+			const pricesIndex = prices.reduce(
+				(acc, el) => ({
+					...acc,
+					[`${el.ProductoCodigo}${el.ListaPrecioId}`]: el,
+				}),
+				{}
+			);
+
+			const priceLists = [1, 2];
+
+			const stocksWithPrices = [];
+			for (const priceList of priceLists) {
+				for (const product of stocks) {
+					const productPrice =
+						pricesIndex[`${product.ProductoCodigo}${priceList}`];
+					const productWithPrice = { ...product, ...productPrice };
+					stocksWithPrices.push(productWithPrice);
+				}
+			}
+
+			const stockWithPricesMod = stocksWithPrices.map((x) => ({
+				cantidad: x.cantidad,
+				ProductoCodigo: x.ProductoCodigo,
+				PtoStockId: x.PtoStockId,
+				['Producto.descripcion']: x['Producto.descripcion'],
+				['PtoStock.descripcion']: x['PtoStock.descripcion'],
+				['Producto.Precios.pu']: x.pu,
+				['Producto.Precios.ListaPrecioId']: x.ListaPrecioId,
+			}));
 
 			dispatch({
 				type: PRODUCTOS_VENTAS,
-				payload: ptoStock.data,
+				payload: stockWithPricesMod,
 			});
 
 			dispatch({
 				type: OCULTAR_CARGANDO,
-				payload: ptoStock.data,
 			});
 		} catch (error) {
 			console.log(error);

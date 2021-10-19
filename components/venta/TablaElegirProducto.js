@@ -14,6 +14,9 @@ import BarraHerramientasContext from '../../context/barraHerramientas/barraHerra
 import useFilter from '../../hooks/useFilter';
 import SpinnerTabla from '../generales/SpinnerTabla';
 import { Box } from '@material-ui/core';
+import StockContext from '../../context/stock/stockContext';
+import PreciosContext from '../../context/precios/preciosContext';
+import Alerta2 from '../generales/Alerta2';
 
 const columnas = [
 	{ id: 'producto', label: 'Producto', minWidth: 80 },
@@ -33,6 +36,9 @@ const TablaElegirProducto = () => {
 	const classes = useStyles();
 
 	const { busqueda } = useContext(BarraHerramientasContext);
+	const { stocks, mensajeStock, traerStocksPtoStock } =
+		useContext(StockContext);
+	const { precios, traerPrecios2 } = useContext(PreciosContext);
 
 	const [data, setData] = useState([]);
 	const [filteredData] = useFilter(data, busqueda);
@@ -49,8 +55,14 @@ const TablaElegirProducto = () => {
 	} = useContext(VentasContext);
 
 	useEffect(() => {
-		traerProductos();
+		traerStocksPtoStock();
+		traerPrecios2();
 	}, []);
+
+	useEffect(() => {
+		if (stocks.length !== 0 && precios.length !== 0)
+			traerProductos(stocks, precios);
+	}, [stocks, precios]);
 
 	useEffect(() => {
 		if (valorRadio === 'total')
@@ -142,6 +154,7 @@ const TablaElegirProducto = () => {
 					<SpinnerTabla />
 				</Box>
 			)}
+			{mensajeStock ? <Alerta2 mensaje={mensajeStock} /> : null}
 		</TableContainer>
 	);
 };

@@ -38,6 +38,22 @@ const PreciosState = (props) => {
 		}
 	};
 
+	const traerPrecios2 = async () => {
+		try {
+			const r = await clienteAxios.get('/api/precios');
+
+			dispatch({
+				type: TRAER_PRECIOS,
+				payload: { arrayProd: r.data, bus: '' },
+			});
+		} catch (error) {
+			dispatch({
+				type: ERROR_PRECIOS,
+				payload: error,
+			});
+		}
+	};
+
 	const handleFilas = (bus) => {
 		dispatch({
 			type: FILAS_PRECIOS,
@@ -60,6 +76,7 @@ const PreciosState = (props) => {
 				filas: state.filas,
 				cargando: state.cargando,
 				traerPrecios,
+				traerPrecios2,
 				handleLista,
 				handleFilas,
 			}}
