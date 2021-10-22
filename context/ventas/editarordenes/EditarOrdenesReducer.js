@@ -33,6 +33,11 @@ const EditarOrdenesReducer = (state, action) => {
 				...state,
 				ordenes: action.payload,
 			};
+		case TRAER_ORDENES:
+			return {
+				...state,
+				ordenes: [...action.payload, ...state.ordenes],
+			};
 		case ELIMINAR_ORDEN:
 			return {
 				...state,

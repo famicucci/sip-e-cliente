@@ -57,6 +57,75 @@ const EditarOrdenesState = (props) => {
 	// las funciones
 	const traerOrdenes = async () => {
 		try {
+			try {
+				// first get orders from TN
+				const ordersTN = await clienteAxios.get('/api/tiendanube/ordenes/');
+
+				// START BUCLE
+				for (const orderTN of ordersTN.data) {
+					if (orderTN.status === 'open') {
+						// check if customer exist in Sip-e's BD by email
+						const customer = await clienteAxios.get(
+							`/api/clientes/${orderTN.customer.email}`
+						);
+
+						let customerId;
+						if (customer.data.length !== 0) {
+							customerId = customer.data[0]['id'];
+						} else {
+							const newCustomer = await clienteAxios.post('/api/clientes/', {
+								nombre: orderTN.customer.billing_name,
+								apellido: orderTN.customer.name,
+								email: orderTN.customer.email,
+								tipo: 'Minorista', // always
+								condIva: 'Consumidor Final', // always
+								EmpresaId: 1, // always
+							});
+							customerId = newCustomer.data.id;
+						}
+
+						// crear detalle de la orden
+						const detalleOrden = orderTN.products.map((product) => ({
+							cantidad: product.quantity,
+							pu: product.price,
+							origen: 'Disponible', // Establece siempre 'Disponible'
+							ProductoCodigo: product.sku,
+							PtoStockId: 1, // establece siempre ptostock showroom
+						}));
+
+						// crear orden
+						const orderToSipe = {
+							observaciones: null, // las ordenes de TN no traen observaciones
+							direccionEnvio: orderTN.shipping_address.address,
+							tarifaEnvio: orderTN.shipping_cost_customer,
+							ordenEcommerce: orderTN.id,
+							ClienteId: customerId,
+							PtoVentaId: 1, // corresponde siempre al showroom
+							// UsuarioId: 1, por ahora siempre famicu
+							OrdenEstadoId: 6, // establece siempre 'Preparar pedido'
+							TipoEnvioId: 9, // establecer siempre 'A Definir'
+							detalleOrden: detalleOrden, // definido recién
+						};
+
+						await clienteAxios.post('/api/ordenes/', orderToSipe);
+
+						// si la orden fue creada close order
+						await clienteAxios.post(
+							`/api/tiendanube/ordenes/${orderTN.id}/close`
+						);
+					}
+				}
+
+				// END BUCLE
+			} catch (error) {
+				mostrarAlertaEditarOrdenes(
+					'Hubo un error al sincronizar con TN',
+					'error'
+				);
+				return;
+			}
+
+			// trae las ordenes al final, cuando todas las ordenes open de TN ya esten creadas
 			let r = await clienteAxios.get('/api/ordenes/');
 
 			dispatch({
@@ -309,10 +378,10 @@ const EditarOrdenesState = (props) => {
 		}
 	};
 
-	const mostrarAlertaEditarOrdenes = (msg, categoria) => {
+	const mostrarAlertaEditarOrdenes = (msg, severity) => {
 		dispatch({
 			type: MOSTRAR_ALERTA_EDITAR_ORDENES,
-			payload: { msg, categoria },
+			payload: { msg, severity },
 		});
 
 		setTimeout(() => {
