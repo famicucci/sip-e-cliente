@@ -74,15 +74,26 @@ const EditarOrdenesState = (props) => {
 							if (customer.data.length !== 0) {
 								customerId = customer.data[0]['id'];
 							} else {
-								const newCustomer = await clienteAxios.post('/api/clientes/', {
-									nombre: orderTN.customer.billing_name,
-									apellido: orderTN.customer.name,
-									email: orderTN.customer.email,
-									tipo: 'Minorista', // always
-									condIva: 'Consumidor Final', // always
-									EmpresaId: 1, // always
-								});
-								customerId = newCustomer.data.id;
+								try {
+									const newCustomer = await clienteAxios.post(
+										'/api/clientes/',
+										{
+											nombre: orderTN.customer.billing_name,
+											apellido: orderTN.customer.name,
+											email: orderTN.customer.email,
+											tipo: 'Minorista', // always
+											condIva: 'Consumidor Final', // always
+											EmpresaId: 1, // always
+										}
+									);
+									customerId = newCustomer.data.id;
+								} catch (error) {
+									mostrarAlertaEditarOrdenes(
+										'Hubo un error al crear el cliente. La sincronización con TN no se completó',
+										'error'
+									);
+									return;
+								}
 							}
 
 							// crear detalle de la orden
@@ -107,12 +118,33 @@ const EditarOrdenesState = (props) => {
 								detalleOrden: detalleOrden, // definido recién
 							};
 
-							await clienteAxios.post('/api/ordenes/', orderToSipe);
+							try {
+								const createdOrder = await clienteAxios.post(
+									'/api/ordenes/simple',
+									orderToSipe
+								);
 
-							// si la orden fue creada close order
-							await clienteAxios.post(
-								`/api/tiendanube/ordenes/${orderTN.id}/close`
-							);
+								// si la orden fue creada close order
+								try {
+									await clienteAxios.post(
+										`/api/tiendanube/ordenes/${orderTN.id}/close`
+									);
+								} catch (error) {
+									mostrarAlertaEditarOrdenes(
+										`Hubo un error al cerrar la orden en Tn. Cancela la orden ${createdOrder.data.id} en TN`,
+										'error',
+										50000
+									);
+									return;
+								}
+							} catch (error) {
+								mostrarAlertaEditarOrdenes(
+									`Hubo un error al crear la orden ${orderTN.id}. La sincronización con TN no se completó`,
+									'error',
+									30000
+								);
+								return;
+							}
 						}
 					}
 
@@ -381,17 +413,19 @@ const EditarOrdenesState = (props) => {
 		}
 	};
 
-	const mostrarAlertaEditarOrdenes = (msg, severity) => {
+	const mostrarAlertaEditarOrdenes = (msg, severity, time) => {
 		dispatch({
 			type: MOSTRAR_ALERTA_EDITAR_ORDENES,
 			payload: { msg, severity },
 		});
 
+		if (!time) time = 4000;
+
 		setTimeout(() => {
 			dispatch({
 				type: OCULTAR_ALERTA_EDITAR_ORDENES,
 			});
-		}, 4000);
+		}, time);
 	};
 
 	const ocultarAlertaEditarOrdenes = () => {
@@ -504,7 +538,6 @@ const EditarOrdenesState = (props) => {
 
 			mostrarAlertaEditarOrdenes('Se cancelo el pago exitosamente', 'success');
 		} catch (error) {
-			console.log(error);
 			mostrarAlertaEditarOrdenes('Hubo un error', 'error');
 		}
 	};
