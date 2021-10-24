@@ -4,7 +4,7 @@ import EditarOrdenesReducer from './EditarOrdenesReducer';
 import clienteAxios from '../../../config/axios';
 import { DetalleFactura } from '../../../functions/Factura';
 import { FacturaBD } from '../../../functions/Factura';
-import { ptoStockToSync } from '../../../config/globalVariables';
+import { ptoStockToSync, syncOrdersTN } from '../../../config/globalVariables';
 
 import {
 	TRAER_ORDENES,
@@ -438,6 +438,24 @@ const EditarOrdenesState = (props) => {
 
 	const removeOrder = async (idOrder) => {
 		const detalleOrden = state.filaActiva.detalleOrden;
+
+		if (syncOrdersTN) {
+			const nroOrdenTN = state.filaActiva.ordenEcommerce;
+
+			if (nroOrdenTN) {
+				// check status order in TN
+				const order = await clienteAxios.get(
+					`/api/tiendanube/ordenes/${nroOrdenTN}`
+				);
+				if (order.data.status !== 'cancel')
+					mostrarAlertaEditarOrdenes(
+						'Debes cancelar la orden en TN para poder eliminar la orden en Sip-e. Ten en cuenta que eliminar la orden devolverá los productos al stock',
+						'warning'
+					);
+				return;
+			}
+		}
+
 		try {
 			let r = await clienteAxios.delete(`/api/ordenes/${idOrder}`);
 
