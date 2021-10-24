@@ -112,7 +112,7 @@ const EditarOrdenesState = (props) => {
 								ordenEcommerce: orderTN.id,
 								ClienteId: customerId,
 								PtoVentaId: 1, // corresponde siempre al showroom
-								OrdenEstadoId: 6, // establece siempre 'Preparar pedido'
+								OrdenEstadoId: 16, // establece siempre
 								TipoEnvioId: 9, // establecer siempre 'A Definir'
 								detalleOrden: detalleOrden, // definido recién
 							};
