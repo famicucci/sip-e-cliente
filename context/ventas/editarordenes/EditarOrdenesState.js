@@ -37,7 +37,6 @@ import {
 const EditarOrdenesState = (props) => {
 	const initialState = {
 		ordenes: [],
-		ordenesFinalizadas: [],
 		filaActiva: {},
 		factura: {},
 		openModalDetalleOrden: false,
@@ -564,7 +563,6 @@ const EditarOrdenesState = (props) => {
 		<EditarOrdenesContext.Provider
 			value={{
 				ordenes: state.ordenes,
-				ordenesFinalizadas: state.ordenesFinalizadas,
 				filaActiva: state.filaActiva,
 				factura: state.factura,
 				openModalDetalleOrden: state.openModalDetalleOrden,
