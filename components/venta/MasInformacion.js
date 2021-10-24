@@ -18,6 +18,7 @@ import ItemInfoConLabel from '../generales/ItemInfoConLabel';
 import GlobalDataContext from '../../context/globalData/GlobalDataContext';
 import clsx from 'clsx';
 import SaveIcon from '@material-ui/icons/Save';
+import { syncOrdersTN } from '../../config/globalVariables';
 
 const useStyles = makeStyles((theme) => ({
 	form: { width: '100%' },
@@ -155,14 +156,23 @@ const MasInformacion = () => {
 									handlePtoVenta={onChangePtoVenta}
 								/>
 							</Grid>
-							<InputBordeInferior
-								label="Nº Ecommerce"
-								name="nroEcommerce"
-								placeholder="Escribe el identificador aquí.."
-								ancho={9}
-								initialvalue={masInformacion.ordenEcommerce}
-								tochangestate={onChangeNroEcommerce}
-							/>
+							{!syncOrdersTN ? (
+								<InputBordeInferior
+									label="Nº Ecommerce"
+									name="nroEcommerce"
+									placeholder="Escribe el identificador aquí.."
+									ancho={9}
+									initialvalue={masInformacion.ordenEcommerce}
+									tochangestate={onChangeNroEcommerce}
+								/>
+							) : (
+								<ItemInfoConLabel
+									key={items[1]['id']}
+									label={items[1]['label']}
+									contenido={items[1]['contenido']}
+									ancho={items[1]['ancho']}
+								/>
+							)}
 							<InputBordeInferior
 								label="Nota"
 								name="nota"

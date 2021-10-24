@@ -24,6 +24,7 @@ const VerMasCarrito = () => {
 				ptoVenta={ptoVenta}
 				handlePtoVenta={handlePtoVenta}
 				marginBottom={2}
+				marginTop={2}
 			/>
 			<TextField
 				value={ordenEcommerce}

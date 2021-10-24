@@ -9,15 +9,16 @@ import GlobalDataContext from '../../context/globalData/GlobalDataContext';
 const useStyles = makeStyles((theme) => ({
 	formControl: {
 		minWidth: 120,
-		marginTop: theme.spacing(2),
+		marginTop: (props) =>
+			props.marginTop ? theme.spacing(props.marginTop) : 0,
 		marginBottom: (props) =>
 			props.marginBottom ? theme.spacing(props.marginBottom) : 0,
 	},
 }));
 
 const SelectPtoVenta = (props) => {
-	const { ptoVenta, handlePtoVenta, marginBottom } = props;
-	const classes = useStyles({ marginBottom });
+	const { ptoVenta, handlePtoVenta, marginBottom, marginTop } = props;
+	const classes = useStyles({ marginBottom, marginTop });
 
 	const { salePoints, getSalePoints } = useContext(GlobalDataContext);
 
