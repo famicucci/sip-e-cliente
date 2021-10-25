@@ -157,7 +157,7 @@ const EditarOrdenesState = (props) => {
 				}
 			};
 
-			await syncOrders();
+			if (syncOrdersTN) await syncOrders();
 
 			// trae las ordenes al final, cuando todas las ordenes open de TN ya esten creadas
 			let r = await clienteAxios.get('/api/ordenes/');
@@ -458,33 +458,35 @@ const EditarOrdenesState = (props) => {
 		try {
 			let r = await clienteAxios.delete(`/api/ordenes/${idOrder}`);
 
-			// get products TN
-			try {
-				const r = await clienteAxios.get('/api/tiendanube/productos');
-				const stocksTN = r.data;
-				// update in TN
-				for (const productOrder of detalleOrden) {
-					if (productOrder.PtoStock.id === ptoStockToSync)
-						try {
-							for (const product of stocksTN) {
-								for (const variant of product.variants) {
-									if (variant.sku === productOrder.ProductoCodigo) {
-										await clienteAxios.put(
-											`/api/tiendanube/stock/${variant.product_id}/${variant.id}`,
-											{ qty: variant.stock + productOrder.cantidad }
-										);
+			if (ptoStockToSync) {
+				// get products TN
+				try {
+					const r = await clienteAxios.get('/api/tiendanube/productos');
+					const stocksTN = r.data;
+					// update in TN
+					for (const productOrder of detalleOrden) {
+						if (productOrder.PtoStock.id === ptoStockToSync)
+							try {
+								for (const product of stocksTN) {
+									for (const variant of product.variants) {
+										if (variant.sku === productOrder.ProductoCodigo) {
+											await clienteAxios.put(
+												`/api/tiendanube/stock/${variant.product_id}/${variant.id}`,
+												{ qty: variant.stock + productOrder.cantidad }
+											);
+										}
 									}
 								}
+							} catch (error) {
+								mostrarAlertaVentas(
+									'Hubo un error al actualizar Tienda Nube!',
+									'error'
+								);
 							}
-						} catch (error) {
-							mostrarAlertaVentas(
-								'Hubo un error al actualizar Tienda Nube!',
-								'error'
-							);
-						}
+					}
+				} catch (error) {
+					mostrarAlertaVentas('Hubo un error', 'error');
 				}
-			} catch (error) {
-				mostrarAlertaVentas('Hubo un error', 'error');
 			}
 
 			dispatch({
