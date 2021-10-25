@@ -35,7 +35,7 @@ const IrLogin = () => {
 					<NoEncryptionIcon />
 				</Avatar>
 				<Typography component="h1" variant="h5">
-					Sip-e (This page hasn´t to exist)
+					Sip-e
 				</Typography>
 				<Link href="/login" underline="none">
 					<Button
