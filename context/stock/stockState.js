@@ -51,78 +51,80 @@ const StockState = (props) => {
 				payload: stockSipe,
 			});
 
-			try {
-				const r = await clienteAxios.get('/api/tiendanube/productos');
+			if (ptoStockToSync) {
+				try {
+					const r = await clienteAxios.get('/api/tiendanube/productos');
 
-				dispatch({
-					type: TRAER_PRODUCTOS_TIENDA_ONLINE,
-					payload: r.data,
-				});
-
-				const stocksTiendaOnline = [];
-				for (const product of r.data) {
-					for (let variant of product.variants) {
-						if (variant.stock) {
-							const el = {
-								ProductoCodigo: variant.sku,
-								cantidad: variant.stock,
-								PtoStockId: ptoStockToSync,
-							};
-
-							stocksTiendaOnline.push(el);
-						}
-					}
-				}
-
-				let indexStockSipe = {};
-				stockSipe.forEach((x) => {
-					if (x.PtoStockId === ptoStockToSync)
-						indexStockSipe[x.ProductoCodigo] = indexStockSipe[
-							x.ProductoCodigo
-						] ?? { ...x };
-				});
-
-				// compare arrays
-				let arrayDiff = [];
-				stocksTiendaOnline.forEach((x) => {
-					if (x.cantidad !== indexStockSipe[x.ProductoCodigo]['cantidad']) {
-						arrayDiff.push(x);
-					}
-				});
-
-				if (arrayDiff.length > 0)
 					dispatch({
-						type: MOSTRAR_ALERTA_STOCK,
-						payload: {
-							msg: 'Actualizando stock de tienda nube...',
-							severity: 'warning',
-						},
+						type: TRAER_PRODUCTOS_TIENDA_ONLINE,
+						payload: r.data,
 					});
 
-				arrayDiff.forEach(async (x, i) => {
-					try {
-						await clienteAxios.put('/api/stock/', x);
+					const stocksTiendaOnline = [];
+					for (const product of r.data) {
+						for (let variant of product.variants) {
+							if (variant.stock) {
+								const el = {
+									ProductoCodigo: variant.sku,
+									cantidad: variant.stock,
+									PtoStockId: ptoStockToSync,
+								};
 
+								stocksTiendaOnline.push(el);
+							}
+						}
+					}
+
+					let indexStockSipe = {};
+					stockSipe.forEach((x) => {
+						if (x.PtoStockId === ptoStockToSync)
+							indexStockSipe[x.ProductoCodigo] = indexStockSipe[
+								x.ProductoCodigo
+							] ?? { ...x };
+					});
+
+					// compare arrays
+					let arrayDiff = [];
+					stocksTiendaOnline.forEach((x) => {
+						if (x.cantidad !== indexStockSipe[x.ProductoCodigo]['cantidad']) {
+							arrayDiff.push(x);
+						}
+					});
+
+					if (arrayDiff.length > 0)
 						dispatch({
-							type: ACTUALIZAR_STOCK,
-							payload: x,
+							type: MOSTRAR_ALERTA_STOCK,
+							payload: {
+								msg: 'Actualizando stock de tienda nube...',
+								severity: 'warning',
+							},
 						});
 
-						if (arrayDiff.length === i + 1) {
+					arrayDiff.forEach(async (x, i) => {
+						try {
+							await clienteAxios.put('/api/stock/', x);
+
 							dispatch({
-								type: OCULTAR_ALERTA_STOCK,
+								type: ACTUALIZAR_STOCK,
+								payload: x,
 							});
-							mostrarAlertaEditarOrdenes(
-								'Stocks actualizados con Tienda Nube!',
-								'success'
-							);
+
+							if (arrayDiff.length === i + 1) {
+								dispatch({
+									type: OCULTAR_ALERTA_STOCK,
+								});
+								mostrarAlertaEditarOrdenes(
+									'Stocks actualizados con Tienda Nube!',
+									'success'
+								);
+							}
+						} catch (error) {
+							mostrarAlertaEditarOrdenes('Hubo un error', 'error');
 						}
-					} catch (error) {
-						mostrarAlertaEditarOrdenes('Hubo un error', 'error');
-					}
-				});
-			} catch (error) {
-				mostrarAlertaEditarOrdenes('Hubo un error', 'error');
+					});
+				} catch (error) {
+					mostrarAlertaEditarOrdenes('Hubo un error', 'error');
+				}
 			}
 		} catch (error) {
 			mostrarAlertaEditarOrdenes('Hubo un error', 'error');
@@ -193,26 +195,28 @@ const StockState = (props) => {
 				payload: datos,
 			});
 
-			// update in TN
-			if (datos.PtoStockId === ptoStockToSync)
-				try {
-					for (const product of state.stocksTN) {
-						for (const variant of product.variants) {
-							if (variant.sku === datos.ProductoCodigo) {
-								await clienteAxios.put(
-									`/api/tiendanube/stock/${variant.product_id}/${variant.id}`,
-									{ qty: datos.cantidad }
-								);
-								mostrarAlertaEditarOrdenes(
-									'Stock actualizado en Tienda Nube',
-									'success'
-								);
+			if (ptoStockToSync) {
+				// update in TN
+				if (datos.PtoStockId === ptoStockToSync)
+					try {
+						for (const product of state.stocksTN) {
+							for (const variant of product.variants) {
+								if (variant.sku === datos.ProductoCodigo) {
+									await clienteAxios.put(
+										`/api/tiendanube/stock/${variant.product_id}/${variant.id}`,
+										{ qty: datos.cantidad }
+									);
+									mostrarAlertaEditarOrdenes(
+										'Stock actualizado en Tienda Nube',
+										'success'
+									);
+								}
 							}
 						}
+					} catch (error) {
+						mostrarAlertaEditarOrdenes('Hubo un error!', 'error');
 					}
-				} catch (error) {
-					mostrarAlertaEditarOrdenes('Hubo un error!', 'error');
-				}
+			}
 		} catch (error) {
 			mostrarAlertaEditarOrdenes('Hubo un error!', 'error');
 		}
@@ -234,26 +238,28 @@ const StockState = (props) => {
 				payload: { respuesta },
 			});
 
-			// update in TN
-			if (datos.PtoStockId === ptoStockToSync)
-				try {
-					for (const product of state.stocksTN) {
-						for (const variant of product.variants) {
-							if (variant.sku === datos.ProductoCodigo) {
-								await clienteAxios.put(
-									`/api/tiendanube/stock/${variant.product_id}/${variant.id}`,
-									{ qty: datos.cantidad }
-								);
-								mostrarAlertaEditarOrdenes(
-									'Stock actualizado en Tienda Nube',
-									'success'
-								);
+			if (ptoStockToSync) {
+				// update in TN
+				if (datos.PtoStockId === ptoStockToSync)
+					try {
+						for (const product of state.stocksTN) {
+							for (const variant of product.variants) {
+								if (variant.sku === datos.ProductoCodigo) {
+									await clienteAxios.put(
+										`/api/tiendanube/stock/${variant.product_id}/${variant.id}`,
+										{ qty: datos.cantidad }
+									);
+									mostrarAlertaEditarOrdenes(
+										'Stock actualizado en Tienda Nube',
+										'success'
+									);
+								}
 							}
 						}
+					} catch (error) {
+						mostrarAlertaEditarOrdenes('Hubo un error!', 'error');
 					}
-				} catch (error) {
-					mostrarAlertaEditarOrdenes('Hubo un error!', 'error');
-				}
+			}
 		} catch (error) {
 			mostrarAlertaEditarOrdenes('Hubo un error!', 'error');
 		}
