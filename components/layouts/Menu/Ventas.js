@@ -38,10 +38,12 @@ const Ventas = () => {
 	const botonConsultar = 'ventas-consultar';
 	const botonNuevo = 'ventas-nuevo';
 	const botonProdMov = 'ventas-prodmov';
+	const botonFinalizadas = 'ventas-finalizadas';
 
 	const [activoConsultar, setActivoConsultar] = useState();
 	const [activoNuevo, setActivoNuevo] = useState();
 	const [activoProdMov, setActivoProdMov] = useState();
+	const [activoFinalizadas, setActivoFinalizadas] = useState();
 
 	useEffect(() => {
 		const booleano1 = activarBoton(botonConsultar, botonActivo);
@@ -52,6 +54,9 @@ const Ventas = () => {
 
 		const booleano3 = activarBoton(botonProdMov, botonActivo);
 		setActivoProdMov(booleano3);
+
+		const booleano4 = activarBoton(botonFinalizadas, botonActivo);
+		setActivoFinalizadas(booleano4);
 	}, [botonActivo]);
 
 	return (
@@ -118,10 +123,10 @@ const Ventas = () => {
 						<ListItem
 							button
 							className={clsx(classes.nested, {
-								[classes.botonToggle]: activoProdMov,
+								[classes.botonToggle]: activoFinalizadas,
 							})}
 							onClick={() => {
-								setBotonActivo(botonProdMov);
+								setBotonActivo(botonFinalizadas);
 							}}
 						>
 							<ListItemIcon>
