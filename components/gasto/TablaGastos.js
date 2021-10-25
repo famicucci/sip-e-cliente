@@ -8,6 +8,7 @@ import TableBody from '@material-ui/core/TableBody';
 import usePaginacion from '../../hooks/usePaginacion';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import SpinnerTabla from '../generales/SpinnerTabla';
+import { Box } from '@material-ui/core';
 import useFilter from '../../hooks/useFilter';
 import GastoContext from '../../context/gasto/GastoContext';
 import FilaGastos from './FilaGastos';
@@ -22,6 +23,7 @@ const useStyles = makeStyles({
 	table: {
 		minWidth: 600,
 	},
+	spinner: { height: '86vh' },
 });
 
 // columnas de la tabla
@@ -133,7 +135,9 @@ const TablaGastos = () => {
 						<FooterTabla />
 					</Table>
 				) : (
-					<SpinnerTabla cantColumnas={3} />
+					<Box className={classes.spinner}>
+						<SpinnerTabla />
+					</Box>
 				)}
 			</TableContainer>
 			{openModalEditExpense ? <EditarGasto /> : null}

@@ -46,7 +46,7 @@ const GastoState = (props) => {
 				payload: false,
 			});
 		} catch (error) {
-			console.log(error);
+			mostrarAlertaGastos('Hubo un error', 'error');
 		}
 	};
 
@@ -151,10 +151,10 @@ const GastoState = (props) => {
 		}
 	};
 
-	const mostrarAlertaGastos = (msg, categoria) => {
+	const mostrarAlertaGastos = (msg, severity) => {
 		dispatch({
 			type: MOSTRAR_ALERTA_GASTOS,
-			payload: { msg, categoria },
+			payload: { msg, severity },
 		});
 
 		setTimeout(() => {
