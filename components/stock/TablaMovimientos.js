@@ -11,6 +11,7 @@ import StockContext from '../../context/stock/stockContext';
 import BarraHerramientasContext from '../../context/barraHerramientas/barraHerramientasContext';
 import SpinnerTabla from '../generales/SpinnerTabla';
 import { Box } from '@material-ui/core';
+import Alerta2 from '../generales/Alerta2';
 
 const useStyles = makeStyles({
 	table: {
@@ -39,8 +40,13 @@ const TablaMovimientos = () => {
 	);
 
 	// context stock
-	const { filas, cargando, traerMovimientosStock, handleFilasMovStock } =
-		useContext(StockContext);
+	const {
+		filas,
+		cargando,
+		mensajeStock,
+		traerMovimientosStock,
+		handleFilasMovStock,
+	} = useContext(StockContext);
 
 	const [FooterTabla, filasVacias, cortePagina, setPage, bodyVacio] =
 		usePaginacion(filas);
@@ -73,6 +79,7 @@ const TablaMovimientos = () => {
 					<SpinnerTabla />
 				</Box>
 			)}
+			{mensajeStock ? <Alerta2 mensaje={mensajeStock} /> : null}
 		</TableContainer>
 	);
 };

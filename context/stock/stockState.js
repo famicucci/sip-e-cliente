@@ -113,21 +113,24 @@ const StockState = (props) => {
 								dispatch({
 									type: OCULTAR_ALERTA_STOCK,
 								});
-								mostrarAlertaEditarOrdenes(
+								mostrarAlertaStock(
 									'Stocks actualizados con Tienda Nube!',
 									'success'
 								);
 							}
 						} catch (error) {
-							mostrarAlertaEditarOrdenes('Hubo un error', 'error');
+							mostrarAlertaStock(
+								`Hubo un error. Producto: ${x.ProductoCodigo}`,
+								'error'
+							);
 						}
 					});
 				} catch (error) {
-					mostrarAlertaEditarOrdenes('Hubo un error', 'error');
+					mostrarAlertaStock('Hubo un error al sincronizar con TN', 'error');
 				}
 			}
 		} catch (error) {
-			mostrarAlertaEditarOrdenes('Hubo un error', 'error');
+			mostrarAlertaStock('Hubo un error', 'error');
 		}
 	};
 
@@ -140,7 +143,7 @@ const StockState = (props) => {
 				payload: { arrayProd: r.data, bus: bus },
 			});
 		} catch (error) {
-			console.log(error);
+			mostrarAlertaStock('Hubo un error', 'error');
 		}
 	};
 
@@ -206,7 +209,7 @@ const StockState = (props) => {
 										`/api/tiendanube/stock/${variant.product_id}/${variant.id}`,
 										{ qty: datos.cantidad }
 									);
-									mostrarAlertaEditarOrdenes(
+									mostrarAlertaStock(
 										'Stock actualizado en Tienda Nube',
 										'success'
 									);
@@ -214,11 +217,11 @@ const StockState = (props) => {
 							}
 						}
 					} catch (error) {
-						mostrarAlertaEditarOrdenes('Hubo un error!', 'error');
+						mostrarAlertaStock('Hubo un error!', 'error');
 					}
 			}
 		} catch (error) {
-			mostrarAlertaEditarOrdenes('Hubo un error!', 'error');
+			mostrarAlertaStock('Hubo un error!', 'error');
 		}
 	};
 
@@ -249,7 +252,7 @@ const StockState = (props) => {
 										`/api/tiendanube/stock/${variant.product_id}/${variant.id}`,
 										{ qty: datos.cantidad }
 									);
-									mostrarAlertaEditarOrdenes(
+									mostrarAlertaStock(
 										'Stock actualizado en Tienda Nube',
 										'success'
 									);
@@ -257,11 +260,11 @@ const StockState = (props) => {
 							}
 						}
 					} catch (error) {
-						mostrarAlertaEditarOrdenes('Hubo un error!', 'error');
+						mostrarAlertaStock('Hubo un error!', 'error');
 					}
 			}
 		} catch (error) {
-			mostrarAlertaEditarOrdenes('Hubo un error!', 'error');
+			mostrarAlertaStock('Hubo un error!', 'error');
 		}
 	};
 
@@ -296,10 +299,10 @@ const StockState = (props) => {
 		});
 	};
 
-	const mostrarAlertaEditarOrdenes = (msg, categoria) => {
+	const mostrarAlertaStock = (msg, severity) => {
 		dispatch({
 			type: MOSTRAR_ALERTA_STOCK,
-			payload: { msg, categoria },
+			payload: { msg, severity },
 		});
 
 		setTimeout(() => {
