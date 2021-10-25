@@ -4,8 +4,10 @@ import TablaStockTotal from '../../components/stock/TablaStockTotal';
 import IrLogin from '../../components/generales/IrLogin';
 import SpinnerPantalla from '../../components/generales/SpinnerPantalla';
 import AuthContext from '../../context/autenticacion/authContext';
+import { useRouter } from 'next/router';
 
 const ConsultarStockTotal = () => {
+	const router = useRouter();
 	const { autenticado, cargando, usuarioAutenticado } = useContext(AuthContext);
 
 	useEffect(() => {
@@ -17,7 +19,8 @@ const ConsultarStockTotal = () => {
 	}
 
 	if (!autenticado && !cargando) {
-		return <IrLogin />;
+		router.push('/login');
+		return <SpinnerPantalla />;
 	}
 
 	return (

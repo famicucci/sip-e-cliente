@@ -1,15 +1,16 @@
 import React, { useContext, useEffect } from 'react';
 import Layout from '../components/layouts/Layout';
 import AuthContext from '../context/autenticacion/authContext';
-import IrLogin from '../components/generales/IrLogin';
 import SpinnerPantalla from '../components/generales/SpinnerPantalla';
 import TablaClientes from '../components/cliente/TablaClientes';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import ClienteContext from '../context/clientes/ClienteContext';
 import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
 import BarraHerramientasContext from '../context/barraHerramientas/barraHerramientasContext';
+import { useRouter } from 'next/router';
 
 const Clientes = () => {
+	const router = useRouter();
 	const authContext = useContext(AuthContext);
 	const { autenticado, cargando, usuarioAutenticado } = authContext;
 	const { handleOpenFacsOrdsCliente } = useContext(ClienteContext);
@@ -27,7 +28,8 @@ const Clientes = () => {
 	}
 
 	if (!autenticado && !cargando) {
-		return <IrLogin />;
+		router.push('/login');
+		return <SpinnerPantalla />;
 	}
 
 	// columnas de la tabla

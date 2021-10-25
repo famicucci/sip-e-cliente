@@ -1,11 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Layout from '../components/layouts/Layout';
 import AuthContext from '../context/autenticacion/authContext';
-import IrLogin from '../components/generales/IrLogin';
 import SpinnerPantalla from '../components/generales/SpinnerPantalla';
 import DisplayCharts from '../components/reporte/DisplayCharts';
+import { useRouter } from 'next/router';
 
 const Reportes = () => {
+	const router = useRouter();
 	const authContext = useContext(AuthContext);
 	const { autenticado, cargando, usuarioAutenticado } = authContext;
 
@@ -18,7 +19,8 @@ const Reportes = () => {
 	}
 
 	if (!autenticado && !cargando) {
-		return <IrLogin />;
+		router.push('/login');
+		return <SpinnerPantalla />;
 	}
 
 	return (
