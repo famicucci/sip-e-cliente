@@ -77,7 +77,6 @@ const ClienteState = (props) => {
 			mostrarAlertaClientes('Cliente creado', 'success');
 		} catch (error) {
 			mostrarAlertaClientes('Hubo un error', 'error');
-			console.log(error);
 		}
 	};
 
@@ -115,7 +114,6 @@ const ClienteState = (props) => {
 
 			mostrarAlertaClientes('Modificaste el cliente', 'success');
 		} catch (error) {
-			console.log(error);
 			mostrarAlertaClientes('Hubo un error', 'error');
 		}
 	};
