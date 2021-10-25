@@ -282,34 +282,36 @@ const VentasState = (props) => {
 					`/api/ordenes/${order.data.id}`
 				);
 
-				// get products TN
-				try {
-					const r = await clienteAxios.get('/api/tiendanube/productos');
-					const stocksTN = r.data;
+				if (ptoStockToSync) {
+					// get products TN
+					try {
+						const r = await clienteAxios.get('/api/tiendanube/productos');
+						const stocksTN = r.data;
 
-					// update in TN
-					for (const productOrder of detalleOrden) {
-						if (productOrder.PtoStockId === ptoStockToSync)
-							try {
-								for (const product of stocksTN) {
-									for (const variant of product.variants) {
-										if (variant.sku === productOrder.ProductoCodigo) {
-											await clienteAxios.put(
-												`/api/tiendanube/stock/${variant.product_id}/${variant.id}`,
-												{ qty: variant.stock - productOrder.cantidad }
-											);
+						// update in TN
+						for (const productOrder of detalleOrden) {
+							if (productOrder.PtoStockId === ptoStockToSync)
+								try {
+									for (const product of stocksTN) {
+										for (const variant of product.variants) {
+											if (variant.sku === productOrder.ProductoCodigo) {
+												await clienteAxios.put(
+													`/api/tiendanube/stock/${variant.product_id}/${variant.id}`,
+													{ qty: variant.stock - productOrder.cantidad }
+												);
+											}
 										}
 									}
+								} catch (error) {
+									mostrarAlertaVentas(
+										'Hubo un error al actualizar Tienda Nube!',
+										'error'
+									);
 								}
-							} catch (error) {
-								mostrarAlertaVentas(
-									'Hubo un error al actualizar Tienda Nube!',
-									'error'
-								);
-							}
+						}
+					} catch (error) {
+						mostrarAlertaVentas('Hubo un error', 'error');
 					}
-				} catch (error) {
-					mostrarAlertaVentas('Hubo un error', 'error');
 				}
 
 				dispatch({
