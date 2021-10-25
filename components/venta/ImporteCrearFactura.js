@@ -49,7 +49,8 @@ const ImporteCrearFactura = (props) => {
 
 	useEffect(() => {
 		// calcular el importe total
-		const resultado = subtotal - montoDescuento - filaActiva.tarifaEnvio;
+		const resultado =
+			subtotal - montoDescuento + parseFloat(filaActiva.tarifaEnvio);
 		setTotal(resultado);
 	}, [subtotal, montoDescuento]);
 

@@ -26,8 +26,6 @@ const useStyles = makeStyles((theme) => ({
 const FilaEditarClientes = ({ fila, colIndex }) => {
 	const classes = useStyles(fila);
 
-	console.log(fila);
-
 	const {
 		handleFilaActivaOrden,
 		handleOpenModalDetalleOrden,
