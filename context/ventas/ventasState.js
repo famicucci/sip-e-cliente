@@ -111,7 +111,7 @@ const VentasState = (props) => {
 
 			getInitialValueOfSale('carrito', restoreCart);
 		} catch (error) {
-			console.log(error);
+			mostrarAlertaVentas('Hubo un error', 'error');
 		}
 	};
 
