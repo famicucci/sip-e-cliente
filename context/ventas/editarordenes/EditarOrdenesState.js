@@ -171,7 +171,7 @@ const EditarOrdenesState = (props) => {
 				type: OCULTAR_CARGANDO,
 			});
 		} catch (error) {
-			console.log(error);
+			mostrarAlertaEditarOrdenes('Hubo un error', 'error');
 		}
 	};
 
@@ -190,7 +190,7 @@ const EditarOrdenesState = (props) => {
 				type: OCULTAR_CARGANDO,
 			});
 		} catch (error) {
-			console.log(error);
+			mostrarAlertaEditarOrdenes('Hubo un error', 'error');
 		}
 	};
 
@@ -211,7 +211,7 @@ const EditarOrdenesState = (props) => {
 
 			mostrarAlertaEditarOrdenes(r.data.msg, 'success');
 		} catch (error) {
-			console.log(error);
+			mostrarAlertaEditarOrdenes('Hubo un error', 'error');
 		}
 	};
 
@@ -261,7 +261,7 @@ const EditarOrdenesState = (props) => {
 				payload: filaActivaMod,
 			});
 		} catch (error) {
-			console.log(error);
+			mostrarAlertaEditarOrdenes('Hubo un error', 'error');
 		}
 	};
 
@@ -408,7 +408,7 @@ const EditarOrdenesState = (props) => {
 
 			mostrarAlertaEditarOrdenes('El pago ha sido creado', 'success');
 		} catch (error) {
-			console.log(error);
+			mostrarAlertaEditarOrdenes('Hubo un error', 'error');
 		}
 	};
 

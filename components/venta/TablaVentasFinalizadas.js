@@ -17,6 +17,7 @@ import Factura from './Factura';
 import useFilter from '../../hooks/useFilter';
 import GlobalDataContext from '../../context/globalData/GlobalDataContext';
 import { Box } from '@material-ui/core';
+import Alerta2 from '../generales/Alerta2';
 
 const useStyles = makeStyles({
 	table: {
@@ -60,6 +61,7 @@ const TablaVentasFinalizadas = () => {
 		openModalFactura,
 		filaActiva,
 		cargando,
+		mensajeEditarOrdenes,
 		openModalInformacionCliente,
 		handleCloseModal,
 		handleFilaActivaOrden,
@@ -142,6 +144,7 @@ const TablaVentasFinalizadas = () => {
 				/>
 			) : null}
 			{openModalFactura ? <Factura /> : null}
+			{mensajeEditarOrdenes ? <Alerta2 mensaje={mensajeEditarOrdenes} /> : null}
 		</TableContainer>
 	);
 };
