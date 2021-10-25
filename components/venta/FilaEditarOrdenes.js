@@ -26,6 +26,8 @@ const useStyles = makeStyles((theme) => ({
 const FilaEditarClientes = ({ fila, colIndex }) => {
 	const classes = useStyles(fila);
 
+	console.log(fila);
+
 	const {
 		handleFilaActivaOrden,
 		handleOpenModalDetalleOrden,
@@ -96,6 +98,7 @@ const FilaEditarClientes = ({ fila, colIndex }) => {
 							}}
 							backGroundColor={pink[500]}
 							backGroundColorHover={pink[700]}
+							disabled={fila.tipoEnvioId !== 9 ? false : true}
 						>
 							Crear Factura
 						</BotonCustomFilaTabla>

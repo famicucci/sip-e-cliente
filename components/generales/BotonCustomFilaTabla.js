@@ -28,6 +28,7 @@ const BotonCustomFilaTabla = (props) => {
 			color="primary"
 			disableRipple
 			onClick={onClick}
+			disabled={props.disabled ? props.disabled : false}
 		>
 			{props.children}
 		</Button>
