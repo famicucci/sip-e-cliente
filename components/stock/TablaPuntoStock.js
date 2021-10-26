@@ -46,6 +46,7 @@ const TablaPuntoStock = () => {
 		mensajeStock,
 		cargando,
 		traerStocksPtoStock,
+		handleAlertStock,
 	} = useContext(StockContext);
 	const [data, setData] = useState([]);
 	const [ptoStockData] = useFilterPtoStock(data, ptoStock);
@@ -59,6 +60,7 @@ const TablaPuntoStock = () => {
 	useEffect(() => {
 		handleHerramientasStockPtoStock();
 		traerStocksPtoStock();
+		handleAlertStock('Sincronizando con TN', 'warning');
 	}, []);
 
 	useEffect(() => {
