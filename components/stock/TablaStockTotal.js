@@ -38,8 +38,14 @@ const TablaStockTotal = () => {
 	const { busqueda, handleHerrStockTot } = useContext(BarraHerramientasContext);
 	const [data, setData] = useState([]);
 	const [filteredData] = useFilter(data, busqueda);
-	const { stocks, mensaje, mensajeStock, cargando, traerStocksPtoStock } =
-		useContext(StockContext);
+	const {
+		stocks,
+		mensaje,
+		mensajeStock,
+		cargando,
+		traerStocksPtoStock,
+		handleAlertStock,
+	} = useContext(StockContext);
 	const { alerta, mostrarAlerta } = useContext(AlertaContext);
 
 	// hook paginación
@@ -49,6 +55,7 @@ const TablaStockTotal = () => {
 	useEffect(() => {
 		traerStocksPtoStock();
 		handleHerrStockTot();
+		handleAlertStock('Sincronizando con TN', 'warning');
 	}, []);
 
 	useEffect(() => {

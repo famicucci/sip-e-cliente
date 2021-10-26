@@ -91,40 +91,41 @@ const StockState = (props) => {
 						}
 					});
 
-					if (arrayDiff.length > 0)
+					if (arrayDiff.length === 0) {
 						dispatch({
-							type: MOSTRAR_ALERTA_STOCK,
-							payload: {
-								msg: 'Actualizando stock de tienda nube...',
-								severity: 'warning',
-							},
+							type: OCULTAR_ALERTA_STOCK,
 						});
+						mostrarAlertaStock(
+							'Stocks actualizados con Tienda Nube!',
+							'success'
+						);
+					} else {
+						arrayDiff.forEach(async (x, i) => {
+							try {
+								await clienteAxios.put('/api/stock/', x);
 
-					arrayDiff.forEach(async (x, i) => {
-						try {
-							await clienteAxios.put('/api/stock/', x);
-
-							dispatch({
-								type: ACTUALIZAR_STOCK,
-								payload: x,
-							});
-
-							if (arrayDiff.length === i + 1) {
 								dispatch({
-									type: OCULTAR_ALERTA_STOCK,
+									type: ACTUALIZAR_STOCK,
+									payload: x,
 								});
+
+								if (arrayDiff.length === i + 1) {
+									dispatch({
+										type: OCULTAR_ALERTA_STOCK,
+									});
+									mostrarAlertaStock(
+										'Stocks actualizados con Tienda Nube!',
+										'success'
+									);
+								}
+							} catch (error) {
 								mostrarAlertaStock(
-									'Stocks actualizados con Tienda Nube!',
-									'success'
+									`Hubo un error. Producto: ${x.ProductoCodigo}`,
+									'error'
 								);
 							}
-						} catch (error) {
-							mostrarAlertaStock(
-								`Hubo un error. Producto: ${x.ProductoCodigo}`,
-								'error'
-							);
-						}
-					});
+						});
+					}
 				} catch (error) {
 					mostrarAlertaStock('Hubo un error al sincronizar con TN', 'error');
 				}
@@ -312,6 +313,18 @@ const StockState = (props) => {
 		}, 4000);
 	};
 
+	const handleAlertStock = (msg, severity) => {
+		if (msg && severity)
+			dispatch({
+				type: MOSTRAR_ALERTA_STOCK,
+				payload: { msg, severity },
+			});
+		else
+			dispatch({
+				type: OCULTAR_ALERTA_STOCK,
+			});
+	};
+
 	return (
 		<StockContext.Provider
 			value={{
@@ -336,6 +349,7 @@ const StockState = (props) => {
 				handleNuevaCantidad,
 				handleOpen,
 				handleClose,
+				handleAlertStock,
 			}}
 		>
 			{props.children}
