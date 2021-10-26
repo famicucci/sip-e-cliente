@@ -36,7 +36,7 @@ const TablaElegirProducto = () => {
 	const classes = useStyles();
 
 	const { busqueda } = useContext(BarraHerramientasContext);
-	const { stocks, mensajeStock, traerStocksPtoStock } =
+	const { stocks, mensajeStock, traerStocksPtoStock, handleAlertStock } =
 		useContext(StockContext);
 	const { precios, traerPrecios2 } = useContext(PreciosContext);
 
@@ -56,6 +56,7 @@ const TablaElegirProducto = () => {
 	} = useContext(VentasContext);
 
 	useEffect(() => {
+		handleAlertStock('Sincronizando con TN', 'warning');
 		traerStocksPtoStock();
 		traerPrecios2();
 	}, []);
