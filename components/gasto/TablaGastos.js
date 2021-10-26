@@ -98,27 +98,25 @@ const TablaGastos = () => {
 	}, [dates]);
 
 	useEffect(() => {
-		const newData = expenses.map((x) => ({
-			id: x.id,
-			estado: x.estado,
-			createdAt: moment(x.createdAt).format('DD-MM-YYYY'),
-			categoria: categoriesIndex
-				? categoriesIndex[x.GastoCategoriaId]['descripcion']
-				: '-',
-			subcategoria: subcategoriesIndex
-				? subcategoriesIndex[x.GastoSubcategoriaId]['descripcion']
-				: '-',
-			descripcion: x.descripcion,
-			importe: x.importe,
-			usuarioId: x.Usuario.id,
-		}));
+		if (expenses && categoriesIndex && subcategoriesIndex) {
+			const newData = expenses.map((x) => ({
+				id: x.id,
+				estado: x.estado,
+				createdAt: moment(x.createdAt).format('DD-MM-YYYY'),
+				categoria: categoriesIndex[x.GastoCategoriaId]['descripcion'],
+				subcategoria: subcategoriesIndex[x.GastoSubcategoriaId]['descripcion'],
+				descripcion: x.descripcion,
+				importe: x.importe,
+				usuarioId: x.Usuario.id,
+			}));
 
-		if (usuario.rol) {
-			setData(newData);
-		} else {
-			setData(newData.filter((x) => x.usuarioId === usuario.id));
+			if (usuario.rol) {
+				setData(newData);
+			} else {
+				setData(newData.filter((x) => x.usuarioId === usuario.id));
+			}
 		}
-	}, [expenses]);
+	}, [expenses, categoriesIndex, subcategoriesIndex]);
 
 	return (
 		<>
