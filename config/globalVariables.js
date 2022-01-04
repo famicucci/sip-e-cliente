@@ -1,4 +1,4 @@
-const ptoStockToSync = 1;
-const syncOrdersTN = true;
+// const ptoStockToSync = 1;
+// const syncOrdersTN = true;
 
-export { ptoStockToSync, syncOrdersTN };
+// export { ptoStockToSync, syncOrdersTN };
