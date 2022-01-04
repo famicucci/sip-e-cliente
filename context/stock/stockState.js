@@ -52,6 +52,11 @@ const StockState = (props) => {
 			});
 
 			if (ptoStockToSync) {
+				dispatch({
+					type: MOSTRAR_ALERTA_STOCK,
+					payload: { msg: 'Sincronizando con TN', severity: 'warning' },
+				});
+
 				try {
 					const r = await clienteAxios.get('/api/tiendanube/productos');
 
